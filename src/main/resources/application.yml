@@ -1,0 +1,20 @@
+#微信
+wechat:
+  appid: wxa9e13de5e88feb5b
+  secret: 12e78c67029000972b3bef557158436f
+
+#spring相关配置
+spring:
+  #配置数据库
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/ecs?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
+    username: root
+    password: 123456
+    
+#内置tomcat配置
+
+#mybatis配置
+#mybatis:
+ # mapper-locations: classpath:mapping/*Mapper.xml
+ # type-aliases-package: com.example.domain
