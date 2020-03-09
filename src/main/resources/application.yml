@@ -5,6 +5,12 @@ wechat:
 
 #spring相关配置
 spring:
+
+  #配置模板引擎
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    
   #配置数据库
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -13,7 +19,9 @@ spring:
     password: 123456
     
 #内置tomcat配置
-
+server:
+  servlet:
+    context-path: /ecs
 #mybatis配置
 #mybatis:
  # mapper-locations: classpath:mapping/*Mapper.xml

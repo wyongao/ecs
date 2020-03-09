@@ -1,0 +1,58 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+.header .layui-nav {
+	height: 60px;
+	border-radius: 0;
+}
+.header ul {
+	/* padding-left: 90%; */
+	margin-left: 200px;
+	padding-right: 60px;
+}
+.header ul li {
+	float: right;
+}
+.side ul {
+	width: 200px;
+	border-radius: 0;
+}
+
+.side .layui-logo {
+	/* height: 55px; */
+	line-height: 58px; 
+	text-align: center;
+}
+.side .layui-logo a {
+	color: #BFC0C2;
+	font-size: 20px;
+}
+.main {
+	margin: 0 auto;
+	margin-top: 90px;
+	width: 80%;
+	height: 82%;
+	border: 1px solid #E6E6E6;
+	padding: 10px;
+}
+.main .top {
+	width: 100%;
+	height: 40px;
+	position: relative;
+}
+.main .top .layui-form-item {
+	display: inline-block;
+}
+.main .top .layui-form-item:last-child {
+	position: absolute;
+	right: 2px;
+	top: 0;
+}
+.layui-table-box .layui-table th,
+.layui-table-box .layui-table td {
+	text-align: center;
+}
+.page {
+	height: 40px;
+}
