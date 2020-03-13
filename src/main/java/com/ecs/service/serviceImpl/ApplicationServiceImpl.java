@@ -1,5 +1,7 @@
 package com.ecs.service.serviceImpl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,5 +30,25 @@ public class ApplicationServiceImpl implements ApplicationService{
 		applicationDao.updateStatus(status, snum, date);
 		
 	}
+	//查询
+	@Override
+	public List<Application> findAllByCollegeAndMajor(String college, String major) {
+		
+		return applicationDao.findAllByCollegeAndMajor(college, major);
+	}
+	
+	@Override
+	public List<Application> findAllByCollegeAndMajorAndClasses(String college, String major, String classes) {
+		
+		return applicationDao.findAllByCollegeAndMajorAndClasses(college, major, classes);
+	}
+	
+	@Override
+	public List<Application> findAllByCollege(String college) {
+		// TODO Auto-generated method stub
+		return applicationDao.findAllByCollege(college);
+	}
+	
+
 
 }
