@@ -27,21 +27,27 @@ public interface UserDao {
 	@Select("select * from user")
 	@Results({
 		@Result(property = "id",column = "id"),
-		@Result(property = "name",column = "username"),
-		@Result(property = "passWord",column = "password"),
+		@Result(property = "username",column = "username"),
+		@Result(property = "password",column = "password"),
 		@Result(property = "identify",column = "identify")
 	})
 	public List<User> findAll();
+	
+	/*
+	 * 查找单个用户
+	 * */
+	@Select("select * from user where username = #{username}")
+	public User fineOne(String username);
 	
 	/**
 	 * 添加用户
 	 * @param user
 	 */
-	@Insert("Insert into user(username,password,identify) values(#{name},#{passWord},#{identify})")
+	@Insert("Insert into user(username,password,identify) values(#{username},#{password},#{identify})")
 	@Results({
 		@Result(property = "id",column = "id"),
-		@Result(property = "name",column = "username"),
-		@Result(property = "passWord",column = "password"),
+		@Result(property = "username",column = "username"),
+		@Result(property = "password",column = "password"),
 		@Result(property = "identify",column = "identify")
 	})
 	public void addUser(User user);
@@ -58,7 +64,7 @@ public interface UserDao {
 	 * 修改用户
 	 * @param id
 	 */
-	@Update("update user set username=#{name},password=#{passWord},identify=#{identify} where id=#{id}")
+	@Update("update user set username=#{username},password=#{password},identify=#{identify} where id=#{id}")
 	public void updateUser(User user);
 	/**
 	 * 修改密码

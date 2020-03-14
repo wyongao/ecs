@@ -21,4 +21,6 @@ public interface UserService {
 	public void updateUser(User user);
 	//修改密码
 	public void changePassword(Integer id,String passwrod);
+	//登录
+	public String doLogin(User u);
 }

@@ -18,6 +18,7 @@ import com.ecs.service.UserService;
 public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserDao userDao;
+	
 	//查找所有的用戶
 	@Override
 	public List<User> findAll() {
@@ -49,6 +50,30 @@ public class UserServiceImpl implements UserService {
 	public void changePassword(Integer id, String passwrod) {
 		userDao.changePassword(id, passwrod);
 		
+	}
+	
+	//登录
+	public String doLogin(User u) {
+		
+		try {
+			
+			if(u.getUsername().equals("") || u.getUsername().equals(null)) {
+				
+				return "failure";
+			}
+			
+			User user = userDao.fineOne(u.getUsername());
+			
+			if ( !u.getPassword().equals(user.getPassword()) || !u.getIdentify().equals(user.getIdentify())) {
+				
+				return "failure";
+			}	
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return "success";
 	}
 
 }

@@ -2,8 +2,8 @@ package com.ecs.domain;
 
 public class User {
 	private Integer id;
-	private String name;
-	private String passWord;
+	private String username;
+	private String password;
 	private String identify;
 	public Integer getId() {
 		return id;
@@ -11,17 +11,17 @@ public class User {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getName() {
-		return name;
+	public String getUsername() {
+		return username;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setUsername(String username) {
+		this.username = username;
 	}
-	public String getPassWord() {
-		return passWord;
+	public String getPassword() {
+		return password;
 	}
-	public void setPassWord(String passWord) {
-		this.passWord = passWord;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	public String getIdentify() {
 		return identify;
@@ -31,7 +31,7 @@ public class User {
 	}
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", passWord=" + passWord + ", identify=" + identify + "]";
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", identify=" + identify + "]";
 	}
 
 	

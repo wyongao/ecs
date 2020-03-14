@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ecs.domain.User;
@@ -35,8 +36,8 @@ public class UserController {
 	@RequestMapping("/addUser")
 	@ResponseBody
 	public String addUser(User user) {
-		user.setName("abcdc");
-		user.setPassWord("456789");
+		user.setUsername("abcdc");
+		user.setPassword("456789");
 		user.setIdentify("2");
 		userService.addUser(user);
 		System.out.println("添加成功!------------>");		
@@ -80,8 +81,8 @@ public class UserController {
 	@ResponseBody
 	public String updateUser(User user) {
 		user.setId(1);
-		user.setName("许路洋");
-		user.setPassWord("xly");
+		user.setUsername("许路洋");
+		user.setPassword("xly");
 		user.setIdentify("1");
 		userService.updateUser(user);
 		System.out.println("修改成功");
@@ -98,4 +99,81 @@ public class UserController {
 		
 		return "修改密码成功";
 	}
+	
+    //进入登陆页面	
+	@RequestMapping("/login")
+	public String goLogin() {
+		
+		return "login";
+	}
+	
+	//进入访问记录页面	
+	@RequestMapping("/goAccessData")
+	public String goAccessData() {
+			
+		return "accessData";
+	}
+
+	//进入添加用户页面	
+	@RequestMapping("/goAddUser")
+	public String goAddUser() {
+			
+		return "addUser";
+	}	
+	
+	//进入基础数据页面	
+	@RequestMapping("/goBaseData")
+	public String goBaseData() {
+				
+		return "baseData";
+	}	
+	
+	//进入打卡数据页面	
+	@RequestMapping("/goDailyData")
+	public String goDailyData() {
+				
+		return "dailyData";
+	}	
+	
+	//进入入校申请页面	
+	@RequestMapping("/goIn")
+	public String goIn() {
+					
+		return "in";
+	}
+	
+	//进入出校申请页面	
+	@RequestMapping("/goOut")
+	public String goOut() {
+						
+		return "out";
+	}
+	
+	//进入用户数据页面	
+	@RequestMapping("/goUserData")
+	public String goUserData() {
+							
+		return "userData";
+	}
+	
+	//实现登录
+	@RequestMapping(value="/doLogin", method=RequestMethod.POST)
+	public String doLogin(User u) {
+		
+		
+		if (userService.doLogin(u).equals("failure")) {
+			
+			return "login";
+		}
+		
+		return "dailyData";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 }

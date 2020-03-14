@@ -5,7 +5,7 @@
 	<resultMap type="com.ecs.domain.User" id="BaseUserMap">
 		<id property="id" column="id"/>
 		<result property="name" column="username"/>
-		<result property="passWord" column="password"/>
+		<result property="password" column="password"/>
 		<result property="identify" column="identify"/>
 	</resultMap>
 	<select id="findALL" resultType="com.esc.domain.User">
