@@ -26,3 +26,10 @@ server:
 #mybatis:
  # mapper-locations: classpath:mapping/*Mapper.xml
  # type-aliases-package: com.example.domain
+
+# 配置pagehelper参数
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true  
+    params: count=countSql

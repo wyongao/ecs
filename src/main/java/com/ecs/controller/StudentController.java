@@ -1,5 +1,7 @@
 package com.ecs.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 /**
@@ -9,10 +11,14 @@ import org.springframework.stereotype.Controller;
  * 2020年3月7日
  */
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ecs.constant.Constant;
 import com.ecs.domain.Student;
 import com.ecs.service.StudentService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 /**
  * 学生的Controller
  * @author xuluyang
@@ -26,8 +32,14 @@ public class StudentController {
 
 	@RequestMapping("/findAllStudent")
 	@ResponseBody
-	public String findAllStudent() {
+	public String findAllStudent(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum) {
 		System.out.println("查询执行成功--------------------------->");
+		//分页查询
+		PageHelper.startPage(pageNum, Constant.PAGE_SIZE);
+		List<Student> list=studentService.findAllStudent();
+		//这里少个参数目前没有影响
+		PageInfo<Student> pageInfo=new PageInfo<Student>(list);
+		System.out.println("总页数"+pageInfo.getPages()+"当前页"+pageInfo.getPageNum()+"总记录数"+pageInfo.getTotal());
 		return studentService.findAllStudent().toString();
 	}
 
