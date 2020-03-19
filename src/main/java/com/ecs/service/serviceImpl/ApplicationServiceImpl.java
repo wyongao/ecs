@@ -45,10 +45,23 @@ public class ApplicationServiceImpl implements ApplicationService{
 	
 	@Override
 	public List<Application> findAllByCollege(String college) {
-		// TODO Auto-generated method stub
+		
 		return applicationDao.findAllByCollege(college);
 	}
 	
+	//测试用
+	@Override
+	public List<Application> findAllApplications(String college, String major, String classes) {
+		
+		return applicationDao.findAllApplications(college, major, classes);
+	}
+//	//测试2.0
+//	@Override
+//	public List<Application> findAllApplication() {
+//		
+//		return applicationDao.findAllApplication();
+//	}
+//	
 
 
 }

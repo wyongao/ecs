@@ -23,6 +23,8 @@ public interface DayStudentService {
 	public List<DayStudent> findDayStudentBySnum(String snum);
 		//查找学生的轨迹信息(面向小程序端的)
 	public List<String> traceStudent(String snum);
+		//动态sql
+	public List<DayStudent> findAllDayStudents(String college,String major,String classes,String snum,String date);
 		//保存每日学生信息
 	public void addDayStudent(DayStudent dayStudent);
 }
