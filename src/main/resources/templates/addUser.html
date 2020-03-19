@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title></title>
+		<title>添加用户</title>
 		<link rel="stylesheet" type="text/css" href="css/layui.css" />
 		<link rel="stylesheet" type="text/css" href="css/base.css" />
 		<style type="text/css">
@@ -20,7 +20,7 @@
 				<div class="header">
 					<ul class="layui-nav">
 						<li class="layui-nav-item">
-							<a href="javascript:;">退出</a>
+							<a th:href="@{/login}">退出</a>
 						</li>
 						<li class="layui-nav-item">
 							<a href="javascript:;"><img src="//t.cn/RCzsdCq" class="layui-nav-img">我</a>
@@ -35,25 +35,25 @@
 						<li class="layui-nav-item">
 							<a href="javascript:;">数据管理</a>
 							<dl class="layui-nav-child">
-								<dd><a href="javascript:;">打卡数据</a></dd>
-								<dd><a href="javascript:;">基础数据</a></dd>
+								<dd><a th:href="@{/goDailyData}">打卡数据</a></dd>
+								<dd><a th:href="@{/goBaseData}">基础数据</a></dd>
 							</dl>
 						</li>
 						<li class="layui-nav-item">
 							<a href="javascript:;">申请管理</a>
 							<dl class="layui-nav-child">
-								<dd><a href="javascript:;">出校申请</a></dd>
-								<dd><a href="javascript:;">入校申请</a></dd>
+								<dd><a th:href="@{/goOut}">出校申请</a></dd>
+								<dd><a th:href="@{/goIn}">入校申请</a></dd>
 							</dl>
 						</li>
 						<li class="layui-nav-item"><a href="javascript:;">数据报表</a></li>
 						<li class="layui-nav-item"><a href="javascript:;">二维码</a></li>
-						<li class="layui-nav-item"><a href="javascript:;">访问记录</a></li>
+						<li class="layui-nav-item"><a th:href="@{/goAccessData}">访问记录</a></li>
 						<li class="layui-nav-item  layui-nav-itemed">
 							<a href="javascript:;">用户管理</a>
 							<dl class="layui-nav-child">
-								<dd><a href="javascript:;">用户数据</a></dd>
-								<dd><a href="javascript:;" class="layui-this">添加用户</a></dd>
+								<dd><a th:href="@{/goUserData}">用户数据</a></dd>
+								<dd><a th:href="@{/goAddUser}" class="layui-this">添加用户</a></dd>
 							</dl>
 						</li>
 						<li class="layui-nav-item"><a href="javascript:;">设置</a></li>

@@ -35,6 +35,7 @@ public interface TeacherDao {
 	@Update("update teacher set tname=#{tname},tnum=#{tnum},school=#{school},college=#{college},sex=#{sex},tel=#{tel}")
 	public void updateTeacher(Teacher teacher);
 	
-	
+	@Select("select * from teacher where tnum=#{tnum}")
+	public Teacher findTeacherByTnum(String tnum);
 	
 }

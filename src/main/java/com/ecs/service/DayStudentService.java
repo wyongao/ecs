@@ -27,4 +27,7 @@ public interface DayStudentService {
 	public List<DayStudent> findAllDayStudents(String college,String major,String classes,String snum,String date);
 		//保存每日学生信息
 	public void addDayStudent(DayStudent dayStudent);
+	    //查找所有
+	public List<DayStudent> findAll();
+
 }

@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title></title>
+		<title>用户数据</title>
 		<link rel="stylesheet" type="text/css" href="css/layui.css" />
 		<link rel="stylesheet" type="text/css" href="css/base.css" />
 	</head>
@@ -15,7 +15,7 @@
 				<div class="header">
 					<ul class="layui-nav">
 						<li class="layui-nav-item">
-							<a href="javascript:;">退出</a>
+							<a th:href="@{/login}">退出</a>
 						</li>
 						<li class="layui-nav-item">
 							<a href="javascript:;"><img src="//t.cn/RCzsdCq" class="layui-nav-img">我</a>
@@ -30,25 +30,25 @@
 						<li class="layui-nav-item">
 							<a href="javascript:;">数据管理</a>
 							<dl class="layui-nav-child">
-								<dd><a href="javascript:;">打卡数据</a></dd>
-								<dd><a href="javascript:;">基础数据</a></dd>
+								<dd><a th:href="@{/goDailyData}">打卡数据</a></dd>
+								<dd><a th:href="@{/goBaseData}">基础数据</a></dd>
 							</dl>
 						</li>
 						<li class="layui-nav-item">
 							<a href="javascript:;">申请管理</a>
 							<dl class="layui-nav-child">
-								<dd><a href="javascript:;">出校申请</a></dd>
-								<dd><a href="javascript:;">入校申请</a></dd>
+								<dd><a th:href="@{/goOut}">出校申请</a></dd>
+								<dd><a th:href="@{/goIn}">入校申请</a></dd>
 							</dl>
 						</li>
 						<li class="layui-nav-item"><a href="javascript:;">数据报表</a></li>
 						<li class="layui-nav-item"><a href="javascript:;">二维码</a></li>
-						<li class="layui-nav-item"><a href="javascript:;">访问记录</a></li>
+						<li class="layui-nav-item"><a th:href="@{/goAccessData}">访问记录</a></li>
 						<li class="layui-nav-item  layui-nav-itemed">
 							<a href="javascript:;">用户管理</a>
 							<dl class="layui-nav-child">
-								<dd><a href="javascript:;" class="layui-this">用户数据</a></dd>
-								<dd><a href="javascript:;">添加用户</a></dd>
+								<dd><a th:href="@{/goUserData}" class="layui-this">用户数据</a></dd>
+								<dd><a th:href="@{/goAddUser}">添加用户</a></dd>
 							</dl>
 						</li>
 						<li class="layui-nav-item"><a href="javascript:;">设置</a></li>
@@ -70,120 +70,42 @@
 					</div>
 				</div>
 				<div class="layui-table-box">
-					<table class="layui-table">
-						<colgroup>
-							<col width="150">
-							<col width="200">
-							<col>
-						</colgroup>
-						<thead>
-							<tr>
-								<th>序号</th>
-								<th>姓名</th>
-								<th>工号</th>
-								<th>学院</th>
-								<th>密码</th>
-								<th>手机</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>1</td>
-								<td>张耀武</td>
-								<td>10001</td>
-								<td>计算机学院</td>
-								<td>123456</td>
-								<td>13733339999</td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>张耀武</td>
-								<td>10001</td>
-								<td>计算机学院</td>
-								<td>123456</td>
-								<td>13733339999</td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>张耀武</td>
-								<td>10001</td>
-								<td>计算机学院</td>
-								<td>123456</td>
-								<td>13733339999</td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>张耀武</td>
-								<td>10001</td>
-								<td>计算机学院</td>
-								<td>123456</td>
-								<td>13733339999</td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>张耀武</td>
-								<td>10001</td>
-								<td>计算机学院</td>
-								<td>123456</td>
-								<td>13733339999</td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>张耀武</td>
-								<td>10001</td>
-								<td>计算机学院</td>
-								<td>123456</td>
-								<td>13733339999</td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>张耀武</td>
-								<td>10001</td>
-								<td>计算机学院</td>
-								<td>123456</td>
-								<td>13733339999</td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>张耀武</td>
-								<td>10001</td>
-								<td>计算机学院</td>
-								<td>123456</td>
-								<td>13733339999</td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>张耀武</td>
-								<td>10001</td>
-								<td>计算机学院</td>
-								<td>123456</td>
-								<td>13733339999</td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>张耀武</td>
-								<td>10001</td>
-								<td>计算机学院</td>
-								<td>123456</td>
-								<td>13733339999</td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>张耀武</td>
-								<td>10001</td>
-								<td>计算机学院</td>
-								<td>123456</td>
-								<td>13733339999</td>
-							</tr>
-						</tbody>
-					</table>
+					<table class="layui-table" id="dataTable">
+						
+							</table>
 				</div>
-				<div class="page layui-table-page">bb</div>
+			
 			</div>
 		</div>
 
 
 
 		<script src="js/layui.all.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" th:inline="javascript">
+		layui.use('table', function(){
+			var table = layui.table;
+			
+			 table.render({
+				    elem: '#dataTable'
+				    ,url: [[@{/userData}]]
+				    ,cellMinWidth: 80 
+				    ,page: true
+				    ,method: 'post'
+				    ,limit: 12
+				    ,even: true
+				    ,cols: [
+				    	[ 
+						  {field: 'id', title: '序号', width: 60}
+						,{field: 'tname', title: '姓名', width: 140}
+						,{field: 'tnum', title: '工号', minWidth: 160}						
+						,{field: 'school', title: '学校', minWidth:170}
+						,{field: 'college', title: '学院', minWidth: 160}
+						,{field: 'sex', title: '性别', width: 60}
+						,{field: 'tel', title: '电话', minWidth: 140}
+						]
+				    	]
+				  });
+		});
+		</script>
 	</body>
 </html>

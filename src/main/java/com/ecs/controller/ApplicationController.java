@@ -1,16 +1,20 @@
 package com.ecs.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ecs.common.DateUtil;
+import com.ecs.common.JsonUtils;
 import com.ecs.constant.Constant;
 import com.ecs.domain.Application;
 import com.ecs.service.ApplicationService;
@@ -114,4 +118,50 @@ public class ApplicationController {
 		applicationService.updateStatus(status, snum, DateUtil.getDate());
 		return "成功";
 	}
+	
+	//查找出校申请
+	@ResponseBody
+	@RequestMapping(value = "/outData", method = RequestMethod.POST)
+	public String outData(String page, String limit) {
+		
+		PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(limit));
+		List<Application> data = applicationService.findOutData();
+		PageInfo<Application> pageInfo = new PageInfo<Application>(data);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("code", "0");
+		map.put("msg", "");
+		map.put("count", pageInfo.getTotal());
+		map.put("data", data);
+		
+		return JsonUtils.objectToJson(map);
+	}
+	
+	
+	//查找入校申请
+		@ResponseBody
+		@RequestMapping(value = "/inData", method = RequestMethod.POST)
+		public String inData(String page, String limit) {
+			
+			PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(limit));
+			List<Application> data = applicationService.findInData();
+			PageInfo<Application> pageInfo = new PageInfo<Application>(data);
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("code", "0");
+			map.put("msg", "");
+			map.put("count", pageInfo.getTotal());
+			map.put("data", data);
+			
+			return JsonUtils.objectToJson(map);
+		}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

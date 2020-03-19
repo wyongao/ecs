@@ -32,14 +32,16 @@
 	margin: 0 auto;
 	margin-top: 90px;
 	width: 80%;
-	height: 82%;
+	height: 85%;
 	border: 1px solid #E6E6E6;
-	padding: 10px;
+	/* background-color: ; */
+	/* padding: 10px; */
 }
 .main .top {
-	width: 100%;
+	width: 90%;
 	height: 40px;
 	position: relative;
+	margin: 20px 10px 0px 10px;
 }
 .main .top .layui-form-item {
 	display: inline-block;
@@ -49,10 +51,21 @@
 	right: 2px;
 	top: 0;
 }
+.layui-table-box {
+	margin: 0;
+	width: 100%
+}
+.layui-table-box .layui-table {
+	padding: 0;
+}
 .layui-table-box .layui-table th,
 .layui-table-box .layui-table td {
 	text-align: center;
 }
-.page {
-	height: 40px;
+/* .layui-table-page {
+	position: fixed;
+	bottom: 50px;
+} */
+.layui-laypage-limits {
+		display:none !important;
 }

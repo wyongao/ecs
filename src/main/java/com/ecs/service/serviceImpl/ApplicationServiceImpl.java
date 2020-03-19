@@ -49,6 +49,7 @@ public class ApplicationServiceImpl implements ApplicationService{
 		return applicationDao.findAllByCollege(college);
 	}
 	
+
 	//测试用
 	@Override
 	public List<Application> findAllApplications(String college, String major, String classes) {
@@ -62,6 +63,22 @@ public class ApplicationServiceImpl implements ApplicationService{
 //		return applicationDao.findAllApplication();
 //	}
 //	
+
+	
+	@Override
+	public List<Application> findOutData() {
+		
+		return applicationDao.findOutData("1");
+	}
+	
+	
+	@Override
+	public List<Application> findInData() {
+		
+		return applicationDao.findInData("2");
+	}
+	
+
 
 
 }

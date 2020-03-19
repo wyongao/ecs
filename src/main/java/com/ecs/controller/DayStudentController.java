@@ -1,14 +1,18 @@
 package com.ecs.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ecs.common.DateUtil;
+import com.ecs.common.JsonUtils;
 import com.ecs.constant.Constant;
 import com.ecs.domain.DayStudent;
 import com.ecs.service.DayStudentService;
@@ -121,4 +125,27 @@ public class DayStudentController {
 		System.out.println("---------------->>>>添加成功");
 		return "成功";
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/dailyData", method = RequestMethod.POST)
+	public String dailyData (String page, String limit) {
+		
+	
+		PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(limit));
+		List<DayStudent> data = dayStudentService.findAll();
+		PageInfo<DayStudent> pageInfo = new PageInfo<>(data);		
+		
+		Map<String, Object> map = new HashMap<String, Object>();		
+		map.put("code", "0");
+		map.put("msg", "");
+		map.put("count", pageInfo.getTotal());
+		map.put("data", data);
+			
+		return JsonUtils.objectToJson(map);
+	}
+	
+	
+	
+	
+	
 }
