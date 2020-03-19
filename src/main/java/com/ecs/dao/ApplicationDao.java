@@ -39,4 +39,14 @@ public interface ApplicationDao {
 	// 修改申请状态(管理员)
 	@Update("UPDATE application SET `status`=#{status} WHERE snum=#{snum} AND date=#{date}")
 	public void updateStatus(String status, String snum, String date);
+	
+	//查找出校申请
+	@Select("select * from application where `inout`=#{inout}")
+	public List<Application> findOutData(String inout);
+	
+	
+	//查找入校申请
+	@Select("select * from application where `inout`=#{inout}")
+	public List<Application> findInData(String inout);
+
 }

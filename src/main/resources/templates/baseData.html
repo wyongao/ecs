@@ -84,142 +84,43 @@
 					</div>
 				</div>
 				<div class="layui-table-box">
-					<table class="layui-table">
-						<colgroup>
-							<col width="150">
-							<col width="200">
-							<col>
-						</colgroup>
-						<thead>
-							<tr>
-								<th>序号</th>
-								<th>姓名</th>
-								<th>学号</th>
-								<th>学院</th>
-								<th>专业</th>
-								<th>班级</th>
-								<th>手机</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>1</td>
-								<td>王永澳</td>
-								<td>201710913305</td>
-								<td>计算机学院</td>
-								<td>计算机科学与技术</td>
-								<td>1743</td>
-								<td>13733339999</td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>王永澳</td>
-								<td>201710913305</td>
-								<td>计算机学院</td>
-								<td>计算机科学与技术</td>
-								<td>1743</td>
-								<td>13733339999</td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>王永澳</td>
-								<td>201710913305</td>
-								<td>计算机学院</td>
-								<td>计算机科学与技术</td>
-								<td>1743</td>
-								<td>13733339999</td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>王永澳</td>
-								<td>201710913305</td>
-								<td>计算机学院</td>
-								<td>计算机科学与技术</td>
-								<td>1743</td>
-								<td>13733339999</td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>王永澳</td>
-								<td>201710913305</td>
-								<td>计算机学院</td>
-								<td>计算机科学与技术</td>
-								<td>1743</td>
-								<td>13733339999</td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>王永澳</td>
-								<td>201710913305</td>
-								<td>计算机学院</td>
-								<td>计算机科学与技术</td>
-								<td>1743</td>
-								<td>13733339999</td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>王永澳</td>
-								<td>201710913305</td>
-								<td>计算机学院</td>
-								<td>计算机科学与技术</td>
-								<td>1743</td>
-								<td>13733339999</td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>王永澳</td>
-								<td>201710913305</td>
-								<td>计算机学院</td>
-								<td>计算机科学与技术</td>
-								<td>1743</td>
-								<td>13733339999</td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>王永澳</td>
-								<td>201710913305</td>
-								<td>计算机学院</td>
-								<td>计算机科学与技术</td>
-								<td>1743</td>
-								<td>13733339999</td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>王永澳</td>
-								<td>201710913305</td>
-								<td>计算机学院</td>
-								<td>计算机科学与技术</td>
-								<td>1743</td>
-								<td>13733339999</td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>王永澳</td>
-								<td>201710913305</td>
-								<td>计算机学院</td>
-								<td>计算机科学与技术</td>
-								<td>1743</td>
-								<td>13733339999</td>
-							</tr>
-						</tbody>
+					<table class="layui-table" id="dataTable">
+						
 					</table>
 				</div>
-				<div id="page" class="page layui-table-page"></div>
+				
 			</div>
 		</div>
 
 
 
 		<script src="js/layui.all.js" type="text/javascript" charset="utf-8"></script>
-		<script>
-		layui.use('laypage', function(){
-		  var laypage = layui.laypage;
-		  
-		  //执行一个laypage实例
-		  laypage.render({
-		    elem: 'page' //注意，这里的 test1 是 ID，不用加 # 号
-		    ,count: 50 //数据总数，从服务端得到
-		  });
+		<script type="text/javascript" th:inline="javascript">
+		layui.use('table', function(){
+			var table = layui.table;
+			
+			 table.render({
+				    elem: '#dataTable'
+				    ,url: [[@{/baseData}]]
+				    ,cellMinWidth: 80 
+				    ,page: true
+				    ,method: 'post'
+				    ,limit: 12
+				    ,even: true
+				    ,cols: [
+				    	[ 
+						  {field: 'id', title: '序号', width: 60}
+						,{field: 'sname', title: '姓名', width: 140}
+						,{field: 'snum', title: '学号', width: 160}						
+						,{field: 'school', title: '学校', width:170}
+						,{field: 'college', title: '学院', width: 160}
+						,{field: 'major', title: '专业', minWidth: 140}
+						,{field: 'classes', title: '班级', width: 80}
+						,{field: 'sex', title: '性别', width: 60}
+						,{field: 'tel', title: '电话', minWidth: 140}
+						]
+				    	]
+				  });
 		});
 		</script>
 	</body>

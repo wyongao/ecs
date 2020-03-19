@@ -33,6 +33,17 @@ public class User {
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", password=" + password + ", identify=" + identify + "]";
 	}
+	
+	public User () {};
+	
+	public User(Integer id, String username, String password, String identify) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.identify = identify;
+	}
 
+	
 	
 }

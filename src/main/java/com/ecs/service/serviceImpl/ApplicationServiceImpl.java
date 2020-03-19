@@ -49,6 +49,20 @@ public class ApplicationServiceImpl implements ApplicationService{
 		return applicationDao.findAllByCollege(college);
 	}
 	
+	
+	@Override
+	public List<Application> findOutData() {
+		
+		return applicationDao.findOutData("1");
+	}
+	
+	
+	@Override
+	public List<Application> findInData() {
+		
+		return applicationDao.findInData("2");
+	}
+	
 
 
 }

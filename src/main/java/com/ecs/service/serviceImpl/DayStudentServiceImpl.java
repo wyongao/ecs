@@ -65,4 +65,12 @@ public class DayStudentServiceImpl implements DayStudentService {
 		dayStudentDao.addDayStudent(dayStudent);
 		}
 
+	@Override
+	public List<DayStudent> findAll() {
+		
+		
+		
+		return dayStudentDao.findAll();
+	}
+
 }

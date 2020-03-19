@@ -18,13 +18,13 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">账号</label>
 				<div class="layui-input-block">
-					<input type="text" name="username" required lay-verify="required" placeholder="请输入账号" autocomplete="off" class="layui-input">
+					<input type="text" name="username" required lay-verify="required" lay-reqtext="账号不能为空" lay-vertype="tips" placeholder="请输入账号" autocomplete="off" class="layui-input">
 				</div>
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">密码</label>
 				<div class="layui-input-block">
-					<input type="password" name="password" required lay-verify="required" lay-vertype="tips" placeholder="请输入密码" autocomplete="off" class="layui-input">
+					<input type="password" name="password" required lay-verify="required" lay-reqtext="密码不能为空" lay-vertype="tips" placeholder="请输入密码" autocomplete="off" class="layui-input">
 				</div>
 			</div>
 			<!-- <div class="layui-form-item">
@@ -49,17 +49,7 @@
 			</div>
 			<div class="layui-form-item">
 				<div class="layui-input-block">
-<<<<<<< HEAD
-					<button type="submit" class="layui-btn">登录</button>
-=======
-					<input type="radio" name="identify" value="管理员" title="管理员" checked>
-					<input type="radio" name="identify" value="超级管理员" title="超级管理员">
-				</div>
-			</div>
-			<div class="layui-form-item">
-				<div class="layui-input-block">
 					<button class="layui-btn" lay-submit lay-filter="formDemo">登录</button>
->>>>>>> df3c5db848d2327becd4d55376dd71c190c03ce5
 					<button type="reset" class="layui-btn layui-btn-primary">重置</button>
 				</div>
 			</div>

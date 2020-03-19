@@ -78,4 +78,18 @@ public class Teacher {
 				+ college + ", sex=" + sex + ", tel=" + tel + "]";
 	}
 
+	public Teacher() {}
+	
+	public Teacher(Integer id, String tname, String tnum, String school, String college, String sex, String tel) {
+		super();
+		this.id = id;
+		this.tname = tname;
+		this.tnum = tnum;
+		this.school = school;
+		this.college = college;
+		this.sex = sex;
+		this.tel = tel;
+	}
+
+	
 }

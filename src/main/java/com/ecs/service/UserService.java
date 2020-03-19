@@ -1,6 +1,7 @@
 package com.ecs.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.ecs.domain.User;
 /**
@@ -22,5 +23,5 @@ public interface UserService {
 	//修改密码
 	public void changePassword(Integer id,String passwrod);
 	//登录
-	public String doLogin(User u);
+	public Map<String, Object> doLogin(User u);
 }

@@ -25,4 +25,7 @@ public interface DayStudentService {
 	public List<String> traceStudent(String snum);
 		//保存每日学生信息
 	public void addDayStudent(DayStudent dayStudent);
+	    //查找所有
+	public List<DayStudent> findAll();
+
 }

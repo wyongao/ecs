@@ -38,5 +38,6 @@ public interface DayStudentDao {
 			+ " values(#{snum},#{sname},#{college},#{major},#{classes},#{addr},#{date},#{symptom},#{temp}) ")
 	public void addDayStudent(DayStudent dayStudent);
 	
-	
+	@Select("select * from day_student")
+	public List<DayStudent> findAll();
 }

@@ -26,5 +26,11 @@ public interface ApplicationService {
 
 	// 修改申请状态(管理员)
 	public void updateStatus(String status, String snum, String date);
+	
+	//查找出校申请
+	public List<Application> findOutData();
+	
+	//查找入校申请
+	public List<Application> findInData();
 
 }
