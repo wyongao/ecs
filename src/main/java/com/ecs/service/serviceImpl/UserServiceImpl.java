@@ -1,16 +1,22 @@
 package com.ecs.service.serviceImpl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ecs.common.IpUtil;
 import com.ecs.dao.TeacherDao;
 import com.ecs.dao.UserDao;
 import com.ecs.domain.Teacher;
 import com.ecs.domain.User;
+import com.ecs.service.AccessDataService;
 import com.ecs.service.UserService;
 
 /**
@@ -21,7 +27,12 @@ import com.ecs.service.UserService;
  */
 @Service
 public class UserServiceImpl implements UserService {
-
+	
+	IpUtil ipUtil;
+	
+	@Autowired
+	AccessDataService accessDataService;
+	
 	@Autowired
 	private TeacherDao teacherDao;
 
@@ -62,44 +73,33 @@ public class UserServiceImpl implements UserService {
 	}
 
 	// 登录
-	public Map<String, Object> doLogin(User u) {
+	public Map<String, Object> doLogin(Teacher t, HttpServletRequest request) {
 
 		Map<String, Object> model = new HashMap<String, Object>();
-		User user = new User();
+		Teacher teacher = teacherDao.findTeacherByTnum(t.getTnum());
 
 //		if (u.getUsername().equals("") || (u.getUsername() == null)) { // 为空
-
 //			model.put("msg", "failure");
 //			return model;
 //		}
-
-		if (u.getIdentify().equals("0")) { // 身份为老师
-
-			// 实现老师登录
-			Teacher teacher = teacherDao.findTeacherByTnum(u.getUsername());
-
-			if (teacher == null) {
-
-				model.put("msg", "failure");
-				return model;
-			}
-
-			user.setUsername(teacher.getTnum());
-			user.setPassword(teacher.getTnum());
-			user.setIdentify("0");
-
-		} else { // 身份为超管
-
-			user = userDao.fineOne(u.getUsername());
-			if ((user == null) || !u.getPassword().equals(user.getPassword())) {
-
-				model.put("msg", "failure");
-				return model;
-			}
-			
+		
+		if ((teacher == null)) {
+			model.put("msg", "failure");
+			return model;
+		} 
+		if ((!t.getPassword().equals(teacher.getPassword()) || !t.getIdentify().equals(teacher.getIdentify()))) {
+			model.put("msg", "failure");
+			return model;
 		}
-
-		model.put("user", user);
+		
+		String ip = ipUtil.getClientIp(request);
+		Date now = new Date();
+		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		
+		//保存用户访问记录
+		accessDataService.addAccessData(teacher.getTname(), teacher.getTnum(), ip, f.format(now));
+		
+		model.put("teacher", teacher);
 		model.put("msg", "success");
 		return model;
 	}

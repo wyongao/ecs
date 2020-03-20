@@ -3,6 +3,9 @@ package com.ecs.service;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
+import com.ecs.domain.Teacher;
 import com.ecs.domain.User;
 /**
  * 
@@ -23,5 +26,5 @@ public interface UserService {
 	//修改密码
 	public void changePassword(Integer id,String passwrod);
 	//登录
-	public Map<String, Object> doLogin(User u);
+	public Map<String, Object> doLogin(Teacher t, HttpServletRequest request);
 }

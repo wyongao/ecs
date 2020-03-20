@@ -3,13 +3,18 @@ package com.ecs.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.ecs.common.IpUtil;
 import com.ecs.constant.Constant;
+import com.ecs.domain.Teacher;
 import com.ecs.domain.User;
 import com.ecs.service.UserService;
 import com.github.pagehelper.PageHelper;
@@ -22,6 +27,7 @@ import com.github.pagehelper.PageInfo;
  */
 @Controller
 public class UserController {
+	
 	@Autowired
 	private UserService userService;
 
@@ -177,17 +183,17 @@ public class UserController {
 			return "test";
 		}
 
-	// 实现登录
+	// 实现登录,并保存登陆记录
 	@RequestMapping(value = "/doLogin", method = RequestMethod.POST)
-	public String doLogin(User u, Map<String, Object> model) {
+	public String doLogin(Teacher t, Map<String, Object> model, HttpServletRequest request) {
 		
-		Map<String, Object> map = userService.doLogin(u);
+		Map<String, Object> map = userService.doLogin(t, request);
 		if (map.get("msg").equals("failure")) {
 			
 			return "login";
 		}
 		
-		model.put("user", map.get("user"));
+		model.put("teacher", map.get("teacher"));
 		model.put("msg", map.get("msg"));
 		return "dailyData";
 	}
