@@ -4,9 +4,12 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
 
+import com.ecs.dao.provider.ApplicationProvider;
 import com.ecs.domain.Application;
 
 /**
@@ -24,15 +27,18 @@ public interface ApplicationDao {
 			+ "values(#{snum},#{sname},#{date},#{exit},#{dest},#{reason},#{inout},#{status},#{school},#{college},#{major},#{classes})")
 	public void addApplicationInfo(Application application);
 
-	// 查找所有的申请根据学院和专业(管理员)
+	// 查找所有的申请根据学院和专业(管理员)(没用了)
 	@Select("select * from application where college=#{college} and major=#{major}")
 	public List<Application> findAllByCollegeAndMajor(String college, String major);
 
-	// 查找所有的申请根据学院和专业和班级(管理员)
+	// 查找所有的申请根据学院和专业和班级(管理员)(没用了)
 	@Select("select * from application where college=#{college} and major=#{major} and classes=#{classes}")
 	public List<Application> findAllByCollegeAndMajorAndClasses(String college, String major, String classes);
 
-	// 查找所有的申请根据学院(管理员)
+	// 动态sql测试用
+	@SelectProvider(type = ApplicationProvider.class,method = "selectWithParam")
+	public List<Application> findAllApplications(@Param("college")String college, @Param("major") String major,@Param("classes") String classes);
+	//根据学院查找(没用了)
 	@Select("select * from application where college=#{college}")
 	public List<Application> findAllByCollege(String college);
 

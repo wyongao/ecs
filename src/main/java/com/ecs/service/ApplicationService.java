@@ -23,6 +23,10 @@ public interface ApplicationService {
 
 	// 查找所有的申请根据学院(管理员)
 	public List<Application> findAllByCollege(String college);
+	//测试
+	public List<Application> findAllApplications(String college, String major, String classes);
+//	//测试2.0
+//	public List<Application> findAllApplication();
 
 	// 修改申请状态(管理员)
 	public void updateStatus(String status, String snum, String date);

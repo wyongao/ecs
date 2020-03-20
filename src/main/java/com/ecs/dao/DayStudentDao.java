@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 /**
  * 每日提交所对应的学生实体类
  * @author xuluyang
@@ -11,7 +12,9 @@ import org.apache.ibatis.annotations.Mapper;
  * 2020年3月8日
  */
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectProvider;
 
+import com.ecs.dao.provider.DayStudentProvider;
 import com.ecs.domain.DayStudent;
 @Mapper
 public interface DayStudentDao {
@@ -33,6 +36,9 @@ public interface DayStudentDao {
 	//查找学生的轨迹信息(面向小程序端的)
 	@Select("select addr from day_student where snum=#{sunm}")
 	public List<String> traceStudent(String snum);
+	//动态sql
+	@SelectProvider(type = DayStudentProvider.class,method = "selectWithParam")
+	public List<DayStudent> findAllDayStudents(@Param("college")String college, @Param("major") String major,@Param("classes") String classes,@Param("snum") String snum,@Param("date")String date);
 	//保存每日学生信息
 	@Insert("insert into day_student(snum,sname,college,major,classes,addr,date,symptom,temp)"
 			+ " values(#{snum},#{sname},#{college},#{major},#{classes},#{addr},#{date},#{symptom},#{temp}) ")
