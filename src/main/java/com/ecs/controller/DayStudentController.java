@@ -95,14 +95,21 @@ public class DayStudentController {
 	}
 
 	// 动态sql加上时间上面的就可以不要了
-	@RequestMapping("/findAllDayStudents")
+	@RequestMapping(value = "/findAllDayStudents", method = RequestMethod.POST)
 	@ResponseBody
-	public String findAllDayStudents(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,String college, String major, String classes, String snum,String date) {
-		PageHelper.startPage(pageNum, Constant.PAGE_SIZE);
-		List<DayStudent> list=dayStudentService.findAllDayStudents(college, major, classes, snum,date);
-		PageInfo<DayStudent> pageInfo=new PageInfo<DayStudent>(list);
+	public String findAllDayStudents(String page, String limit, String college, String major, String classes,
+			String snum, String date) {
+		PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(limit));
+		List<DayStudent> data = dayStudentService.findAllDayStudents(college, major, classes, snum, date);
+		PageInfo<DayStudent> pageInfo = new PageInfo<DayStudent>(data);
 		System.out.println("总页数" + pageInfo.getPages() + "当前页" + pageInfo.getPageNum() + "总记录数" + pageInfo.getTotal());
-		return list.toString();
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("code", "0");
+		map.put("msg", "");
+		map.put("count", pageInfo.getTotal());
+		map.put("data", data);
+		return JsonUtils.objectToJson(map);
 	}
 
 	// 查找学生的轨迹信息(面向小程序端的)
@@ -125,27 +132,45 @@ public class DayStudentController {
 		System.out.println("---------------->>>>添加成功");
 		return "成功";
 	}
-	
+	/**
+	 * 默认加载的数据
+	 * @param page
+	 * @param limit
+	 * @return
+	 */
+
 	@ResponseBody
 	@RequestMapping(value = "/dailyData", method = RequestMethod.POST)
-	public String dailyData (String page, String limit) {
-		
-	
+	public String dailyData(String page, String limit) {
+
 		PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(limit));
 		List<DayStudent> data = dayStudentService.findAll();
-		PageInfo<DayStudent> pageInfo = new PageInfo<>(data);		
-		
-		Map<String, Object> map = new HashMap<String, Object>();		
+		PageInfo<DayStudent> pageInfo = new PageInfo<>(data);
+
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("code", "0");
 		map.put("msg", "");
 		map.put("count", pageInfo.getTotal());
 		map.put("data", data);
-			
+
 		return JsonUtils.objectToJson(map);
 	}
 	
-	
-	
-	
-	
+	/**
+	 * 动态查找
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/dayStudentDynamic", method = RequestMethod.POST)
+	public String DynamicData(String page, String limit,String college,String classes,String major,String snum,String date) {
+		PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(limit));
+		List<DayStudent> data = dayStudentService.findAllDayStudents(college, major, classes, snum, date);
+		PageInfo<DayStudent> pageInfo = new PageInfo<>(data);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("code", "0");
+		map.put("msg", "");
+		map.put("count", pageInfo.getTotal());
+		map.put("data", data);
+		return JsonUtils.objectToJson(map);
+	}
+
 }

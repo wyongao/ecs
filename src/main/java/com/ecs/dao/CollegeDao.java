@@ -11,4 +11,6 @@ import com.ecs.domain.College;
 public interface CollegeDao {
 	@Select("select * from college where parentid=#{parentid}")
 	public List<College> findAllCollegeByParentId(Integer parentid);
+	@Select("select * from college")
+	public List<College> findAllCollege();
 }

@@ -24,5 +24,11 @@ public class CollegeServiceImpl implements CollegeService{
 		
 		return collegeDao.findAllCollegeByParentId(parentid);
 	}
+	
+	@Override
+	public List<College> findAllCollege() {
+		
+		return collegeDao.findAllCollege();
+	}
 
 }

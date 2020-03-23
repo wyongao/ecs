@@ -67,6 +67,8 @@ public class DayStudentServiceImpl implements DayStudentService {
 	//动态sql
 	@Override
 	public List<DayStudent> findAllDayStudents(String college, String major, String classes, String snum,String date) {
+		
+		
 		return dayStudentDao.findAllDayStudents(college, major, classes, snum,date);
 	}
 

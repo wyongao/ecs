@@ -16,4 +16,9 @@ public interface CollegeService {
 	 * @return
 	 */
 	public List<College> findAllCollegeByParentId(Integer parentid);
+	/**
+	 * 下拉框用的
+	 * @return
+	 */
+	public List<College> findAllCollege();
 }
