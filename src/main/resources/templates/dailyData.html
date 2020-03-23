@@ -122,6 +122,10 @@
 				,{field: 'symptom', title: '症状', width: 60}
 				]
 		    	]
+		    ,groups : 5
+			,jump: function(obj){
+		      console.log(obj)
+		    }
 		  });
 		  //动态获取下拉框的值
 			/* $('#college').onclick(function(){
@@ -285,7 +289,7 @@
 		  
 		});
 	
-	console.log([[${user}]]);
+	console.log([[${teacher}]]);
 	console.log([[${msg}]]);
 	</script>
 </body>

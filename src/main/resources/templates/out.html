@@ -115,18 +115,21 @@
 				    	[ 
 						  {field: 'id', title: '序号', width: 60}
 						,{field: 'sname', title: '姓名', width: 100}
-						,{field: 'snum', title: '学号', width: 160}						
+						,{field: 'snum', title: '学号', width: 150}						
 						,{field: 'college', title: '学院', width: 160}
 						,{field: 'major', title: '专业', minWidth: 160}
 						,{field: 'classes', title: '班级', width: 80}
 						,{field: 'date', title: '申请时间', width: 140}
 						,{field: 'exit', title: '进出地点', width: 80}
 						,{field: 'reason', title: '原因', width: 80}
-						,{field: 'inout', title: '出入', width: 60}
 						,{field: 'status', title: '状态', width: 60}
-						,{fixed: 'right', width:150, align:'center', toolbar: '#barDemo'}
+						,{width: 140, align:'center', toolbar: '#barDemo'}
 						]
 				    	]
+				    ,groups : 5
+					,jump: function(obj){
+				      console.log(obj)
+				    }
 				  });
 		});
 		</script>

@@ -38,13 +38,14 @@
 			var table = layui.table;
 
 			table.render({
-				elem : '#dataTable',
-				url : "http://localhost:8080/ecs/dailyData",
-				cellMinWidth : 80,
-				page : true,
-				method : 'post',
-				limit : 5,
-				even : true
+				elem : '#dataTable'
+				,url : "http://localhost:8080/ecs/dailyData"
+				,cellMinWidth : 80
+				,page : true
+				,method : 'post'
+				,limit : 2
+				,groups : 5
+				,even : true
 				,cols: [
 			    	   [ 
 					  {field: 'id', title: '序号', width: 60}
@@ -60,6 +61,10 @@
 					,{width:150, align:'center', toolbar: '#barDemo'}
 					]
 			    	]
+				,groups : 5
+				,jump: function(obj){
+			      console.log(obj)
+			    }
 			});
 		});
 	</script>
