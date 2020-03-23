@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.ecs.common.IpUtil;
 import com.ecs.constant.Constant;
 import com.ecs.domain.Teacher;
 import com.ecs.domain.User;
