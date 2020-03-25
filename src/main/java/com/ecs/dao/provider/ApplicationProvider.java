@@ -2,7 +2,7 @@ package com.ecs.dao.provider;
 
 public class ApplicationProvider {
 		//分页动态查询
-	public String selectWithParam(String college,String major,String classes)
+	public String selectWithParam(String college,String major,String classes, String inout)
 	{
 		StringBuffer sql=new StringBuffer("select * from application where ");
 			if (college!=null && !college.equals("")) {
@@ -26,6 +26,7 @@ public class ApplicationProvider {
 					}
 				}
 			}
+			sql.append(" and `inout`= '"+inout+"'");
 			return sql.toString();
 	}
 	//根据学号和姓名模糊查询

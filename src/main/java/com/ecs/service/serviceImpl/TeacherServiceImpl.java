@@ -58,17 +58,24 @@ public class TeacherServiceImpl implements TeacherService {
 	}
 
 	@Override
-<<<<<<< HEAD
 	public Teacher findTeacherByTnum(String tnum) {
 		
 		return teacherDao.findTeacherByTnum(tnum);
 	}
 	
-=======
+	@Override
+	public List<Teacher> findTeacherByCollege(String college) {
+		
+		return teacherDao.findTeacherByCollege(college);
+	}
+	
+	@Override
 	public List<Teacher> dynamicTeacher(String college, String tnum) {
 		
 		return teacherDao.dynamicTeacher(college, tnum);
 	}
 
->>>>>>> e274da748c0a67f597722bf4a30d69d41a4b7b7c
+	
+
+
 }

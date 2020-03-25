@@ -152,11 +152,10 @@
 							alert("获取数据失败,请重试.")
 						}
 					});
-					/* }; */
 					
 				 	 table.render({
 						    elem: '#dataTable'
-						    ,url: [[@{/dayStudentDynamic}]]+"?college="+college
+						    ,url: [[@{/studentDynamic}]]+"?college="+college
 						    ,cellMinWidth: 80 
 						    ,page: true
 						    ,method: 'post'
@@ -166,16 +165,19 @@
 						    	[ 
 								  {field: 'id', title: '序号', width: 60}
 								,{field: 'sname', title: '姓名', width: 140}
-								,{field: 'snum', title: '学号', width: 160}
+								,{field: 'snum', title: '学号', width: 160}						
+								,{field: 'school', title: '学校', width:170}
 								,{field: 'college', title: '学院', width: 160}
 								,{field: 'major', title: '专业', minWidth: 140}
 								,{field: 'classes', title: '班级', width: 80}
-								,{field: 'addr', title: '地点', maxWidth: 200}
-								,{field: 'date', title: '日期', width: 140}
-								,{field: 'temp', title: '体温', width: 60}
-								,{field: 'symptom', title: '症状', width: 60}
+								,{field: 'sex', title: '性别', width: 60}
+								,{field: 'tel', title: '电话', minWidth: 140}
 								]
 						    	]
+						    ,groups : 5
+							,jump: function(obj){
+						      console.log(obj)
+						    }
 						  });
 				});
 			  
@@ -190,7 +192,7 @@
 						form.render('select');
 						table.render({
 						    elem: '#dataTable'
-						    ,url: [[@{/dayStudentDynamic}]]+"?college="+college
+						    ,url: [[@{/studentDynamic}]]+"?college="+college
 						    ,cellMinWidth: 80 
 						    ,page: true
 						    ,method: 'post'
@@ -200,16 +202,19 @@
 						    	[ 
 								  {field: 'id', title: '序号', width: 60}
 								,{field: 'sname', title: '姓名', width: 140}
-								,{field: 'snum', title: '学号', width: 160}
+								,{field: 'snum', title: '学号', width: 160}						
+								,{field: 'school', title: '学校', width:170}
 								,{field: 'college', title: '学院', width: 160}
 								,{field: 'major', title: '专业', minWidth: 140}
 								,{field: 'classes', title: '班级', width: 80}
-								,{field: 'addr', title: '地点', maxWidth: 200}
-								,{field: 'date', title: '日期', width: 140}
-								,{field: 'temp', title: '体温', width: 60}
-								,{field: 'symptom', title: '症状', width: 60}
+								,{field: 'sex', title: '性别', width: 60}
+								,{field: 'tel', title: '电话', minWidth: 140}
 								]
 						    	]
+						    ,groups : 5
+							,jump: function(obj){
+						      console.log(obj)
+						    }
 						  });
 					}else{
 						$.ajax({
@@ -232,7 +237,7 @@
 						});
 					 	table.render({
 						    elem: '#dataTable'
-						    ,url: [[@{/dayStudentDynamic}]]+"?major="+major
+						    ,url: [[@{/studentDynamic}]]+"?major="+major
 						    ,cellMinWidth: 80 
 						    ,page: true
 						    ,method: 'post'
@@ -242,16 +247,19 @@
 						    	[ 
 								  {field: 'id', title: '序号', width: 60}
 								,{field: 'sname', title: '姓名', width: 140}
-								,{field: 'snum', title: '学号', width: 160}
+								,{field: 'snum', title: '学号', width: 160}						
+								,{field: 'school', title: '学校', width:170}
 								,{field: 'college', title: '学院', width: 160}
 								,{field: 'major', title: '专业', minWidth: 140}
 								,{field: 'classes', title: '班级', width: 80}
-								,{field: 'addr', title: '地点', maxWidth: 200}
-								,{field: 'date', title: '日期', width: 140}
-								,{field: 'temp', title: '体温', width: 60}
-								,{field: 'symptom', title: '症状', width: 60}
+								,{field: 'sex', title: '性别', width: 60}
+								,{field: 'tel', title: '电话', minWidth: 140}
 								]
 						    	]
+						    ,groups : 5
+							,jump: function(obj){
+						      console.log(obj)
+						    }
 						  });
 					}
 				 	
@@ -265,7 +273,7 @@
 					if(parentid=="0"){
 						table.render({
 						    elem: '#dataTable'
-						    ,url: [[@{/dayStudentDynamic}]]+"?major="+major
+						    ,url: [[@{/studentDynamic}]]+"?major="+major
 						    ,cellMinWidth: 80 
 						    ,page: true
 						    ,method: 'post'
@@ -275,21 +283,24 @@
 						    	[ 
 								  {field: 'id', title: '序号', width: 60}
 								,{field: 'sname', title: '姓名', width: 140}
-								,{field: 'snum', title: '学号', width: 160}
+								,{field: 'snum', title: '学号', width: 160}						
+								,{field: 'school', title: '学校', width:170}
 								,{field: 'college', title: '学院', width: 160}
 								,{field: 'major', title: '专业', minWidth: 140}
 								,{field: 'classes', title: '班级', width: 80}
-								,{field: 'addr', title: '地点', maxWidth: 200}
-								,{field: 'date', title: '日期', width: 140}
-								,{field: 'temp', title: '体温', width: 60}
-								,{field: 'symptom', title: '症状', width: 60}
+								,{field: 'sex', title: '性别', width: 60}
+								,{field: 'tel', title: '电话', minWidth: 140}
 								]
 						    	]
+						    ,groups : 5
+							,jump: function(obj){
+						      console.log(obj)
+						    }
 						  });
 					}else{
 						table.render({
 						    elem: '#dataTable'
-						    ,url: [[@{/dayStudentDynamic}]]+"?classes="+classes+"&major="+major
+						    ,url: [[@{/studentDynamic}]]+"?classes="+classes+"&major="+major
 						    ,cellMinWidth: 80 
 						    ,page: true
 						    ,method: 'post'
@@ -299,16 +310,19 @@
 						    	[ 
 								  {field: 'id', title: '序号', width: 60}
 								,{field: 'sname', title: '姓名', width: 140}
-								,{field: 'snum', title: '学号', width: 160}
+								,{field: 'snum', title: '学号', width: 160}						
+								,{field: 'school', title: '学校', width:170}
 								,{field: 'college', title: '学院', width: 160}
 								,{field: 'major', title: '专业', minWidth: 140}
 								,{field: 'classes', title: '班级', width: 80}
-								,{field: 'addr', title: '地点', maxWidth: 200}
-								,{field: 'date', title: '日期', width: 140}
-								,{field: 'temp', title: '体温', width: 60}
-								,{field: 'symptom', title: '症状', width: 60}
+								,{field: 'sex', title: '性别', width: 60}
+								,{field: 'tel', title: '电话', minWidth: 140}
 								]
 						    	]
+						    ,groups : 5
+							,jump: function(obj){
+						      console.log(obj)
+						    }
 						  });
 					}
 				 	

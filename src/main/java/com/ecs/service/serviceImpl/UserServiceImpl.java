@@ -97,7 +97,7 @@ public class UserServiceImpl implements UserService {
 		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		
 		//保存用户访问记录
-		accessDataService.addAccessData(teacher.getTname(), teacher.getTnum(), ip, f.format(now));
+		accessDataService.addAccessData(teacher.getTname(), teacher.getTnum(),teacher.getCollege(), ip, f.format(now));
 		
 		model.put("teacher", teacher);
 		model.put("msg", "success");

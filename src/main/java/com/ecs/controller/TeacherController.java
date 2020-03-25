@@ -83,10 +83,9 @@ public class TeacherController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/userData", method = RequestMethod.POST)
-	public String userData(String page, String limit) {
-		
+	public String userData(String page, String limit, String college) {
 		PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(limit));
-		List<Teacher> data = teacherService.findAllTeacher();
+		List<Teacher> data = teacherService.findTeacherByCollege(college);
 		PageInfo<Teacher> pageInfo = new PageInfo<Teacher>(data);
 		
 		Map<String, Object> map = new HashMap<String, Object>();

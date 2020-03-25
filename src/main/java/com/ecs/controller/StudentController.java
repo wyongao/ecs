@@ -50,7 +50,7 @@ public class StudentController {
 	@RequestMapping("/addStudent")
 	@ResponseBody
 	public String addStudent(Student student) {
-		student.setClasses(1741);
+		student.setClasses("1741");
 		student.setCollege("计算机学院");
 		student.setMajor("计算机科学与技术啊");
 		student.setSchool("河南工程学院");
@@ -75,7 +75,7 @@ public class StudentController {
 	@RequestMapping("/updateStudent")
 	@ResponseBody
 	public String updateStudent(Student student) {
-		student.setClasses(1741);
+		student.setClasses("1741");
 		student.setCollege("理学院");
 		student.setMajor("计算机科学与技术");
 		student.setSchool("河南工程学院");
@@ -86,11 +86,20 @@ public class StudentController {
 		System.out.println("修改成功----------------->>>");
 		return "修改成功";
 	}
-	@RequestMapping(value = "/dynamicStudent")
+	@RequestMapping(value = "/studentDynamic")
 	@ResponseBody
-	public String dynamicStudent(String college,String major,Integer classes) {
+	public String studentDynamic(String page, String limit, String college, String major, String classes) {
+		
+		
+		PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(limit));
 		List<Student> data=studentService.dynamicStudents(college, major, classes);
-		return data.toString();
+		PageInfo<Student> pageInfo = new PageInfo<>(data);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("code", "0");
+		map.put("msg", "");
+		map.put("count", pageInfo.getTotal());
+		map.put("data", data);
+		return JsonUtils.objectToJson(map);
 	}
 	
 	

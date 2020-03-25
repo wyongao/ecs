@@ -142,7 +142,10 @@ public class UserController {
 	@RequestMapping("/goAccessData")
 	public String goAccessData(String tnum, Map<String, Object> model) {
 	
-		model.put("teacher", teacherService.findTeacherByTnum(tnum));
+		Teacher t = teacherService.findTeacherByTnum(tnum);
+		
+		model.put("college", collegeService.findCollegeByName(t.getCollege()));
+		model.put("teacher", t);
 		return "accessData";
 	}
 
@@ -158,11 +161,11 @@ public class UserController {
 	@RequestMapping("/goBaseData")
 	public String goBaseData(String tnum, Map<String, Object> model) {
 		
-		Teacher teacher = teacherService.findTeacherByTnum(tnum);
-		model.put("college", collegeService.findCollegeByName(teacher.getCollege()));
-		model.put("major", majorService.findMajorByParentName(teacher.getCollege()));
+		Teacher t = teacherService.findTeacherByTnum(tnum);
+		model.put("college", collegeService.findCollegeByName(t.getCollege()));
+		model.put("major", majorService.findMajorByParentName(t.getCollege()));
 		
-		model.put("teacher", teacher);
+		model.put("teacher", t);
 		return "baseData";
 	}
 
@@ -175,15 +178,20 @@ public class UserController {
         model.put("college", collegeService.findCollegeByName(t.getCollege()));
         model.put("major", majorService.findMajorByParentName(t.getCollege()));
         
-        model.put("teacher", teacherService.findTeacherByTnum(tnum));
+        model.put("teacher", t);
 		return "dailyData";
 	}
 
 	// 进入入校申请页面
 	@RequestMapping("/goIn")
 	public String goIn(String tnum, Map<String, Object> model) {
-
-		model.put("teacher", teacherService.findTeacherByTnum(tnum));
+		
+		Teacher t = teacherService.findTeacherByTnum(tnum);
+		
+        model.put("college", collegeService.findCollegeByName(t.getCollege()));
+        model.put("major", majorService.findMajorByParentName(t.getCollege()));
+		
+		model.put("teacher", t);
 		return "in";
 	}
 
@@ -191,15 +199,23 @@ public class UserController {
 	@RequestMapping("/goOut")
 	public String goOut(String tnum, Map<String, Object> model) {
 
-		model.put("teacher", teacherService.findTeacherByTnum(tnum));
+		Teacher t = teacherService.findTeacherByTnum(tnum);
+		
+        model.put("college", collegeService.findCollegeByName(t.getCollege()));
+        model.put("major", majorService.findMajorByParentName(t.getCollege()));
+		
+		model.put("teacher", t);
 		return "out";
 	}
 
 	// 进入用户数据页面
 	@RequestMapping("/goUserData")
 	public String goUserData(String tnum, Map<String, Object> model) {
-
-		model.put("teacher", teacherService.findTeacherByTnum(tnum));
+		
+		Teacher t = teacherService.findTeacherByTnum(tnum);
+		
+		model.put("college", collegeService.findCollegeByName(t.getCollege()));
+		model.put("teacher", t);
 		return "userData";
 	}
 	

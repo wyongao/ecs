@@ -64,6 +64,12 @@ public class ApplicationServiceImpl implements ApplicationService{
 //	}
 //	
 
+	@Override
+	public List<Application> applicationDynamic(String college, String major, String classes, String inout) {
+		
+		return applicationDao.applicationDynamic(college, major, classes, inout);
+	}
+	
 	
 	@Override
 	public List<Application> findOutData() {
@@ -71,17 +77,32 @@ public class ApplicationServiceImpl implements ApplicationService{
 		return applicationDao.findOutData("1");
 	}
 	
-	
 	@Override
 	public List<Application> findInData() {
 		
 		return applicationDao.findInData("2");
 	}
+	
+	@Override
+	public List<Application> findOutDataByCollege(String college) {
+		
+		return applicationDao.findDataByCollege("1", college);
+	}
+	
+	@Override
+	public List<Application> findInDataByCollege(String college) {
+		
+		return applicationDao.findDataByCollege("2", college);
+	}
+	
 	@Override
 	public List<Application> fuzzyAppliacation(String snum, String sname) {
 
 		return applicationDao.fuzzyAppliacation(snum, sname);
 	}
+	
+	
+	
 	
 
 

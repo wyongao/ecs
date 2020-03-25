@@ -17,6 +17,7 @@ import com.ecs.common.DateUtil;
 import com.ecs.common.JsonUtils;
 import com.ecs.constant.Constant;
 import com.ecs.domain.Application;
+import com.ecs.domain.Student;
 import com.ecs.service.ApplicationService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -32,7 +33,8 @@ import com.github.pagehelper.PageInfo;
 public class ApplicationController {
 	@Autowired
 	private ApplicationService applicationService;
-	Log logger=LogFactory.getLog(ApplicationController.class);
+	Log logger = LogFactory.getLog(ApplicationController.class);
+
 	@RequestMapping("/addApplicationInfo")
 	@ResponseBody
 	// 上报申请
@@ -90,19 +92,21 @@ public class ApplicationController {
 		System.out.println("总页数" + pageInfo.getPages() + "当前页" + pageInfo.getPageNum() + "总记录数" + pageInfo.getTotal());
 		return "成功";
 	}
-	//测试动态sql
-	//有空字符串的bug
+
+	// 测试动态sql
+	// 有空字符串的bug
 	@RequestMapping("/findAllApplications")
 	@ResponseBody
-	public String findAllApplications(String college,String major,String classes,@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
-		PageHelper.startPage(pageNum,Constant.PAGE_SIZE);
-		List<Application> list=applicationService.findAllApplications(college,major,classes);
-		PageInfo<Application> pageInfo=new PageInfo<Application>(list);
+	public String findAllApplications(String college, String major, String classes,
+			@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
+		PageHelper.startPage(pageNum, Constant.PAGE_SIZE);
+		List<Application> list = applicationService.findAllApplications(college, major, classes);
+		PageInfo<Application> pageInfo = new PageInfo<Application>(list);
 		System.out.println("总页数" + pageInfo.getPages() + "当前页" + pageInfo.getPageNum() + "总记录数" + pageInfo.getTotal());
-		
+
 		return "成功";
 	}
-	
+
 //	//测试xml
 //	@RequestMapping("/findAll")
 //	@ResponseBody
@@ -110,76 +114,101 @@ public class ApplicationController {
 //		applicationService.findAllApplication();
 //		return "测试成功!";
 //	}
-	
-	
-	
+
 	@RequestMapping(value = "/updateStatus")
 	@ResponseBody
 	// 修改申请状态(管理员)
-	public String updateStatus(String status, String snum,String data) {
+	public String updateStatus(String status, String snum, String data) {
 		status = "2";
 		snum = "201710913106";
 		applicationService.updateStatus(status, snum, DateUtil.getDate());
 		return "成功";
 	}
-	
-	//查找出校申请
+
+	//出校申请动态查询
+	@RequestMapping(value = "/outDynamic")
 	@ResponseBody
-	@RequestMapping(value = "/outData", method = RequestMethod.POST)
-	public String outData(String page, String limit) {
+	public String outDynamic(String page, String limit, String college, String major, String classes) {
+		
 		
 		PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(limit));
-		List<Application> data = applicationService.findOutData();
-		PageInfo<Application> pageInfo = new PageInfo<Application>(data);
-		
+		List<Application> data=applicationService.applicationDynamic(college, major, classes, "1");
+		PageInfo<Application> pageInfo = new PageInfo<>(data);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("code", "0");
 		map.put("msg", "");
 		map.put("count", pageInfo.getTotal());
 		map.put("data", data);
-		
 		return JsonUtils.objectToJson(map);
 	}
 	
+	//入校申请动态查询
+	@RequestMapping(value = "/inDynamic")
+	@ResponseBody
+	public String inDynamic(String page, String limit, String college, String major, String classes) {
+		
+		
+		PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(limit));
+		List<Application> data=applicationService.applicationDynamic(college, major, classes, "2");
+		PageInfo<Application> pageInfo = new PageInfo<>(data);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("code", "0");
+		map.put("msg", "");
+		map.put("count", pageInfo.getTotal());
+		map.put("data", data);
+		return JsonUtils.objectToJson(map);
+	}
 	
-	//查找入校申请
-		@ResponseBody
-		@RequestMapping(value = "/inData", method = RequestMethod.POST)
-		public String inData(String page, String limit) {
-			
-			PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(limit));
-			List<Application> data = applicationService.findInData();
-			PageInfo<Application> pageInfo = new PageInfo<Application>(data);
-			
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("code", "0");
-			map.put("msg", "");
-			map.put("count", pageInfo.getTotal());
-			map.put("data", data);
-			
-			return JsonUtils.objectToJson(map);
-		}
-	
-		//根据学号和姓名模糊查询进行分页
-		@RequestMapping(value="/fuzzyApplication")
-		@ResponseBody
-		public String fuzzyApllication(String snum,String sname,String limit,String page) {
-			PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(limit));
-			List<Application> data=applicationService.fuzzyAppliacation(snum, sname);
-			PageInfo<Application> pageInfo = new PageInfo<Application>(data);
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("code", "0");
-			map.put("msg", "");
-			map.put("count", pageInfo.getTotal());
-			map.put("data", data);
-			
-			return JsonUtils.objectToJson(map);
-		}
-	
-	
-	
-	
-	
-	
-	
+	// 查找出校申请
+	@ResponseBody
+	@RequestMapping(value = "/outData", method = RequestMethod.POST)
+	public String outData(String page, String limit, String college) {
+
+		PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(limit));
+		List<Application> data = applicationService.findOutDataByCollege(college);
+		PageInfo<Application> pageInfo = new PageInfo<Application>(data);
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("code", "0");
+		map.put("msg", "");
+		map.put("count", pageInfo.getTotal());
+		map.put("data", data);
+
+		return JsonUtils.objectToJson(map);
+	}
+
+	// 查找入校申请
+	@ResponseBody
+	@RequestMapping(value = "/inData", method = RequestMethod.POST)
+	public String inData(String page, String limit, String college) {
+
+		PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(limit));
+		List<Application> data = applicationService.findInDataByCollege(college);
+		PageInfo<Application> pageInfo = new PageInfo<Application>(data);
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("code", "0");
+		map.put("msg", "");
+		map.put("count", pageInfo.getTotal());
+		map.put("data", data);
+
+		return JsonUtils.objectToJson(map);
+	}
+
+	// 根据学号和姓名模糊查询进行分页
+	@RequestMapping(value = "/fuzzyApplication")
+	@ResponseBody
+	public String fuzzyApllication(String snum, String sname, String limit, String page) {
+		PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(limit));
+		List<Application> data = applicationService.fuzzyAppliacation(snum, sname);
+		PageInfo<Application> pageInfo = new PageInfo<Application>(data);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("code", "0");
+		map.put("msg", "");
+		map.put("count", pageInfo.getTotal());
+		map.put("data", data);
+
+		return JsonUtils.objectToJson(map);
+	}
+
 }

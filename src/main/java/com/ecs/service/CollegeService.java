@@ -22,5 +22,7 @@ public interface CollegeService {
 	 */
 	public List<College> findAllCollege();
 	
+	public List<College> findCollegeByParentName(String schoolname);
+	
 	public College findCollegeByName(String collegename);
 }

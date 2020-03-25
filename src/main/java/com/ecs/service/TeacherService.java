@@ -36,9 +36,11 @@ public interface TeacherService {
 	 */
 	public void updateTeacher(Teacher teacher);
 	
-<<<<<<< HEAD
+
 	public Teacher findTeacherByTnum(String tnum);
-=======
+
+	public List<Teacher> findTeacherByCollege(String college);
+	
 	/**
 	 * 动态查询根据职工号和学院
 	 * @param college
@@ -46,6 +48,6 @@ public interface TeacherService {
 	 * @return
 	 */
 	public List<Teacher> dynamicTeacher(String college,String tnum);
->>>>>>> e274da748c0a67f597722bf4a30d69d41a4b7b7c
+
 	
 }

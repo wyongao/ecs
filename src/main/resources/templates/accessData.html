@@ -15,7 +15,9 @@
 			<div class="header">
 				<ul class="layui-nav">
 					<li class="layui-nav-item"><a th:href="@{/login}">退出</a></li>
-					<li class="layui-nav-item"><a href="javascript:;" id="userInfo" th:value="${teacher.tnum}" th:text="${teacher.tname}"></a></li>
+					<li class="layui-nav-item"><a href="javascript:;"
+						id="userInfo" th:value="${teacher.tnum}"
+						th:text="${teacher.tname}"></a></li>
 				</ul>
 			</div>
 			<div class="side">
@@ -41,7 +43,8 @@
 						</dl></li>
 					<li class="layui-nav-item"><a href="javascript:;">数据报表</a></li>
 					<li class="layui-nav-item"><a href="javascript:;">二维码</a></li>
-					<li class="layui-nav-item"><a th:href="@{/goAccessData(tnum=${teacher.tnum})}"
+					<li class="layui-nav-item"><a
+						th:href="@{/goAccessData(tnum=${teacher.tnum})}"
 						class="layui-this">访问记录</a></li>
 					<!-- <li class="layui-nav-item">
 							<a href="javascript:;">用户管理</a>
@@ -57,10 +60,10 @@
 		<div class="main layui-body">
 			<div class="top layui-form">
 				<div class="layui-form-item">
-					<select class="layui-select" name="college" lay-verify="">
-						<option value="010" selected>计算机学院</option>
-						<option value="021">会计学院</option>
-						<option value="0571">理学院</option>
+					<select class="layui-select" name="college" id="college"
+						lay-filter="college" lay-verify="" lay-search>
+						<option th:each="college : ${college}" th:value="${college.id}"
+							th:text="${college.collegename}" />
 					</select>
 				</div>
 				<div class="layui-form-item">
@@ -83,10 +86,14 @@
 	<script type="text/javascript" th:inline="javascript">
 	layui.use('table', function(){
 		  var table = layui.table;
+		  var form = layui.form;
+		  var $ = layui.jquery;
+		
 		  
+		  //初始化
 		  table.render({
 		    elem: '#dataTable'
-		    ,url: [[@{/accessData}]]
+		    ,url: [[@{/accessData(college=${teacher.college})}]]
 		    ,cellMinWidth: 80 
 		    ,page: true
 		    ,method: 'post'
@@ -97,6 +104,7 @@
 				  {field: 'id', title: '序号', width: 100}
 				,{field: 'username', title: '姓名', width: 200}
 				,{field: 'userid', title: '工号'}
+				,{field: 'college', title: '学院'}
 				,{field: 'ip', title: 'IP',}
 				,{field: 'date', title: '时间'}
 				]
@@ -106,7 +114,40 @@
 		      console.log(obj)
 		    }
 		  });
+		  
+		  form.on('select(college)', function(data) {
+				//根据学院找学院老师
+					var college = data.elem[data.elem.selectedIndex].text;						
+				 	 table.render({
+						    elem: '#dataTable'
+						    ,url: [[@{/accessData}]]+"?college="+college
+						    ,cellMinWidth: 80 
+						    ,page: true
+						    ,method: 'post'
+						    ,limit: 12
+						    ,even: true
+						    ,cols: [
+						    	[ 
+								  {field: 'id', title: '序号', width: 100}
+								,{field: 'username', title: '姓名', width: 200}
+								,{field: 'userid', title: '工号'}
+								,{field: 'college', title: '学院'}
+								,{field: 'ip', title: 'IP',}
+								,{field: 'date', title: '时间'}
+								]
+						    	]
+						    ,groups : 5
+							,jump: function(obj){
+						      console.log(obj)
+						    }
+						  });
+				});
+		  
+		  
+		  
+		  
 		});
+	
 	
 		</script>
 </body>

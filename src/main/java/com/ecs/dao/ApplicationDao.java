@@ -10,7 +10,9 @@ import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
 
 import com.ecs.dao.provider.ApplicationProvider;
+import com.ecs.dao.provider.StudentProvider;
 import com.ecs.domain.Application;
+import com.ecs.domain.Student;
 
 /**
  * applicationDao
@@ -45,6 +47,14 @@ public interface ApplicationDao {
 	// 修改申请状态(管理员)
 	@Update("UPDATE application SET `status`=#{status} WHERE snum=#{snum} AND date=#{date}")
 	public void updateStatus(String status, String snum, String date);
+	
+	//动态查询
+	@SelectProvider(type = ApplicationProvider.class,method = "selectWithParam")
+	public List<Application> applicationDynamic(String college,String major,String classes, String inout);
+	
+	//根据学院名查询出校申请或入校申请
+	@Select("select * from application where `inout`=#{inout} and college=#{college}")
+	public List<Application> findDataByCollege(String inout, String college);
 	
 	//查找出校申请
 	@Select("select * from application where `inout`=#{inout}")

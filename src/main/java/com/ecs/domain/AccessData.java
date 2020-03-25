@@ -5,6 +5,7 @@ public class AccessData {
 	private Integer id;
 	private String username;
 	private String userid;
+	private String college;
 	private String ip;
 	private String date;
 	
@@ -26,6 +27,12 @@ public class AccessData {
 	public void setUserid(String userid) {
 		this.userid = userid;
 	}
+	public String getCollege() {
+		return college;
+	}
+	public void setCollege(String college) {
+		this.college = college;
+	}
 	public String getIp() {
 		return ip;
 	}
@@ -38,23 +45,26 @@ public class AccessData {
 	public void setDate(String date) {
 		this.date = date;
 	}
-	
 	@Override
 	public String toString() {
-		return "AccessData [id=" + id + ", username=" + username + ", userid=" + userid + ", ip=" + ip + ", date="
-				+ date + "]";
+		return "AccessData [id=" + id + ", username=" + username + ", userid=" + userid + ", college=" + college
+				+ ", ip=" + ip + ", date=" + date + "]";
 	}
 	
-	public AccessData() {};
+	public AccessData () {};
 	
-	public AccessData(Integer id, String username, String userid, String ip, String date) {
+	public AccessData(Integer id, String username, String userid, String college, String ip, String date) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.userid = userid;
+		this.college = college;
 		this.ip = ip;
 		this.date = date;
 	}
+	
+	
+	
 
 	
 	
