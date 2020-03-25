@@ -63,7 +63,7 @@ public class ApplicationController {
 	}
 
 	// 管理员根据学院查询申请的人
-	@RequestMapping("/findAllApplicationByCollege")
+	@RequestMapping(value = "/findAllApplicationByCollege")
 	@ResponseBody
 	public String findAllApplicationByCollege(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
 			String college) {
@@ -76,7 +76,7 @@ public class ApplicationController {
 	}
 
 	// 管理员根据学院专业班级查询申请的人
-	@RequestMapping("/findAllApplicationByCollegeAndMajorAndClasses")
+	@RequestMapping(value = "/findAllApplicationByCollegeAndMajorAndClasses")
 	@ResponseBody
 	public String findAllApplicationByCollegeAndMajorAndClasses(
 			@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum, String college, String major,
@@ -102,6 +102,7 @@ public class ApplicationController {
 		
 		return "成功";
 	}
+	
 //	//测试xml
 //	@RequestMapping("/findAll")
 //	@ResponseBody
@@ -109,10 +110,13 @@ public class ApplicationController {
 //		applicationService.findAllApplication();
 //		return "测试成功!";
 //	}
-	@RequestMapping("/updateStatus")
+	
+	
+	
+	@RequestMapping(value = "/updateStatus")
 	@ResponseBody
 	// 修改申请状态(管理员)
-	public String updateStatus(String status, String snum) {
+	public String updateStatus(String status, String snum,String data) {
 		status = "2";
 		snum = "201710913106";
 		applicationService.updateStatus(status, snum, DateUtil.getDate());
@@ -156,7 +160,21 @@ public class ApplicationController {
 			return JsonUtils.objectToJson(map);
 		}
 	
-	
+		//根据学号和姓名模糊查询进行分页
+		@RequestMapping(value="/fuzzyApplication")
+		@ResponseBody
+		public String fuzzyApllication(String snum,String sname,String limit,String page) {
+			PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(limit));
+			List<Application> data=applicationService.fuzzyAppliacation(snum, sname);
+			PageInfo<Application> pageInfo = new PageInfo<Application>(data);
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("code", "0");
+			map.put("msg", "");
+			map.put("count", pageInfo.getTotal());
+			map.put("data", data);
+			
+			return JsonUtils.objectToJson(map);
+		}
 	
 	
 	

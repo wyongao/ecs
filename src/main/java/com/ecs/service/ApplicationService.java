@@ -36,5 +36,14 @@ public interface ApplicationService {
 	
 	//查找入校申请
 	public List<Application> findInData();
+	
+	/**
+	 * 这是一个混合查询
+	 * 可以根据学号进行查询(非模糊),也可以根据姓名进行模糊查询
+	 * @param snum
+	 * @param sname
+	 * @return list
+	 */
+	public List<Application> fuzzyAppliacation(String snum,String sname);
 
 }

@@ -7,8 +7,10 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
 
+import com.ecs.dao.provider.TeacherProvider;
 import com.ecs.domain.Teacher;
 /**
  * teacher的DAO
@@ -37,5 +39,12 @@ public interface TeacherDao {
 	
 	@Select("select * from teacher where tnum=#{tnum}")
 	public Teacher findTeacherByTnum(String tnum);
-	
+	/**
+	 * 根据学院和职工号进行查找
+	 * @param college
+	 * @param tnum
+	 * @return
+	 */
+	@SelectProvider(type = TeacherProvider.class,method = "selectWithParam")
+	public List<Teacher> dynamicTeacher(String college,String tnum);
 }

@@ -6,8 +6,10 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
 
+import com.ecs.dao.provider.StudentProvider;
 import com.ecs.domain.Student;
 /**
  * 学生的Dao
@@ -42,7 +44,19 @@ public interface StudentDao {
 	 */
 	@Update("update student set sname=#{sname},snum=#{snum},school=#{school},college=#{college},major=#{major},classes=#{classes},sex=#{sex},tel=#{tel}")
 	public void updateStudent(Student student);
+<<<<<<< HEAD
 	
 	@Select("select * from student where college=#{collegename}")
 	public List<Student> findStudentByCollegeName(String collegename);
+=======
+	/**
+	 * 动态查询,三个参数
+	 * @param college
+	 * @param major
+	 * @param classes
+	 * @return list
+	 */
+	@SelectProvider(type = StudentProvider.class,method = "selectWithParam")
+	public List<Student> dynamicStudents(String college,String major,Integer classes);
+>>>>>>> e274da748c0a67f597722bf4a30d69d41a4b7b7c
 }

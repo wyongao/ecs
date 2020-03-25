@@ -77,10 +77,17 @@
 						<option value="0571">1743</option>
 					</select>
 				</div>
+<<<<<<< HEAD
 				<div class="layui-form-item">
 					<input type="search" class="layui-input layui-input-inline"
 						placeholder="201710913305">
 					<button type="button" class="layui-btn layui-btn-primary">搜索</button>
+=======
+				<div class="layui-table-box">
+					<table class="layui-table" id="dataTable" lay-filter="dataTable">
+						
+					</table>
+>>>>>>> e274da748c0a67f597722bf4a30d69d41a4b7b7c
 				</div>
 			</div>
 			<div class="layui-table-box">
@@ -93,16 +100,23 @@
 
 
 
+<<<<<<< HEAD
 	<script src="js/layui.all.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/html" id="barDemo">
   			<a class="layui-btn layui-btn-xs" lay-event="">通过</a>
   			<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="">驳回</a>
+=======
+		<script src="js/layui.all.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/html" id="barDemo">
+  			<button class="layui-btn layui-btn-xs" lay-event="agree">通过</button>
+  			<button class="layui-btn layui-btn-danger layui-btn-xs" lay-event="reject">驳回</button>
+>>>>>>> e274da748c0a67f597722bf4a30d69d41a4b7b7c
 		</script>
 
 	<script type="text/javascript" th:inline="javascript">
 		layui.use('table', function(){
 			var table = layui.table;
-			
+			var $ = layui.jquery;
 			 table.render({
 				    elem: '#dataTable'
 				    ,url: [[@{/outData}]]
@@ -131,6 +145,55 @@
 				      console.log(obj)
 				    }
 				  });
+			/*  function getValue(){
+					 var checkStatus=table.checkStatus('dataTable');
+					 console.log(checkStatus);
+					 console.log(checkStatus.data.length);
+					data=checkStatus.data;
+					 alert("重点来了");
+					 alert(data);
+					date=data.date;
+					snum=data.snum;
+					alert(date+snum);
+			 }; */
+			 table.on('tool(dataTable)',function(obj){
+				 switch(obj.event){
+				 case 'agree':
+					// getValue();
+					 var status=1;
+					 alert("同意");
+					 break;
+				 case 'reject':
+					 var status=0;
+					 alert("拒绝");
+					 break;
+				 };
+			 });
+			 
+		/* 	 function changStatus(status){
+				 
+				 $.ajax({
+						type: "post",
+				 		url: [[@{/findAllCollege}]],
+						dataType:"json",
+				 		success: function(data) {
+				 			alert(data.data2[1].id);
+				 			alert(data.data2[1].collegename);
+				 			  $("#college").empty();
+				 			  $(" #college").prepend("<option value='0'>请选择学院</option>");
+				 			  for (var i = 0; i < data.data2.length; i++) {
+								//如果在select中传递其他参数，可以在option 的value属性中添加参数
+								$("#college").append("<option value='" + data.data2[i].id + "'>" + data.data2[i].collegename +
+									"</option>"); 
+									
+							};
+							form.render('select');
+						},
+						error: function(){
+							alert("获取数据失败,请重试.")
+						}
+					});
+			 } */
 		});
 		</script>
 </body>

@@ -17,5 +17,10 @@ public interface DayTeacherService {
 			
 		//查找老师的轨迹信息(面向小程序端的)
 		public List<String> traceTeacher(String tnum);
-
+		
+		//老师的模糊查询
+		public List<DayTeacher> fuzzyDayTeachers(String tname);
+		
+		//动态查询
+		public List<DayTeacher> dynamicDayTeachers(String college,String tnum);
 }

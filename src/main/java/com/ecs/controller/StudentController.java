@@ -86,6 +86,12 @@ public class StudentController {
 		System.out.println("修改成功----------------->>>");
 		return "修改成功";
 	}
+	@RequestMapping(value = "/dynamicStudent")
+	@ResponseBody
+	public String dynamicStudent(String college,String major,Integer classes) {
+		List<Student> data=studentService.dynamicStudents(college, major, classes);
+		return data.toString();
+	}
 	
 	
 	@ResponseBody
