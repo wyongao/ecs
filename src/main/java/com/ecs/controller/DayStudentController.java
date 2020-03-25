@@ -141,10 +141,10 @@ public class DayStudentController {
 
 	@ResponseBody
 	@RequestMapping(value = "/dailyData", method = RequestMethod.POST)
-	public String dailyData(String page, String limit) {
+	public String dailyData(String page, String limit, String college) {
 
 		PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(limit));
-		List<DayStudent> data = dayStudentService.findAll();
+		List<DayStudent> data = dayStudentService.findByCollege(college);
 		PageInfo<DayStudent> pageInfo = new PageInfo<>(data);
 
 		Map<String, Object> map = new HashMap<String, Object>();

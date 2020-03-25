@@ -5,9 +5,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 //import lombok.extern.slf4j.Slf4j;
  
-/**
- * Created by Bill.Tang on 2018-9-27.
- */
+
  
 public class JsonUtils {
     // 定义jackson对象

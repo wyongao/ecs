@@ -22,7 +22,7 @@ public interface StudentDao {
 	 * 查找所有的学生
 	 * @return
 	 */
-	@Select("select * from student ")
+	@Select("select * from student")
 	public List<Student> findAllStudent();
 	/**
 	 * 添加学生
@@ -42,4 +42,7 @@ public interface StudentDao {
 	 */
 	@Update("update student set sname=#{sname},snum=#{snum},school=#{school},college=#{college},major=#{major},classes=#{classes},sex=#{sex},tel=#{tel}")
 	public void updateStudent(Student student);
+	
+	@Select("select * from student where college=#{collegename}")
+	public List<Student> findStudentByCollegeName(String collegename);
 }

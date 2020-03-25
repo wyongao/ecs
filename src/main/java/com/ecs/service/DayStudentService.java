@@ -29,5 +29,7 @@ public interface DayStudentService {
 	public void addDayStudent(DayStudent dayStudent);
 	    //查找所有
 	public List<DayStudent> findAll();
+    //查找所有
+	public List<DayStudent> findByCollege(String college);
 
 }

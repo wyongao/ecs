@@ -42,4 +42,10 @@ public class StudentServiceImpl implements StudentService {
 		
 	}
 
+	@Override
+	public List<Student> findStudentByCollegeName(String collegename) {
+		
+		return studentDao.findStudentByCollegeName(collegename);
+	}
+
 }

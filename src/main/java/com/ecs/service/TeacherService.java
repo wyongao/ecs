@@ -36,4 +36,6 @@ public interface TeacherService {
 	 */
 	public void updateTeacher(Teacher teacher);
 	
+	public Teacher findTeacherByTnum(String tnum);
+	
 }

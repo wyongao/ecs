@@ -15,8 +15,7 @@
 			<div class="header">
 				<ul class="layui-nav">
 					<li class="layui-nav-item"><a th:href="@{/login}">退出</a></li>
-					<li class="layui-nav-item"><a href="javascript:;"><img
-							src="//t.cn/RCzsdCq" class="layui-nav-img">我</a></li>
+					<li class="layui-nav-item"><a href="javascript:;" id="userInfo" th:value="${teacher.tnum}" th:text="${teacher.tname}"></a></li>
 				</ul>
 			</div>
 			<div class="side">
@@ -25,30 +24,30 @@
 					<li class="layui-nav-item"><a href="javascript:;">数据管理</a>
 						<dl class="layui-nav-child">
 							<dd>
-								<a th:href="@{/goDailyData}">打卡数据</a>
+								<a th:href="@{/goDailyData(tnum=${teacher.tnum})}">打卡数据</a>
 							</dd>
 							<dd>
-								<a th:href="@{/goBaseData}">基础数据</a>
+								<a th:href="@{/goBaseData(tnum=${teacher.tnum})}">基础数据</a>
 							</dd>
 						</dl></li>
 					<li class="layui-nav-item"><a href="javascript:;">申请管理</a>
 						<dl class="layui-nav-child">
 							<dd>
-								<a th:href="@{/goOut}">出校申请</a>
+								<a th:href="@{/goOut(tnum=${teacher.tnum})}">出校申请</a>
 							</dd>
 							<dd>
-								<a th:href="@{/goIn}">入校申请</a>
+								<a th:href="@{/goIn(tnum=${teacher.tnum})}">入校申请</a>
 							</dd>
 						</dl></li>
 					<li class="layui-nav-item"><a href="javascript:;">数据报表</a></li>
 					<li class="layui-nav-item"><a href="javascript:;">二维码</a></li>
-					<li class="layui-nav-item"><a th:href="@{/goAccessData}"
+					<li class="layui-nav-item"><a th:href="@{/goAccessData(tnum=${teacher.tnum})}"
 						class="layui-this">访问记录</a></li>
 					<!-- <li class="layui-nav-item">
 							<a href="javascript:;">用户管理</a>
 							<dl class="layui-nav-child">
-								<dd><a th:href="@{/goUserData}">用户数据</a></dd>
-								<dd><a th:href="@{/goAddUser}">添加用户</a></dd>
+								<dd><a th:href="@{/goUserData(tnum=${teacher.tnum})}">用户数据</a></dd>
+								<dd><a th:href="@{/goAddUser(tnum=${teacher.tnum})}">添加用户</a></dd>
 							</dl>
 						</li> -->
 					<li class="layui-nav-item"><a href="javascript:;">设置</a></li>

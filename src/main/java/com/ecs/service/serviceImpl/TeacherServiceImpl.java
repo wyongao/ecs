@@ -53,5 +53,11 @@ public class TeacherServiceImpl implements TeacherService{
 
 		teacherDao.updateTeacher(teacher);
 	}
+
+	@Override
+	public Teacher findTeacherByTnum(String tnum) {
+		
+		return teacherDao.findTeacherByTnum(tnum);
+	}
 	
 }

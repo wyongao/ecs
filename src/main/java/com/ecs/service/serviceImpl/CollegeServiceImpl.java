@@ -17,8 +17,10 @@ import com.ecs.service.CollegeService;
 
 @Service
 public class CollegeServiceImpl implements CollegeService{
+	
 	@Autowired
 	private CollegeDao collegeDao;
+	
 	@Override
 	public List<College> findAllCollegeByParentId(Integer parentid) {
 		
@@ -29,6 +31,13 @@ public class CollegeServiceImpl implements CollegeService{
 	public List<College> findAllCollege() {
 		
 		return collegeDao.findAllCollege();
+	}
+
+	//根据父级学校名字查找二级院校
+	@Override
+	public College findCollegeByName(String collegename) {
+		
+		return collegeDao.findCollegeByName(collegename);
 	}
 
 }

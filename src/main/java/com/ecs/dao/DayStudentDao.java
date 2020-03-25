@@ -46,4 +46,7 @@ public interface DayStudentDao {
 	
 	@Select("select * from day_student")
 	public List<DayStudent> findAll();
+	
+	@Select("select * from day_student where college=#{college}")
+	public List<DayStudent> findByCollege(String college);
 }

@@ -75,9 +75,13 @@ public class DayStudentServiceImpl implements DayStudentService {
 	@Override
 	public List<DayStudent> findAll() {
 		
-		
-		
 		return dayStudentDao.findAll();
+	}
+
+	@Override
+	public List<DayStudent> findByCollege(String college) {
+		
+		return dayStudentDao.findByCollege(college);
 	}
 
 }

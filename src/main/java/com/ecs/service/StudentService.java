@@ -21,5 +21,8 @@ public interface StudentService {
 	
 	//修改学生的信息
 	public void updateStudent(Student student);
+	
+	//根据学院名称查找学生
+	public List<Student> findStudentByCollegeName(String collegename);
 
 }

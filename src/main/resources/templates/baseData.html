@@ -1,107 +1,109 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title>基础数据</title>
-		<link rel="stylesheet" type="text/css" href="css/layui.css" />
-		<link rel="stylesheet" type="text/css" href="css/base.css" />
-	</head>
-	<body>
+<head>
+<meta charset="utf-8">
+<title>基础数据</title>
+<link rel="stylesheet" type="text/css" href="css/layui.css" />
+<link rel="stylesheet" type="text/css" href="css/base.css" />
+</head>
+<body>
 
-		<div id="container">
+	<div id="container">
 
 
-			<div class="hs">
-				<div class="header">
-					<ul class="layui-nav">
-						<li class="layui-nav-item">
-							<a th:href="@{/login}">退出</a>
-						</li>
-						<li class="layui-nav-item">
-							<a href="javascript:;"><img src="//t.cn/RCzsdCq" class="layui-nav-img">我</a>
-						</li>
-					</ul>
-				</div>
-				<div class="side">
-					<ul class="layui-nav layui-nav-tree layui-nav-side">
-						<li class="layui-logo">
-							<span><a href="">疫情防控管理系统</a></span>
-						</li>
-						<li class="layui-nav-item layui-nav-itemed">
-							<a href="javascript:;">数据管理</a>
-							<dl class="layui-nav-child">
-								<dd><a th:href="@{/goDailyData}">打卡数据</a></dd>
-								<dd><a th:href="@{/goBaseData}" class="layui-this">基础数据</a></dd>
-							</dl>
-						</li>
-						<li class="layui-nav-item">
-							<a href="javascript:;">申请管理</a>
-							<dl class="layui-nav-child">
-								<dd><a th:href="@{/goOut}">出校申请</a></dd>
-								<dd><a th:href="@{/goIn}">入校申请</a></dd>
-							</dl>
-						</li>
-						<li class="layui-nav-item"><a href="javascript:;">数据报表</a></li>
-						<li class="layui-nav-item"><a href="javascript:;">二维码</a></li>
-						<li class="layui-nav-item"><a th:href="@{/goAccessData}">访问记录</a></li>
-						<!-- <li class="layui-nav-item">
+		<div class="hs">
+			<div class="header">
+				<ul class="layui-nav">
+					<li class="layui-nav-item"><a th:href="@{/login}">退出</a></li>
+					<li class="layui-nav-item"><a href="javascript:;" id="userInfo" th:value="${teacher.tnum}" th:text="${teacher.tname}"></a></li>
+				</ul>
+			</div>
+			<div class="side">
+				<ul class="layui-nav layui-nav-tree layui-nav-side">
+					<li class="layui-logo"><span><a href="">疫情防控管理系统</a></span></li>
+					<li class="layui-nav-item layui-nav-itemed"><a
+						href="javascript:;">数据管理</a>
+						<dl class="layui-nav-child">
+							<dd>
+								<a th:href="@{/goDailyData(tnum=${teacher.tnum})}">打卡数据</a>
+							</dd>
+							<dd>
+								<a th:href="@{/goBaseData(tnum=${teacher.tnum})}" class="layui-this">基础数据</a>
+							</dd>
+						</dl></li>
+					<li class="layui-nav-item"><a href="javascript:;">申请管理</a>
+						<dl class="layui-nav-child">
+							<dd>
+								<a th:href="@{/goOut(tnum=${teacher.tnum})}">出校申请</a>
+							</dd>
+							<dd>
+								<a th:href="@{/goIn(tnum=${teacher.tnum})}">入校申请</a>
+							</dd>
+						</dl></li>
+					<li class="layui-nav-item"><a href="javascript:;">数据报表</a></li>
+					<li class="layui-nav-item"><a href="javascript:;">二维码</a></li>
+					<li class="layui-nav-item"><a th:href="@{/goAccessData(tnum=${teacher.tnum})}">访问记录</a></li>
+					<!-- <li class="layui-nav-item">
 							<a href="javascript:;">用户管理</a>
 							<dl class="layui-nav-child">
-								<dd><a th:href="@{/goUserData}">用户数据</a></dd>
-								<dd><a th:href="@{/goAddUser}">添加用户</a></dd>
+								<dd><a th:href="@{/goUserData(tnum=${teacher.tnum})}">用户数据</a></dd>
+								<dd><a th:href="@{/goAddUser(tnum=${teacher.tnum})}">添加用户</a></dd>
 							</dl>
 						</li> -->
-						<li class="layui-nav-item"><a href="javascript:;">设置</a></li>
-					</ul>
-				</div>
-			</div>
-			<div class="main layui-body">
-				<div class="top layui-form">
-					<div class="layui-form-item">
-						<select class="layui-select" name="college" lay-verify="">
-							<option value="010" selected>计算机学院</option>
-							<option value="021">会计学院</option>
-							<option value="0571">理学院</option>
-						</select>
-					</div>
-					<div class="layui-form-item">
-					<select class="layui-select" name="major" lay-verify="">
-						<option value="010" selected>计算机科学与技术</option>
-						<option value="021">物联网工程</option>
-						<option value="0571">软件工程</option>
-					</select>
-					</div>
-					<div class="layui-form-item">
-					<select class="layui-select" name="class" lay-verify="">
-						<option value="010" selected>1741</option>
-						<option value="021">1742</option>
-						<option value="0571">1743</option>
-					</select>
-					</div>
-					<div class="layui-form-item">
-						<input type="search" class="layui-input layui-input-inline" placeholder="201710913305">
-						<button type="button" class="layui-btn layui-btn-primary">搜索</button>
-					</div>
-				</div>
-				<div class="layui-table-box">
-					<table class="layui-table" id="dataTable">
-						
-					</table>
-				</div>
-				
+					<li class="layui-nav-item"><a href="javascript:;">设置</a></li>
+				</ul>
 			</div>
 		</div>
+		<div class="main layui-body">
+			<div class="top layui-form">
+				<div class="layui-form-item">
+					<select class="layui-select" name="college" id="college"
+						lay-filter="college" lay-verify="" lay-search>
+						<option th:each="college : ${college}" th:value="${college.id}"
+							th:text="${college.collegename}" />
+					</select>
+				</div>
+				<div class="layui-form-item">
+					<select class="layui-select" name="major" id="major"
+						lay-filter="major" lay-verify="" lay-search>
+						<option value="0" selected>所有专业</option>
+						<option th:each="major : ${major}" th:value="${major.id}"
+							th:text="${major.majorname}" />
+					</select>
+				</div>
+				<div class="layui-form-item">
+					<select class="layui-select" name="classes" id="classes"
+						lay-filter="classes" lay-verify="" lay-search>
+					</select>
+				</div>
+				<div class="layui-form-item">
+					<input type="search" class="layui-input layui-input-inline"
+						placeholder="201710913305">
+					<button type="button" class="layui-btn layui-btn-primary">搜索</button>
+				</div>
+			</div>
+			<div class="layui-table-box">
+				<table class="layui-table" id="dataTable">
+
+				</table>
+			</div>
+
+		</div>
+	</div>
 
 
 
-		<script src="js/layui.all.js" type="text/javascript" charset="utf-8"></script>
-		<script type="text/javascript" th:inline="javascript">
+	<script src="js/layui.all.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" th:inline="javascript">
 		layui.use('table', function(){
 			var table = layui.table;
-			
+			var form = layui.form;
+			var $ = layui.jquery;
+			  
+			//初始化
 			 table.render({
 				    elem: '#dataTable'
-				    ,url: [[@{/baseData}]]
+				    ,url: [[@{/baseData(college=${teacher.college})}]]
 				    ,cellMinWidth: 80 
 				    ,page: true
 				    ,method: 'post'
@@ -125,7 +127,197 @@
 				      console.log(obj)
 				    }
 				  });
+			
+			 form.on('select(college)', function(data) {
+				//根据学院找专业
+					var parentid=data.value;
+					var college = data.elem[data.elem.selectedIndex].text;
+				 	$.ajax({
+						type: "post",
+				 		url: [[@{/findAllMajorByParentId}]]+"?parentid="+parentid,
+						dataType:"json",
+				 		success: function(data) {
+				 			
+				 			  $("#major").empty();
+				 			  $(" #major").prepend("<option value='0'>所有专业</option>");
+				 			  $("#classes").empty();
+				 			  for (var i = 0; i < data.data.length; i++) {
+								//如果在select中传递其他参数，可以在option 的value属性中添加参数
+								$("#major").append("<option value='" + data.data[i].id + "'>" + data.data[i].majorname +
+									"</option>"); 
+								};
+							  form.render('select');
+							},
+						error: function(){
+							alert("获取数据失败,请重试.")
+						}
+					});
+					/* }; */
+					
+				 	 table.render({
+						    elem: '#dataTable'
+						    ,url: [[@{/dayStudentDynamic}]]+"?college="+college
+						    ,cellMinWidth: 80 
+						    ,page: true
+						    ,method: 'post'
+						    ,limit: 12
+						    ,even: true
+						    ,cols: [
+						    	[ 
+								  {field: 'id', title: '序号', width: 60}
+								,{field: 'sname', title: '姓名', width: 140}
+								,{field: 'snum', title: '学号', width: 160}
+								,{field: 'college', title: '学院', width: 160}
+								,{field: 'major', title: '专业', minWidth: 140}
+								,{field: 'classes', title: '班级', width: 80}
+								,{field: 'addr', title: '地点', maxWidth: 200}
+								,{field: 'date', title: '日期', width: 140}
+								,{field: 'temp', title: '体温', width: 60}
+								,{field: 'symptom', title: '症状', width: 60}
+								]
+						    	]
+						  });
+				});
+			  
+			  //根据专业找班级
+				form.on('select(major)', function(data) {
+					var college = $("#college").find('option:selected').text();
+					var parentid=data.value;
+					var major = data.elem[data.elem.selectedIndex].text;
+					
+					if(parentid=="0"){
+						$("#classes").empty();
+						form.render('select');
+						table.render({
+						    elem: '#dataTable'
+						    ,url: [[@{/dayStudentDynamic}]]+"?college="+college
+						    ,cellMinWidth: 80 
+						    ,page: true
+						    ,method: 'post'
+						    ,limit: 12
+						    ,even: true
+						    ,cols: [
+						    	[ 
+								  {field: 'id', title: '序号', width: 60}
+								,{field: 'sname', title: '姓名', width: 140}
+								,{field: 'snum', title: '学号', width: 160}
+								,{field: 'college', title: '学院', width: 160}
+								,{field: 'major', title: '专业', minWidth: 140}
+								,{field: 'classes', title: '班级', width: 80}
+								,{field: 'addr', title: '地点', maxWidth: 200}
+								,{field: 'date', title: '日期', width: 140}
+								,{field: 'temp', title: '体温', width: 60}
+								,{field: 'symptom', title: '症状', width: 60}
+								]
+						    	]
+						  });
+					}else{
+						$.ajax({
+							type: "post",
+					 		url: [[@{/findAll}]],
+							dataType:"json",
+					 		success: function(data) {
+					 			  $("#classes").empty();
+					 			  $(" #classes").prepend("<option value='0'>所有班级</option>");
+					 			  for (var i = 0; i < data.data1.length; i++) {
+									//如果在select中传递其他参数，可以在option 的value属性中添加参数
+									$("#classes").append("<option value='" + data.data1[i].id + "'>" + data.data1[i].classname +
+										"</option>"); 
+								};
+								form.render('select');
+							},
+							error: function(){
+								alert("获取数据失败,请重试.")
+							}
+						});
+					 	table.render({
+						    elem: '#dataTable'
+						    ,url: [[@{/dayStudentDynamic}]]+"?major="+major
+						    ,cellMinWidth: 80 
+						    ,page: true
+						    ,method: 'post'
+						    ,limit: 12
+						    ,even: true
+						    ,cols: [
+						    	[ 
+								  {field: 'id', title: '序号', width: 60}
+								,{field: 'sname', title: '姓名', width: 140}
+								,{field: 'snum', title: '学号', width: 160}
+								,{field: 'college', title: '学院', width: 160}
+								,{field: 'major', title: '专业', minWidth: 140}
+								,{field: 'classes', title: '班级', width: 80}
+								,{field: 'addr', title: '地点', maxWidth: 200}
+								,{field: 'date', title: '日期', width: 140}
+								,{field: 'temp', title: '体温', width: 60}
+								,{field: 'symptom', title: '症状', width: 60}
+								]
+						    	]
+						  });
+					}
+				 	
+				});
+			  //根据班级动态渲染页面
+				form.on('select(classes)', function(data) {
+					var major=$("#major").find("option:selected").text()
+					var parentid=data.value;
+					var classes = data.elem[data.elem.selectedIndex].text;
+					
+					if(parentid=="0"){
+						table.render({
+						    elem: '#dataTable'
+						    ,url: [[@{/dayStudentDynamic}]]+"?major="+major
+						    ,cellMinWidth: 80 
+						    ,page: true
+						    ,method: 'post'
+						    ,limit: 12
+						    ,even: true
+						    ,cols: [
+						    	[ 
+								  {field: 'id', title: '序号', width: 60}
+								,{field: 'sname', title: '姓名', width: 140}
+								,{field: 'snum', title: '学号', width: 160}
+								,{field: 'college', title: '学院', width: 160}
+								,{field: 'major', title: '专业', minWidth: 140}
+								,{field: 'classes', title: '班级', width: 80}
+								,{field: 'addr', title: '地点', maxWidth: 200}
+								,{field: 'date', title: '日期', width: 140}
+								,{field: 'temp', title: '体温', width: 60}
+								,{field: 'symptom', title: '症状', width: 60}
+								]
+						    	]
+						  });
+					}else{
+						table.render({
+						    elem: '#dataTable'
+						    ,url: [[@{/dayStudentDynamic}]]+"?classes="+classes+"&major="+major
+						    ,cellMinWidth: 80 
+						    ,page: true
+						    ,method: 'post'
+						    ,limit: 12
+						    ,even: true
+						    ,cols: [
+						    	[ 
+								  {field: 'id', title: '序号', width: 60}
+								,{field: 'sname', title: '姓名', width: 140}
+								,{field: 'snum', title: '学号', width: 160}
+								,{field: 'college', title: '学院', width: 160}
+								,{field: 'major', title: '专业', minWidth: 140}
+								,{field: 'classes', title: '班级', width: 80}
+								,{field: 'addr', title: '地点', maxWidth: 200}
+								,{field: 'date', title: '日期', width: 140}
+								,{field: 'temp', title: '体温', width: 60}
+								,{field: 'symptom', title: '症状', width: 60}
+								]
+						    	]
+						  });
+					}
+				 	
+				});
+			  
+			  
+			
+			
 		});
 		</script>
-	</body>
+</body>
 </html>

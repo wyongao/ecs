@@ -90,10 +90,10 @@ public class StudentController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/baseData", method = RequestMethod.POST)
-	public String baseData(String page, String limit) {
+	public String baseData(String page, String limit, String college) {
 		
 		PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(limit));
-		List<Student> data = studentService.findAllStudent();
+		List<Student> data = studentService.findStudentByCollegeName(college);
 		PageInfo<Student> pageInfo = new PageInfo<Student>(data);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
