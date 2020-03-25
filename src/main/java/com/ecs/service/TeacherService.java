@@ -36,4 +36,12 @@ public interface TeacherService {
 	 */
 	public void updateTeacher(Teacher teacher);
 	
+	/**
+	 * 动态查询根据职工号和学院
+	 * @param college
+	 * @param tnum
+	 * @return
+	 */
+	public List<Teacher> dynamicTeacher(String college,String tnum);
+	
 }

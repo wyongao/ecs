@@ -74,7 +74,12 @@ public class TeacherController {
 		teacherService.updateTeacher(teacher);
 		return "修改成功";
 	}
-	
+	/**
+	 * 用户分页
+	 * @param page
+	 * @param limit
+	 * @return
+	 */
 	
 	@ResponseBody
 	@RequestMapping(value = "/userData", method = RequestMethod.POST)
@@ -92,6 +97,14 @@ public class TeacherController {
 		
 		
 		return JsonUtils.objectToJson(map);
+	}
+	
+	@RequestMapping(value = "/dynamicTeacher")
+	@ResponseBody
+	public String dynamicTeacher(String college,String tnum) {
+		
+		List<Teacher> data=teacherService.dynamicTeacher(college, tnum);
+		return data.toString();
 	}
 	
 }

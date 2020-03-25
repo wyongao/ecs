@@ -77,6 +77,11 @@ public class ApplicationServiceImpl implements ApplicationService{
 		
 		return applicationDao.findInData("2");
 	}
+	@Override
+	public List<Application> fuzzyAppliacation(String snum, String sname) {
+
+		return applicationDao.fuzzyAppliacation(snum, sname);
+	}
 	
 
 

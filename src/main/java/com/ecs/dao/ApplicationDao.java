@@ -54,5 +54,16 @@ public interface ApplicationDao {
 	//查找入校申请
 	@Select("select * from application where `inout`=#{inout}")
 	public List<Application> findInData(String inout);
+	
+	/**
+	 * 这是一个混合查询
+	 * 可以根据学号进行查询(非模糊),也可以根据姓名进行模糊拆查询
+	 * @param snum
+	 * @param sname
+	 * @return list
+	 */
+	@SelectProvider(type = ApplicationProvider.class,method = "fuzzyApplications")
+	public List<Application> fuzzyAppliacation(String snum,String sname);
+	
 
 }

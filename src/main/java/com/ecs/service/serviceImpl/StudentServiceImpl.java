@@ -42,4 +42,10 @@ public class StudentServiceImpl implements StudentService {
 		
 	}
 
+	@Override
+	public List<Student> dynamicStudents(String college, String major, Integer classes) {
+	
+		return studentDao.dynamicStudents(college, major, classes);
+	}
+
 }

@@ -1,14 +1,18 @@
 package com.ecs.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ecs.common.DateUtil;
+import com.ecs.common.JsonUtils;
 import com.ecs.constant.Constant;
 import com.ecs.domain.DayTeacher;
 import com.ecs.service.DayTeacherService;
@@ -63,6 +67,36 @@ public class DayTeacherController {
 			List<String> list=dayTeacherService.traceTeacher(tnum);
 			System.out.println("-------------->>>>成功"+list.toString());
 			return "成功";
+		}
+		
+		//模糊分页查询
+		@RequestMapping(value = "/fuzzyDayTeachers", method = RequestMethod.POST)
+		@ResponseBody
+		public String fuzzyDayTeachers(String tname,String limit,String page){
+			PageHelper.startPage(Integer.parseInt(page),Integer.parseInt(limit));
+			List<DayTeacher> data=dayTeacherService.fuzzyDayTeachers(tname);
+			PageInfo<DayTeacher> pageInfo=new PageInfo<DayTeacher>(data);
+			Map<String, Object> map=new HashMap<String, Object>();
+			map.put("code", "0");
+			map.put("msg", "");
+			map.put("count", pageInfo.getTotal());
+			map.put("data", data);
+			return JsonUtils.objectToJson(map);
+		}
+		
+		//动态分页查询
+		@RequestMapping(value = "/dynamicDayTeachers",method = RequestMethod.POST)
+		@ResponseBody
+		public String dynamicDayTeachers(String college,String tnum,String limit,String page) {
+			PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(limit));
+			List<DayTeacher> data=dayTeacherService.dynamicDayTeachers(college, tnum);
+			PageInfo<DayTeacher> pageInfo=new PageInfo<DayTeacher>(data);
+			Map<String, Object> map=new HashMap<String, Object>();
+			map.put("code", "0");
+			map.put("msg", "");
+			map.put("count", pageInfo.getTotal());
+			map.put("data", data);
+			return JsonUtils.objectToJson(map);
 		}
 
 }

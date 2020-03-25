@@ -43,7 +43,11 @@ public interface DayStudentDao {
 	@Insert("insert into day_student(snum,sname,college,major,classes,addr,date,symptom,temp)"
 			+ " values(#{snum},#{sname},#{college},#{major},#{classes},#{addr},#{date},#{symptom},#{temp}) ")
 	public void addDayStudent(DayStudent dayStudent);
-	
+	//查询所有学生的信息
 	@Select("select * from day_student")
 	public List<DayStudent> findAll();
+	//根据学号或者姓名进行模糊查询
+	@SelectProvider(type = DayStudentProvider.class,method = "fuzzyQueryDaystudents")
+	public List<DayStudent> fuzzyQueryDaystudents(String name);
+	
 }

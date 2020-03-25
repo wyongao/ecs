@@ -172,5 +172,21 @@ public class DayStudentController {
 		map.put("data", data);
 		return JsonUtils.objectToJson(map);
 	}
+	/*
+	 * 根据姓名进行模糊分页查询(可用的)
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/fuzzyDayStudents", method = RequestMethod.POST)
+	public String fuzzyDaystudents(String name,String limit,String page) {
+		PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(limit));
+		List<DayStudent> data=dayStudentService.fuzzyQueryDaystudents(name);
+		PageInfo<DayStudent> pageInfo =new PageInfo<DayStudent>(data);
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("code", "0");
+		map.put("msg", "");
+		map.put("count", pageInfo.getTotal());
+		map.put("data", data);
+		return JsonUtils.objectToJson(map);		
+	}
 
 }

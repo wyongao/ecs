@@ -29,5 +29,6 @@ public interface DayStudentService {
 	public void addDayStudent(DayStudent dayStudent);
 	    //查找所有
 	public List<DayStudent> findAll();
-
+	//根据姓名模糊查询
+	public List<DayStudent> fuzzyQueryDaystudents(String name);
 }

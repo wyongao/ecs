@@ -21,5 +21,8 @@ public interface StudentService {
 	
 	//修改学生的信息
 	public void updateStudent(Student student);
+	
+	//动态查询
+	public List<Student> dynamicStudents(String college,String major,Integer classes);
 
 }

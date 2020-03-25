@@ -41,6 +41,18 @@ public class DayTeacherServiceImpl implements DayTeacherService {
 		
 		return dayTeacherDao.traceTeacher(tnum);
 	}
+	//模糊查询
+	@Override
+	public List<DayTeacher> fuzzyDayTeachers(String tname) {
+		
+		return dayTeacherDao.fuzzyDayTeachers(tname);
+	}
+	//动态查询
+	@Override
+	public List<DayTeacher> dynamicDayTeachers(String college, String tnum) {
+		
+		return dayTeacherDao.dynamicDayTeachers(college, tnum);
+	}
 	
 
 }

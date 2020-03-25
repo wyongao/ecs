@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectProvider;
 
+import com.ecs.dao.provider.DayTeacherProvider;
 import com.ecs.domain.DayTeacher;
 /**
  * 老师的每日签到的dao
@@ -30,5 +32,12 @@ public interface DayTeacherDao {
 	//查找老师的轨迹信息(面向小程序端的)
 	@Select("select addr from day_Teacher where tnum=#{tunm}")
 	public List<String> traceTeacher(String tnum);
-
+	
+	//模糊查找
+	@SelectProvider(type = DayTeacherProvider.class, method = "fuzzyQueryDayTeachers")
+	public List<DayTeacher> fuzzyDayTeachers(String tname);
+	
+	//动态查询
+	@SelectProvider(type = DayTeacherProvider.class,method = "selectWithParam")
+	public List<DayTeacher> dynamicDayTeachers(String college,String tnum);
 }
