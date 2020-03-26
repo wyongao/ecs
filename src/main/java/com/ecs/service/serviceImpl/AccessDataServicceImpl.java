@@ -27,6 +27,12 @@ public class AccessDataServicceImpl implements AccessDataService {
 		accessDataDao.addAccessData(username, userid, ip, date);
 	}
 
+	@Override
+	public List<AccessData> fuzzyAccessData(String username, String userid) {
+		
+		return accessDataDao.fuzzyAccessData(username, userid);
+	}
+
 	
 	
 }

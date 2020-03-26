@@ -14,4 +14,22 @@ public class TeacherProvider {
 			return sql.toString();
 		}
 	}
+	
+	
+	/**
+	 * 根据姓名模糊查询
+	 * @param name
+	 * @return
+	 */
+	
+	public String fuzzyQueryTeacher(String name) {
+		StringBuffer sql = new StringBuffer("select * from teacher where ");
+		if (name != null && !name.equals("")) {
+			sql.append("tname like" + "'%" + name + "%'");
+			
+		}
+		System.out.println(sql.toString());
+		return sql.toString();
+	}
+
 }

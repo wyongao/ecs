@@ -23,6 +23,8 @@ public interface StudentService {
 	public void updateStudent(Student student);
 	
 	//动态查询
-	public List<Student> dynamicStudents(String college,String major,Integer classes);
-
+	public List<Student> dynamicStudents(String college,String major,String classes);
+	
+	//模糊查询
+	public List<Student> fuzzyStudent(String name,String snum);
 }

@@ -5,7 +5,9 @@ import java.util.List;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectProvider;
 
+import com.ecs.dao.provider.AccessdataProvider;
 import com.ecs.domain.AccessData;
 
 @Mapper
@@ -19,4 +21,8 @@ public interface AccessDataDao {
 	//保存
 	@Insert("insert into accessdata(username, userid, ip, date) values(#{username}, #{userid}, #{ip}, #{date})")
 	public void addAccessData(String username, String userid, String ip, String date);
+
+	//模糊查询
+	@SelectProvider(type = AccessdataProvider.class,method = "fuzzyAccessData")
+	public List<AccessData> fuzzyAccessData(String username,String userid);
 }

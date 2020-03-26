@@ -13,7 +13,7 @@ public class Student {
 	private String school;
 	private String college;
 	private String major;
-	private Integer classes;
+	private String classes;
 	private String sex;
 	private String tel;
 	public Integer getId() {
@@ -52,10 +52,10 @@ public class Student {
 	public void setMajor(String major) {
 		this.major = major;
 	}
-	public Integer getClasses() {
+	public String getClasses() {
 		return classes;
 	}
-	public void setClasses(Integer classes) {
+	public void setClasses(String classes) {
 		this.classes = classes;
 	}
 	public String getSex() {

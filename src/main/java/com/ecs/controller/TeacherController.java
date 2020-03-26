@@ -98,13 +98,46 @@ public class TeacherController {
 		
 		return JsonUtils.objectToJson(map);
 	}
-	
-	@RequestMapping(value = "/dynamicTeacher")
+	/**
+	 * 动态查询
+	 * @param college
+	 * @param tnum
+	 * @return
+	 */
+	@RequestMapping(value = "/dynamicTeacher",method = RequestMethod.POST)
 	@ResponseBody
-	public String dynamicTeacher(String college,String tnum) {
-		
+	public String dynamicTeacher(String college,String tnum,String page, String limit) {
+		PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(limit));
 		List<Teacher> data=teacherService.dynamicTeacher(college, tnum);
-		return data.toString();
+		PageInfo<Teacher> pageInfo = new PageInfo<Teacher>(data);
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("code", "0");
+		map.put("msg", "");
+		map.put("count", pageInfo.getTotal());
+		map.put("data", data);
+		
+		
+		return JsonUtils.objectToJson(map);
 	}
-	
+	/**
+	 * 模糊查询
+	 * @param name
+	 * @return
+	 */
+	@RequestMapping(value="/fuzzyTeacher",method = RequestMethod.POST)
+	@ResponseBody
+	public String fuzzyTeacher(String name,String page, String limit) {
+		PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(limit));
+		List<Teacher> data=teacherService.fuzzyTeacher(name);
+		PageInfo<Teacher> pageInfo = new PageInfo<Teacher>(data);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("code", "0");
+		map.put("msg", "");
+		map.put("count", pageInfo.getTotal());
+		map.put("data", data);
+		
+		
+		return JsonUtils.objectToJson(map);
+	}
 }

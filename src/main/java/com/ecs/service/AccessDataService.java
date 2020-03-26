@@ -11,5 +11,7 @@ public interface AccessDataService {
 	
 	//保存
 	public void addAccessData(String username, String userid, String ip, String date);
-
+	
+	//模糊查询
+	public List<AccessData> fuzzyAccessData(String username,String userid);
 }

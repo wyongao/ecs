@@ -53,7 +53,7 @@ public class DayStudentProvider {
 	}
 
 	public String fuzzyQueryDaystudents(String name) {
-		StringBuffer sql = new StringBuffer("select * from student where ");
+		StringBuffer sql = new StringBuffer("select * from day_student where ");
 		if (name != null && !name.equals("")) {
 			sql.append("sname like" + "'%" + name + "%'");
 		}

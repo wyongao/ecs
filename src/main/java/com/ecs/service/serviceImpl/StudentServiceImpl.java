@@ -43,9 +43,15 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public List<Student> dynamicStudents(String college, String major, Integer classes) {
+	public List<Student> dynamicStudents(String college, String major, String classes) {
 	
 		return studentDao.dynamicStudents(college, major, classes);
+	}
+
+	@Override
+	public List<Student> fuzzyStudent(String name, String snum) {
+		
+		return studentDao.fuzzyStudent(name, snum);
 	}
 
 }

@@ -6,12 +6,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-/**
- * 学生的controller
- * @author xuluyang
- *
- * 2020年3月7日
- */
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -50,7 +44,7 @@ public class StudentController {
 	@RequestMapping("/addStudent")
 	@ResponseBody
 	public String addStudent(Student student) {
-		student.setClasses(1741);
+		student.setClasses("1741");
 		student.setCollege("计算机学院");
 		student.setMajor("计算机科学与技术啊");
 		student.setSchool("河南工程学院");
@@ -62,7 +56,11 @@ public class StudentController {
 		studentService.addStudent(student);
 		return "添加成功";
 	}
-
+	/**
+	 * 删除学生
+	 * @param snum
+	 * @return
+	 */
 	@RequestMapping("/deleteStudentBySnum")
 	@ResponseBody
 	public String deleteStudent(String snum) {
@@ -72,10 +70,15 @@ public class StudentController {
 		System.out.println("删除成功---------------------------->>>>");
 		return "删除成功";
 	}
+	/**
+	 * 修改信息
+	 * @param student
+	 * @return
+	 */
 	@RequestMapping("/updateStudent")
 	@ResponseBody
 	public String updateStudent(Student student) {
-		student.setClasses(1741);
+		student.setClasses("1741");
 		student.setCollege("理学院");
 		student.setMajor("计算机科学与技术");
 		student.setSchool("河南工程学院");
@@ -86,11 +89,31 @@ public class StudentController {
 		System.out.println("修改成功----------------->>>");
 		return "修改成功";
 	}
-	@RequestMapping(value = "/dynamicStudent")
+	/**
+	 * 动态查询
+	 * @param college
+	 * @param major
+	 * @param classes
+	 * @param page
+	 * @param limit
+	 * @return
+	 */
+	
+	@RequestMapping(value = "/dynamicStudent",method = RequestMethod.POST)
 	@ResponseBody
-	public String dynamicStudent(String college,String major,Integer classes) {
+	public String dynamicStudent(String college,String major,String classes,String page, String limit) {
+		PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(limit));
 		List<Student> data=studentService.dynamicStudents(college, major, classes);
-		return data.toString();
+		PageInfo<Student> pageInfo = new PageInfo<Student>(data);
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("code", "0");
+		map.put("msg", "");
+		map.put("count", pageInfo.getTotal());
+		map.put("data", data);
+		
+		
+		return JsonUtils.objectToJson(map);
 	}
 	
 	
@@ -111,7 +134,31 @@ public class StudentController {
 		
 		return JsonUtils.objectToJson(map);
 	}
+	/**
+	 * 模糊查询
+	 * @param name
+	 * @param snum
+	 * @param page
+	 * @param limit
+	 * @return
+	 */
 	
+	@RequestMapping(value="/fuzzyStudent",method = RequestMethod.POST)
+	@ResponseBody
+	public String fuzzyStudent(String name,String snum,String page, String limit) {
+		PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(limit));
+		List<Student> data=studentService.fuzzyStudent(name, snum);
+		PageInfo<Student> pageInfo = new PageInfo<Student>(data);
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("code", "0");
+		map.put("msg", "");
+		map.put("count", pageInfo.getTotal());
+		map.put("data", data);
+		
+		
+		return JsonUtils.objectToJson(map);
+	}
 	
 	
 	
