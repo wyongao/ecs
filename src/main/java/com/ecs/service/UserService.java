@@ -24,7 +24,7 @@ public interface UserService {
 	//修改用户
 	public void updateUser(User user);
 	//修改密码
-	public void changePassword(Integer id,String passwrod);
+	public String changePassword(String tnum,String password);
 	//登录
 	public Map<String, Object> doLogin(Teacher t, HttpServletRequest request);
 }

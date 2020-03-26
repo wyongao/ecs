@@ -67,9 +67,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void changePassword(Integer id, String passwrod) {
-		userDao.changePassword(id, passwrod);
+	public String changePassword(String tnum, String password) {
+		
+		teacherDao.changePassword(tnum, password);
 
+
+		
+		return "success";
 	}
 
 	// 登录

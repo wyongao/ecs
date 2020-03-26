@@ -122,13 +122,11 @@ public class UserController {
 
 	// 修改密码
 	@RequestMapping("/changePassword")
-	@ResponseBody
-	public String changePassword(Integer id, String password) {
-		id = 1;
-		password = "xuluyang";
-		userService.changePassword(id, password);
-		System.out.println("修改成功");
-		return "修改密码成功";
+	public String changePassword(String username, String password) {
+
+		String msg = userService.changePassword(username, password);
+		
+		return "login";
 	}
 
 	// 进入登录页面
@@ -144,6 +142,11 @@ public class UserController {
 	
 		Teacher t = teacherService.findTeacherByTnum(tnum);
 		
+		if(t.getIdentify().equals("1")) {
+			
+			return "error/403";
+		}
+		
 		model.put("college", collegeService.findCollegeByName(t.getCollege()));
 		model.put("teacher", t);
 		return "accessData";
@@ -153,7 +156,14 @@ public class UserController {
 	@RequestMapping("/goAddUser")
 	public String goAddUser(String tnum, Map<String, Object> model) {
 
-		model.put("teacher", teacherService.findTeacherByTnum(tnum));
+		Teacher t = teacherService.findTeacherByTnum(tnum);
+		
+		if(t.getIdentify().equals("1")) {
+			
+			return "error/403";
+		}
+		
+		model.put("teacher", t);
 		return "addUser";
 	}
 
@@ -213,6 +223,11 @@ public class UserController {
 	public String goUserData(String tnum, Map<String, Object> model) {
 		
 		Teacher t = teacherService.findTeacherByTnum(tnum);
+		
+		if(t.getIdentify().equals("1")) {
+			
+			return "error/403";
+		}
 		
 		model.put("college", collegeService.findCollegeByName(t.getCollege()));
 		model.put("teacher", t);
