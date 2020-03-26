@@ -33,10 +33,10 @@ public class AccessData {
 		this.userid = userid;
 	}
 
+
 	public String getCollege() {
 		return college;
 	}
-
 	public void setCollege(String college) {
 		this.college = college;
 	}
@@ -57,10 +57,16 @@ public class AccessData {
 		this.date = date;
 	}
 
+
 	public AccessData() {
 		super();
 
 	}
+
+
+
+
+	
 
 	public AccessData(Integer id, String username, String userid, String college, String ip, String date) {
 		super();
@@ -71,6 +77,9 @@ public class AccessData {
 		this.ip = ip;
 		this.date = date;
 	}
+	
+	
+	
 
 	@Override
 	public String toString() {

@@ -75,8 +75,6 @@ public class DayStudentServiceImpl implements DayStudentService {
 	@Override
 	public List<DayStudent> findAll() {
 		
-		
-		
 		return dayStudentDao.findAll();
 	}
 	//模糊查询
@@ -84,6 +82,12 @@ public class DayStudentServiceImpl implements DayStudentService {
 	public List<DayStudent> fuzzyQueryDaystudents(String name) {
 		
 		return dayStudentDao.fuzzyQueryDaystudents(name);
+	}
+
+	@Override
+	public List<DayStudent> findByCollege(String college) {
+		
+		return dayStudentDao.findByCollege(college);
 	}
 
 }

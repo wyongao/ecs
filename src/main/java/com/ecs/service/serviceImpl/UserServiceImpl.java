@@ -67,9 +67,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void changePassword(Integer id, String passwrod) {
-		userDao.changePassword(id, passwrod);
+	public String changePassword(String tnum, String password) {
+		
+		teacherDao.changePassword(tnum, password);
 
+
+		
+		return "success";
 	}
 
 	// 登录
@@ -97,7 +101,7 @@ public class UserServiceImpl implements UserService {
 		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		
 		//保存用户访问记录
-		accessDataService.addAccessData(teacher.getTname(), teacher.getTnum(), ip, f.format(now));
+		accessDataService.addAccessData(teacher.getTname(), teacher.getTnum(),teacher.getCollege(), ip, f.format(now));
 		
 		model.put("teacher", teacher);
 		model.put("msg", "success");

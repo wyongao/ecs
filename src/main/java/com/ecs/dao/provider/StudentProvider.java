@@ -12,7 +12,9 @@ public class StudentProvider {
 			if (major != null && !major.equals("")) {
 				sql.append(" and major = '" + major + "'");
 			}
+
 			if (classes != null && !classes.equals("")) {
+
 				sql.append(" and classes = '" + classes + "'");
 			}
 
@@ -21,13 +23,17 @@ public class StudentProvider {
 			
 				if (major != null && !major.equals("")) {
 					sql.append("major = '" + major + "'");
+
 					if (classes != null && !classes.equals("")) {
+
 						sql.append(" and classes = '" + classes + "'");
 					}
 				}
 			 else {
 
+
 					if (classes != null && !classes.equals("")) {
+
 						sql.append("classes = '" + classes + "'");
 					}
 				} 

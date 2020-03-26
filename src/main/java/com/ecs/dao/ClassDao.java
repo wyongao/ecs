@@ -21,4 +21,7 @@ public interface ClassDao {
 	 */
 	@Select("select * from class where parentid=#{parentid}")
 	public List<Class> findAllClassByParentId(Integer parentid);
+	
+	@Select("select * from class")
+	public List<Class> findAllClass();
 }

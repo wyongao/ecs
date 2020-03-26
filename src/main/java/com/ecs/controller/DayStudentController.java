@@ -126,7 +126,7 @@ public class DayStudentController {
 	@RequestMapping("/addDayStudent")
 	@ResponseBody
 	public String addDayStudent(DayStudent dayStudent) {
-		DayStudent dayStudent2 = new DayStudent("201710913101", "马金凤", "计算机学院", "软件工程", 1842, "河南省新乡市",
+		DayStudent dayStudent2 = new DayStudent("201710913101", "马金凤", "计算机学院", "软件工程", "1842", "河南省新乡市",
 				DateUtil.getDate(), 36.7, "否");
 		dayStudentService.addDayStudent(dayStudent2);
 		System.out.println("---------------->>>>添加成功");
@@ -141,10 +141,10 @@ public class DayStudentController {
 
 	@ResponseBody
 	@RequestMapping(value = "/dailyData", method = RequestMethod.POST)
-	public String dailyData(String page, String limit) {
+	public String dailyData(String page, String limit, String college) {
 
 		PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(limit));
-		List<DayStudent> data = dayStudentService.findAll();
+		List<DayStudent> data = dayStudentService.findByCollege(college);
 		PageInfo<DayStudent> pageInfo = new PageInfo<>(data);
 
 		Map<String, Object> map = new HashMap<String, Object>();

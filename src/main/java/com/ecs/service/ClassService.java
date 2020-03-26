@@ -10,5 +10,9 @@ import com.ecs.domain.Class;
  * 2020年3月5日
  */
 public interface ClassService {
+	
+	//根据parentid查询
 	public List<Class> findAllClassByParentId(Integer parentid);
+	
+	public List<Class> findAllClass();
 }

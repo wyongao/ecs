@@ -13,16 +13,23 @@ import com.ecs.domain.AccessData;
 @Mapper
 public interface AccessDataDao {
 
-	
-	//查找所有
+	// 查找所有
 	@Select("select * from accessdata")
 	public List<AccessData> findAll();
+
 	
-	//保存
-	@Insert("insert into accessdata(username, userid, ip, date) values(#{username}, #{userid}, #{ip}, #{date})")
-	public void addAccessData(String username, String userid, String ip, String date);
 
 	//模糊查询
 	@SelectProvider(type = AccessdataProvider.class,method = "fuzzyAccessData")
 	public List<AccessData> fuzzyAccessData(String username,String userid);
+
+
+	// 根据学院查找
+	@Select("select * from accessdata where college=#{college}")
+	public List<AccessData> findAccessDataByCollege(String college);
+
+	// 保存
+	@Insert("insert into accessdata(username, userid, college, ip, date) values(#{username}, #{userid}, #{college}, #{ip}, #{date})")
+	public void addAccessData(String username, String userid,String college, String ip, String date);
+
 }

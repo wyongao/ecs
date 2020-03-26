@@ -28,12 +28,21 @@ public class ClassController {
 
 	@RequestMapping(value = "/findAllClassesByParentId", method = RequestMethod.POST)
 	@ResponseBody
-
 	public String findAllClassesByParentId(Integer parentid, Model model) {
 		List<Class> list = classService.findAllClassByParentId(parentid);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("data1", list);
 		System.out.println(JsonUtils.objectToJson(map));
+		return JsonUtils.objectToJson(map);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/findAll", method=RequestMethod.POST)
+	public String findAllClasses(Model model) {
+		
+		List<Class> list = classService.findAllClass();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("data1", list);
 		return JsonUtils.objectToJson(map);
 	}
 }

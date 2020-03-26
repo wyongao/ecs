@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ecs.dao.CollegeDao;
+import com.ecs.dao.SchoolDao;
 import com.ecs.domain.College;
 import com.ecs.service.CollegeService;
 /**
@@ -17,8 +18,13 @@ import com.ecs.service.CollegeService;
 
 @Service
 public class CollegeServiceImpl implements CollegeService{
+	
 	@Autowired
 	private CollegeDao collegeDao;
+	
+	@Autowired
+	private SchoolDao schoolDao;
+	
 	@Override
 	public List<College> findAllCollegeByParentId(Integer parentid) {
 		
@@ -29,6 +35,19 @@ public class CollegeServiceImpl implements CollegeService{
 	public List<College> findAllCollege() {
 		
 		return collegeDao.findAllCollege();
+	}
+
+	//根据父级学校名字查找二级院校
+	@Override
+	public List<College> findCollegeByParentName(String schoolname) {
+		
+		return collegeDao.findAllCollegeByParentId(schoolDao.findSchoolByName(schoolname).getId());
+	}
+
+	@Override
+	public College findCollegeByName(String collegename) {
+		
+		return collegeDao.findCollegeByName(collegename);
 	}
 
 }

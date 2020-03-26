@@ -20,11 +20,18 @@ public class AccessDataServicceImpl implements AccessDataService {
 		
 		return accessDataDao.findAll();
 	}
+	
+	@Override
+	public List<AccessData> findAccessDataByCollege(String college) {
+		
+		return accessDataDao.findAccessDataByCollege(college);
+	}
+	
 
 	@Override
-	public void addAccessData(String username, String userid, String ip, String date) {
+	public void addAccessData(String username, String userid,String college, String ip, String date) {
 		
-		accessDataDao.addAccessData(username, userid, ip, date);
+		accessDataDao.addAccessData(username, userid, college, ip, date);
 	}
 
 	@Override
@@ -32,6 +39,8 @@ public class AccessDataServicceImpl implements AccessDataService {
 		
 		return accessDataDao.fuzzyAccessData(username, userid);
 	}
+
+	
 
 	
 	

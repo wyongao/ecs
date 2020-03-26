@@ -18,10 +18,18 @@ import com.ecs.service.ClassService;
 public class ClassServiceImpl implements ClassService{
 	@Autowired
 	private ClassDao classDao;
+	
 	/**
 	 * 
 	 */
 	public List<Class> findAllClassByParentId(Integer parentid){
 		return classDao.findAllClassByParentId(parentid);
+	}
+	
+	
+	@Override
+	public List<Class> findAllClass() {
+
+		return classDao.findAllClass();
 	}
 }

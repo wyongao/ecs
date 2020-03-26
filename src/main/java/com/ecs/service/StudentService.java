@@ -22,9 +22,15 @@ public interface StudentService {
 	//修改学生的信息
 	public void updateStudent(Student student);
 	
+
+	//根据学院名称查找学生
+	public List<Student> findStudentByCollegeName(String collegename);
+
 	//动态查询
 	public List<Student> dynamicStudents(String college,String major,String classes);
+
 	
 	//模糊查询
 	public List<Student> fuzzyStudent(String name,String snum);
+
 }

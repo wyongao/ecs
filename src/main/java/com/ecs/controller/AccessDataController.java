@@ -24,10 +24,10 @@ public class AccessDataController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/accessData", method = RequestMethod.POST)
-	public String accessData(String page, String limit) {
+	public String accessData(String page, String limit, String college) {
 		
 		PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(limit));
-		List<AccessData> data = accessDataService.findAll();
+		List<AccessData> data = accessDataService.findAccessDataByCollege(college);
 		PageInfo<AccessData> pageInfo = new PageInfo<AccessData>(data);
 		
 		Map<String, Object> map = new HashMap<String, Object>();		

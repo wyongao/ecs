@@ -1,93 +1,139 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title>用户数据</title>
-		<link rel="stylesheet" type="text/css" href="css/layui.css" />
-		<link rel="stylesheet" type="text/css" href="css/base.css" />
-	</head>
-	<body>
+<head>
+<meta charset="utf-8">
+<title>用户数据</title>
+<link rel="stylesheet" type="text/css" href="css/layui.css" />
+<link rel="stylesheet" type="text/css" href="css/base.css" />
+</head>
+<body>
 
-		<div id="container">
+	<div id="container">
 
 
-			<div class="hs">
-				<div class="header">
-					<ul class="layui-nav">
-						<li class="layui-nav-item">
-							<a th:href="@{/login}">退出</a>
-						</li>
-						<li class="layui-nav-item">
-							<a href="javascript:;"><img src="//t.cn/RCzsdCq" class="layui-nav-img">我</a>
-						</li>
-					</ul>
-				</div>
-				<div class="side">
-					<ul class="layui-nav layui-nav-tree layui-nav-side">
-						<li class="layui-logo">
-							<span><a href="">疫情防控管理系统</a></span>
-						</li>
-						<li class="layui-nav-item">
-							<a href="javascript:;">数据管理</a>
-							<dl class="layui-nav-child">
-								<dd><a th:href="@{/goDailyData}">打卡数据</a></dd>
-								<dd><a th:href="@{/goBaseData}">基础数据</a></dd>
-							</dl>
-						</li>
-						<li class="layui-nav-item">
-							<a href="javascript:;">申请管理</a>
-							<dl class="layui-nav-child">
-								<dd><a th:href="@{/goOut}">出校申请</a></dd>
-								<dd><a th:href="@{/goIn}">入校申请</a></dd>
-							</dl>
-						</li>
-						<li class="layui-nav-item"><a href="javascript:;">数据报表</a></li>
-						<li class="layui-nav-item"><a href="javascript:;">二维码</a></li>
-						<li class="layui-nav-item"><a th:href="@{/goAccessData}">访问记录</a></li>
-						<li class="layui-nav-item  layui-nav-itemed">
-							<a href="javascript:;">用户管理</a>
-							<dl class="layui-nav-child">
-								<dd><a th:href="@{/goUserData}" class="layui-this">用户数据</a></dd>
-								<dd><a th:href="@{/goAddUser}">添加用户</a></dd>
-							</dl>
-						</li>
-						<li class="layui-nav-item"><a href="javascript:;">设置</a></li>
-					</ul>
-				</div>
+		<div class="hs">
+			<div class="header">
+				<ul class="layui-nav">
+					<li class="layui-nav-item">
+						<a href="javascript:;" id="userInfo" th:value="${teacher.tnum}" th:text="${teacher.tname}"></a>
+						<dl class="layui-nav-child" style="z-index: 1000;">
+								<dd><a href="javascript:;" id="changePassword">修改密码</a></dd>
+								<dd><a th:href="@{/login}">退出</a></dd>
+						</dl>	
+					</li>
+				</ul>
 			</div>
-			<div class="main layui-body">
-				<div class="top layui-form">
-					<div class="layui-form-item">
-						<select class="layui-select" name="college" lay-verify="">
-							<option value="010" selected>计算机学院</option>
-							<option value="021">会计学院</option>
-							<option value="0571">理学院</option>
-						</select>
-					</div>
-					<div class="layui-form-item">
-						<input type="search" class="layui-input layui-input-inline" placeholder="10001">
-						<button type="button" class="layui-btn layui-btn-primary">搜索</button>
-					</div>
-				</div>
-				<div class="layui-table-box">
-					<table class="layui-table" id="dataTable">
-						
-							</table>
-				</div>
-			
+			<div class="side">
+				<ul class="layui-nav layui-nav-tree layui-nav-side">
+					<li class="layui-logo"><span><a href="">疫情防控管理系统</a></span></li>
+					<li class="layui-nav-item"><a href="javascript:;">数据管理</a>
+						<dl class="layui-nav-child">
+							<dd>
+								<a th:href="@{/goDailyData(tnum=${teacher.tnum})}">打卡数据</a>
+							</dd>
+							<dd>
+								<a th:href="@{/goBaseData(tnum=${teacher.tnum})}">基础数据</a>
+							</dd>
+						</dl></li>
+					<li class="layui-nav-item"><a href="javascript:;">申请管理</a>
+						<dl class="layui-nav-child">
+							<dd>
+								<a th:href="@{/goOut(tnum=${teacher.tnum})}">出校申请</a>
+							</dd>
+							<dd>
+								<a th:href="@{/goIn(tnum=${teacher.tnum})}">入校申请</a>
+							</dd>
+						</dl></li>
+					<li class="layui-nav-item"><a href="javascript:;">数据报表</a></li>
+					<li class="layui-nav-item"><a href="javascript:;">二维码</a></li>
+					<li class="layui-nav-item" id="accessData"><a th:href="@{/goAccessData(tnum=${teacher.tnum})}">访问记录</a></li>
+					<li class="layui-nav-item  layui-nav-itemed" id="userManage"><a
+						href="javascript:;">用户管理</a>
+						<dl class="layui-nav-child">
+							<dd>
+								<a th:href="@{/goUserData(tnum=${teacher.tnum})}" class="layui-this">用户数据</a>
+							</dd>
+							<dd>
+								<a th:href="@{/goAddUser(tnum=${teacher.tnum})}">添加用户</a>
+							</dd>
+						</dl></li>
+					<li class="layui-nav-item"><a href="javascript:;">设置</a></li>
+				</ul>
 			</div>
 		</div>
+		<div class="main layui-body">
+			<div class="top layui-form">
+				<div class="layui-form-item">
+					<select class="layui-select" name="college" id="college"
+						lay-filter="college" lay-verify="" lay-search>
+						<option th:each="college : ${college}" th:value="${college.id}"
+							th:text="${college.collegename}" />
+					</select>
+				</div>
+				<div class="layui-form-item">
+					<input type="search" class="layui-input layui-input-inline"
+						placeholder="姓名或工号">
+					<button type="button" class="layui-btn layui-btn-primary">搜索</button>
+				</div>
+			</div>
+			<div class="layui-table-box">
+				<table class="layui-table" id="dataTable">
+
+				</table>
+			</div>
+
+		</div>
+	</div>
 
 
 
-		<script src="js/layui.all.js" type="text/javascript" charset="utf-8"></script>
-		<script type="text/javascript" th:inline="javascript">
-		layui.use('table', function(){
+	<script src="js/layui.all.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/html" id="changePage"> 
+		<form class="layui-form" th:action="@{/changePassword}" method="post" style="margin-top: 40px; padding-right: 60px;">
+			<div class="layui-form-item">
+				<label class="layui-form-label">账号</label>
+				<div class="layui-input-block">
+					<input type="text" name="username" autocomplete="off" class="layui-input" th:value="${teacher.tnum}" readonly="readonly">
+				</div>
+			</div>  
+			<div class="layui-form-item">
+				<label class="layui-form-label">新密码</label>
+				<div class="layui-input-block">
+					<input type="text" name="password" required lay-verify="required" lay-reqtext="密码不能为空" lay-vertype="tips" placeholder="请输入新密码" autocomplete="off" class="layui-input">
+				</div>
+			</div>  
+			<div class="layui-form-item">
+				<div class="layui-input-block">
+					<button type="submit" class="layui-btn">修改</button>
+					<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+				</div>
+			</div>
+		</form>	
+	</script>
+	<script type="text/javascript" th:inline="javascript">
+		layui.use(['table', 'layer'], function(){
 			var table = layui.table;
+			var form = layui.form;
+			var $ = layui.jquery;
+			var layer = layui.layer;
+			var content = $("#changePage").html();
+			  
+			//修改密码弹窗
+			$('#changePassword').on('click', function() {
+			  layer.open({
+				type: 1,
+				area: ['500px', '300px'],
+				offset: '150px',
+				title: "修改密码",
+				content: content,	
+			  });
+			});
 			
+			
+			 //初始化
 			 table.render({
 				    elem: '#dataTable'
-				    ,url: [[@{/userData}]]
+				    ,url: [[@{/userData(college=${teacher.college})}]]
 				    ,cellMinWidth: 80 
 				    ,page: true
 				    ,method: 'post'
@@ -109,7 +155,37 @@
 				      console.log(obj)
 				    }
 				  });
+			 
+			 form.on('select(college)', function(data) {
+					//根据学院找学院老师
+						var college = data.elem[data.elem.selectedIndex].text;						
+					 	 table.render({
+							    elem: '#dataTable'
+							    ,url: [[@{/userData}]]+"?college="+college
+							    ,cellMinWidth: 80 
+							    ,page: true
+							    ,method: 'post'
+							    ,limit: 12
+							    ,even: true
+							    ,cols: [
+							    	[ 
+									  {field: 'id', title: '序号', width: 60}
+									,{field: 'tname', title: '姓名', width: 140}
+									,{field: 'tnum', title: '工号', minWidth: 160}						
+									,{field: 'school', title: '学校', minWidth:170}
+									,{field: 'college', title: '学院', minWidth: 160}
+									,{field: 'sex', title: '性别', width: 60}
+									,{field: 'tel', title: '电话', minWidth: 140}
+									]
+							    	]
+							    ,groups : 5
+								,jump: function(obj){
+							      console.log(obj)
+							    }
+							  });
+					});
+			 
 		});
 		</script>
-	</body>
+</body>
 </html>

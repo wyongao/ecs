@@ -23,27 +23,37 @@ public interface ApplicationService {
 
 	// 查找所有的申请根据学院(管理员)
 	public List<Application> findAllByCollege(String college);
-	//测试
+
+	// 测试
 	public List<Application> findAllApplications(String college, String major, String classes);
 //	//测试2.0
 //	public List<Application> findAllApplication();
 
 	// 修改申请状态(管理员)
 	public void updateStatus(String status, String snum, String date);
-	
-	//查找出校申请
+
+	// 动态查询
+	public List<Application> applicationDynamic(String college, String major, String classes, String inout);
+
+	// 查找出校申请
 	public List<Application> findOutData();
-	
-	//查找入校申请
+
+	// 查找入校申请
 	public List<Application> findInData();
 	
+	//通过学院名称查找出校申请
+	public List<Application> findOutDataByCollege(String college);
+
+	//通过学院名称查找入校申请
+	public List<Application> findInDataByCollege(String college);
+	
 	/**
-	 * 这是一个混合查询
-	 * 可以根据学号进行查询(非模糊),也可以根据姓名进行模糊查询
+	 * 这是一个混合查询 可以根据学号进行查询(非模糊),也可以根据姓名进行模糊查询
+	 * 
 	 * @param snum
 	 * @param sname
 	 * @return list
 	 */
-	public List<Application> fuzzyAppliacation(String snum,String sname);
+	public List<Application> fuzzyAppliacation(String snum, String sname);
 
 }

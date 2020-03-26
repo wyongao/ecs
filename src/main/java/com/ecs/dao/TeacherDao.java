@@ -39,6 +39,13 @@ public interface TeacherDao {
 	
 	@Select("select * from teacher where tnum=#{tnum}")
 	public Teacher findTeacherByTnum(String tnum);
+	
+	@Select("select * from teacher where college=#{college}")
+	public List<Teacher> findTeacherByCollege(String college);
+	
+	@Update("update teacher set password=#{password} where tnum=#{tnum}")
+	public void changePassword(String tnum, String password);
+	
 	/**
 	 * 根据学院和职工号进行查找
 	 * @param college

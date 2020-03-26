@@ -89,6 +89,7 @@ public class StudentController {
 		System.out.println("修改成功----------------->>>");
 		return "修改成功";
 	}
+
 	/**
 	 * 动态查询
 	 * @param college
@@ -99,30 +100,31 @@ public class StudentController {
 	 * @return
 	 */
 	
-	@RequestMapping(value = "/dynamicStudent",method = RequestMethod.POST)
+	
+	@RequestMapping(value = "/studentDynamic")
 	@ResponseBody
-	public String dynamicStudent(String college,String major,String classes,String page, String limit) {
+	public String studentDynamic(String page, String limit, String college, String major, String classes) {
+		
+		
 		PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(limit));
 		List<Student> data=studentService.dynamicStudents(college, major, classes);
-		PageInfo<Student> pageInfo = new PageInfo<Student>(data);
+		PageInfo<Student> pageInfo = new PageInfo<>(data);
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("code", "0");
 		map.put("msg", "");
 		map.put("count", pageInfo.getTotal());
 		map.put("data", data);
-		
-		
 		return JsonUtils.objectToJson(map);
 	}
 	
 	
 	@ResponseBody
 	@RequestMapping(value = "/baseData", method = RequestMethod.POST)
-	public String baseData(String page, String limit) {
+	public String baseData(String page, String limit, String college) {
 		
 		PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(limit));
-		List<Student> data = studentService.findAllStudent();
+		List<Student> data = studentService.findStudentByCollegeName(college);
 		PageInfo<Student> pageInfo = new PageInfo<Student>(data);
 		
 		Map<String, Object> map = new HashMap<String, Object>();

@@ -12,7 +12,7 @@ public class DayStudent {
 	private String sname;
 	private String college; //学院
 	private String major; //专业
-	private Integer classes; //班级
+	private String classes; //班级
 	private String addr; //地点
 	private String date; //日期
 	private Double temp; //体温
@@ -24,7 +24,7 @@ public class DayStudent {
 	}
 
 	//构造方法
-	public DayStudent(String snum, String sname, String college, String major, Integer classes, String addr,
+	public DayStudent(String snum, String sname, String college, String major, String classes, String addr,
 			String date, Double temp, String symptom) {
 		super();
 		this.snum = snum;
@@ -78,11 +78,11 @@ public class DayStudent {
 		this.major = major;
 	}
 
-	public Integer getClasses() {
+	public String getClasses() {
 		return classes;
 	}
 
-	public void setClasses(Integer classes) {
+	public void setClasses(String classes) {
 		this.classes = classes;
 	}
 

@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.ecs.constant.Constant;
 import com.ecs.domain.Teacher;
 import com.ecs.domain.User;
+import com.ecs.service.CollegeService;
+import com.ecs.service.MajorService;
+import com.ecs.service.TeacherService;
 import com.ecs.service.UserService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -28,7 +31,16 @@ import com.github.pagehelper.PageInfo;
 public class UserController {
 	
 	@Autowired
+	private CollegeService collegeService;
+	
+	@Autowired
+	private MajorService majorService;
+	
+	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private TeacherService teacherService;
 
 	// 查询所用的用户
 	@RequestMapping(value = "/findAllUser")
@@ -110,13 +122,11 @@ public class UserController {
 
 	// 修改密码
 	@RequestMapping("/changePassword")
-	@ResponseBody
-	public String changePassword(Integer id, String password) {
-		id = 1;
-		password = "xuluyang";
-		userService.changePassword(id, password);
-		System.out.println("修改成功");
-		return "修改密码成功";
+	public String changePassword(String username, String password) {
+
+		String msg = userService.changePassword(username, password);
+		
+		return "login";
 	}
 
 	// 进入登录页面
@@ -128,50 +138,99 @@ public class UserController {
 
 	// 进入访问记录页面
 	@RequestMapping("/goAccessData")
-	public String goAccessData() {
-
+	public String goAccessData(String tnum, Map<String, Object> model) {
+	
+		Teacher t = teacherService.findTeacherByTnum(tnum);
+		
+		if(t.getIdentify().equals("1")) {
+			
+			return "error/403";
+		}
+		
+		model.put("college", collegeService.findCollegeByName(t.getCollege()));
+		model.put("teacher", t);
 		return "accessData";
 	}
 
 	// 进入添加用户页面
 	@RequestMapping("/goAddUser")
-	public String goAddUser() {
+	public String goAddUser(String tnum, Map<String, Object> model) {
 
+		Teacher t = teacherService.findTeacherByTnum(tnum);
+		
+		if(t.getIdentify().equals("1")) {
+			
+			return "error/403";
+		}
+		
+		model.put("teacher", t);
 		return "addUser";
 	}
 
 	// 进入基础数据页面
 	@RequestMapping("/goBaseData")
-	public String goBaseData() {
-
+	public String goBaseData(String tnum, Map<String, Object> model) {
+		
+		Teacher t = teacherService.findTeacherByTnum(tnum);
+		model.put("college", collegeService.findCollegeByName(t.getCollege()));
+		model.put("major", majorService.findMajorByParentName(t.getCollege()));
+		
+		model.put("teacher", t);
 		return "baseData";
 	}
 
 	// 进入打卡数据页面
 	@RequestMapping("/goDailyData")
-	public String goDailyData() {
-
+	public String goDailyData(String tnum, Map<String, Object> model) {
+		
+		Teacher t = teacherService.findTeacherByTnum(tnum);
+		
+        model.put("college", collegeService.findCollegeByName(t.getCollege()));
+        model.put("major", majorService.findMajorByParentName(t.getCollege()));
+        
+        model.put("teacher", t);
 		return "dailyData";
 	}
 
 	// 进入入校申请页面
 	@RequestMapping("/goIn")
-	public String goIn() {
-
+	public String goIn(String tnum, Map<String, Object> model) {
+		
+		Teacher t = teacherService.findTeacherByTnum(tnum);
+		
+        model.put("college", collegeService.findCollegeByName(t.getCollege()));
+        model.put("major", majorService.findMajorByParentName(t.getCollege()));
+		
+		model.put("teacher", t);
 		return "in";
 	}
 
 	// 进入出校申请页面
 	@RequestMapping("/goOut")
-	public String goOut() {
+	public String goOut(String tnum, Map<String, Object> model) {
 
+		Teacher t = teacherService.findTeacherByTnum(tnum);
+		
+        model.put("college", collegeService.findCollegeByName(t.getCollege()));
+        model.put("major", majorService.findMajorByParentName(t.getCollege()));
+		
+		model.put("teacher", t);
 		return "out";
 	}
 
 	// 进入用户数据页面
 	@RequestMapping("/goUserData")
-	public String goUserData() {
-
+	public String goUserData(String tnum, Map<String, Object> model) {
+		
+		Teacher t = teacherService.findTeacherByTnum(tnum);
+		
+		if(t.getIdentify().equals("1")) {
+			
+			return "error/403";
+		}
+		
+		model.put("college", collegeService.findCollegeByName(t.getCollege()));
+		model.put("teacher", t);
 		return "userData";
 	}
 	
@@ -192,8 +251,13 @@ public class UserController {
 			return "login";
 		}
 		
-		model.put("teacher", map.get("teacher"));
+		
+		Teacher teacher = teacherService.findTeacherByTnum(t.getTnum());
+		model.put("college", collegeService.findCollegeByName(teacher.getCollege()));
+		model.put("major", majorService.findMajorByParentName(teacher.getCollege()));
+		
 		model.put("msg", map.get("msg"));
+		model.put("teacher", map.get("teacher"));
 		return "dailyData";
 	}
 

@@ -43,9 +43,18 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
+
+	public List<Student> findStudentByCollegeName(String collegename) {
+		
+		return studentDao.findStudentByCollegeName(collegename);
+
+	}
+		
+	@Override
 	public List<Student> dynamicStudents(String college, String major, String classes) {
 	
 		return studentDao.dynamicStudents(college, major, classes);
+
 	}
 
 	@Override

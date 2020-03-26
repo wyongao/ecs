@@ -36,6 +36,11 @@ public interface TeacherService {
 	 */
 	public void updateTeacher(Teacher teacher);
 	
+
+	public Teacher findTeacherByTnum(String tnum);
+
+	public List<Teacher> findTeacherByCollege(String college);
+	
 	/**
 	 * 动态查询根据职工号和学院
 	 * @param college
@@ -43,10 +48,15 @@ public interface TeacherService {
 	 * @return
 	 */
 	public List<Teacher> dynamicTeacher(String college,String tnum);
+
 	/**
 	 * 模糊查询
 	 * @param name
 	 * @return
 	 */
 	public List<Teacher> fuzzyTeacher(String name);
+
+
+	
+
 }

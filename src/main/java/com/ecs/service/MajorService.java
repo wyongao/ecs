@@ -16,4 +16,6 @@ public interface MajorService {
 	 * @return
 	 */
 	public List<Major> findAllMajorByParentId(Integer parentid);
+	
+	public List<Major> findMajorByParentName(String parentname);
 }

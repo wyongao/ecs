@@ -1,7 +1,7 @@
 package com.ecs.dao.provider;
 
 public class DayStudentProvider {
-	public String selectWithParam(String college, String major, Integer classes, String snum) {
+	public String selectWithParam(String college, String major, String classes, String snum) {
 		StringBuffer sql = new StringBuffer("select * from day_student where ");
 		// 学院\专业\班级\学号\
 	
@@ -11,7 +11,7 @@ public class DayStudentProvider {
 			if (major != null && !major.equals("")) {
 				sql.append("and major = '" + major + "'");
 			}
-			if (classes != null && classes!=0) {
+			if (classes != null && classes!="") {
 				sql.append("and classes = '" + classes + "'");
 			}
 			if (snum != null && !snum.equals("")) {
@@ -20,8 +20,8 @@ public class DayStudentProvider {
 
 		} else {
 				if (major != null && !major.equals("")) {
-					sql.append("and major = '" + major + "'");
-					if (classes != null && classes!=0) {
+					sql.append("major = '" + major + "'");
+					if (classes != null && classes!="") {
 						sql.append("and classes = '" + classes + "'");
 					}
 					if (snum != null && !snum.equals("")) {
@@ -30,7 +30,7 @@ public class DayStudentProvider {
 				
 			} else {
 
-					if (classes != null && classes!=0) {
+					if (classes != null && classes!="") {
 						sql.append("and classes = '" + classes + "'");
 					
 					if (snum != null && !snum.equals("")) {
