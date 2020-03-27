@@ -54,6 +54,6 @@ public interface ApplicationService {
 	 * @param sname
 	 * @return list
 	 */
-	public List<Application> fuzzyAppliacation(String snum, String sname);
+	public List<Application> fuzzyAppliacation(String snum, String sname,String inout);
 
 }

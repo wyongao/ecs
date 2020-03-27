@@ -83,8 +83,8 @@
 				</div>
 				<div class="layui-form-item">
 					<input type="search" class="layui-input layui-input-inline"
-						placeholder="学号或者姓名">
-					<button type="button" class="layui-btn layui-btn-primary">搜索</button>
+						id="information" placeholder="请输入学号或者姓名">
+					<button type="button" class="layui-btn layui-btn-primary" id="search">搜索</button>
 				</div>
 			</div>
 			<div class="layui-table-box">
@@ -439,7 +439,73 @@
 				}
 			 	
 			});
-		  
+		  //搜索框
+			 $("#search").click(function(){
+				 var information=document.getElementById("information").value;
+				if($.isNumeric(information)){
+				 snum=information;
+				
+				 table.render({
+					    elem: '#dataTable'
+					    ,url: [[@{/dayStudentDynamic}]]+"?snum="+snum
+					    ,cellMinWidth: 80 
+					    ,page: true
+					    ,method: 'post'
+					    ,limit: 12
+					    ,even: true
+					    ,cols: [
+					    	[ 
+							  {field: 'id', title: '序号', width: 60}
+							,{field: 'sname', title: '姓名', width: 140}
+							,{field: 'snum', title: '学号', width: 160}
+							,{field: 'college', title: '学院', width: 160}
+							,{field: 'major', title: '专业', minWidth: 140}
+							,{field: 'classes', title: '班级', width: 80}
+							,{field: 'addr', title: '地点', maxWidth: 200}
+							,{field: 'date', title: '日期', width: 140}
+							,{field: 'temp', title: '体温', width: 60}
+							,{field: 'symptom', title: '症状', width: 60}
+							]
+					    	]
+					    ,groups : 5
+						,jump: function(obj){
+					      console.log(obj)
+					    }
+					  });
+			 	 }else{
+			 		 name=information;
+					 
+					 table.render({
+						    elem: '#dataTable'
+						    ,url: [[@{/fuzzyDayStudents}]]+"?name="+name
+						    ,cellMinWidth: 80 
+						    ,page: true
+						    ,method: 'post'
+						    ,limit: 12
+						    ,even: true
+						    ,cols: [
+						    	[ 
+								  {field: 'id', title: '序号', width: 60}
+								,{field: 'sname', title: '姓名', width: 140}
+								,{field: 'snum', title: '学号', width: 160}
+								,{field: 'college', title: '学院', width: 160}
+								,{field: 'major', title: '专业', minWidth: 140}
+								,{field: 'classes', title: '班级', width: 80}
+								,{field: 'addr', title: '地点', maxWidth: 200}
+								,{field: 'date', title: '日期', width: 140}
+								,{field: 'temp', title: '体温', width: 60}
+								,{field: 'symptom', title: '症状', width: 60}
+								]
+						    	]
+						    ,groups : 5
+							,jump: function(obj){
+						      console.log(obj)
+						    }
+						  });
+			 		 
+			 	 }
+				 
+			 });
 		  
 		});
 	

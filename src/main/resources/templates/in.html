@@ -83,8 +83,8 @@
 				</div>
 				<div class="layui-form-item">
 					<input type="search" class="layui-input layui-input-inline"
-						placeholder="姓名或学号">
-					<button type="button" class="layui-btn layui-btn-primary">搜索</button>
+					id="information"	placeholder="请输入姓名或学号">
+					<button type="button" class="layui-btn layui-btn-primary" id="search">搜索</button>
 				</div>
 			</div>
 			<div class="layui-table-box">
@@ -416,6 +416,78 @@
 						}
 					 	
 					});
+				  
+				  //inout=2,申请进校园的搜索框实现
+					 $("#search").click(function(){
+						 var information=document.getElementById("information").value;
+						
+						 if($.isNumeric(information)){
+						 snum=information;
+						 var inout=2;
+						 table.render({
+							    elem: '#dataTable'
+							    ,url: [[@{/fuzzyApplication}]]+"?snum="+snum+"&inout="+inout
+							    ,cellMinWidth: 80 
+							    ,page: true
+							    ,method: 'post'
+							    ,limit: 12
+							    ,even: true
+							    ,cols: [
+							    	[ 
+									  {field: 'id', title: '序号', width: 60}
+									,{field: 'sname', title: '姓名', width: 100}
+									,{field: 'snum', title: '学号', width: 150}						
+									,{field: 'college', title: '学院', width: 160}
+									,{field: 'major', title: '专业', minWidth: 160}
+									,{field: 'classes', title: '班级', width: 80}
+									,{field: 'date', title: '申请时间', width: 140}
+									,{field: 'exit', title: '进出地点', width: 80}
+									,{field: 'reason', title: '原因', width: 80}
+									,{field: 'status', title: '状态', width: 60}
+									,{width: 140, align:'center', toolbar: '#barDemo'}
+									]
+							    	]
+							    ,groups : 5
+								,jump: function(obj){
+							      console.log(obj)
+							    }
+							  });
+					 	 }else{
+					 		 sname=information;
+					 		 var inout=2;
+					 		table.render({
+							    elem: '#dataTable'
+							    ,url: [[@{/fuzzyApplication}]]+"?sname="+sname+"&inout="+inout
+							    ,cellMinWidth: 80 
+							    ,page: true
+							    ,method: 'post'
+							    ,limit: 12
+							    ,even: true
+							    ,cols: [
+							    	[ 
+									  {field: 'id', title: '序号', width: 60}
+									,{field: 'sname', title: '姓名', width: 100}
+									,{field: 'snum', title: '学号', width: 150}						
+									,{field: 'college', title: '学院', width: 160}
+									,{field: 'major', title: '专业', minWidth: 160}
+									,{field: 'classes', title: '班级', width: 80}
+									,{field: 'date', title: '申请时间', width: 140}
+									,{field: 'exit', title: '进出地点', width: 80}
+									,{field: 'reason', title: '原因', width: 80}
+									,{field: 'status', title: '状态', width: 60}
+									,{width: 140, align:'center', toolbar: '#barDemo'}
+									]
+							    	]
+							    ,groups : 5
+								,jump: function(obj){
+							      console.log(obj)
+							    }
+							  }); 
+					 		 
+					 	 }
+						 
+					 });
+					
 			
 		});
 		</script>

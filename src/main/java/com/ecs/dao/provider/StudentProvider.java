@@ -12,7 +12,9 @@ public class StudentProvider {
 			if (major != null && !major.equals("")) {
 				sql.append(" and major = '" + major + "'");
 			}
-			if (classes != null && classes!="") {
+
+			if (classes != null && !classes.equals("")) {
+
 				sql.append(" and classes = '" + classes + "'");
 			}
 
@@ -21,13 +23,17 @@ public class StudentProvider {
 			
 				if (major != null && !major.equals("")) {
 					sql.append("major = '" + major + "'");
-					if (classes != null && classes!="") {
+
+					if (classes != null && !classes.equals("")) {
+
 						sql.append(" and classes = '" + classes + "'");
 					}
 				}
 			 else {
 
-					if (classes != null && classes!="") {
+
+					if (classes != null && !classes.equals("")) {
+
 						sql.append("classes = '" + classes + "'");
 					}
 				} 
@@ -36,7 +42,26 @@ public class StudentProvider {
 			System.out.println(sql.toString());
 			return sql.toString();
 	}
-		
 	
+	/**
+	 * 根据姓名模糊查询,学号进行查询
+	 * @param name
+	 * @param snum
+	 * @return
+	 */
+		
+	public String fuzzyQueryStudents(String name,String snum) {
+		StringBuffer sql = new StringBuffer("select * from student where ");
+		if (name != null && !name.equals("")) {
+			sql.append("sname like" + "'%" + name + "%'");
+			
+		}else {
+			if(snum!=null && !snum.equals("")) {
+				sql.append("snum ="+snum);
+			}
+		}
+		System.out.println(sql.toString());
+		return sql.toString();
+	}
 
 }

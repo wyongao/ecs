@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.ecs.dao.CollegeDao;
 import com.ecs.dao.SchoolDao;
 import com.ecs.domain.College;
-import com.ecs.domain.School;
 import com.ecs.service.CollegeService;
 /**
  * 

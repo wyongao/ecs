@@ -75,6 +75,13 @@ public class TeacherServiceImpl implements TeacherService {
 		return teacherDao.dynamicTeacher(college, tnum);
 	}
 
+
+	@Override
+	public List<Teacher> fuzzyTeacher(String name) {
+		
+		return teacherDao.fuzzyTeacher(name);
+	}
+
 	
 
 

@@ -54,4 +54,11 @@ public interface TeacherDao {
 	 */
 	@SelectProvider(type = TeacherProvider.class,method = "selectWithParam")
 	public List<Teacher> dynamicTeacher(String college,String tnum);
+	/**
+	 * 根据姓名模糊查询
+	 * @param name
+	 * @return
+	 */
+	@SelectProvider(type = TeacherProvider.class,method= "fuzzyQueryTeacher")
+	public List<Teacher> fuzzyTeacher(String name);
 }

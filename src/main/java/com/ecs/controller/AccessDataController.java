@@ -39,5 +39,28 @@ public class AccessDataController {
 		return JsonUtils.objectToJson(map);
 	}
 	
+	/**
+	 * 模糊擦查询
+	 * @param username
+	 * @param userid
+	 * @param page
+	 * @param limit
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/fuzzyAccessData",method = RequestMethod.POST)
+	public String fuzzyAccessData(String username ,String userid,String page, String limit) {
+		PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(limit));
+		List<AccessData> data=accessDataService.fuzzyAccessData(username, userid);
+		PageInfo<AccessData> pageInfo = new PageInfo<AccessData>(data);
+		
+		Map<String, Object> map = new HashMap<String, Object>();		
+		map.put("code", "0");
+		map.put("msg", "");
+		map.put("count", pageInfo.getTotal());
+		map.put("data", data);
+			
+		return JsonUtils.objectToJson(map);
+	}
 	
 }

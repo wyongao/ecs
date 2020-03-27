@@ -49,5 +49,14 @@ public interface TeacherService {
 	 */
 	public List<Teacher> dynamicTeacher(String college,String tnum);
 
+	/**
+	 * 模糊查询
+	 * @param name
+	 * @return
+	 */
+	public List<Teacher> fuzzyTeacher(String name);
+
+
 	
+
 }

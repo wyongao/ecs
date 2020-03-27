@@ -58,4 +58,14 @@ public interface StudentDao {
 	@SelectProvider(type = StudentProvider.class,method = "selectWithParam")
 	public List<Student> dynamicStudents(String college,String major,String classes);
 
+	/**
+	 * 根据姓名模糊查询,学号查询
+	 * @param name
+	 * @param snum
+	 * @return
+	 */
+	
+	@SelectProvider(type = StudentProvider.class,method = "fuzzyQueryStudents")
+	public List<Student> fuzzyStudent(String name,String snum);
+
 }
