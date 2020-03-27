@@ -10,9 +10,7 @@ import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
 
 import com.ecs.dao.provider.ApplicationProvider;
-import com.ecs.dao.provider.StudentProvider;
 import com.ecs.domain.Application;
-import com.ecs.domain.Student;
 
 /**
  * applicationDao
@@ -73,7 +71,7 @@ public interface ApplicationDao {
 	 * @return list
 	 */
 	@SelectProvider(type = ApplicationProvider.class,method = "fuzzyApplications")
-	public List<Application> fuzzyAppliacation(String snum,String sname);
+	public List<Application> fuzzyAppliacation(String snum,String sname,String inout);
 	
 
 }

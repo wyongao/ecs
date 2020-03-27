@@ -83,8 +83,8 @@
 				</div>
 				<div class="layui-form-item">
 					<input type="search" class="layui-input layui-input-inline"
-						placeholder="201710913305">
-					<button type="button" class="layui-btn layui-btn-primary">搜索</button>
+					 id="information"	placeholder="请输入学号或姓名">
+					<button type="button" class="layui-btn layui-btn-primary" id="search">搜索</button>
 				</div>
 			</div>
 			<div class="layui-table-box">
@@ -128,6 +128,8 @@
 			var $ = layui.jquery; 
 			var identify = [[${teacher.identify}]];
 			var layer = layui.layer;
+			//搜索用的
+			var element=layui.element;
 			var content = $("#changePage").html();
 			  
 			//修改密码弹窗
@@ -374,9 +376,71 @@
 					}
 				 	
 				});
-			  
-			  
-			
+			  //搜索框进行查找
+			 $("#search").click(function(){
+				 var information=document.getElementById("information").value;
+				if($.isNumeric(information)){
+				 snum=information;
+				
+			 	 table.render({
+					    elem: '#dataTable'
+					    ,url: [[@{/fuzzyStudent}]]+"?snum="+snum
+					    ,cellMinWidth: 80 
+					    ,page: true
+					    ,method: 'post'
+					    ,limit: 12
+					    ,even: true
+					    ,cols: [
+					    	[ 
+							  {field: 'id', title: '序号', width: 60}
+							,{field: 'sname', title: '姓名', width: 140}
+							,{field: 'snum', title: '学号', width: 160}						
+							,{field: 'school', title: '学校', width:170}
+							,{field: 'college', title: '学院', width: 160}
+							,{field: 'major', title: '专业', minWidth: 140}
+							,{field: 'classes', title: '班级', width: 80}
+							,{field: 'sex', title: '性别', width: 60}
+							,{field: 'tel', title: '电话', minWidth: 140}
+							]
+					    	]
+					    ,groups : 5
+						,jump: function(obj){
+					      console.log(obj)
+					    }
+					  }); 
+			 	 }else{
+			 		 name=information;
+					 
+				 	 table.render({
+						    elem: '#dataTable'
+						    ,url: [[@{/fuzzyStudent}]]+"?name="+name
+						    ,cellMinWidth: 80 
+						    ,page: true
+						    ,method: 'post'
+						    ,limit: 12
+						    ,even: true
+						    ,cols: [
+						    	[ 
+								  {field: 'id', title: '序号', width: 60}
+								,{field: 'sname', title: '姓名', width: 140}
+								,{field: 'snum', title: '学号', width: 160}						
+								,{field: 'school', title: '学校', width:170}
+								,{field: 'college', title: '学院', width: 160}
+								,{field: 'major', title: '专业', minWidth: 140}
+								,{field: 'classes', title: '班级', width: 80}
+								,{field: 'sex', title: '性别', width: 60}
+								,{field: 'tel', title: '电话', minWidth: 140}
+								]
+						    	]
+						    ,groups : 5
+							,jump: function(obj){
+						      console.log(obj)
+						    }
+						  }); 
+			 		 
+			 	 }
+				 
+			 });
 			
 		});
 		</script>

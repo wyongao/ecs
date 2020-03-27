@@ -30,13 +30,14 @@ public class ApplicationProvider {
 			return sql.toString();
 	}
 	//根据学号和姓名模糊查询
-	public String fuzzyApplications(String snum,String sname) {
-		StringBuffer sql=new StringBuffer("select * from application where");
+	public String fuzzyApplications(String snum,String sname,String inout) {
+		StringBuffer sql=new StringBuffer("select * from application where ");
+		sql.append(" `inout` ='"+inout+"'");
 		if (snum!=null && !snum.equals("")) {
-			sql.append(" snum = "+"'"+snum+"'" );
+			sql.append(" and snum = "+"'"+snum+"'" );
 		}else {
 			if (sname!=null && !sname.equals("")) {
-				sql.append(" sname like"+"'%"+sname+"%'");
+				sql.append(" and sname like"+"'%"+sname+"%'");
 			}
 			return sql.toString();
 		}

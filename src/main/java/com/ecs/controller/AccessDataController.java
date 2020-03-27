@@ -48,7 +48,7 @@ public class AccessDataController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/fuzzyAccessData")
+	@RequestMapping(value = "/fuzzyAccessData",method = RequestMethod.POST)
 	public String fuzzyAccessData(String username ,String userid,String page, String limit) {
 		PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(limit));
 		List<AccessData> data=accessDataService.fuzzyAccessData(username, userid);

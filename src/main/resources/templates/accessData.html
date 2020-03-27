@@ -69,8 +69,8 @@
 				</div>
 				<div class="layui-form-item">
 					<input type="search" class="layui-input layui-input-inline"
-						placeholder="10001">
-					<button type="button" class="layui-btn layui-btn-primary">搜索</button>
+						id="information" placeholder="请输入职工号或姓名">
+					<button type="button" class="layui-btn layui-btn-primary" id="search">搜索</button>
 				</div>
 			</div>
 			<div class="layui-table-box">
@@ -179,10 +179,61 @@
 						    }
 						  });
 				});
-		  
-		  
-		  
-		  
+		  //搜索框的实现
+		  $("#search").click(function(){
+				 var information=document.getElementById("information").value;
+				if($.isNumeric(information)){
+				 userid=information;
+				 table.render({
+					    elem: '#dataTable'
+					    ,url: [[@{/fuzzyAccessData}]]+"?userid="+userid
+					    ,cellMinWidth: 80 
+					    ,page: true
+					    ,method: 'post'
+					    ,limit: 12
+					    ,even: true
+					    ,cols: [
+					    	[ 
+							  {field: 'id', title: '序号', width: 100}
+							,{field: 'username', title: '姓名', width: 200}
+							,{field: 'userid', title: '工号'}
+							,{field: 'college', title: '学院'}
+							,{field: 'ip', title: 'IP',}
+							,{field: 'date', title: '时间'}
+							]
+					    	]
+					    ,groups : 5
+						,jump: function(obj){
+					      console.log(obj)
+					    }
+					  });
+			 	 }else{
+			 		 username=information;
+					 table.render({
+						    elem: '#dataTable'
+						    ,url: [[@{/fuzzyAccessData}]]+"?username="+username
+						    ,cellMinWidth: 80 
+						    ,page: true
+						    ,method: 'post'
+						    ,limit: 12
+						    ,even: true
+						    ,cols: [
+						    	[ 
+								  {field: 'id', title: '序号', width: 100}
+								,{field: 'username', title: '姓名', width: 200}
+								,{field: 'userid', title: '工号'}
+								,{field: 'college', title: '学院'}
+								,{field: 'ip', title: 'IP',}
+								,{field: 'date', title: '时间'}
+								]
+						    	]
+						    ,groups : 5
+							,jump: function(obj){
+						      console.log(obj)
+						    }
+						  }); 
+			 	 } 
+			 });	  
 		});
 	
 	

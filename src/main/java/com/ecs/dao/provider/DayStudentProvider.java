@@ -31,7 +31,7 @@ public class DayStudentProvider {
 			} else {
 
 					if (classes != null && classes!="") {
-						sql.append("and classes = '" + classes + "'");
+						sql.append(" classes = '" + classes + "'");
 					
 					if (snum != null && !snum.equals("")) {
 						sql.append("and snum = '" + snum + "'");
@@ -39,7 +39,7 @@ public class DayStudentProvider {
 				 }else {
 	
 						if (snum != null && !snum.equals("")) {
-							sql.append("and snum ='" + snum + "'");
+							sql.append(" snum ='" + snum + "'");
 							return sql.toString();
 						}
 					} 

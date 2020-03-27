@@ -17,7 +17,6 @@ import com.ecs.common.DateUtil;
 import com.ecs.common.JsonUtils;
 import com.ecs.constant.Constant;
 import com.ecs.domain.Application;
-import com.ecs.domain.Student;
 import com.ecs.service.ApplicationService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -196,11 +195,11 @@ public class ApplicationController {
 	}
 
 	// 根据学号和姓名模糊查询进行分页
-	@RequestMapping(value = "/fuzzyApplication")
+	@RequestMapping(value = "/fuzzyApplication",method = RequestMethod.POST)
 	@ResponseBody
-	public String fuzzyApllication(String snum, String sname, String limit, String page) {
+	public String fuzzyApllication(String snum, String sname,String inout, String limit, String page) {
 		PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(limit));
-		List<Application> data = applicationService.fuzzyAppliacation(snum, sname);
+		List<Application> data = applicationService.fuzzyAppliacation(snum, sname,inout);
 		PageInfo<Application> pageInfo = new PageInfo<Application>(data);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("code", "0");
