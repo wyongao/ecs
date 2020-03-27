@@ -27,15 +27,15 @@ public interface TeacherDao {
 	@Select("select * from teacher")
 	public List<Teacher> findAllTeacher();
 	
-	@Insert("insert into teacher(id,tname,tnum,school,college,sex,tel) "
-			+ "values(#{id},#{tname},#{tnum},#{school},#{college},#{sex},#{tel})")
-	public void addTeacher(Teacher teacher);
-	
 	@Delete("delete from teacher where tnum=#{tnum}")
 	public void deleteTeacher(String tnum);
 	
 	@Update("update teacher set tname=#{tname},tnum=#{tnum},school=#{school},college=#{college},sex=#{sex},tel=#{tel}")
 	public void updateTeacher(Teacher teacher);
+	
+	@Insert("insert into teacher(tname,tnum,password,school,college,sex,tel) "
+			+ "values(#{tname},#{tnum},#{password},#{school},#{college},#{sex},#{tel})")
+	public void addTeacher(String tname, String tnum, String password, String school, String college, String sex, String tel);
 	
 	@Select("select * from teacher where tnum=#{tnum}")
 	public Teacher findTeacherByTnum(String tnum);

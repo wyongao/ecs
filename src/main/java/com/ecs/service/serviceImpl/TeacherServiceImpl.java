@@ -36,7 +36,7 @@ public class TeacherServiceImpl implements TeacherService {
 	@Override
 	public void addTeacher(Teacher teacher) {
 
-		teacherDao.addTeacher(teacher);
+		teacherDao.addTeacher(teacher.getTname(), teacher.getTnum(), teacher.getPassword(), teacher.getSchool(), teacher.getCollege(), teacher.getSex(), teacher.getTel());
 	}
 
 	/**

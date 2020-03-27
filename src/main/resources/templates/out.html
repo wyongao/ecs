@@ -100,7 +100,7 @@
 
 	<script src="js/layui.all.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/html" id="changePage"> 
-		<form class="layui-form" th:action="@{/changePassword}" method="post" style="margin-top: 40px; padding-right: 60px;">
+		<form class="layui-form" style="margin-top: 40px; padding-right: 60px;">
 			<div class="layui-form-item">
 				<label class="layui-form-label">账号</label>
 				<div class="layui-input-block">
@@ -115,7 +115,7 @@
 			</div>  
 			<div class="layui-form-item">
 				<div class="layui-input-block">
-					<button type="submit" class="layui-btn">修改</button>
+					<button type="submit" class="layui-btn" lay-submit="" lay-filter="changeSubmit">修改</button>
 					<button type="reset" class="layui-btn layui-btn-primary">重置</button>
 				</div>
 			</div>
@@ -144,6 +144,31 @@
 				title: "修改密码",
 				content: content,	
 			  });
+			}); 
+			
+			//修改密码
+			form.on('submit(changeSubmit)', function(data) {
+
+				$.ajax({
+					type: "post",
+			 		url: [[@{/changePassword}]],
+			 		data: {
+			 			username: data.field.username,
+			 			password: data.field.password,
+			 		},
+			 		success: function(msg) {
+			 			if(msg=='success'){
+			 				layer.msg("修改成功！");
+			 				setTimeout(function(){ 
+			 					window.location.href='http://127.0.0.1:8080/ecs/login'; 
+			 				},2000);
+			 			}else{
+			 				layer.msg("修改失败！");
+			 			}
+			 			$('#reset').trigger("click");
+					}
+				});
+				return false;
 			}); 
 			
 			//验证身份

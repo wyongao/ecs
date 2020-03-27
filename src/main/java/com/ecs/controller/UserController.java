@@ -59,18 +59,7 @@ public class UserController {
 		return userService.findAll().toString();
 	}
 
-	// 添加用户
-	@RequestMapping("/addUser")
-	@ResponseBody
-	public String addUser(User user) {
-		user.setUsername("abcdc");
-		user.setPassword("456789");
-		user.setIdentify("2");
-		userService.addUser(user);
-		System.out.println("添加成功!------------>");
-		return "添加成功";
-	}
-
+	
 	// 删除用户
 	@RequestMapping("/deleteUser")
 	@ResponseBody
@@ -120,13 +109,26 @@ public class UserController {
 		return "修改成功";
 	}
 
+	
+	// 添加用户
+	@ResponseBody
+	@RequestMapping("/addUser")
+	public String addUser(Teacher t) {
+		
+		teacherService.addTeacher(t);
+
+		return "success";
+	}
+
+	
 	// 修改密码
+	@ResponseBody
 	@RequestMapping("/changePassword")
 	public String changePassword(String username, String password) {
 
 		String msg = userService.changePassword(username, password);
 		
-		return "login";
+		return msg;
 	}
 
 	// 进入登录页面
