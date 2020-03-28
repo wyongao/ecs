@@ -43,8 +43,8 @@ public interface ApplicationDao {
 	public List<Application> findAllByCollege(String college);
 
 	// 修改申请状态(管理员)
-	@Update("UPDATE application SET `status`=#{status} WHERE snum=#{snum} AND date=#{date}")
-	public void updateStatus(String status, String snum, String date);
+	@Update("UPDATE application SET `status`=#{status} WHERE id=#{id}")
+	public void updateStatus(String id, String status);
 	
 	//动态查询
 	@SelectProvider(type = ApplicationProvider.class,method = "selectWithParam")

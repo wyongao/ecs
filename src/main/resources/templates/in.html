@@ -14,13 +14,17 @@
 		<div class="hs">
 			<div class="header">
 				<ul class="layui-nav">
-					<li class="layui-nav-item">
-						<a href="javascript:;" id="userInfo" th:value="${teacher.tnum}" th:text="${teacher.tname}"></a>
+					<li class="layui-nav-item"><a href="javascript:;"
+						id="userInfo" th:value="${teacher.tnum}"
+						th:text="${teacher.tname}"></a>
 						<dl class="layui-nav-child" style="z-index: 1000;">
-								<dd><a href="javascript:;" id="changePassword">修改密码</a></dd>
-								<dd><a th:href="@{/login}">退出</a></dd>
-						</dl>	
-					</li>
+							<dd>
+								<a href="javascript:;" id="changePassword">修改密码</a>
+							</dd>
+							<dd>
+								<a th:href="@{/login}">退出</a>
+							</dd>
+						</dl></li>
 				</ul>
 			</div>
 			<div class="side">
@@ -47,14 +51,18 @@
 						</dl></li>
 					<li class="layui-nav-item"><a href="javascript:;">数据报表</a></li>
 					<li class="layui-nav-item"><a href="javascript:;">二维码</a></li>
-					<li class="layui-nav-item" id="accessData"><a th:href="@{/goAccessData(tnum=${teacher.tnum})}">访问记录</a></li>
-					<li class="layui-nav-item" id="userManage">
-							<a href="javascript:;">用户管理</a>
-							<dl class="layui-nav-child">
-								<dd><a th:href="@{/goUserData(tnum=${teacher.tnum})}">用户数据</a></dd>
-								<dd><a th:href="@{/goAddUser(tnum=${teacher.tnum})}">添加用户</a></dd>
-							</dl>
-					</li>
+					<li class="layui-nav-item" id="accessData"><a
+						th:href="@{/goAccessData(tnum=${teacher.tnum})}">访问记录</a></li>
+					<li class="layui-nav-item" id="userManage"><a
+						href="javascript:;">用户管理</a>
+						<dl class="layui-nav-child">
+							<dd>
+								<a th:href="@{/goUserData(tnum=${teacher.tnum})}">用户数据</a>
+							</dd>
+							<dd>
+								<a th:href="@{/goAddUser(tnum=${teacher.tnum})}">添加用户</a>
+							</dd>
+						</dl></li>
 					<li class="layui-nav-item"><a href="javascript:;">设置</a></li>
 				</ul>
 			</div>
@@ -83,12 +91,13 @@
 				</div>
 				<div class="layui-form-item">
 					<input type="search" class="layui-input layui-input-inline"
-					id="information"	placeholder="请输入姓名或学号">
-					<button type="button" class="layui-btn layui-btn-primary" id="search">搜索</button>
+						id="information" placeholder="请输入姓名或学号">
+					<button type="button" class="layui-btn layui-btn-primary"
+						id="search">搜索</button>
 				</div>
 			</div>
 			<div class="layui-table-box">
-				<table class="layui-table" id="dataTable">
+				<table class="layui-table" id="dataTable" lay-filter="dataTable">
 
 				</table>
 			</div>
@@ -121,8 +130,8 @@
 		</form>	
 	</script>
 	<script type="text/html" id="barDemo">
-  			<a class="layui-btn layui-btn-xs" lay-event="">通过</a>
-  			<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="">驳回</a>
+  			<a class="layui-btn layui-btn-xs" lay-event="pass">通过</a>
+  			<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="reject">驳回</a>
 	</script>
 
 	<script type="text/javascript" th:inline="javascript">
@@ -194,11 +203,19 @@
 						,{field: 'college', title: '学院', width: 160}
 						,{field: 'major', title: '专业', minWidth: 160}
 						,{field: 'classes', title: '班级', width: 80}
-						,{field: 'date', title: '申请时间', width: 140}
-						,{field: 'exit', title: '进出地点', width: 80}
+						,{field: 'date', title: '申请时间', width: 130}
+						,{field: 'exit', title: '进出地点', width: 90}
 						,{field: 'reason', title: '原因', width: 80}
-						,{field: 'status', title: '状态', width: 60}
-						,{width: 140, align:'center', toolbar: '#barDemo'}
+						,{field: 'status', title: '状态', width: 80, templet: function(data){
+							if(data.status == '1'){
+								return "待审核";
+							}else if(data.status == '2'){
+								return "已通过";
+							}else if(data.status == '3'){
+								return "已驳回";
+							}
+						}}
+						,{fixed: 'right', width: 140, align:'center', toolbar: '#barDemo'}
 						]
 				    	]
 				    ,groups : 5
@@ -248,11 +265,19 @@
 									,{field: 'college', title: '学院', width: 160}
 									,{field: 'major', title: '专业', minWidth: 160}
 									,{field: 'classes', title: '班级', width: 80}
-									,{field: 'date', title: '申请时间', width: 140}
-									,{field: 'exit', title: '进出地点', width: 80}
+									,{field: 'date', title: '申请时间', width: 130}
+									,{field: 'exit', title: '进出地点', width: 90}
 									,{field: 'reason', title: '原因', width: 80}
-									,{field: 'status', title: '状态', width: 60}
-									,{width: 140, align:'center', toolbar: '#barDemo'}
+									,{field: 'status', title: '状态', width: 80, templet: function(data){
+										if(data.status == '1'){
+											return "待审核";
+										}else if(data.status == '2'){
+											return "已通过";
+										}else if(data.status == '3'){
+											return "已驳回";
+										}
+									}}
+									,{fixed: 'right', width: 140, align:'center', toolbar: '#barDemo'}
 									]
 							    	]
 							    ,groups : 5
@@ -287,11 +312,19 @@
 									,{field: 'college', title: '学院', width: 160}
 									,{field: 'major', title: '专业', minWidth: 160}
 									,{field: 'classes', title: '班级', width: 80}
-									,{field: 'date', title: '申请时间', width: 140}
-									,{field: 'exit', title: '进出地点', width: 80}
+									,{field: 'date', title: '申请时间', width: 130}
+									,{field: 'exit', title: '进出地点', width: 90}
 									,{field: 'reason', title: '原因', width: 80}
-									,{field: 'status', title: '状态', width: 60}
-									,{width: 140, align:'center', toolbar: '#barDemo'}
+									,{field: 'status', title: '状态', width: 80, templet: function(data){
+										if(data.status == '1'){
+											return "待审核";
+										}else if(data.status == '2'){
+											return "已通过";
+										}else if(data.status == '3'){
+											return "已驳回";
+										}
+									}}
+									,{fixed: 'right', width: 140, align:'center', toolbar: '#barDemo'}
 									]
 							    	]
 							    ,groups : 5
@@ -334,11 +367,19 @@
 									,{field: 'college', title: '学院', width: 160}
 									,{field: 'major', title: '专业', minWidth: 160}
 									,{field: 'classes', title: '班级', width: 80}
-									,{field: 'date', title: '申请时间', width: 140}
-									,{field: 'exit', title: '进出地点', width: 80}
+									,{field: 'date', title: '申请时间', width: 130}
+									,{field: 'exit', title: '进出地点', width: 90}
 									,{field: 'reason', title: '原因', width: 80}
-									,{field: 'status', title: '状态', width: 60}
-									,{width: 140, align:'center', toolbar: '#barDemo'}
+									,{field: 'status', title: '状态', width: 80, templet: function(data){
+										if(data.status == '1'){
+											return "待审核";
+										}else if(data.status == '2'){
+											return "已通过";
+										}else if(data.status == '3'){
+											return "已驳回";
+										}
+									}}
+									,{fixed: 'right', width: 140, align:'center', toolbar: '#barDemo'}
 									]
 							    	]
 							    ,groups : 5
@@ -372,11 +413,19 @@
 									,{field: 'college', title: '学院', width: 160}
 									,{field: 'major', title: '专业', minWidth: 160}
 									,{field: 'classes', title: '班级', width: 80}
-									,{field: 'date', title: '申请时间', width: 140}
-									,{field: 'exit', title: '进出地点', width: 80}
+									,{field: 'date', title: '申请时间', width: 130}
+									,{field: 'exit', title: '进出地点', width: 90}
 									,{field: 'reason', title: '原因', width: 80}
-									,{field: 'status', title: '状态', width: 60}
-									,{width: 140, align:'center', toolbar: '#barDemo'}
+									,{field: 'status', title: '状态', width: 80, templet: function(data){
+										if(data.status == '1'){
+											return "待审核";
+										}else if(data.status == '2'){
+											return "已通过";
+										}else if(data.status == '3'){
+											return "已驳回";
+										}
+									}}
+									,{fixed: 'right', width: 140, align:'center', toolbar: '#barDemo'}
 									]
 							    	]
 							    ,groups : 5
@@ -401,11 +450,19 @@
 									,{field: 'college', title: '学院', width: 160}
 									,{field: 'major', title: '专业', minWidth: 160}
 									,{field: 'classes', title: '班级', width: 80}
-									,{field: 'date', title: '申请时间', width: 140}
-									,{field: 'exit', title: '进出地点', width: 80}
+									,{field: 'date', title: '申请时间', width: 130}
+									,{field: 'exit', title: '进出地点', width: 90}
 									,{field: 'reason', title: '原因', width: 80}
-									,{field: 'status', title: '状态', width: 60}
-									,{width: 140, align:'center', toolbar: '#barDemo'}
+									,{field: 'status', title: '状态', width: 80, templet: function(data){
+										if(data.status == '1'){
+											return "待审核";
+										}else if(data.status == '2'){
+											return "已通过";
+										}else if(data.status == '3'){
+											return "已驳回";
+										}
+									}}
+									,{fixed: 'right', width: 140, align:'center', toolbar: '#barDemo'}
 									]
 							    	]
 							    ,groups : 5
@@ -440,11 +497,19 @@
 									,{field: 'college', title: '学院', width: 160}
 									,{field: 'major', title: '专业', minWidth: 160}
 									,{field: 'classes', title: '班级', width: 80}
-									,{field: 'date', title: '申请时间', width: 140}
-									,{field: 'exit', title: '进出地点', width: 80}
+									,{field: 'date', title: '申请时间', width: 130}
+									,{field: 'exit', title: '进出地点', width: 90}
 									,{field: 'reason', title: '原因', width: 80}
-									,{field: 'status', title: '状态', width: 60}
-									,{width: 140, align:'center', toolbar: '#barDemo'}
+									,{field: 'status', title: '状态', width: 80, templet: function(data){
+										if(data.status == '1'){
+											return "待审核";
+										}else if(data.status == '2'){
+											return "已通过";
+										}else if(data.status == '3'){
+											return "已驳回";
+										}
+									}}
+									,{fixed: 'right', width: 140, align:'center', toolbar: '#barDemo'}
 									]
 							    	]
 							    ,groups : 5
@@ -471,11 +536,19 @@
 									,{field: 'college', title: '学院', width: 160}
 									,{field: 'major', title: '专业', minWidth: 160}
 									,{field: 'classes', title: '班级', width: 80}
-									,{field: 'date', title: '申请时间', width: 140}
-									,{field: 'exit', title: '进出地点', width: 80}
+									,{field: 'date', title: '申请时间', width: 130}
+									,{field: 'exit', title: '进出地点', width: 90}
 									,{field: 'reason', title: '原因', width: 80}
-									,{field: 'status', title: '状态', width: 60}
-									,{width: 140, align:'center', toolbar: '#barDemo'}
+									,{field: 'status', title: '状态', width: 80, templet: function(data){
+										if(data.status == '1'){
+											return "待审核";
+										}else if(data.status == '2'){
+											return "已通过";
+										}else if(data.status == '3'){
+											return "已驳回";
+										}
+									}}
+									,{fixed: 'right', width: 140, align:'center', toolbar: '#barDemo'}
 									]
 							    	]
 							    ,groups : 5
@@ -488,6 +561,86 @@
 						 
 					 });
 					
+					//操作实现
+						table.on('tool(dataTable)', function(obj){
+							var college = $("#college").find('option:selected').text();
+							var major = $("#major").find('option:selected').text();
+							var classes = $("#classes").find('option:selected').text();
+							
+							var id = obj.data.id;
+							var status = obj.data.status;
+							var event = obj.event;
+							
+							if(major == "所有专业"){
+								major="";
+							}
+							if(classes == "所有班级"){
+								classes="";
+							}
+							
+							$.ajax({
+								type: "post",
+								data: {
+									id: id,
+									status: status,
+									event: event
+								},
+						 		url: [[@{/updateStatus}]],
+						 		success: function(data) {
+						 			if(data == "success"){
+						 				layer.msg("操作成功！");
+						 				table.render({
+										    elem: '#dataTable'
+										    ,url: [[@{/inDynamic}]]
+						 					,where: {
+						 						college: college,
+						 						major: major,
+						 						classes: classes
+						 					}
+										    ,cellMinWidth: 80 
+										    ,page: true
+										    ,method: 'post'
+										    ,limit: 12
+										    ,even: true
+										    ,cols: [
+										    	[ 
+												  {field: 'id', title: '序号', width: 60}
+												,{field: 'sname', title: '姓名', width: 100}
+												,{field: 'snum', title: '学号', width: 150}						
+												,{field: 'college', title: '学院', width: 160}
+												,{field: 'major', title: '专业', minWidth: 160}
+												,{field: 'classes', title: '班级', width: 80}
+												,{field: 'date', title: '申请时间', width: 130}
+												,{field: 'exit', title: '进出地点', width: 90}
+												,{field: 'reason', title: '原因', width: 80}
+												,{field: 'status', title: '状态', width: 80, templet: function(data){
+													if(data.status == '1'){
+														return "待审核";
+													}else if(data.status == '2'){
+														return "已通过";
+													}else if(data.status == '3'){
+														return "已驳回";
+													}
+												}}
+												,{fixed: 'right', width: 140, align:'center', toolbar: '#barDemo'}
+												]
+										    	]
+										    ,groups : 5
+											,jump: function(obj){
+										      console.log(obj)
+										    }
+										  }); 
+						 			}else if(data == "falure"){
+						 				layer.msg("操作失败，该申请已被处理！");
+						 			}
+								},
+								error: function(){	
+								}
+							});				
+						}); 
+				  
+				  
+				  
 			
 		});
 		</script>

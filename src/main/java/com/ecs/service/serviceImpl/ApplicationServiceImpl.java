@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ecs.constant.ApplicationConstant;
 import com.ecs.dao.ApplicationDao;
 import com.ecs.domain.Application;
 import com.ecs.service.ApplicationService;
@@ -26,10 +27,21 @@ public class ApplicationServiceImpl implements ApplicationService{
 	}
 	//批准或者驳回
 	@Override
-	public void updateStatus(String status, String snum, String date) {
-		applicationDao.updateStatus(status, snum, date);
+	public String updateStatus(String id, String status, String event) {
 		
+		
+		if(!status.equals(ApplicationConstant.STATUS_CHECK_PENDING)) {
+			return "falure";
+		}else {
+			if(event.equals("pass")) {
+				applicationDao.updateStatus(id, ApplicationConstant.STATUS_PASSED);
+			}else if(event.equals("reject")) {
+				applicationDao.updateStatus(id, ApplicationConstant.STATUS_REJECTED);
+			}
+		}	
+		return "success";
 	}
+	
 	//查询
 	@Override
 	public List<Application> findAllByCollegeAndMajor(String college, String major) {
@@ -74,25 +86,25 @@ public class ApplicationServiceImpl implements ApplicationService{
 	@Override
 	public List<Application> findOutData() {
 		
-		return applicationDao.findOutData("1");
+		return applicationDao.findOutData(ApplicationConstant.INOUT_OUT);
 	}
 	
 	@Override
 	public List<Application> findInData() {
 		
-		return applicationDao.findInData("2");
+		return applicationDao.findInData(ApplicationConstant.INOUT_IN);
 	}
 	
 	@Override
 	public List<Application> findOutDataByCollege(String college) {
 		
-		return applicationDao.findDataByCollege("1", college);
+		return applicationDao.findDataByCollege(ApplicationConstant.INOUT_OUT, college);
 	}
 	
 	@Override
 	public List<Application> findInDataByCollege(String college) {
 		
-		return applicationDao.findDataByCollege("2", college);
+		return applicationDao.findDataByCollege(ApplicationConstant.INOUT_IN, college);
 	}
 	
 	@Override

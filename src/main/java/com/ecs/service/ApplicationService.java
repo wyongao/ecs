@@ -30,7 +30,7 @@ public interface ApplicationService {
 //	public List<Application> findAllApplication();
 
 	// 修改申请状态(管理员)
-	public void updateStatus(String status, String snum, String date);
+	public String updateStatus(String id, String status, String event);
 
 	// 动态查询
 	public List<Application> applicationDynamic(String college, String major, String classes, String inout);

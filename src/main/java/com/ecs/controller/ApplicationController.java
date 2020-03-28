@@ -117,18 +117,17 @@ public class ApplicationController {
 	@RequestMapping(value = "/updateStatus")
 	@ResponseBody
 	// 修改申请状态(管理员)
-	public String updateStatus(String status, String snum, String data) {
-		status = "2";
-		snum = "201710913106";
-		applicationService.updateStatus(status, snum, DateUtil.getDate());
-		return "成功";
+	public String updateStatus(String id, String status, String event) {
+		
+		String msg = applicationService.updateStatus(id, status, event);
+		
+		return msg;
 	}
 
 	//出校申请动态查询
 	@RequestMapping(value = "/outDynamic")
 	@ResponseBody
 	public String outDynamic(String page, String limit, String college, String major, String classes) {
-		
 		
 		PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(limit));
 		List<Application> data=applicationService.applicationDynamic(college, major, classes, "1");
