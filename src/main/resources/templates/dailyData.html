@@ -258,7 +258,7 @@
 						alert("获取数据失败,请重试.")
 					}
 				});
-				/* }; */
+			
 				
 			 	 table.render({
 					    elem: '#dataTable'
@@ -442,9 +442,13 @@
 		  //搜索框
 			 $("#search").click(function(){
 				 var information=document.getElementById("information").value;
-				if($.isNumeric(information)){
-				 snum=information;
+				 alert(information);
+				 if(information==null||information==""){
+					 layer.msg('不能为空', {icon: 2,anim: 6});
+				}else{
 				
+				 if($.isNumeric(information)){
+				 snum=information;
 				 table.render({
 					    elem: '#dataTable'
 					    ,url: [[@{/dayStudentDynamic}]]+"?snum="+snum
@@ -504,7 +508,7 @@
 						  });
 			 		 
 			 	 }
-				 
+				}
 			 });
 		  
 		});

@@ -477,7 +477,10 @@
 				  //inout=2,申请进校园的搜索框实现
 					 $("#search").click(function(){
 						 var information=document.getElementById("information").value;
-						
+						 alert(information);
+						 if(information==null||information==""){
+							 layer.msg('不能为空', {icon: 2,anim: 6});
+						}else{
 						 if($.isNumeric(information)){
 						 snum=information;
 						 var inout=2;
@@ -558,7 +561,7 @@
 							  }); 
 					 		 
 					 	 }
-						 
+						}
 					 });
 					
 					//操作实现
