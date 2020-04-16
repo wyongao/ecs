@@ -16,6 +16,7 @@ public class Student {
 	private String classes;
 	private String sex;
 	private String tel;
+	private String openid;
 	public Integer getId() {
 		return id;
 	}
@@ -70,10 +71,18 @@ public class Student {
 	public void setTel(String tel) {
 		this.tel = tel;
 	}
+	public String getOpenid() {
+		return openid;
+	}
+	public void setOpenid(String openid) {
+		this.openid = openid;
+	}
 	@Override
 	public String toString() {
 		return "Student [id=" + id + ", sname=" + sname + ", snum=" + snum + ", school=" + school + ", college="
-				+ college + ", major=" + major + ", classes=" + classes + ", sex=" + sex + ", tel=" + tel + "]";
+				+ college + ", major=" + major + ", classes=" + classes + ", sex=" + sex + ", tel=" + tel + ", openid="
+				+ openid + "]";
 	}
+	
 
 }

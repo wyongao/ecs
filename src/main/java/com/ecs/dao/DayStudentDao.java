@@ -55,5 +55,7 @@ public interface DayStudentDao {
 	@SelectProvider(type = DayStudentProvider.class,method = "fuzzyQueryDaystudents")
 	public List<DayStudent> fuzzyQueryDaystudents(String name);
 	
-
+	//根据学号查找学生的打卡信息
+	@Select("select date,temp,symptom from day_student where snum=#{snum}")
+	public List<DayStudent> findBySnumForwx(String snum);
 }

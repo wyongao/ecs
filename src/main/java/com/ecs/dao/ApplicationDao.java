@@ -73,5 +73,7 @@ public interface ApplicationDao {
 	@SelectProvider(type = ApplicationProvider.class,method = "fuzzyApplications")
 	public List<Application> fuzzyAppliacation(String snum,String sname,String inout);
 	
-
+	// 根据学号查找查找
+	@Select("select date,`exit`,reason,`status` from application where snum=#{snum}")
+	public List<Application> findBySnumForwx(String snum);
 }

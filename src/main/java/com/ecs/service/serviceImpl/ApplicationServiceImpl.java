@@ -113,6 +113,12 @@ public class ApplicationServiceImpl implements ApplicationService{
 		return applicationDao.fuzzyAppliacation(snum, sname,inout);
 	}
 	
+	@Override
+	public List<Application> findBySnumForwx(String snum) {
+		
+		return applicationDao.findBySnumForwx(snum);
+	}
+	
 	
 	
 	
