@@ -1,7 +1,7 @@
 package com.ecs.dao.provider;
 
 public class DayStudentProvider {
-	public String selectWithParam(String college, String major, String classes, String snum) {
+	public String selectWithParam(String college, String major, String classes, String snum,String date) {
 		StringBuffer sql = new StringBuffer("select * from day_student where ");
 		// 学院\专业\班级\学号\
 	
@@ -11,11 +11,14 @@ public class DayStudentProvider {
 			if (major != null && !major.equals("")) {
 				sql.append("and major = '" + major + "'");
 			}
-			if (classes != null && classes!="") {
+			if (classes != null && !classes.equals("")) {
 				sql.append("and classes = '" + classes + "'");
 			}
 			if (snum != null && !snum.equals("")) {
 				sql.append("and snum = '" + snum + "'");
+			}
+			if (date !=null && !date.equals("")) {
+				sql.append("and date = '"+ date +"'");
 			}
 
 		} else {
@@ -27,6 +30,9 @@ public class DayStudentProvider {
 					if (snum != null && !snum.equals("")) {
 						sql.append("and snum = '" + snum + "'");
 					}
+					if (date !=null && !date.equals("")) {
+						sql.append("and date = '"+ date +"'");
+					}
 				
 			} else {
 
@@ -36,12 +42,19 @@ public class DayStudentProvider {
 					if (snum != null && !snum.equals("")) {
 						sql.append("and snum = '" + snum + "'");
 					}
+					if (date !=null && !date.equals("")) {
+						sql.append("and date = '"+ date +"'");
+					}
 				 }else {
 	
 						if (snum != null && !snum.equals("")) {
 							sql.append(" snum ='" + snum + "'");
-							return sql.toString();
+							
 						}
+						if (date !=null && !date.equals("")) {
+							sql.append("and date = '"+ date +"'");
+						}
+						return sql.toString();
 					} 
 			}
 

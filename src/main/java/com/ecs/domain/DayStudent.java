@@ -15,7 +15,7 @@ public class DayStudent {
 	private String classes; //班级
 	private String addr; //地点
 	private String date; //日期
-	private Double temp; //体温
+	private String temp; //体温
 	private String symptom; //症状
 	//无参数的构造方法
 	public DayStudent() {
@@ -25,7 +25,7 @@ public class DayStudent {
 
 	//构造方法
 	public DayStudent(String snum, String sname, String college, String major, String classes, String addr,
-			String date, Double temp, String symptom) {
+			String date, String temp, String symptom) {
 		super();
 		this.snum = snum;
 		this.sname = sname;
@@ -102,11 +102,11 @@ public class DayStudent {
 		this.date = date;
 	}
 
-	public Double getTemp() {
+	public String getTemp() {
 		return temp;
 	}
 
-	public void setTemp(Double temp) {
+	public void setTemp(String temp) {
 		this.temp = temp;
 	}
 

@@ -60,6 +60,13 @@
 			</div>
 		</div>
 		<div class="main layui-body">
+				<div  class="layui-form-item">
+					<div class="layui-col-md4 layui-col-md-offset9">
+						<button type="button" class="layui-btn layui-btn-normal" id="export">
+						  <i class="layui-icon layui-icon-export"></i>导出数据
+						</button>
+					</div>
+				</div>
 			<div class="top layui-form">
 				<div class="layui-form-item">
 					<select class="layui-select" name="college" id="college"
@@ -129,6 +136,24 @@
 		  var identify = [[${teacher.identify}]];
 		  var layer = layui.layer;
 		  var content = $("#changePage").html();
+		  //文件导出
+		  $('#export').on('click',function() {
+			 
+			var college = $("#college").find('option:selected').text();
+			var major = $("#major").find('option:selected').text();
+			var classes= $("#classes").find('option:selected').text();
+
+			
+			if(college==null&&major==null&&classes==null){
+				layer.msg('请选择你要导出的数据',{icon: 2,anim: 6});
+			}else{
+				window.location.href=[[@{/outputStudent}]]+"?college="+college+"&major="+major+"&classes="+classes;
+				layer.msg('导出成功',{icon: 1});
+			}
+			
+			
+		  });
+		  
 		  
 		  //修改密码弹窗
 		  $('#changePassword').on('click', function() {

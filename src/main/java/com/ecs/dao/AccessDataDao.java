@@ -25,7 +25,7 @@ public interface AccessDataDao {
 
 
 	// 根据学院查找
-	@Select("select * from accessdata where college=#{college}")
+	@Select("select * from accessdata where college=#{college} ORDER BY date DESC")
 	public List<AccessData> findAccessDataByCollege(String college);
 
 	// 保存

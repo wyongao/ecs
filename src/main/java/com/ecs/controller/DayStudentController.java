@@ -127,7 +127,7 @@ public class DayStudentController {
 	@ResponseBody
 	public String addDayStudent(DayStudent dayStudent) {
 		DayStudent dayStudent2 = new DayStudent("201710913101", "马金凤", "计算机学院", "软件工程", "1842", "河南省新乡市",
-				DateUtil.getDate(), 36.7, "否");
+				DateUtil.getDate(), "36.7", "否");
 		dayStudentService.addDayStudent(dayStudent2);
 		System.out.println("---------------->>>>添加成功");
 		return "成功";
@@ -172,7 +172,7 @@ public class DayStudentController {
 		map.put("data", data);
 		return JsonUtils.objectToJson(map);
 	}
-	/*
+	/**
 	 * 根据姓名进行模糊分页查询(可用的)
 	 */
 	@ResponseBody
