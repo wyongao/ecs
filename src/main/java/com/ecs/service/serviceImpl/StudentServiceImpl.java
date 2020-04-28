@@ -63,4 +63,16 @@ public class StudentServiceImpl implements StudentService {
 		return studentDao.fuzzyStudent(name, snum);
 	}
 
+	@Override
+	public Student findStudentBySnum(String snum) {
+		
+		return studentDao.findBySnum(snum);
+	}
+
+	@Override
+	public Student findBySnumForwx(String snum) {
+		
+		return studentDao.findBySnumForwx(snum);
+	}
+
 }

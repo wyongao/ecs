@@ -55,5 +55,8 @@ public interface ApplicationService {
 	 * @return list
 	 */
 	public List<Application> fuzzyAppliacation(String snum, String sname,String inout);
+	
+	// 通过学号查询
+	public List<Application> findBySnumForwx(String snum);
 
 }

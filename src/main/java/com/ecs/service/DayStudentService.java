@@ -33,8 +33,9 @@ public interface DayStudentService {
     //查找所有
 	public List<DayStudent> findByCollege(String college);
 
-
 	//根据姓名模糊查询
 	public List<DayStudent> fuzzyQueryDaystudents(String name);
 
+	//根据学号查找
+	public List<DayStudent> findBySnumForwx(String snum);
 }

@@ -32,5 +32,10 @@ public interface StudentService {
 	
 	//模糊查询
 	public List<Student> fuzzyStudent(String name,String snum);
-
+	
+	//根据学号查找学生
+	public Student findStudentBySnum(String snum);
+	
+	//根据学号查找
+	public Student findBySnumForwx(String snum);
 }

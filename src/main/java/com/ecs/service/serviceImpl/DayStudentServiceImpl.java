@@ -90,4 +90,10 @@ public class DayStudentServiceImpl implements DayStudentService {
 		return dayStudentDao.findByCollege(college);
 	}
 
+	@Override
+	public List<DayStudent> findBySnumForwx(String snum) {
+		
+		return dayStudentDao.findBySnumForwx(snum);
+	}
+
 }
