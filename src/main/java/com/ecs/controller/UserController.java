@@ -181,7 +181,7 @@ public class UserController {
 		return "baseData";
 	}
 
-	// 进入打卡数据页面
+	// 进入学生打卡数据页面
 	@RequestMapping("/goDailyData")
 	public String goDailyData(String tnum, Map<String, Object> model) {
 		
@@ -193,7 +193,39 @@ public class UserController {
         model.put("teacher", t);
 		return "dailyData";
 	}
+	
+	// 进入老师打卡数据页面
+	@RequestMapping("/goDailyTeacherData")
+	public String goDailyTeacherData(String tnum, Map<String, Object> model) {
+		
+		Teacher t = teacherService.findTeacherByTnum(tnum);
+			
+	    model.put("college", collegeService.findCollegeByName(t.getCollege()));
+	        
+	    model.put("teacher", t);
+	    return "dailyTeacherData";
+	}
 
+	// 进入数据报表页面
+	@RequestMapping("/goEcharts")
+	public String goEcharts(String tnum, Map<String, Object> model) {
+			
+		Teacher t = teacherService.findTeacherByTnum(tnum);
+		        
+		model.put("teacher", t);
+		return "echarts";
+	}
+		
+	// 进入老师打卡数据页面
+	@RequestMapping("/goTrackQuery")
+	public String goTrackQuery(String tnum, Map<String, Object> model) {
+			
+		Teacher t = teacherService.findTeacherByTnum(tnum);	
+		        
+		model.put("teacher", t);
+		return "trackQuery";
+	}
+	
 	// 进入入校申请页面
 	@RequestMapping("/goIn")
 	public String goIn(String tnum, Map<String, Object> model) {
