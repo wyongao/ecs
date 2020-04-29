@@ -79,5 +79,8 @@ public interface StudentDao {
 	//根据学号查询
 	@Select("select sname,snum,school,college,major,classes from student where snum=#{snum}")
 	public Student findBySnumForwx(String snum);
-
+	
+	//查询学生总数
+	@SelectProvider(type = StudentProvider.class,method = "countStudents")
+	public Integer coutStudent(String school,String college);
 }

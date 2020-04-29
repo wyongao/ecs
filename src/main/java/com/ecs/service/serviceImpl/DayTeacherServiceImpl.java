@@ -53,6 +53,12 @@ public class DayTeacherServiceImpl implements DayTeacherService {
 		
 		return dayTeacherDao.dynamicDayTeachers(college, tnum);
 	}
+
+	@Override
+	public Integer countDayTeachers(String college, String date) {
+
+		return dayTeacherDao.countDayTeachers(college, date);
+	}
 	
 
 }

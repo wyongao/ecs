@@ -55,8 +55,13 @@ public interface TeacherService {
 	 * @return
 	 */
 	public List<Teacher> fuzzyTeacher(String name);
-
-
+	/**
+	 * 查找所有的老师
+	 * @param scholl
+	 * @param college
+	 * @return
+	 */
+	public Integer countTeachers(String school,String college);
 	
 
 }

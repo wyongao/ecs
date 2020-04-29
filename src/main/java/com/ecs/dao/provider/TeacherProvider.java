@@ -31,5 +31,18 @@ public class TeacherProvider {
 		System.out.println(sql.toString());
 		return sql.toString();
 	}
+	
+	public String countTeachers(String school,String college) {
+		StringBuffer sql=new StringBuffer("select count(*) from teacher where ");
+		if(college !=null && !college.equals("")) {
+			sql.append("school ='"+school+"' and college ='"+college+"'");
+			return sql.toString();
+		}else {
+			sql.append("school ='"+school+"'");
+			return sql.toString();
+		}
+		
+	}
+
 
 }

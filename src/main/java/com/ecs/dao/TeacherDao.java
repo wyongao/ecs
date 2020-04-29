@@ -61,4 +61,7 @@ public interface TeacherDao {
 	 */
 	@SelectProvider(type = TeacherProvider.class,method= "fuzzyQueryTeacher")
 	public List<Teacher> fuzzyTeacher(String name);
+	
+	@SelectProvider(type = TeacherProvider.class,method = "countTeachers")
+	public Integer countTeachers(String school,String college);
 }

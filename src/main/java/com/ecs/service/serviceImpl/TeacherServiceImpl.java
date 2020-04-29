@@ -82,6 +82,12 @@ public class TeacherServiceImpl implements TeacherService {
 		return teacherDao.fuzzyTeacher(name);
 	}
 
+	@Override
+	public Integer countTeachers(String school, String college) {
+		
+		return teacherDao.countTeachers(school, college);
+	}
+
 	
 
 

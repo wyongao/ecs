@@ -96,4 +96,10 @@ public class DayStudentServiceImpl implements DayStudentService {
 		return dayStudentDao.findBySnumForwx(snum);
 	}
 
+	@Override
+	public Integer countDayStudent(String college, String date) {
+		
+		return dayStudentDao.countDayStudent(college, date);
+	}
+
 }
