@@ -30,7 +30,10 @@
 						href="javascript:;">数据管理</a>
 						<dl class="layui-nav-child">
 							<dd>
-								<a th:href="@{/goDailyData(tnum=${teacher.tnum})}">打卡数据</a>
+								<a th:href="@{/goDailyData(tnum=${teacher.tnum})}">学生打卡数据</a>
+							</dd>
+							<dd>
+								<a th:href="@{/goDailyTeacherData(tnum=${teacher.tnum})}">老师打卡数据</a>
 							</dd>
 							<dd>
 								<a th:href="@{/goBaseData(tnum=${teacher.tnum})}" class="layui-this">基础数据</a>
@@ -45,8 +48,8 @@
 								<a th:href="@{/goIn(tnum=${teacher.tnum})}">入校申请</a>
 							</dd>
 						</dl></li>
-					<li class="layui-nav-item"><a href="javascript:;">数据报表</a></li>
-					<li class="layui-nav-item"><a href="javascript:;">二维码</a></li>
+					<li class="layui-nav-item"><a th:href="@{/goEcharts(tnum=${teacher.tnum})}">数据报表</a></li>
+					<li class="layui-nav-item"><a th:href="@{/goTrackQuery(tnum=${teacher.tnum})}">轨迹查询</a></li>
 					<li class="layui-nav-item" id="accessData"><a th:href="@{/goAccessData(tnum=${teacher.tnum})}">访问记录</a></li>
 				    <li class="layui-nav-item" id="userManage">
 							<a href="javascript:;">用户管理</a>
