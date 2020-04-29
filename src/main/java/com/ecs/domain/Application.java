@@ -24,7 +24,7 @@ public class Application {
 	
 	public Application() {
 		super();
-		// TODO Auto-generated constructor stub
+		
 	}
 	
 	public Application(String snum, String sname, String date, String exit, String dest, String reason,

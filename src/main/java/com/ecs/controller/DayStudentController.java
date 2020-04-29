@@ -172,7 +172,7 @@ public class DayStudentController {
 		map.put("data", data);
 		return JsonUtils.objectToJson(map);
 	}
-	/*
+	/**
 	 * 根据姓名进行模糊分页查询(可用的)
 	 */
 	@ResponseBody

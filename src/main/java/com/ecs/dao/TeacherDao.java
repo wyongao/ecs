@@ -33,9 +33,9 @@ public interface TeacherDao {
 	@Update("update teacher set tname=#{tname},tnum=#{tnum},school=#{school},college=#{college},sex=#{sex},tel=#{tel}")
 	public void updateTeacher(Teacher teacher);
 	
-	@Insert("insert into teacher(tname,tnum,password,school,college,sex,tel) "
-			+ "values(#{tname},#{tnum},#{password},#{school},#{college},#{sex},#{tel})")
-	public void addTeacher(String tname, String tnum, String password, String school, String college, String sex, String tel);
+	@Insert("insert into teacher(tname,tnum,password,school,college,sex,tel,identify) "
+			+ "values(#{tname},#{tnum},#{password},#{school},#{college},#{sex},#{tel},#{identify})")
+	public void addTeacher(String tname, String tnum, String password, String school, String college, String sex, String tel,String identify);
 	
 	@Select("select * from teacher where tnum=#{tnum}")
 	public Teacher findTeacherByTnum(String tnum);

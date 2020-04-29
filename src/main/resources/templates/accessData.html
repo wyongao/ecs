@@ -208,6 +208,9 @@
 		  //搜索框的实现
 		  $("#search").click(function(){
 				 var information=document.getElementById("information").value;
+				 if(information==null||information==""){
+					 layer.msg('不能为空', {icon: 2,anim: 6});
+				 }else{
 				if($.isNumeric(information)){
 				 userid=information;
 				 table.render({
@@ -258,7 +261,10 @@
 						      console.log(obj)
 						    }
 						  }); 
+			 	 //
 			 	 } 
+				 }
+				 //
 			 });	  
 		});
 	

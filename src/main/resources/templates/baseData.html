@@ -63,6 +63,16 @@
 			</div>
 		</div>
 		<div class="main layui-body">
+				<div  class="layui-form-item">
+					<div class="layui-col-md4 layui-col-md-offset9">
+						<button type="button" class="layui-btn layui-btn-normal" id="test">
+						  <i class="layui-icon layui-icon-export"></i>导出数据
+						</button>
+						<button type="button" class="layui-btn" id="uploadExcel">
+						  <i class="layui-icon">&#xe67c;</i>上传数据
+						</button>
+					</div>
+				</div>
 			<div class="top layui-form">
 				<div class="layui-form-item">
 					<select class="layui-select" name="college" id="college"
@@ -125,7 +135,7 @@
 		</form>	
 	</script>
 	<script type="text/javascript" th:inline="javascript">
-		layui.use(['table', 'layer'], function(){
+		layui.use(['table', 'layer','upload'], function(){
 			var table = layui.table;
 			var form = layui.form;
 			var $ = layui.jquery; 
@@ -133,7 +143,29 @@
 			var layer = layui.layer;
 			//搜索用的
 			var element=layui.element;
+			//上传
+			var upload = layui.upload;
 			var content = $("#changePage").html();
+			//excel上传
+			var uploadInst = upload.render({
+			    elem: '#uploadExcel' //绑定元素
+			    ,url: [[@{/studentUpload}]] //上传接口
+			    ,method: 'post'
+			    ,accept: 'file'
+			    ,exts: 'xls|xlsx'
+			    ,done: function(res){	
+			      //上传完毕回调
+			      if(res.res == 0){
+			    	  layer.msg('上传成功',{icon: 1});
+			      };
+			      if(res.res == 1){
+			    	  layer.msg('文件为空', {icon: 2,anim: 6});  
+			      };
+			    }
+			    ,error: function(){
+			      //请求异常回调
+			    }
+			  });
 			  
 			//修改密码弹窗
 			$('#changePassword').on('click', function() {
@@ -407,6 +439,9 @@
 			  //搜索框进行查找
 			 $("#search").click(function(){
 				 var information=document.getElementById("information").value;
+				 if(information==null||information==""){
+					 layer.msg('不能为空', {icon: 2,anim: 6});
+				 }else{
 				if($.isNumeric(information)){
 				 snum=information;
 				
@@ -467,7 +502,7 @@
 						  }); 
 			 		 
 			 	 }
-				 
+				 }
 			 });
 			
 		});

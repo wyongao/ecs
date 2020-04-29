@@ -71,6 +71,13 @@
 			</div>
 		</div>
 		<div class="main layui-body">
+			<div  class="layui-form-item">
+					<div class="layui-col-md4 layui-col-md-offset9">
+						<button type="button" class="layui-btn layui-btn-normal" id="export">
+						  <i class="layui-icon layui-icon-export"></i>导出数据
+						</button>
+					</div>
+			</div>
 			<div class="top layui-form">
 				<div class="layui-form-item">
 					<select class="layui-select" name="college" id="college"
@@ -82,7 +89,7 @@
 				<div class="layui-form-item">
 					<select class="layui-select" name="major" id="major"
 						lay-filter="major" lay-verify="" lay-search>
-						<option value="0" selected>所有专业</option>
+						<!--  <option value="0" selected>所有专业</option>-->
 						<option th:each="major : ${major}" th:value="${major.id}"
 							th:text="${major.majorname}" />
 					</select>
@@ -145,7 +152,23 @@
 			var identify = [[${teacher.identify}]];
 			var layer = layui.layer;
 			var content = $("#changePage").html();
-			  
+			
+			//数据导出
+			 $('#export').on('click',function() {
+			 
+			var college = $("#college").find('option:selected').text();
+			var major = $("#major").find('option:selected').text();
+			var classes= $("#classes").find('option:selected').text();
+			//返回
+			var inout="1";
+			
+			if(college==null&&major==null&&classes==null){
+				layer.msg('请选择你要导出的数据',{icon: 2,anim: 6});
+			}else{
+				window.location.href=[[@{/outputApplication}]]+"?college="+college+"&major="+major+"&classes="+classes+"&inout="+inout;
+				layer.msg('导出成功',{icon: 1});
+			}
+			 });
 			//修改密码弹窗
 			$('#changePassword').on('click', function() {
 			  layer.open({
@@ -480,7 +503,10 @@
 				  //inout=2,申请进校园的搜索框实现
 					 $("#search").click(function(){
 						 var information=document.getElementById("information").value;
-						
+						 alert(information);
+						 if(information==null||information==""){
+							 layer.msg('不能为空', {icon: 2,anim: 6});
+						}else{
 						 if($.isNumeric(information)){
 						 snum=information;
 						 var inout=2;
@@ -561,7 +587,7 @@
 							  }); 
 					 		 
 					 	 }
-						 
+						}
 					 });
 					
 					//操作实现
