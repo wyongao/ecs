@@ -25,5 +25,5 @@ public interface DayTeacherService {
 		public List<DayTeacher> dynamicDayTeachers(String college,String tnum);
 		
 		//查询当日打卡的老师数量
-		public Integer countDayTeachers(String college,String date);
+		public Integer countDayTeachers(String school,String college,String date);
 }

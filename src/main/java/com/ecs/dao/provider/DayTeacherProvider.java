@@ -23,4 +23,17 @@ public class DayTeacherProvider {
 			return sql.toString();
 		}
 	}
+	
+	public String countDayTeachers(String school,String college,String date) {
+		StringBuffer sql=new StringBuffer("select count(*) from day_teacher where ");
+		sql.append("date = '"+date+"' and");
+		if(college !=null && !college.equals("")) {
+			sql.append(" school ='"+school+"' and college ='"+college+"'");
+			return sql.toString();
+		}else {
+			sql.append(" school ='"+school+"'");
+			return sql.toString();
+		}
+		
+	}
 }

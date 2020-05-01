@@ -42,6 +42,6 @@ public interface DayTeacherDao {
 	public List<DayTeacher> dynamicDayTeachers(String college,String tnum);
 	
 	//查找所有当日打卡的老师
-	@Select("select count(*) from day_teacher where college=#{college} and date=#{date}")
-	public Integer countDayTeachers(String college,String date);
+	@SelectProvider(type = DayTeacherProvider.class,method = "countDayTeachers")
+	public Integer countDayTeachers(String school,String college,String date);
 }

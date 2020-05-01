@@ -55,9 +55,9 @@ public class DayTeacherServiceImpl implements DayTeacherService {
 	}
 
 	@Override
-	public Integer countDayTeachers(String college, String date) {
+	public Integer countDayTeachers(String school,String college, String date) {
 
-		return dayTeacherDao.countDayTeachers(college, date);
+		return dayTeacherDao.countDayTeachers(school,college, date);
 	}
 	
 

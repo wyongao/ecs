@@ -10,6 +10,7 @@ public class DayTeacher {
 	private Integer id;
 	private String tnum;
 	private String tname;
+	private String school;
 	private String college;
 	private String addr;
 	private String date;
@@ -19,12 +20,13 @@ public class DayTeacher {
 	public DayTeacher() {
 		super();
 	}
-	public DayTeacher(Integer id, String tnum, String tname, String college, String addr, String date, Double temp,
+	public DayTeacher(Integer id, String tnum, String tname, String school,String college, String addr, String date, Double temp,
 			String symptom) {
 		super();
 		this.id = id;
 		this.tnum = tnum;
 		this.tname = tname;
+		this.school=school;
 		this.college = college;
 		this.addr = addr;
 		this.date = date;
@@ -48,6 +50,12 @@ public class DayTeacher {
 	}
 	public void setTname(String tname) {
 		this.tname = tname;
+	}
+	public String getSchool() {
+		return school;
+	}
+	public void setSchool(String school) {
+		this.school = school;
 	}
 	public String getCollege() {
 		return college;
@@ -81,9 +89,9 @@ public class DayTeacher {
 	}
 	@Override
 	public String toString() {
-		return "DayTeacher [id=" + id + ", tnum=" + tnum + ", tname=" + tname + ", college=" + college + ", addr="
-				+ addr + ", date=" + date + ", temp=" + temp + ", symptom=" + symptom + "]";
+		return "DayTeacher [id=" + id + ", tnum=" + tnum + ", tname=" + tname + ", school=" + school + ", college="
+				+ college + ", addr=" + addr + ", date=" + date + ", temp=" + temp + ", symptom=" + symptom + "]";
 	}
-	
+
 
 }

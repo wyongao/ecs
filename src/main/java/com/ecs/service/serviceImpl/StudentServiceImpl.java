@@ -80,5 +80,11 @@ public class StudentServiceImpl implements StudentService {
 		
 		return studentDao.coutStudent(school, college);
 	}
+	
+	@Override
+	public Integer countMajorStudent(String school, String major) {
+		
+		return studentDao.countMajorStudent(school, major);
+	}
 
 }

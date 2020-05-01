@@ -10,6 +10,7 @@ public class DayStudent {
 	private Integer id;
 	private String snum;
 	private String sname;
+	private String school;//学校
 	private String college; //学院
 	private String major; //专业
 	private String classes; //班级
@@ -24,11 +25,12 @@ public class DayStudent {
 	}
 
 	//构造方法
-	public DayStudent(String snum, String sname, String college, String major, String classes, String addr,
+	public DayStudent(String snum, String sname, String school,String college, String major, String classes, String addr,
 			String date, String temp, String symptom) {
 		super();
 		this.snum = snum;
 		this.sname = sname;
+		this.school=school;
 		this.college = college;
 		this.major = major;
 		this.classes = classes;
@@ -60,6 +62,13 @@ public class DayStudent {
 
 	public void setSname(String sname) {
 		this.sname = sname;
+	}
+	public String getSchool() {
+		return school;
+	}
+
+	public void setSchool(String school) {
+		this.school = school;
 	}
 
 	public String getCollege() {
@@ -120,9 +129,8 @@ public class DayStudent {
 
 	@Override
 	public String toString() {
-		return "DayTeacher [id=" + id + ", snum=" + snum + ", sname=" + sname + ", college=" + college + ", major="
-				+ major + ", classes=" + classes + ", addr=" + addr + ", date=" + date + ", temp=" + temp + ", symptom="
-				+ symptom + "]";
+		return "DayStudent [id=" + id + ", snum=" + snum + ", sname=" + sname + ", school=" + school + ", college="
+				+ college + ", major=" + major + ", classes=" + classes + ", addr=" + addr + ", date=" + date
+				+ ", temp=" + temp + ", symptom=" + symptom + "]";
 	}
-
 }

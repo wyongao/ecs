@@ -97,9 +97,15 @@ public class DayStudentServiceImpl implements DayStudentService {
 	}
 
 	@Override
-	public Integer countDayStudent(String college, String date) {
+	public Integer countDayStudent(String school,String college, String date) {
 		
-		return dayStudentDao.countDayStudent(college, date);
+		return dayStudentDao.countDayStudent(school,college, date);
+	}
+
+	@Override
+	public Integer countDayMajorStudent(String school, String major, String date) {
+		
+		return dayStudentDao.countDayMajorStudent(school, major, date);
 	}
 
 }

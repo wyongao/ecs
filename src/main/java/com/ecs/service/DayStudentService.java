@@ -39,6 +39,9 @@ public interface DayStudentService {
 	//根据学号查找
 	public List<DayStudent> findBySnumForwx(String snum);
 	
-	//查找所有的当日打卡学生数量
-	public Integer countDayStudent(String college,String date);
+	//查找全校所有的当日打卡学生数量
+	public Integer countDayStudent(String school,String college,String date);
+	
+	//查找全专业所有的打卡学生数量
+	public Integer countDayMajorStudent(String school,String major,String date);
 }

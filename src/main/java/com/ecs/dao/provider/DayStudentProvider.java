@@ -73,4 +73,17 @@ public class DayStudentProvider {
 		System.out.println(sql.toString());
 		return sql.toString();
 	}
+	
+	public String countDayStudents(String school,String college,String date) {
+		StringBuffer sql=new StringBuffer("select count(*) from day_student where ");
+		sql.append("date = '"+date+"' and");
+		if(college !=null && !college.equals("")) {
+			sql.append(" school ='"+school+"' and college ='"+college+"'");
+			return sql.toString();
+		}else {
+			sql.append(" school ='"+school+"'");
+			return sql.toString();
+		}
+		
+	}
 }
