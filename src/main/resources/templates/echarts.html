@@ -67,10 +67,6 @@
 			<div class="top layui-form">
 					<div class="layui-form-item">
 						<select class="layui-select" name="college" id="college" lay-filter="college" lay-verify="" lay-search>
-							<option value="010" selected>请选择</option>
-							<option value="1" >计算机学院</option>
-							<option value="021">会计学院</option>
-							<option value="0571">理学院</option>
 						</select>
 					</div>
 					<div class="layui-form-item">
@@ -119,12 +115,29 @@
 	var layer = layui.layer;
     var app = {};
     option = null;
-    //这里应该是获取到一个学校的值
-    var school="河南工程学院";
-    //这里要换成获取下拉框的值
-    //var college="计算机学院";
-  
-  
+    var school = [[${teacher.school}]];
+  	console.log(school);
+  	//初始化下拉框
+  		$.ajax({
+						type: "post",
+				 		url: [[@{/initSelect}]]+"?school="+school,
+						dataType:"json",
+				 		success: function(data) {
+				 			
+				 			  //$("#major").empty();
+				 			  $(" #college").prepend("<option value='0'>请选择学院</option>");
+				 			  //$("#classes").empty();
+				 			  for (var i = 0; i < data.data.length; i++) {
+								//如果在select中传递其他参数，可以在option 的value属性中添加参数
+								$("#college").append("<option value='" + data.data[i].id + "'>" + data.data[i].collegename +
+									"</option>"); 
+								};
+							  form.render('select');
+							},
+						error: function(){
+							layer.msg('数据加载失败', {icon: 2,anim: 6});
+						}
+					});
     // 指定图表的配置项和数据
     var myChart = echarts.init(document.getElementById('teacher'));
     $.ajax({
@@ -175,7 +188,7 @@
 					    }); 
     	},
     	error:function(errorMsg){
-    		alert("加载数据失败");
+    		layer.msg('数据加载失败', {icon: 2,anim: 6});
     	}
     });
 		      
@@ -301,16 +314,14 @@
 		        		 });
 		        	},
 		        	error:function(errorMsg){
-		        		alert("加载数据失败");
+		        		layer.msg('数据加载失败', {icon: 2,anim: 6});
 		        	}
 		        });
 		   			 //根据下拉框进行渲染饼状图
 		       form.on('select(college)',function(data){
 		        	var college=$("#college").find('option:selected').text();
 		        	var collegeId=data.value;
-		        	alert(collegeId);
 		        	//重新渲染两个饼状图
-		        	alert(college);
 		        	var myChart = echarts.init(document.getElementById('teacher'));
 		        	var myChart1 = echarts.init(document.getElementById('student'));
 		        	var myChart3 = echarts.init(document.getElementById('detail'));
@@ -319,7 +330,7 @@
 		        	async:false,
 		        	url:[[@{/dynamicPie}]]+"?school="+school+"&college="+college+"&collegeId="+collegeId,
 		        	dataType:"json",
-		        	success: function(datas){
+		        	success: function(datas){	
 		        		var data=datas;
 		        		//专业的名字数组
 		        		var majorName=data.majorName;
@@ -477,9 +488,10 @@
 		        			        }
 		        			    ]
 		        		 });
+		        		
 		        	},
 		        	error:function(errorMsg){
-		        		alert("加载数据失败");
+		        		layer.msg('数据加载失败', {icon: 2,anim: 6});
 		        	}
 		        });
 		        });

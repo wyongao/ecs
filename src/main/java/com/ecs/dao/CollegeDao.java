@@ -16,7 +16,6 @@ public interface CollegeDao {
 	@Select("select * from college")
 	public List<College> findAllCollege();
 
-	
 	@Select("select * from college where collegename=#{collegename}")
 	public College findCollegeByName(String collegename);
 	
