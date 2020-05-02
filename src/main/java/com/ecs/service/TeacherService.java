@@ -56,12 +56,11 @@ public interface TeacherService {
 	 * @return
 	 */
 	public List<Teacher> fuzzyTeacher(String name);
-<<<<<<< HEAD
 
 
 	//根据工号查找
 	public Teacher findByTnumForwx(String tnum);
-=======
+
 	/**
 	 * 查找所有的老师
 	 * @param scholl
@@ -70,7 +69,7 @@ public interface TeacherService {
 	 */
 	public Integer countTeachers(String school,String college);
 	
->>>>>>> 710caa33b928b41f78a9865894c55d7a8aa3a248
+
 
 	//根据工号查找
 	public Teacher findByTnumForweb(String tnum);

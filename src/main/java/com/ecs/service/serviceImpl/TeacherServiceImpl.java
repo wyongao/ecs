@@ -83,7 +83,6 @@ public class TeacherServiceImpl implements TeacherService {
 	}
 
 	@Override
-<<<<<<< HEAD
 	public Teacher findByTnumForwx(String tnum) {
 		
 		return teacherDao.findByTnumForwx(tnum);
@@ -93,11 +92,11 @@ public class TeacherServiceImpl implements TeacherService {
 	public Teacher findByTnumForweb(String tnum) {
 		
 		return teacherDao.findByTnumForweb(tnum);
-=======
+	}
+	
 	public Integer countTeachers(String school, String college) {
 		
 		return teacherDao.countTeachers(school, college);
->>>>>>> 710caa33b928b41f78a9865894c55d7a8aa3a248
 	}
 
 	

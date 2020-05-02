@@ -20,11 +20,8 @@ public class DayTeacher {
 	public DayTeacher() {
 		super();
 	}
-<<<<<<< HEAD
-	public DayTeacher(Integer id, String tnum, String tname, String college, String addr, String date, String temp,
-=======
-	public DayTeacher(Integer id, String tnum, String tname, String school,String college, String addr, String date, Double temp,
->>>>>>> 710caa33b928b41f78a9865894c55d7a8aa3a248
+
+	public DayTeacher(Integer id, String tnum, String tname, String school,String college, String addr, String date, String temp,
 			String symptom) {
 		super();
 		this.id = id;

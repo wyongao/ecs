@@ -58,16 +58,15 @@ public interface DayStudentDao {
 	//根据学号查找学生的打卡信息
 	@Select("select addr,date,temp,symptom from day_student where snum=#{snum}")
 	public List<DayStudent> findBySnumForwx(String snum);
-<<<<<<< HEAD
 	
 	@Select("select * from day_student where date=#{date}")
 	public List<DayStudent> findByDateForwx(String date);
-=======
+
 	//查找各个学院的打卡人数
 	@SelectProvider(type = DayStudentProvider.class,method = "countDayStudents")
 	public Integer countDayStudent(String school,String college,String date);
 	//查找各个专业的打卡人数
 	@Select("select count(*) from day_student where school=#{school} and major=#{major} and date=#{date}")
 	public Integer countDayMajorStudent(String school,String major,String date);
->>>>>>> 710caa33b928b41f78a9865894c55d7a8aa3a248
+
 }
