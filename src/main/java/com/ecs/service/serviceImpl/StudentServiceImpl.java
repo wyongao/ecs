@@ -75,4 +75,16 @@ public class StudentServiceImpl implements StudentService {
 		return studentDao.findBySnumForwx(snum);
 	}
 
+	@Override
+	public Integer coutStudent(String school, String college) {
+		
+		return studentDao.coutStudent(school, college);
+	}
+	
+	@Override
+	public Integer countMajorStudent(String school, String major) {
+		
+		return studentDao.countMajorStudent(school, major);
+	}
+
 }

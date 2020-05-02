@@ -26,6 +26,7 @@ public interface DayTeacherService {
 		//动态查询
 		public List<DayTeacher> dynamicDayTeachers(String college,String tnum);
 		
+<<<<<<< HEAD
 		//保存
 		public void addDayTeacher(DayTeacher dayTeacher);
 		
@@ -34,4 +35,8 @@ public interface DayTeacherService {
 
 		//根据时间查找
 		public List<DayTeacher> findByDateForwx(String date);
+=======
+		//查询当日打卡的老师数量
+		public Integer countDayTeachers(String school,String college,String date);
+>>>>>>> 710caa33b928b41f78a9865894c55d7a8aa3a248
 }

@@ -6,5 +6,6 @@ import com.ecs.domain.School;
 
 public interface SchoolService {
 	public List<School> findAllSchool();
-
+	
+	public Integer findSchoolId(String schoolname);
 }

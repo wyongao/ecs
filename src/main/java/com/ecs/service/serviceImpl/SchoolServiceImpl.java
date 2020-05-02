@@ -17,5 +17,10 @@ public class SchoolServiceImpl implements SchoolService{
 		
 		return schoolDao.findAllSchool();
 	}
+	@Override
+	public Integer findSchoolId(String schoolname) {
+		
+		return schoolDao.findSchoolId(schoolname);
+	}
 
 }

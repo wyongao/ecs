@@ -38,4 +38,9 @@ public interface StudentService {
 	
 	//根据学号查找
 	public Student findBySnumForwx(String snum);
+	
+	//查找学生数量
+	public Integer coutStudent(String school,String college);
+	//查找每个专业的学生总数
+	public Integer countMajorStudent(String school,String major);
 }

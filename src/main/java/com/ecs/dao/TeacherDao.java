@@ -63,6 +63,7 @@ public interface TeacherDao {
 	@SelectProvider(type = TeacherProvider.class,method= "fuzzyQueryTeacher")
 	public List<Teacher> fuzzyTeacher(String name);
 	
+<<<<<<< HEAD
 	
 	//根据工号查询
 	@Select("select tname,tnum,school,college from teacher where tnum=#{tnum}")
@@ -75,4 +76,8 @@ public interface TeacherDao {
 	//根据工号插入openid
 	@Update("update teacher set openid=#{openid} where tnum=#{tnum}")
 	public void setOpenidByTnum(String tnum, String openid);
+=======
+	@SelectProvider(type = TeacherProvider.class,method = "countTeachers")
+	public Integer countTeachers(String school,String college);
+>>>>>>> 710caa33b928b41f78a9865894c55d7a8aa3a248
 }

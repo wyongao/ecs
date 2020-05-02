@@ -42,6 +42,7 @@ public interface DayTeacherDao {
 	//动态查询
 	@SelectProvider(type = DayTeacherProvider.class,method = "selectWithParam")
 	public List<DayTeacher> dynamicDayTeachers(String college,String tnum);
+<<<<<<< HEAD
 
 	//保存每日学生信息
 	@Insert("insert into day_teacher(tnum,tname,college,addr,date,symptom,temp)"
@@ -54,4 +55,10 @@ public interface DayTeacherDao {
 	
 	@Select("select * from day_teacher where date=#{date}")
 	public List<DayTeacher> findByDateForwx(String date);
+=======
+	
+	//查找所有当日打卡的老师
+	@SelectProvider(type = DayTeacherProvider.class,method = "countDayTeachers")
+	public Integer countDayTeachers(String school,String college,String date);
+>>>>>>> 710caa33b928b41f78a9865894c55d7a8aa3a248
 }

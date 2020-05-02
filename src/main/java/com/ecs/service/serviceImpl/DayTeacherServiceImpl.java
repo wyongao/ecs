@@ -56,6 +56,7 @@ public class DayTeacherServiceImpl implements DayTeacherService {
 	}
 
 	@Override
+<<<<<<< HEAD
 	public void addDayTeacher(DayTeacher dayTeacher) {
 		
 		dayTeacherDao.addDayTeacher(dayTeacher);
@@ -72,5 +73,12 @@ public class DayTeacherServiceImpl implements DayTeacherService {
 		
 		return dayTeacherDao.findByDateForwx(date);
 	}
+=======
+	public Integer countDayTeachers(String school,String college, String date) {
+
+		return dayTeacherDao.countDayTeachers(school,college, date);
+	}
+	
+>>>>>>> 710caa33b928b41f78a9865894c55d7a8aa3a248
 
 }
