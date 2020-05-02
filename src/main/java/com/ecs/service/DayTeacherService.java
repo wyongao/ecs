@@ -2,7 +2,9 @@ package com.ecs.service;
 
 import java.util.List;
 
+import com.ecs.domain.DayStudent;
 import com.ecs.domain.DayTeacher;
+import com.ecs.domain.Teacher;
 
 public interface DayTeacherService {
 		
@@ -23,4 +25,13 @@ public interface DayTeacherService {
 		
 		//动态查询
 		public List<DayTeacher> dynamicDayTeachers(String college,String tnum);
+		
+		//保存
+		public void addDayTeacher(DayTeacher dayTeacher);
+		
+		//根据工号查找
+		public List<DayTeacher> findByTnumForwx(String tnum);
+
+		//根据时间查找
+		public List<DayTeacher> findByDateForwx(String date);
 }

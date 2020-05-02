@@ -1,5 +1,6 @@
 package com.ecs.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -21,4 +22,7 @@ public interface BuildingDao {
 	 */
 	@Select("select * from building where parentid=#{parentid}")
 	public List<Building> findAllBuildingByParentId(Integer parentid);
+	
+	@Select("select buildingname from building")
+	public ArrayList<String> findForwx();
 }

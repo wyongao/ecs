@@ -118,6 +118,11 @@ public class ApplicationServiceImpl implements ApplicationService{
 		
 		return applicationDao.findBySnumForwx(snum);
 	}
+	@Override
+	public List<Application> findBySnumAndStatusForwx(String snum, String status) {
+		
+		return applicationDao.findBySnumAndStatusForwx(snum, status);
+	}
 	
 	
 	

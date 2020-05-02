@@ -38,4 +38,7 @@ public interface DayStudentService {
 
 	//根据学号查找
 	public List<DayStudent> findBySnumForwx(String snum);
+	
+	//根据时间查找
+	public List<DayStudent> findByDateForwx(String date);
 }

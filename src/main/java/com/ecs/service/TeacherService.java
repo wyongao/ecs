@@ -2,6 +2,7 @@ package com.ecs.service;
 
 import java.util.List;
 
+import com.ecs.domain.Student;
 import com.ecs.domain.Teacher;
 
 /**
@@ -57,6 +58,9 @@ public interface TeacherService {
 	public List<Teacher> fuzzyTeacher(String name);
 
 
-	
+	//根据工号查找
+	public Teacher findByTnumForwx(String tnum);
 
+	//根据工号查找
+	public Teacher findByTnumForweb(String tnum);
 }

@@ -82,6 +82,18 @@ public class TeacherServiceImpl implements TeacherService {
 		return teacherDao.fuzzyTeacher(name);
 	}
 
+	@Override
+	public Teacher findByTnumForwx(String tnum) {
+		
+		return teacherDao.findByTnumForwx(tnum);
+	}
+
+	@Override
+	public Teacher findByTnumForweb(String tnum) {
+		
+		return teacherDao.findByTnumForweb(tnum);
+	}
+
 	
 
 
