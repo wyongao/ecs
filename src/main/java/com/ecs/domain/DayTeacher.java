@@ -14,13 +14,14 @@ public class DayTeacher {
 	private String college;
 	private String addr;
 	private String date;
-	private Double temp;
+	private String temp;
 	private String symptom;
 	
 	public DayTeacher() {
 		super();
 	}
-	public DayTeacher(Integer id, String tnum, String tname, String school,String college, String addr, String date, Double temp,
+
+	public DayTeacher(Integer id, String tnum, String tname, String school,String college, String addr, String date, String temp,
 			String symptom) {
 		super();
 		this.id = id;
@@ -75,10 +76,10 @@ public class DayTeacher {
 	public void setDate(String date) {
 		this.date = date;
 	}
-	public Double getTemp() {
+	public String getTemp() {
 		return temp;
 	}
-	public void setTemp(Double temp) {
+	public void setTemp(String temp) {
 		this.temp = temp;
 	}
 	public String getSymptom() {

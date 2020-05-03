@@ -38,6 +38,8 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserDao userDao;
+	
+	private UserService userService;
 
 	// 查找所有的用戶
 	@Override
@@ -102,7 +104,7 @@ public class UserServiceImpl implements UserService {
 		//保存用户访问记录
 		accessDataService.addAccessData(teacher.getTname(), teacher.getTnum(),teacher.getCollege(), ip, f.format(now));
 		
-		model.put("teacher", teacher);
+//		model.put("teacher", teacher);
 		model.put("msg", "success");
 		return model;
 	}

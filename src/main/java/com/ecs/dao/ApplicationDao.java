@@ -76,4 +76,8 @@ public interface ApplicationDao {
 	// 根据学号查找查找
 	@Select("select date,`exit`,reason,`status` from application where snum=#{snum}")
 	public List<Application> findBySnumForwx(String snum);
+	
+	@Select("select * from application where snum=#{snum} and `status`=#{status}")
+	public List<Application> findBySnumAndStatusForwx(String snum, String status);
+	
 }

@@ -142,7 +142,7 @@ public class UserController {
 	@RequestMapping("/goAccessData")
 	public String goAccessData(String tnum, Map<String, Object> model) {
 	
-		Teacher t = teacherService.findTeacherByTnum(tnum);
+		Teacher t = teacherService.findByTnumForweb(tnum);
 		
 		if(t.getIdentify().equals("1")) {
 			
@@ -158,7 +158,7 @@ public class UserController {
 	@RequestMapping("/goAddUser")
 	public String goAddUser(String tnum, Map<String, Object> model) {
 
-		Teacher t = teacherService.findTeacherByTnum(tnum);
+		Teacher t = teacherService.findByTnumForweb(tnum);
 		
 		if(t.getIdentify().equals("1")) {
 			
@@ -173,7 +173,7 @@ public class UserController {
 	@RequestMapping("/goBaseData")
 	public String goBaseData(String tnum, Map<String, Object> model) {
 		
-		Teacher t = teacherService.findTeacherByTnum(tnum);
+		Teacher t = teacherService.findByTnumForweb(tnum);
 		model.put("college", collegeService.findCollegeByName(t.getCollege()));
 		model.put("major", majorService.findMajorByParentName(t.getCollege()));
 		
@@ -185,7 +185,7 @@ public class UserController {
 	@RequestMapping("/goDailyData")
 	public String goDailyData(String tnum, Map<String, Object> model) {
 		
-		Teacher t = teacherService.findTeacherByTnum(tnum);
+		Teacher t = teacherService.findByTnumForweb(tnum);
 		
         model.put("college", collegeService.findCollegeByName(t.getCollege()));
         model.put("major", majorService.findMajorByParentName(t.getCollege()));
@@ -198,7 +198,7 @@ public class UserController {
 	@RequestMapping("/goDailyTeacherData")
 	public String goDailyTeacherData(String tnum, Map<String, Object> model) {
 		
-		Teacher t = teacherService.findTeacherByTnum(tnum);
+		Teacher t = teacherService.findByTnumForweb(tnum);
 			
 	    model.put("college", collegeService.findCollegeByName(t.getCollege()));
 	        
@@ -210,7 +210,7 @@ public class UserController {
 	@RequestMapping("/goEcharts")
 	public String goEcharts(String tnum, Map<String, Object> model) {
 			
-		Teacher t = teacherService.findTeacherByTnum(tnum);
+		Teacher t = teacherService.findByTnumForweb(tnum);
 		        
 		model.put("teacher", t);
 		return "echarts";
@@ -220,7 +220,7 @@ public class UserController {
 	@RequestMapping("/goTrackQuery")
 	public String goTrackQuery(String tnum, Map<String, Object> model) {
 			
-		Teacher t = teacherService.findTeacherByTnum(tnum);	
+		Teacher t = teacherService.findByTnumForweb(tnum);
 		        
 		model.put("teacher", t);
 		return "trackQuery";
@@ -230,7 +230,7 @@ public class UserController {
 	@RequestMapping("/goIn")
 	public String goIn(String tnum, Map<String, Object> model) {
 		
-		Teacher t = teacherService.findTeacherByTnum(tnum);
+		Teacher t = teacherService.findByTnumForweb(tnum);
 		
         model.put("college", collegeService.findCollegeByName(t.getCollege()));
         model.put("major", majorService.findMajorByParentName(t.getCollege()));
@@ -243,7 +243,7 @@ public class UserController {
 	@RequestMapping("/goOut")
 	public String goOut(String tnum, Map<String, Object> model) {
 
-		Teacher t = teacherService.findTeacherByTnum(tnum);
+		Teacher t = teacherService.findByTnumForweb(tnum);
 		
         model.put("college", collegeService.findCollegeByName(t.getCollege()));
         model.put("major", majorService.findMajorByParentName(t.getCollege()));
@@ -256,7 +256,7 @@ public class UserController {
 	@RequestMapping("/goUserData")
 	public String goUserData(String tnum, Map<String, Object> model) {
 		
-		Teacher t = teacherService.findTeacherByTnum(tnum);
+		Teacher t = teacherService.findByTnumForweb(tnum);
 		
 		if(t.getIdentify().equals("1")) {
 			
@@ -286,12 +286,13 @@ public class UserController {
 		}
 		
 		
-		Teacher teacher = teacherService.findTeacherByTnum(t.getTnum());
+		Teacher teacher = teacherService.findByTnumForweb(t.getTnum());
 		model.put("college", collegeService.findCollegeByName(teacher.getCollege()));
 		model.put("major", majorService.findMajorByParentName(teacher.getCollege()));
 		
 		model.put("msg", map.get("msg"));
-		model.put("teacher", map.get("teacher"));
+		model.put("teacher", teacher);
+//		model.put("teacher", map.get("teacher"));
 		return "dailyData";
 	}
 

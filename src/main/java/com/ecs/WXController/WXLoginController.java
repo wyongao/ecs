@@ -1,5 +1,6 @@
 package com.ecs.WXController;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -19,7 +20,9 @@ import com.ecs.common.MyParams;
 import com.ecs.domain.WXSession;
 import com.ecs.service.ApplicationService;
 import com.ecs.service.DayStudentService;
+import com.ecs.service.DayTeacherService;
 import com.ecs.service.StudentService;
+import com.ecs.service.TeacherService;
 import com.ecs.service.WXService;
 
 @Controller
@@ -43,20 +46,38 @@ public class WXLoginController {
 	private DayStudentService dayStudentService;
 	
 	@Autowired
+	private TeacherService teacherService;
+	
+	@Autowired
+	private DayTeacherService dayTeacherService;
+	
+	@Autowired
 	private ApplicationService applicationService;
 	
 	@GetMapping("redis")
 	@ResponseBody
 	@RequestMapping(value = "/wxLogin", method=RequestMethod.POST)
-	public Map<String, Object> wxLogin(String code, String snum) {
+	public Map<String, Object> wxLogin(String code, String usernum) {
 		
 		Map<String, Object> res = new HashMap<String, Object>();
+		String identity = "1";
 		
-		if(studentService.findStudentBySnum(snum) == null) {
-			res.put("msg", "failure");
-			return res;
+		if(studentService.findStudentBySnum(usernum) == null) {
+			System.out.println("333");
+			 if(teacherService.findTeacherByTnum(usernum) == null) {
+				res.put("msg", "failure");
+				return res;
+			}
 		}
+		
+		if(studentService.findStudentBySnum(usernum) != null) {//学生为1
+			
+//			identity = "1";	
+		}else if(teacherService.findTeacherByTnum(usernum) != null) {//老师为2
 
+			identity = "2";
+		}
+		
 //		https://api.weixin.qq.com/sns/jscode2session?
 //		appid=APPID&
 //		secret=SECRET&
@@ -89,67 +110,93 @@ public class WXLoginController {
 		redis1StringRedisTemplate.opsForValue().set(sessionId, value, 1, TimeUnit.DAYS);
 //		System.out.println(redis1StringRedisTemplate.opsForValue().get(sessionId));
 
-		wxService.setOpenid(snum, wxSession.getOpenid());
+		wxService.setOpenid(usernum, wxSession.getOpenid(), identity);
 
+		
 		res.put("msg", "success");
 		res.put("sessionId", sessionId);
-		
+		res.put("identity", identity);
 		
 		return res;
 	}
 	
 	//检查登录状态
+	//usernum 用于删除openid
 	@GetMapping("redis")
 	@ResponseBody
 	@RequestMapping(value = "/wxLoginCheck", method=RequestMethod.POST)
-	public String wxLoginCheck(String sessionid) {
-//		System.out.println(sessionid);
+	public String wxLoginCheck(String sessionid, String usernum) {
+//		System.out.println(usernum);
 //		System.out.println(wxService.searchSessionId(sessionid));
 		if(redis1StringRedisTemplate.hasKey(sessionid)) {
 			return "success";
 		}else {
+			
 			return "failure";
 		}		
 //		return wxService.searchSessionId(sessionid);
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/getStudentInfo", method=RequestMethod.POST)
-	public String getStudentInfo(String snum) {
+	@RequestMapping(value="/getUserInfo", method=RequestMethod.POST)
+	public String getStudentInfo(String usernum, String identity) {
 
-		return JsonUtils.objectToJson(studentService.findBySnumForwx(snum));
+		if(identity.equals("1")) {
+			return JsonUtils.objectToJson(studentService.findBySnumForwx(usernum));
+		}else {
+			return JsonUtils.objectToJson(teacherService.findByTnumForwx(usernum));
+		}
+	
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/getDailyRecord", method=RequestMethod.POST)
-	public String getDailyRecord(String snum) {
+	public String getDailyRecord(String usernum, String identity) {
 		
-		return JsonUtils.objectToJson(dayStudentService.findBySnumForwx(snum));
+		if(identity.equals("1")) {
+			return JsonUtils.objectToJson(dayStudentService.findBySnumForwx(usernum));
+		} else {
+			return JsonUtils.objectToJson(dayTeacherService.findByTnumForwx(usernum));
+		}
+		
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/getOutInRecord", method=RequestMethod.POST)
-	public String getOutInRecord(String snum) {
+	public String getOutInRecord(String usernum, String identity) {//可根据identity区别老师和学生
 
-		return JsonUtils.objectToJson(applicationService.findBySnumForwx(snum));
+		return JsonUtils.objectToJson(applicationService.findBySnumForwx(usernum));
 	}
 	
 	
 	@ResponseBody
 	@RequestMapping(value="/daily", method=RequestMethod.POST)
-	String daily (String temp, String symptom, String addr, String snum) {
+	public String daily (String temp, String symptom, String addr, String usernum, String identity) {
 		
-		return wxService.addDayStudentFromwx(temp, symptom, addr, snum);
+		if(identity.equals("1")) {
+			return wxService.addDayStudentFromwx(temp, symptom, addr, usernum);
+		} else {
+			return wxService.addDayTeacherFromwx(temp, symptom, addr, usernum);
+		}
+		
+		
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/outIn", method=RequestMethod.POST)
-	String daily (String inout, String dest, String reason, String exit, String snum) {
+	public String outIn (String inout, String dest, String reason, String exit, String usernum, String identity) {//可根据identity区别老师和学生
 		
-		return wxService.addApplicationFromwx(inout, dest, reason, exit, snum);
+		return wxService.addApplicationFromwx(inout, dest, reason, exit, usernum);
 	}
 	
-	
+	@ResponseBody
+	@RequestMapping(value="/getAddr", method=RequestMethod.POST)
+	public ArrayList<String> getAddr() {
+		
+		
+		System.out.println(wxService.findBuildingForwx());
+		return wxService.findBuildingForwx();
+	}
 	
 	
 	

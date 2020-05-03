@@ -58,5 +58,8 @@ public interface ApplicationService {
 	
 	// 通过学号查询
 	public List<Application> findBySnumForwx(String snum);
+	
+	// 通过学号和状态查询
+	public List<Application> findBySnumAndStatusForwx(String snum, String status);
 
 }

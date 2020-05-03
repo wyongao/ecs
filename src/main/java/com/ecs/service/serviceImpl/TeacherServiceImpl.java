@@ -83,6 +83,17 @@ public class TeacherServiceImpl implements TeacherService {
 	}
 
 	@Override
+	public Teacher findByTnumForwx(String tnum) {
+		
+		return teacherDao.findByTnumForwx(tnum);
+	}
+
+	@Override
+	public Teacher findByTnumForweb(String tnum) {
+		
+		return teacherDao.findByTnumForweb(tnum);
+	}
+	
 	public Integer countTeachers(String school, String college) {
 		
 		return teacherDao.countTeachers(school, college);

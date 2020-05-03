@@ -11,6 +11,7 @@ import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
 
 import com.ecs.dao.provider.TeacherProvider;
+import com.ecs.domain.Student;
 import com.ecs.domain.Teacher;
 /**
  * teacher的DAO
@@ -62,6 +63,19 @@ public interface TeacherDao {
 	@SelectProvider(type = TeacherProvider.class,method= "fuzzyQueryTeacher")
 	public List<Teacher> fuzzyTeacher(String name);
 	
+	//根据工号查询
+	@Select("select tname,tnum,school,college from teacher where tnum=#{tnum}")
+	public Teacher findByTnumForwx(String tnum);
+	
+	//根据工号查询
+	@Select("select tname,tnum,school,college,sex,tel,identify from teacher where tnum=#{tnum}")
+	public Teacher findByTnumForweb(String tnum);
+	
+	//根据工号插入openid
+	@Update("update teacher set openid=#{openid} where tnum=#{tnum}")
+	public void setOpenidByTnum(String tnum, String openid);
+
 	@SelectProvider(type = TeacherProvider.class,method = "countTeachers")
 	public Integer countTeachers(String school,String college);
+
 }

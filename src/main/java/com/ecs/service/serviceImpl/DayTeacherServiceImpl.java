@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ecs.dao.DayTeacherDao;
+import com.ecs.domain.DayStudent;
 import com.ecs.domain.DayTeacher;
 import com.ecs.service.DayTeacherService;
 /**
@@ -55,6 +56,22 @@ public class DayTeacherServiceImpl implements DayTeacherService {
 	}
 
 	@Override
+	public void addDayTeacher(DayTeacher dayTeacher) {
+		
+		dayTeacherDao.addDayTeacher(dayTeacher);
+	}
+
+	@Override
+	public List<DayTeacher> findByTnumForwx(String tnum) {
+		
+		return dayTeacherDao.findByTnumForwx(tnum);
+	}
+
+	@Override
+	public List<DayTeacher> findByDateForwx(String date) {
+		
+		return dayTeacherDao.findByDateForwx(date);
+	}
 	public Integer countDayTeachers(String school,String college, String date) {
 
 		return dayTeacherDao.countDayTeachers(school,college, date);
