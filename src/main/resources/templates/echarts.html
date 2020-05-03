@@ -69,9 +69,9 @@
 						<select class="layui-select" name="college" id="college" lay-filter="college" lay-verify="" lay-search>
 						</select>
 					</div>
-					<div class="layui-form-item">
-						<input type="search" class="layui-input layui-input-inline" placeholder="10001">
-						<button type="button" class="layui-btn layui-btn-primary">搜索</button>
+					 <div class="layui-form-item">
+						<!-- <input type="search" class="layui-input layui-input-inline" placeholder="10001">
+						<button type="button" class="layui-btn layui-btn-primary">搜索</button> -->
 					</div>
 				</div>
 				<div class="layui-table-box">
@@ -117,27 +117,49 @@
     option = null;
     var school = [[${teacher.school}]];
   	console.log(school);
-  	//初始化下拉框
-  		$.ajax({
-						type: "post",
-				 		url: [[@{/initSelect}]]+"?school="+school,
-						dataType:"json",
-				 		success: function(data) {
-				 			
-				 			  //$("#major").empty();
-				 			  $(" #college").prepend("<option value='0'>请选择学院</option>");
-				 			  //$("#classes").empty();
-				 			  for (var i = 0; i < data.data.length; i++) {
-								//如果在select中传递其他参数，可以在option 的value属性中添加参数
-								$("#college").append("<option value='" + data.data[i].id + "'>" + data.data[i].collegename +
-									"</option>"); 
-								};
-							  form.render('select');
-							},
-						error: function(){
-							layer.msg('数据加载失败', {icon: 2,anim: 6});
-						}
-					});
+  	var identify = [[${teacher.identify}]];
+	var college=[[${teacher.college}]];
+    if(identify == 0){
+		  $.ajax({
+				type: "post",
+		 		url: [[@{/initSelect}]]+"?school="+school,
+				dataType:"json",
+		 		success: function(data) {
+		 			
+		 			  //$("#major").empty();
+		 			  $(" #college").prepend("<option value='0'>请选择学院</option>");
+		 			  //$("#classes").empty();
+		 			  for (var i = 0; i < data.data.length; i++) {
+						//如果在select中传递其他参数，可以在option 的value属性中添加参数
+						$("#college").append("<option value='" + data.data[i].id + "'>" + data.data[i].collegename +
+							"</option>"); 
+						};
+					  form.render('select');
+					},
+				error: function(){
+					layer.msg('数据加载失败', {icon: 2,anim: 6});
+				}
+			});
+	  }else{
+		  //普通管理员为自己的学院的
+		  $.ajax({
+				type: "post",
+		 		url: [[@{/findCollegeId}]]+"?collegeName="+college,
+				dataType:"json",
+		 		success: function(data) {
+		 				console.log(data);
+						$("#college").append("<option value='" + data.data.id + "'>" + data.data.collegename +
+							"</option>"); 
+						
+					  form.render('select');
+					},
+				error: function(){
+					layer.msg('数据加载失败', {icon: 2,anim: 6});
+				}
+			});
+		  
+	  }
+  	
     // 指定图表的配置项和数据
     var myChart = echarts.init(document.getElementById('teacher'));
     $.ajax({

@@ -1,10 +1,13 @@
 package com.ecs.dao.provider;
 
 public class DayTeacherProvider {
-	public String fuzzyQueryDayTeachers(String name) {
+	public String fuzzyQueryDayTeachers(String tname,String college) {
 		StringBuffer sql=new StringBuffer("select * from day_teacher where ");
-		if(name!=null && !name.equals("")) {
-			sql.append("tname like"+"'%"+name+"%'");
+		if (college!=null&&!college.equals("")) {
+			sql.append("college ='"+college+"' and ");
+		}
+		if(tname!=null && !tname.equals("")) {
+			sql.append("tname like"+"'%"+tname+"%'");
 		}
 		System.out.println(sql.toString());
 		return sql.toString();

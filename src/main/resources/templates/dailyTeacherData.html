@@ -67,8 +67,8 @@
 				<div class="layui-form-item">
 					<select class="layui-select" name="college" id="college"
 						lay-filter="college" lay-verify="" lay-search>
-						<option th:each="college : ${college}" th:value="${college.id}"
-							th:text="${college.collegename}" />
+						 <option th:each="college : ${college}" th:value="${college.id}"
+							th:text="${college.collegename}" /> 
 					</select>
 				</div>						
 				<div class="layui-form-item">
@@ -112,7 +112,250 @@
 		</form>	
 	</script>
 	<script type="text/javascript" th:inline="javascript">
-	
+	layui.use(['table', 'form','layer'], function(){
+		  var table = layui.table;
+		  var form = layui.form;
+		  var $ = layui.jquery;
+		  var identify = [[${teacher.identify}]];
+		  var layer = layui.layer;
+		  var college=[[${teacher.college}]];
+		  var school=[[${teacher.school}]];
+		  //初始化下拉框
+		  //0是超级管理员 1是普通管理员
+		  if(identify == 0){
+			  $.ajax({
+					type: "post",
+			 		url: [[@{/initSelect}]]+"?school="+school,
+					dataType:"json",
+			 		success: function(data) {
+			 			
+			 			  //$("#major").empty();
+			 			  $(" #college").prepend("<option value='0'>请选择学院</option>");
+			 			  //$("#classes").empty();
+			 			  for (var i = 0; i < data.data.length; i++) {
+							//如果在select中传递其他参数，可以在option 的value属性中添加参数
+							$("#college").append("<option value='" + data.data[i].id + "'>" + data.data[i].collegename +
+								"</option>"); 
+							};
+						  form.render('select');
+						},
+					error: function(){
+						layer.msg('数据加载失败', {icon: 2,anim: 6});
+					}
+				});
+		  }else{
+			  //普通管理员为自己的学院的
+			  $.ajax({
+					type: "post",
+			 		url: [[@{/findCollegeId}]]+"?collegeName="+college,
+					dataType:"json",
+			 		success: function(data) {
+			 				console.log(data);
+							$("#college").append("<option value='" + data.data.id + "'>" + data.data.collegename +
+								"</option>"); 
+							
+						  form.render('select');
+						},
+					error: function(){
+						layer.msg('数据加载失败', {icon: 2,anim: 6});
+					}
+				});
+			  
+		  }
+		  //初始化表格
+		  table.render({
+			    elem: '#dataTable'
+			            ,url: [[@{/dailyTeacherData(college=${teacher.college})}]]
+			    	    ,cellMinWidth: 80 
+					    ,page: true
+					    ,method: 'post'
+					    ,limit: 12
+					    ,even: true
+					    ,cols: [
+					    	[ 
+							 {field: 'id', title: '序号', width: 60}
+							,{field: 'tname', title: '姓名', width: 140}
+							,{field: 'tnum', title: '工号', width: 160}
+							,{field: 'college', title: '学院', width: 160}
+							,{field: 'addr', title: '地点', maxWidth: 160}
+							,{field: 'date', title: '日期', width: 140}
+							,{field: 'temp', title: '体温', width: 60}
+							,{field: 'symptom', title: '症状', width: 60}
+							]
+					    	]
+					    ,groups : 5
+						,jump: function(obj){
+					      console.log(obj)
+			    }
+			  });
+		  
+		  //根据搜索框去渲染页面
+		  $("#search").click(function(){
+				 var information=document.getElementById("information").value;
+				//0是超管 1是普通管理员
+				 if(identify==0){
+					 //超管的
+				 if(information==null||information==""){
+					 layer.msg('不能为空', {icon: 2,anim: 6});
+				}else{
+				 if($.isNumeric(information)){
+				 		tnum=information;
+				    table.render({
+					    elem: '#dataTable'
+					    ,url: [[@{/dynamicDayTeacher}]]+"?tnum="+tnum
+					    ,cellMinWidth: 80 
+					    ,page: true
+					    ,method: 'post'
+					    ,limit: 12
+					    ,even: true
+					    ,cols: [
+					    	[ 
+							  {field: 'id', title: '序号', width: 60}
+							,{field: 'tname', title: '姓名', width: 140}
+							,{field: 'tnum', title: '工号', width: 160}
+							,{field: 'college', title: '学院', width: 160}
+							,{field: 'addr', title: '地点', maxWidth: 200}
+							,{field: 'date', title: '日期', width: 140}
+							,{field: 'temp', title: '体温', width: 60}
+							,{field: 'symptom', title: '症状', width: 60}
+							]
+					    	]
+					    ,groups : 5
+						,jump: function(obj){
+					      console.log(obj)
+					    }
+					  });
+			 	 }else{
+			 		 tname=information;
+					 
+					 table.render({
+						    elem: '#dataTable'
+						    ,url: [[@{/fuzzyDayTeacher}]]+"?tname="+tname
+						    ,cellMinWidth: 80 
+						    ,page: true
+						    ,method: 'post'
+						    ,limit: 12
+						    ,even: true
+						    ,cols: [
+						    	[ 
+								 {field: 'id', title: '序号', width: 60}
+								,{field: 'tname', title: '姓名', width: 140}
+								,{field: 'tnum', title: '工号', width: 160}
+								,{field: 'college', title: '学院', width: 160}
+								,{field: 'addr', title: '地点', maxWidth: 200}
+								,{field: 'date', title: '日期', width: 140}
+								,{field: 'temp', title: '体温', width: 60}
+								,{field: 'symptom', title: '症状', width: 60}
+								]
+						    	]
+						    ,groups : 5
+							,jump: function(obj){
+						      console.log(obj)
+						    }
+						  });
+			 		 
+			 	 }
+				}
+				 }else{
+					 //普通管理员的
+					 if(information==null||information==""){
+						 layer.msg('不能为空', {icon: 2,anim: 6});
+					}else{
+					 if($.isNumeric(information)){
+					 		tnum=information;
+					    table.render({
+						    elem: '#dataTable'
+						    ,url: [[@{/dynamicDayTeacher}]]+"?tnum="+tnum
+						    ,cellMinWidth: 80 
+						    ,page: true
+						    ,method: 'post'
+						    ,limit: 12
+						    ,even: true
+						    ,cols: [
+						    	[ 
+								  {field: 'id', title: '序号', width: 60}
+								,{field: 'tname', title: '姓名', width: 140}
+								,{field: 'tnum', title: '工号', width: 160}
+								,{field: 'college', title: '学院', width: 160}
+								,{field: 'addr', title: '地点', maxWidth: 200}
+								,{field: 'date', title: '日期', width: 140}
+								,{field: 'temp', title: '体温', width: 60}
+								,{field: 'symptom', title: '症状', width: 60}
+								]
+						    	]
+						    ,groups : 5
+							,jump: function(obj){
+						      console.log(obj)
+						    }
+						  });
+				 	 }else{
+				 		 tname=information;
+						 console.log(tname);
+						 table.render({
+							    elem: '#dataTable'
+							    ,url: [[@{/fuzzyDayTeacher}]]+"?tname="+tname+"&college"+college
+							    ,cellMinWidth: 80 
+							    ,page: true
+							    ,method: 'post'
+							    ,limit: 12
+							    ,even: true
+							    ,cols: [
+							    	[ 
+									 {field: 'id', title: '序号', width: 60}
+									,{field: 'tname', title: '姓名', width: 140}
+									,{field: 'tnum', title: '工号', width: 160}
+									,{field: 'college', title: '学院', width: 160}
+									,{field: 'addr', title: '地点', maxWidth: 200}
+									,{field: 'date', title: '日期', width: 140}
+									,{field: 'temp', title: '体温', width: 60}
+									,{field: 'symptom', title: '症状', width: 60}
+									]
+							    	]
+							    ,groups : 5
+								,jump: function(obj){
+							      console.log(obj)
+							    }
+							  });
+				 		 
+				 	 }
+					}
+				 }
+			 });
+			//根据下拉框去渲染页面
+			form.on('select(college)', function(data) {
+				var school=[[${teacher.school}]];
+				var college = $("#college").find('option:selected').text();
+				console.log(school);
+				console.log(college);
+				table.render({
+					    elem: '#dataTable'
+					    ,url: [[@{/selectDayTeacher}]]+"?college="+college+"&school="+school
+					    ,cellMinWidth: 80 
+					    ,page: true
+					    ,method: 'post'
+					    ,limit: 12
+					    ,even: true
+					    ,cols: [
+					    	[ 
+							  {field: 'id', title: '序号', width: 60}
+							,{field: 'tname', title: '姓名', width: 140}
+							,{field: 'tnum', title: '工号', width: 160}
+							,{field: 'college', title: '学院', width: 160}
+							,{field: 'addr', title: '地点', maxWidth: 200}
+							,{field: 'date', title: '日期', width: 140}
+							,{field: 'temp', title: '体温', width: 60}
+							,{field: 'symptom', title: '症状', width: 60}
+							]
+					    	]
+					    ,groups : 5
+						,jump: function(obj){
+					      console.log(obj)
+					    }
+					  });
+			});
+		  
+		 
+		  });
 	</script>
 </body>
 </html>

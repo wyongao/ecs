@@ -35,7 +35,7 @@ public interface DayTeacherDao {
 	
 	//模糊查找
 	@SelectProvider(type = DayTeacherProvider.class, method = "fuzzyQueryDayTeachers")
-	public List<DayTeacher> fuzzyDayTeachers(String tname);
+	public List<DayTeacher> fuzzyDayTeachers(String tname,String college);
 	
 	//动态查询
 	@SelectProvider(type = DayTeacherProvider.class,method = "selectWithParam")
@@ -44,4 +44,8 @@ public interface DayTeacherDao {
 	//查找所有当日打卡的老师
 	@SelectProvider(type = DayTeacherProvider.class,method = "countDayTeachers")
 	public Integer countDayTeachers(String school,String college,String date);
+	
+	//查找老师用于下拉框
+	@Select("select * from day_teacher where school=#{school} and college=#{college} and date=#{date}")
+	public List<DayTeacher> selectDayTeacher(String school, String college, String date);
 }

@@ -72,9 +72,9 @@ public class DayTeacherController {
 		//模糊分页查询
 		@RequestMapping(value = "/fuzzyDayTeachers", method = RequestMethod.POST)
 		@ResponseBody
-		public String fuzzyDayTeachers(String tname,String limit,String page){
+		public String fuzzyDayTeachers(String tname,String college,String limit,String page){
 			PageHelper.startPage(Integer.parseInt(page),Integer.parseInt(limit));
-			List<DayTeacher> data=dayTeacherService.fuzzyDayTeachers(tname);
+			List<DayTeacher> data=dayTeacherService.fuzzyDayTeachers(tname,college);
 			PageInfo<DayTeacher> pageInfo=new PageInfo<DayTeacher>(data);
 			Map<String, Object> map=new HashMap<String, Object>();
 			map.put("code", "0");
@@ -98,5 +98,68 @@ public class DayTeacherController {
 			map.put("data", data);
 			return JsonUtils.objectToJson(map);
 		}
+		//初始化表格
+		@RequestMapping(value = "/dailyTeacherData", method=RequestMethod.POST)
+		@ResponseBody
+		public String dailyTeacherData(String page,String limit,String college) {
+			String date=DateUtil.getDate();
+			PageHelper.startPage(Integer.parseInt(page),Integer.parseInt(limit));
+			List<DayTeacher> data=dayTeacherService.findDayTeacherByCollege(college, date);
+			PageInfo<DayTeacher> pageInfo=new PageInfo<DayTeacher>(data);
+			
+			Map<String, Object> map=new HashMap<String, Object>();
+			map.put("code","0");
+			map.put("msg", "");
+			map.put("count", pageInfo.getTotal());
+			map.put("data", data);
+			return JsonUtils.objectToJson(map);
+		}
+		//根据姓名的模糊查询
+		@ResponseBody
+		@RequestMapping(value = "/fuzzyDayTeacher",method = RequestMethod.POST)
+		public String fuzzyDayTeacher(String tname,String college,String limit,String page) {
+			PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(page));
+			List<DayTeacher> data=dayTeacherService.fuzzyDayTeachers(tname,college);
+			System.out.println(data);
+			PageInfo<DayTeacher> pageInfo=new PageInfo<DayTeacher>(data);
+			Map<String, Object> map=new HashMap<String, Object>();
+			map.put("code", "0");
+			map.put("msg", "");
+			map.put("count", pageInfo.getTotal());
+			map.put("data", data);
+			return JsonUtils.objectToJson(map);
+		}
+		//工号的动态查询
+		@ResponseBody
+		@RequestMapping(value = "/dynamicDayTeacher",method = RequestMethod.POST)
+		public String dynamicTeacher(String college,String tnum,String limit,String page) {
+			PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(page));
+			List<DayTeacher> data=dayTeacherService.dynamicDayTeachers(college, tnum);
+			System.out.println(data.toString());
+			PageInfo<DayTeacher> pageInfo=new PageInfo<DayTeacher>(data);
+			Map<String, Object> map=new HashMap<String, Object>();
+			map.put("code", "0");
+			map.put("msg", "");
+			map.put("count", pageInfo.getTotal());
+			map.put("data", data);
+			return JsonUtils.objectToJson(map);
+		}
+		//下拉框的选择
+		@RequestMapping(value = "/selectDayTeacher",method = RequestMethod.POST)
+		@ResponseBody
+		public String selectDayTeacher(String page,String limit,String college,String school) {
+			String date=DateUtil.getDate();
+			PageHelper.startPage(Integer.parseInt(page),Integer.parseInt(limit));
+			List<DayTeacher> data=dayTeacherService.selectDayTeacher(school, college, date);
+			PageInfo<DayTeacher> pageInfo=new PageInfo<DayTeacher>(data);
+
+			Map<String, Object> map=new HashMap<String, Object>();
+			map.put("code","0");
+			map.put("msg", "");
+			map.put("count", pageInfo.getTotal());
+			map.put("data", data);
+			return JsonUtils.objectToJson(map);
+		}
+		
 
 }

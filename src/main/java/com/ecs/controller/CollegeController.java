@@ -46,4 +46,14 @@ public class CollegeController {
 		System.out.println(JsonUtils.objectToJson(map));
 		return JsonUtils.objectToJson(map);
 	}
+	
+	@RequestMapping(value = "/findCollegeId" , method=RequestMethod.POST)
+	@ResponseBody
+	public String findCollegeId(String collegeName) {
+		College college=collegeService.findCollegeByName(collegeName);
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("data", college);
+		return JsonUtils.objectToJson(map);
+	}
 }
+
