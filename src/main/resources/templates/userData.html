@@ -14,13 +14,17 @@
 		<div class="hs">
 			<div class="header">
 				<ul class="layui-nav">
-					<li class="layui-nav-item">
-						<a href="javascript:;" id="userInfo" th:value="${teacher.tnum}" th:text="${teacher.tname}"></a>
+					<li class="layui-nav-item"><a href="javascript:;"
+						id="userInfo" th:value="${teacher.tnum}"
+						th:text="${teacher.tname}"></a>
 						<dl class="layui-nav-child" style="z-index: 1000;">
-								<dd><a href="javascript:;" id="changePassword">修改密码</a></dd>
-								<dd><a th:href="@{/login}">退出</a></dd>
-						</dl>	
-					</li>
+							<dd>
+								<a href="javascript:;" id="changePassword">修改密码</a>
+							</dd>
+							<dd>
+								<a th:href="@{/login}">退出</a>
+							</dd>
+						</dl></li>
 				</ul>
 			</div>
 			<div class="side">
@@ -47,14 +51,18 @@
 								<a th:href="@{/goIn(tnum=${teacher.tnum})}">入校申请</a>
 							</dd>
 						</dl></li>
-					<li class="layui-nav-item"><a th:href="@{/goEcharts(tnum=${teacher.tnum})}">数据报表</a></li>
-					<li class="layui-nav-item"><a th:href="@{/goTrackQuery(tnum=${teacher.tnum})}">轨迹查询</a></li>
-					<li class="layui-nav-item" id="accessData"><a th:href="@{/goAccessData(tnum=${teacher.tnum})}">访问记录</a></li>
+					<li class="layui-nav-item"><a
+						th:href="@{/goEcharts(tnum=${teacher.tnum})}">数据报表</a></li>
+					<li class="layui-nav-item"><a
+						th:href="@{/goTrackQuery(tnum=${teacher.tnum})}">轨迹查询</a></li>
+					<li class="layui-nav-item" id="accessData"><a
+						th:href="@{/goAccessData(tnum=${teacher.tnum})}">访问记录</a></li>
 					<li class="layui-nav-item  layui-nav-itemed" id="userManage"><a
 						href="javascript:;">用户管理</a>
 						<dl class="layui-nav-child">
 							<dd>
-								<a th:href="@{/goUserData(tnum=${teacher.tnum})}" class="layui-this">用户数据</a>
+								<a th:href="@{/goUserData(tnum=${teacher.tnum})}"
+									class="layui-this">用户数据</a>
 							</dd>
 							<dd>
 								<a th:href="@{/goAddUser(tnum=${teacher.tnum})}">添加用户</a>
@@ -73,18 +81,22 @@
 							th:text="${college.collegename}" />
 					</select>
 				</div>
-				<div  class="layui-form-item">
-								<button type="button" class="layui-btn layui-btn-normal" id="test">
-								  <i class="layui-icon layui-icon-export"></i>导出数据
-								</button>
-								<button type="button" class="layui-btn" id="uploadExcel">
-									<i class="layui-icon">&#xe67c;</i>上传数据
-								</button>	
+				<div class="layui-form-item">
+					<button type="button" class="layui-btn layui-btn-normal" id="test">
+						<i class="layui-icon layui-icon-export"></i>导出数据
+					</button>
+
+				</div>
+				<div class="layui-form-item">
+					<button type="button" class="layui-btn" id="uploadExcel">
+						<i class="layui-icon">&#xe67c;</i>上传数据
+					</button>
 				</div>
 				<div class="layui-form-item">
 					<input type="search" class="layui-input layui-input-inline"
-					 id="information"	placeholder="请输入姓名或工号">
-					<button type="button" class="layui-btn layui-btn-primary" id="search">搜索</button>
+						id="information" placeholder="请输入姓名或工号">
+					<button type="button" class="layui-btn layui-btn-primary"
+						id="search">搜索</button>
 				</div>
 			</div>
 			<div class="layui-table-box">

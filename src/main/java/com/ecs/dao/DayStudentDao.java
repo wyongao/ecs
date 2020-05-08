@@ -40,8 +40,8 @@ public interface DayStudentDao {
 	@SelectProvider(type = DayStudentProvider.class,method = "selectWithParam")
 	public List<DayStudent> findAllDayStudents(@Param("college")String college, @Param("major") String major,@Param("classes") String classes,@Param("snum") String snum,@Param("date")String date);
 	//保存每日学生信息
-	@Insert("insert into day_student(snum,sname,college,major,classes,addr,date,symptom,temp)"
-			+ " values(#{snum},#{sname},#{college},#{major},#{classes},#{addr},#{date},#{symptom},#{temp}) ")
+	@Insert("insert into day_student(snum,sname,school,college,major,classes,addr,date,symptom,temp)"
+			+ " values(#{snum},#{sname},#{school},#{college},#{major},#{classes},#{addr},#{date},#{symptom},#{temp}) ")
 	public void addDayStudent(DayStudent dayStudent);
 	//查询所有学生的信息
 	@Select("select * from day_student")

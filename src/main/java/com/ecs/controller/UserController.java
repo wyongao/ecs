@@ -216,12 +216,14 @@ public class UserController {
 		return "echarts";
 	}
 		
-	// 进入老师打卡数据页面
+	// 进入轨迹查询页面
 	@RequestMapping("/goTrackQuery")
 	public String goTrackQuery(String tnum, Map<String, Object> model) {
 			
 		Teacher t = teacherService.findByTnumForweb(tnum);
-		        
+		
+		model.put("college", collegeService.findCollegeByName(t.getCollege()));
+		
 		model.put("teacher", t);
 		return "trackQuery";
 	}

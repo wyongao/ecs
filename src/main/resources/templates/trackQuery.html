@@ -63,7 +63,19 @@
 			</div>
 		</div>
 		<div class="main layui-body">
-			
+			<div class="top layui-form">
+				<div class="layui-form-item">
+					<input type="search" class="layui-input layui-input-inline"
+						id="information" placeholder="请输入学号或者姓名">
+					<button type="button" class="layui-btn layui-btn-primary" id="search">搜索</button>
+				</div>
+			</div>
+			<div class="layui-table-box">
+				<table class="layui-table" id="dataTable">
+
+
+				</table>
+			</div>
 			
 		</div>
 	</div>
@@ -94,7 +106,133 @@
 		</form>	
 	</script>
 	<script type="text/javascript" th:inline="javascript">
-	
+		layui.use(['table', 'form','layer'], function(){
+		 	 var table = layui.table;
+		 	 var form = layui.form;
+		 	 var $ = layui.jquery;
+		 	 var identify = [[${teacher.identify}]];
+		 	 var layer = layui.layer;
+			 var content = $("#changePage").html();
+		
+			 //修改密码弹窗
+			  $('#changePassword').on('click', function() {
+			  	layer.open({
+					type: 1,
+					area: ['500px', '300px'],
+					offset: '150px',
+					title: "修改密码",
+					content: content,	
+				});
+			  });
+			  
+			//修改密码
+				form.on('submit(changeSubmit)', function(data) {
+
+					$.ajax({
+						type: "post",
+				 		url: [[@{/changePassword}]],
+				 		data: {
+				 			username: data.field.username,
+				 			password: data.field.password,
+				 		},
+				 		success: function(msg) {
+				 			if(msg=='success'){
+				 				layer.msg("修改成功！");
+				 				setTimeout(function(){ 
+				 					window.location.href='http://127.0.0.1:8080/ecs/login'; 
+				 				},2000);
+				 			}else{
+				 				layer.msg("修改失败！");
+				 			}
+				 			$('#reset').trigger("click");
+						}
+					});
+					return false;
+				}); 
+			  
+			  
+			  
+			  //验证身份
+			  if(identify != "0"){
+				  $("#accessData").css('display', 'none');
+				  $("#userManage").css('display', 'none');
+			  } 
+		
+			
+				
+				
+				  //搜索框进行查找
+				 $("#search").click(function(){
+					 var information=document.getElementById("information").value;
+					 if(information==null||information==""){
+						 layer.msg('不能为空', {icon: 2,anim: 6});
+					 }else{
+					if($.isNumeric(information)){
+					 snum=information;
+					
+				 	 table.render({
+						    elem: '#dataTable'
+						    ,url: [[@{/trackQueryBySnum}]]+"?snum="+snum
+						    ,cellMinWidth: 80 
+						    ,page: true
+						    ,method: 'post'
+						    ,limit: 12
+						    ,even: true
+						    ,cols: [
+						    	[ 
+								  {field: 'id', title: '序号', width: 60}
+								,{field: 'sname', title: '姓名', width: 140}
+								,{field: 'snum', title: '学号', width: 160}
+								,{field: 'college', title: '学院', width: 160}
+								,{field: 'major', title: '专业', minWidth: 140}
+								,{field: 'classes', title: '班级', width: 80}
+								,{field: 'addr', title: '地点', maxWidth: 200}
+								,{field: 'date', title: '日期', width: 140}
+								,{field: 'temp', title: '体温', width: 60}
+								,{field: 'symptom', title: '症状', width: 60}
+								]
+						    	]
+						    ,groups : 5
+							,jump: function(obj){
+						      console.log(obj)
+						    }
+						  }); 
+				 	 }else{
+				 		 name=information;
+						 
+					 	 table.render({
+							    elem: '#dataTable'
+							    ,url: [[@{/trackQueryByName}]]+"?name="+name
+							    ,cellMinWidth: 80 
+							    ,page: true
+							    ,method: 'post'
+							    ,limit: 12
+							    ,even: true
+							    ,cols: [
+							    	[ 
+									  {field: 'id', title: '序号', width: 60}
+									,{field: 'sname', title: '姓名', width: 140}
+									,{field: 'snum', title: '学号', width: 160}
+									,{field: 'college', title: '学院', width: 160}
+									,{field: 'major', title: '专业', minWidth: 140}
+									,{field: 'classes', title: '班级', width: 80}
+									,{field: 'addr', title: '地点', maxWidth: 200}
+									,{field: 'date', title: '日期', width: 140}
+									,{field: 'temp', title: '体温', width: 60}
+									,{field: 'symptom', title: '症状', width: 60}
+									]
+							    	]
+							    ,groups : 5
+								,jump: function(obj){
+							      console.log(obj)
+							    }
+							  }); 
+				 		 
+				 	 }
+					 }
+				 });
+		
+		})
 	</script>
 </body>
 </html>

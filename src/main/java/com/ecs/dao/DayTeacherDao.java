@@ -44,8 +44,8 @@ public interface DayTeacherDao {
 	public List<DayTeacher> dynamicDayTeachers(String college,String tnum);
 
 	//保存每日学生信息
-	@Insert("insert into day_teacher(tnum,tname,college,addr,date,symptom,temp)"
-			+ " values(#{tnum},#{tname},#{college},#{addr},#{date},#{symptom},#{temp}) ")
+	@Insert("insert into day_teacher(tnum,tname,school,college,addr,date,symptom,temp)"
+			+ " values(#{tnum},#{tname},#{school},#{college},#{addr},#{date},#{symptom},#{temp}) ")
 	public void addDayTeacher(DayTeacher dayTeacher);
 
 	//根据工号查找学生的打卡信息
