@@ -44,9 +44,9 @@ public class DayTeacherServiceImpl implements DayTeacherService {
 	}
 	//模糊查询
 	@Override
-	public List<DayTeacher> fuzzyDayTeachers(String tname) {
+	public List<DayTeacher> fuzzyDayTeachers(String tname,String college) {
 		
-		return dayTeacherDao.fuzzyDayTeachers(tname);
+		return dayTeacherDao.fuzzyDayTeachers(tname,college);
 	}
 	//动态查询
 	@Override
@@ -75,6 +75,12 @@ public class DayTeacherServiceImpl implements DayTeacherService {
 	public Integer countDayTeachers(String school,String college, String date) {
 
 		return dayTeacherDao.countDayTeachers(school,college, date);
+	}
+
+	@Override
+	public List<DayTeacher> selectDayTeacher(String school, String college, String date) {
+		
+		return dayTeacherDao.selectDayTeacher(school, college, date);
 	}
 	
 
