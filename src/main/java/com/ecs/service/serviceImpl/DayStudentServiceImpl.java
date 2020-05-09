@@ -1,5 +1,8 @@
 package com.ecs.service.serviceImpl;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -111,6 +114,16 @@ public class DayStudentServiceImpl implements DayStudentService {
 	public Integer countDayMajorStudent(String school, String major, String date) {
 		
 		return dayStudentDao.countDayMajorStudent(school, major, date);
+	}
+
+	@Override
+	public List<DayStudent> trackQueryBySnum(String snum) {
+		
+		Date now = new Date();
+		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+		System.out.println(f.format(now));;
+		
+		return null;
 	}
 
 }

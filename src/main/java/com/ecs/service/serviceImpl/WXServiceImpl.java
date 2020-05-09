@@ -71,9 +71,9 @@ public class WXServiceImpl implements WXService {
 		
 		if(dayStudentService.findByDateForwx(f.format(now)).isEmpty()) {			
 			
-			//加了school
 			d.setSnum(snum);
 			d.setSname(s.getSname());
+			d.setSchool(s.getSchool());
 			d.setCollege(s.getCollege());
 			d.setMajor(s.getMajor());
 			d.setClasses(s.getClasses());
@@ -102,9 +102,9 @@ public class WXServiceImpl implements WXService {
 		
 		if(dayTeacherService.findByDateForwx(f.format(now)).isEmpty()) {			
 			
-			//加了school
 			d.setTnum(tnum);
 			d.setTname(t.getTname());
+			d.setSchool(t.getSchool());
 			d.setCollege(t.getCollege());
 			d.setAddr(addr);
 			d.setDate(f.format(now));
