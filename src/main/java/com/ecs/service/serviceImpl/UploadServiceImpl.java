@@ -31,6 +31,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.ecs.domain.Application;
 import com.ecs.domain.DayStudent;
+import com.ecs.domain.DayTeacher;
 import com.ecs.domain.Student;
 import com.ecs.domain.Teacher;
 import com.ecs.service.UploadService;
@@ -65,15 +66,16 @@ public class UploadServiceImpl implements UploadService{
 				row.getCell(5).setCellType(Cell.CELL_TYPE_STRING);
 				row.getCell(6).setCellType(Cell.CELL_TYPE_STRING);
 				row.getCell(7).setCellType(Cell.CELL_TYPE_STRING);
+				row.getCell(8).setCellType(Cell.CELL_TYPE_STRING);
 				//姓名1 学号2 学校3 学院4 专业5 班级6 性别7 电话8
-				student.setSname(row.getCell(0).getStringCellValue());
-				student.setSnum(row.getCell(1).getStringCellValue());
-				student.setSchool(row.getCell(2).getStringCellValue());
-				student.setCollege(row.getCell(3).getStringCellValue());
-				student.setMajor(row.getCell(4).getStringCellValue());
-				student.setClasses(row.getCell(5).getStringCellValue());
-				student.setSex(row.getCell(6).getStringCellValue());
-				student.setTel(row.getCell(7).getStringCellValue());
+				student.setSname(row.getCell(1).getStringCellValue());
+				student.setSnum(row.getCell(2).getStringCellValue());
+				student.setSchool(row.getCell(3).getStringCellValue());
+				student.setCollege(row.getCell(4).getStringCellValue());
+				student.setMajor(row.getCell(5).getStringCellValue());
+				student.setClasses(row.getCell(6).getStringCellValue());
+				student.setSex(row.getCell(7).getStringCellValue());
+				student.setTel(row.getCell(8).getStringCellValue());
 				System.out.println(i);
 				studentslist.add(student);
 			}
@@ -139,7 +141,7 @@ public class UploadServiceImpl implements UploadService{
 		return teacherslist;
 	}
 	
-	//到处每日学生的信息
+	//导出每日学生的信息
 	@Override
 	public ResponseEntity<byte[]> studentDailyDataExport(HttpServletRequest request, List<DayStudent> list) throws Exception  {
 		try {
@@ -395,6 +397,276 @@ public class UploadServiceImpl implements UploadService{
 				System.out.println("导出成功");
 				File file =new File(path);
 				String filename = "学生出入申请表.xlsx";
+				HttpHeaders headers =new HttpHeaders();
+				String downLoadFileName = new String(filename.getBytes("UTF-8"),"iso-8859-1");
+				System.out.println(downLoadFileName.toString());
+				headers.setContentDispositionFormData("attachment", downLoadFileName);
+		        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+		        System.out.println("---->>>>>>处理完毕导出");
+		        return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file), headers, HttpStatus.CREATED);
+			
+			}
+			catch (FileNotFoundException e) {
+				
+				e.printStackTrace();
+			}
+			
+	        return null;
+	}
+	//老师打卡信息的导出
+	@Override
+	public ResponseEntity<byte[]> teacherDailyDataExport(HttpServletRequest request, List<DayTeacher> list)
+			throws Exception {
+		try {
+			String path = request.getSession().getServletContext().getRealPath("/")+"教师每日打卡信息导出表.xlsx";
+			System.out.println("---->>>>>"+path);
+			//创建新的excel表
+			System.out.println("创建excel");
+			XSSFWorkbook workbook = new XSSFWorkbook();
+			XSSFSheet sheet = workbook.createSheet("output");
+			XSSFRow row = sheet.createRow((short) 0);
+			XSSFCell cell = row.createCell((short) 0);
+			CellStyle cellStyle = workbook.createCellStyle();
+			//设置excel的格式
+			cellStyle.setFillForegroundColor(HSSFColor.SKY_BLUE.index);
+	        cellStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+	        cellStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+	        cellStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+	        cellStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
+	        cellStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
+	        cellStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+	        //定义单元格为字符串类型
+	        System.out.println("------>>>>存放数据");
+	        cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+	        cell = row.createCell((short) 0);
+	        cell.setCellValue("序号");
+	        cell.setCellStyle(cellStyle);
+
+	        cell = row.createCell((short) 1);
+	        cell.setCellValue("职工号");
+	        cell.setCellStyle(cellStyle);
+
+	        cell = row.createCell((short) 2);
+	        cell.setCellValue("姓名");
+	        cell.setCellStyle(cellStyle);
+
+	        cell = row.createCell((short) 3);
+	        cell.setCellValue("学院");
+	        cell.setCellStyle(cellStyle);
+
+	        cell = row.createCell((short) 4);
+	        cell.setCellValue("打卡地点");
+	        cell.setCellStyle(cellStyle);
+	        
+	        cell = row.createCell((short) 5);
+	        cell.setCellValue("日期");
+	        cell.setCellStyle(cellStyle);
+	        
+	        cell = row.createCell((short) 6);
+	        cell.setCellValue("是否有症状");
+	        cell.setCellStyle(cellStyle);
+	        
+	        cell = row.createCell((short) 7);
+	        cell.setCellValue("上报体温");
+	        cell.setCellStyle(cellStyle);
+	        
+	        System.out.println(list.size());
+			for(int i=0;i < list.size(); i++) {
+				row = sheet.createRow((int) i + 1);
+				DayTeacher dayTeacher=(DayTeacher)list.get(i);
+				row.createCell((short) 0).setCellValue(i+1);
+				row.createCell((short) 1).setCellValue(dayTeacher.getTnum());
+				row.createCell((short) 2).setCellValue(dayTeacher.getTname());
+				row.createCell((short) 3).setCellValue(dayTeacher.getCollege());
+				row.createCell((short) 4).setCellValue(dayTeacher.getAddr());
+				row.createCell((short) 5).setCellValue(dayTeacher.getDate());
+				row.createCell((short) 6).setCellValue(dayTeacher.getTemp());
+				row.createCell((short) 7).setCellValue(dayTeacher.getSymptom());
+				sheet.setColumnWidth((short) 0,(short)(8*2*256));
+				sheet.setColumnWidth((short) 1,(short)(8*2*256));
+				sheet.setColumnWidth((short) 2,(short)(8*2*256));
+				sheet.setColumnWidth((short) 3,(short)(8*2*256));
+				sheet.setColumnWidth((short) 4,(short)(8*2*256));
+				sheet.setColumnWidth((short) 5,(short)(8*2*256));
+				sheet.setColumnWidth((short) 6,(short)(8*4*256));
+				sheet.setColumnWidth((short) 7,(short)(8*2*256));
+			} 
+				FileOutputStream fOut=new FileOutputStream(path);
+				workbook.write(fOut);
+				workbook.close();
+				fOut.flush();
+				fOut.close();
+				System.out.println("导出成功");
+				File file =new File(path);
+				String filename = "教师每日打卡信息导出表.xlsx";
+				HttpHeaders headers =new HttpHeaders();
+				String downLoadFileName = new String(filename.getBytes("UTF-8"),"iso-8859-1");
+				System.out.println(downLoadFileName.toString());
+				headers.setContentDispositionFormData("attachment", downLoadFileName);
+		        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+		        System.out.println("---->>>>>>处理完毕导出");
+		        return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file), headers, HttpStatus.CREATED);
+			
+			}
+			catch (FileNotFoundException e) {
+				
+				e.printStackTrace();
+			}
+			
+	        return null;
+		
+		
+	}
+	//学生信息模板的导出
+	@Override
+	public ResponseEntity<byte[]> studentTemplateExport(HttpServletRequest request) throws Exception {
+		
+		try {
+			String path = request.getSession().getServletContext().getRealPath("/")+"学生基本信息模板表.xlsx";
+			System.out.println("---->>>>>"+path);
+			//创建新的excel表
+			System.out.println("创建excel");
+			XSSFWorkbook workbook = new XSSFWorkbook();
+			XSSFSheet sheet = workbook.createSheet("output");
+			XSSFRow row = sheet.createRow((short) 0);
+			XSSFCell cell = row.createCell((short) 0);
+			CellStyle cellStyle = workbook.createCellStyle();
+			//设置excel的格式
+			cellStyle.setFillForegroundColor(HSSFColor.SKY_BLUE.index);
+	        cellStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+	        cellStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+	        cellStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+	        cellStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
+	        cellStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
+	        cellStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+	        //定义单元格为字符串类型
+	        System.out.println("------>>>>存放数据");
+	        cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+	        cell = row.createCell((short) 0);
+	        cell.setCellValue("序号");
+	        cell.setCellStyle(cellStyle);
+
+	        cell = row.createCell((short) 1);
+	        cell.setCellValue("姓名");
+	        cell.setCellStyle(cellStyle);
+
+	        cell = row.createCell((short) 2);
+	        cell.setCellValue("学号");
+	        cell.setCellStyle(cellStyle);
+
+	        cell = row.createCell((short) 3);
+	        cell.setCellValue("学校");
+	        cell.setCellStyle(cellStyle);
+
+	        cell = row.createCell((short) 4);
+	        cell.setCellValue("学院");
+	        cell.setCellStyle(cellStyle);
+	        
+	        cell = row.createCell((short) 5);
+	        cell.setCellValue("专业");
+	        cell.setCellStyle(cellStyle);
+	        
+	        cell = row.createCell((short) 6);
+	        cell.setCellValue("班级");
+	        cell.setCellStyle(cellStyle);
+	        
+	        cell = row.createCell((short) 7);
+	        cell.setCellValue("性别");
+	        cell.setCellStyle(cellStyle);
+	        
+	        cell = row.createCell((short) 8);
+	        cell.setCellValue("联系方式");
+	        cell.setCellStyle(cellStyle);
+	        
+	       
+				FileOutputStream fOut=new FileOutputStream(path);
+				workbook.write(fOut);
+				workbook.close();
+				fOut.flush();
+				fOut.close();
+				System.out.println("导出成功");
+				File file =new File(path);
+				String filename = "学生基本信息模板表.xlsx";
+				HttpHeaders headers =new HttpHeaders();
+				String downLoadFileName = new String(filename.getBytes("UTF-8"),"iso-8859-1");
+				System.out.println(downLoadFileName.toString());
+				headers.setContentDispositionFormData("attachment", downLoadFileName);
+		        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+		        System.out.println("---->>>>>>处理完毕导出");
+		        return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file), headers, HttpStatus.CREATED);
+			
+			}
+			catch (FileNotFoundException e) {
+				
+				e.printStackTrace();
+			}
+			
+	        return null;
+	}
+	//教师信息模板的导出
+	@Override
+	public ResponseEntity<byte[]> teacherTemplateExport(HttpServletRequest request) throws Exception {
+	
+		try {
+			String path = request.getSession().getServletContext().getRealPath("/")+"教师基本信息模板表.xlsx";
+			System.out.println("---->>>>>"+path);
+			//创建新的excel表
+			System.out.println("创建excel");
+			XSSFWorkbook workbook = new XSSFWorkbook();
+			XSSFSheet sheet = workbook.createSheet("output");
+			XSSFRow row = sheet.createRow((short) 0);
+			XSSFCell cell = row.createCell((short) 0);
+			CellStyle cellStyle = workbook.createCellStyle();
+			//设置excel的格式
+			cellStyle.setFillForegroundColor(HSSFColor.SKY_BLUE.index);
+	        cellStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+	        cellStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+	        cellStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+	        cellStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
+	        cellStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
+	        cellStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+	        //定义单元格为字符串类型
+	        System.out.println("------>>>>存放数据");
+	        cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+	        cell = row.createCell((short) 0);
+	        cell.setCellValue("序号");
+	        cell.setCellStyle(cellStyle);
+
+	        cell = row.createCell((short) 1);
+	        cell.setCellValue("姓名");
+	        cell.setCellStyle(cellStyle);
+
+	        cell = row.createCell((short) 2);
+	        cell.setCellValue("职工号");
+	        cell.setCellStyle(cellStyle);
+
+	        cell = row.createCell((short) 3);
+	        cell.setCellValue("学校");
+	        cell.setCellStyle(cellStyle);
+
+	        cell = row.createCell((short) 4);
+	        cell.setCellValue("学院");
+	        cell.setCellStyle(cellStyle);
+	        
+	        cell = row.createCell((short) 5);
+	        cell.setCellValue("性别");
+	        cell.setCellStyle(cellStyle);
+	        
+	        cell = row.createCell((short) 6);
+	        cell.setCellValue("联系方式");
+	        cell.setCellStyle(cellStyle);
+	        
+	      
+	        
+	       
+				FileOutputStream fOut=new FileOutputStream(path);
+				workbook.write(fOut);
+				workbook.close();
+				fOut.flush();
+				fOut.close();
+				System.out.println("导出成功");
+				File file =new File(path);
+				String filename = "教师基本信息模板表.xlsx";
 				HttpHeaders headers =new HttpHeaders();
 				String downLoadFileName = new String(filename.getBytes("UTF-8"),"iso-8859-1");
 				System.out.println(downLoadFileName.toString());

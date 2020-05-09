@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ecs.dao.DayTeacherDao;
-import com.ecs.domain.DayStudent;
 import com.ecs.domain.DayTeacher;
 import com.ecs.service.DayTeacherService;
 /**

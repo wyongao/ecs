@@ -2,7 +2,6 @@ package com.ecs.service;
 
 import java.util.List;
 
-import com.ecs.domain.Student;
 import com.ecs.domain.Teacher;
 
 /**
