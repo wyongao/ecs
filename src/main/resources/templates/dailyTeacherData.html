@@ -49,8 +49,8 @@
 							</dd>
 						</dl></li>
 					<li class="layui-nav-item"><a th:href="@{/goEcharts(tnum=${teacher.tnum})}">数据报表</a></li>
-					<li class="layui-nav-item"><a th:href="@{/goTrackQuery(tnum=${teacher.tnum})}">轨迹查询</a></li>
 					<li class="layui-nav-item" id="accessData"><a th:href="@{/goAccessData(tnum=${teacher.tnum})}">访问记录</a></li>
+					<li class="layui-nav-item" id="dataImport"><a th:href="@{/goDataImport(tnum=${teacher.tnum})}">数据导入</a></li>
 					<li class="layui-nav-item" id="userManage">
 							<a href="javascript:;">用户管理</a>
 							<dl class="layui-nav-child">
@@ -112,17 +112,66 @@
 		</form>	
 	</script>
 	<script type="text/javascript" th:inline="javascript">
-<<<<<<< HEAD
-		
-=======
 	layui.use(['table', 'form','layer'], function(){
 		  var table = layui.table;
 		  var form = layui.form;
 		  var $ = layui.jquery;
 		  var identify = [[${teacher.identify}]];
 		  var layer = layui.layer;
+		  var content = $("#changePage").html();
 		  var college=[[${teacher.college}]];
 		  var school=[[${teacher.school}]];
+		  
+		  
+		//修改密码弹窗
+		  $('#changePassword').on('click', function() {
+		  	layer.open({
+				type: 1,
+				area: ['500px', '300px'],
+				offset: '150px',
+				title: "修改密码",
+				content: content,	
+			});
+		  });
+		  
+		//修改密码
+			form.on('submit(changeSubmit)', function(data) {
+
+				$.ajax({
+					type: "post",
+			 		url: [[@{/changePassword}]],
+			 		data: {
+			 			username: data.field.username,
+			 			password: data.field.password,
+			 		},
+			 		success: function(msg) {
+			 			if(msg=='success'){
+			 				layer.msg("修改成功！");
+			 				setTimeout(function(){ 
+			 					window.location.href='http://127.0.0.1:8080/ecs/login'; 
+			 				},2000);
+			 			}else{
+			 				layer.msg("修改失败！");
+			 			}
+			 			$('#reset').trigger("click");
+					}
+				});
+				return false;
+			}); 
+		  
+		  
+		  
+		  //验证身份
+		  if(identify != "0"){
+			  $("#accessData").css('display', 'none');
+			  $("#userManage").css('display', 'none');
+			  $("#dataImport").css('display', 'none');
+		  } 
+		  
+		  
+		  
+		  
+		  
 		  //初始化下拉框
 		  //0是超级管理员 1是普通管理员
 		  if(identify == 0){
@@ -359,7 +408,6 @@
 		  
 		 
 		  });
->>>>>>> dee20e59befd0e5b115c7589b950d0dddab638ac
 	</script>
 </body>
 </html>

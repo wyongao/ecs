@@ -48,7 +48,5 @@ public interface DayStudentService {
 	//查找全专业所有的打卡学生数量
 	public Integer countDayMajorStudent(String school,String major,String date);
 	
-	//根据学号查询轨迹
-	public List<DayStudent> trackQueryBySnum(String snum);
 
 }

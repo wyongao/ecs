@@ -54,10 +54,10 @@
 						</dl></li>
 					<li class="layui-nav-item"><a
 						th:href="@{/goEcharts(tnum=${teacher.tnum})}">数据报表</a></li>
-					<li class="layui-nav-item"><a
-						th:href="@{/goTrackQuery(tnum=${teacher.tnum})}">轨迹查询</a></li>
 					<li class="layui-nav-item" id="accessData"><a
 						th:href="@{/goAccessData(tnum=${teacher.tnum})}">访问记录</a></li>
+					<li class="layui-nav-item" id="dataImport"><a
+						th:href="@{/goDataImport(tnum=${teacher.tnum})}">数据导入</a></li>
 					<li class="layui-nav-item" id="userManage"><a
 						href="javascript:;">用户管理</a>
 						<dl class="layui-nav-child">
@@ -211,6 +211,7 @@
 			if(identify != "0"){
 				$("#accessData").css('display', 'none');
 				$("#userManage").css('display', 'none');
+				$("#dataImport").css('display', 'none');
 		    }  
 			
 			//初始化

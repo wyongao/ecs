@@ -216,16 +216,15 @@ public class UserController {
 		return "echarts";
 	}
 		
-	// 进入轨迹查询页面
-	@RequestMapping("/goTrackQuery")
-	public String goTrackQuery(String tnum, Map<String, Object> model) {
+	// 进入数据导入页面
+	@RequestMapping("/goDataImport")
+	public String goDataImport(String tnum, Map<String, Object> model) {
 			
 		Teacher t = teacherService.findByTnumForweb(tnum);
 		
-		model.put("college", collegeService.findCollegeByName(t.getCollege()));
 		
 		model.put("teacher", t);
-		return "trackQuery";
+		return "dataImport";
 	}
 	
 	// 进入入校申请页面

@@ -191,20 +191,4 @@ public class DayStudentController {
 	}
 
 	
-	@ResponseBody
-	@RequestMapping(value = "/trackQueryBySnum", method = RequestMethod.POST)
-	public String trackQueryBySnum(String page, String limit, String snum) {
-
-		PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(limit));
-		List<DayStudent> data = dayStudentService.trackQueryBySnum(snum);
-		PageInfo<DayStudent> pageInfo = new PageInfo<DayStudent>(data);
-
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("code", "0");
-		map.put("msg", "");
-		map.put("count", pageInfo.getTotal());
-		map.put("data", data);
-
-		return JsonUtils.objectToJson(map);
-	}
 }
