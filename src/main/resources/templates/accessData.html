@@ -47,9 +47,10 @@
 								<a th:href="@{/goIn(tnum=${teacher.tnum})}">入校申请</a>
 							</dd>
 						</dl></li>
+					<li class="layui-nav-item"><a th:href="@{/goTrack(tnum=${teacher.tnum})}">轨迹查询</a></li>
 					<li class="layui-nav-item"><a th:href="@{/goEcharts(tnum=${teacher.tnum})}">数据报表</a></li>
-					<li class="layui-nav-item"><a th:href="@{/goTrackQuery(tnum=${teacher.tnum})}">轨迹查询</a></li>
 					<li class="layui-nav-item" id="accessData"><a th:href="@{/goAccessData(tnum=${teacher.tnum})}" class="layui-this">访问记录</a></li>
+					<li class="layui-nav-item"><a th:href="@{/goDataImport(tnum=${teacher.tnum})}">数据导入</a></li>
 					<li class="layui-nav-item" id="userManage">
 							<a href="javascript:;">用户管理</a>
 							<dl class="layui-nav-child">

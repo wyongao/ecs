@@ -7,10 +7,12 @@
 <link rel="stylesheet" type="text/css" href="css/base.css" />
 <script src="js/echarts.min.js"></script>
 <style type="text/css">
+
 .layui-table-box {
 	width: 98%;
 	margin: 0 10px;
 }
+
 .first, .second {
 	position: relative;
 	margin-top: 20px;
@@ -24,6 +26,7 @@
 	height: 400px;
 	padding: 5px;
 }
+
 #student {
 	position: absolute;
 	right: 0;
@@ -76,12 +79,13 @@
 								<a th:href="@{/goIn(tnum=${teacher.tnum})}">入校申请</a>
 							</dd>
 						</dl></li>
+					<li class="layui-nav-item"><a th:href="@{/goTrack(tnum=${teacher.tnum})}">轨迹查询</a></li>
 					<li class="layui-nav-item"><a
 						th:href="@{/goEcharts(tnum=${teacher.tnum})}" class="layui-this">数据报表</a></li>
-					<li class="layui-nav-item"><a
-						th:href="@{/goTrackQuery(tnum=${teacher.tnum})}">轨迹查询</a></li>
 					<li class="layui-nav-item" id="accessData"><a
 						th:href="@{/goAccessData(tnum=${teacher.tnum})}">访问记录</a></li>
+					<li class="layui-nav-item" id="dataImport"><a
+						th:href="@{/goDataImport(tnum=${teacher.tnum})}">数据导入</a></li>
 					<li class="layui-nav-item" id="userManage"><a
 						href="javascript:;">用户管理</a>
 						<dl class="layui-nav-child">
@@ -99,15 +103,23 @@
 		<div class="main layui-body">
 			<div class="top layui-form">
 
+
 				<div class="layui-form-item">
+
+				<div class="layui-form-item ">
+
 					<select class="layui-select" name="college" id="college"
 						lay-filter="college" lay-verify="" lay-search>
 					</select>
 				</div>
+
 				<div class="layui-form-item">
 					<!-- <input type="search" class="layui-input layui-input-inline"
 						placeholder="10001">
 					<button type="button" class="layui-btn layui-btn-primary">搜索</button> -->
+
+				<div class="layui-form-item ">
+
 				</div>
 			</div>
 			<div class="layui-table-box">
@@ -153,16 +165,66 @@
 	var $ = layui.jquery;
 	var form = layui.form;
 	var layer = layui.layer;
+	var content = $("#changePage").html();
     var app = {};
     option = null;
     var school = [[${teacher.school}]];
-  	console.log(school);
   	var identify = [[${teacher.identify}]];
 	var college=[[${teacher.college}]];
+<<<<<<< HEAD
 	// 指定图表的配置项和数据
 	var myChart = echarts.init(document.getElementById('teacher'));
 	var myChart1 = echarts.init(document.getElementById('student'));
     var myChart3 = echarts.init(document.getElementById('detail'));
+=======
+	
+	//修改密码弹窗
+	  $('#changePassword').on('click', function() {
+	  	layer.open({
+			type: 1,
+			area: ['500px', '300px'],
+			offset: '150px',
+			title: "修改密码",
+			content: content,	
+		});
+	  });
+	  
+	//修改密码
+		form.on('submit(changeSubmit)', function(data) {
+
+			$.ajax({
+				type: "post",
+		 		url: [[@{/changePassword}]],
+		 		data: {
+		 			username: data.field.username,
+		 			password: data.field.password,
+		 		},
+		 		success: function(msg) {
+		 			if(msg=='success'){
+		 				layer.msg("修改成功！");
+		 				setTimeout(function(){ 
+		 					window.location.href='http://127.0.0.1:8080/ecs/login'; 
+		 				},2000);
+		 			}else{
+		 				layer.msg("修改失败！");
+		 			}
+		 			$('#reset').trigger("click");
+				}
+			});
+			return false;
+		}); 
+	  
+	  
+	  
+	  //验证身份
+	  if(identify != "0"){
+		  $("#accessData").css('display', 'none');
+		  $("#userManage").css('display', 'none');
+		  $("#dataImport").css('display', 'none');
+	  }
+	
+	
+>>>>>>> 8776968b0b6cca229e32ba63ec449e499ec52fb4
 	
     if(identify == 0){
 		  $.ajax({

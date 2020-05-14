@@ -116,14 +116,6 @@ public class DayStudentServiceImpl implements DayStudentService {
 		return dayStudentDao.countDayMajorStudent(school, major, date);
 	}
 
-	@Override
-	public List<DayStudent> trackQueryBySnum(String snum) {
-		
-		Date now = new Date();
-		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
-		System.out.println(f.format(now));;
-		
-		return null;
-	}
+
 
 }

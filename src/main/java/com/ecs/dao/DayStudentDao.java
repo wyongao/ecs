@@ -69,5 +69,6 @@ public interface DayStudentDao {
 	//查找各个专业的打卡人数
 	@Select("select count(*) from day_student where school=#{school} and major=#{major} and date=#{date}")
 	public Integer countDayMajorStudent(String school,String major,String date);
-
+	
+	
 }
