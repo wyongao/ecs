@@ -17,6 +17,7 @@ import com.ecs.common.EncryptUtil;
 import com.ecs.common.HttpClientUtil;
 import com.ecs.common.JsonUtils;
 import com.ecs.common.MyParams;
+import com.ecs.constant.IdentityConstant;
 import com.ecs.domain.WXSession;
 import com.ecs.service.ApplicationService;
 import com.ecs.service.DayStudentService;
@@ -60,10 +61,10 @@ public class WXLoginController {
 	public Map<String, Object> wxLogin(String code, String usernum) {
 		
 		Map<String, Object> res = new HashMap<String, Object>();
-		String identity = "1";
+		String identity = IdentityConstant.IDENTITY_STUDENT;
 		
 		if(studentService.findStudentBySnum(usernum) == null) {
-			System.out.println("333");
+			
 			 if(teacherService.findTeacherByTnum(usernum) == null) {
 				res.put("msg", "failure");
 				return res;
@@ -72,10 +73,10 @@ public class WXLoginController {
 		
 		if(studentService.findStudentBySnum(usernum) != null) {//学生为1
 			
-//			identity = "1";	
+//			identity = IdentityConstant.IDENTITY_STUDENT;	
 		}else if(teacherService.findTeacherByTnum(usernum) != null) {//老师为2
 
-			identity = "2";
+			identity = IdentityConstant.IDENTITY_TEACHER;
 		}
 		
 //		https://api.weixin.qq.com/sns/jscode2session?
@@ -141,7 +142,7 @@ public class WXLoginController {
 	@RequestMapping(value="/getUserInfo", method=RequestMethod.POST)
 	public String getStudentInfo(String usernum, String identity) {
 
-		if(identity.equals("1")) {
+		if(identity.equals(IdentityConstant.IDENTITY_STUDENT)) {
 			return JsonUtils.objectToJson(studentService.findBySnumForwx(usernum));
 		}else {
 			return JsonUtils.objectToJson(teacherService.findByTnumForwx(usernum));
@@ -153,7 +154,7 @@ public class WXLoginController {
 	@RequestMapping(value="/getDailyRecord", method=RequestMethod.POST)
 	public String getDailyRecord(String usernum, String identity) {
 		
-		if(identity.equals("1")) {
+		if(identity.equals(IdentityConstant.IDENTITY_STUDENT)) {
 			return JsonUtils.objectToJson(dayStudentService.findBySnumForwx(usernum));
 		} else {
 			return JsonUtils.objectToJson(dayTeacherService.findByTnumForwx(usernum));
@@ -173,13 +174,12 @@ public class WXLoginController {
 	@RequestMapping(value="/daily", method=RequestMethod.POST)
 	public String daily (String temp, String symptom, String addr, String usernum, String identity) {
 		
-		if(identity.equals("1")) {
+		if(identity.equals(IdentityConstant.IDENTITY_STUDENT)) {
 			return wxService.addDayStudentFromwx(temp, symptom, addr, usernum);
 		} else {
 			return wxService.addDayTeacherFromwx(temp, symptom, addr, usernum);
 		}
-		
-		
+				
 	}
 	
 	@ResponseBody
@@ -190,12 +190,24 @@ public class WXLoginController {
 	}
 	
 	@ResponseBody
+	@RequestMapping(value="/track", method=RequestMethod.POST)
+	public String track (String addr, String usernum, String identity) {
+		
+		System.out.println(addr+usernum+identity);
+		if(identity.equals(IdentityConstant.IDENTITY_STUDENT)) {
+			return wxService.addTrackStudentFromwx(addr, usernum);
+		} else {
+			return wxService.addTrackTeacherFromwx(addr, usernum);
+		}
+				
+	}
+	
+	@ResponseBody
 	@RequestMapping(value="/getAddr", method=RequestMethod.POST)
-	public ArrayList<String> getAddr() {
+	public String getAddr() {
 		
-		
-		System.out.println(wxService.findBuildingForwx());
-		return wxService.findBuildingForwx();
+//		System.out.println(wxService.findBuildingsForwx());
+		return wxService.findBuildingsForwx();
 	}
 	
 	

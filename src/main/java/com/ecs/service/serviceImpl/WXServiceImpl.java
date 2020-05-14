@@ -3,24 +3,33 @@ package com.ecs.service.serviceImpl;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ecs.common.JsonUtils;
 import com.ecs.constant.ApplicationConstant;
 import com.ecs.dao.BuildingDao;
+import com.ecs.dao.CampusDao;
 import com.ecs.dao.StudentDao;
 import com.ecs.dao.TeacherDao;
 import com.ecs.domain.Application;
 import com.ecs.domain.Building;
+import com.ecs.domain.Campus;
 import com.ecs.domain.DayStudent;
 import com.ecs.domain.DayTeacher;
 import com.ecs.domain.Student;
 import com.ecs.domain.Teacher;
+import com.ecs.domain.TrackStudent;
+import com.ecs.domain.TrackTeacher;
 import com.ecs.service.ApplicationService;
 import com.ecs.service.DayStudentService;
 import com.ecs.service.DayTeacherService;
+import com.ecs.service.TrackStudentService;
+import com.ecs.service.TrackTeacherService;
 import com.ecs.service.WXService;
 
 @Service
@@ -29,6 +38,9 @@ public class WXServiceImpl implements WXService {
 //	@Autowired
 //	private StringRedisTemplate redis1StringRedisTemplate;
 
+	@Autowired
+	private CampusDao campusDao;
+	
 	@Autowired
 	private BuildingDao buildingDao;
 	
@@ -46,6 +58,12 @@ public class WXServiceImpl implements WXService {
 	
 	@Autowired
 	private ApplicationService applicationService;
+	
+	@Autowired
+	private TrackStudentService trackStudentService;
+	
+	@Autowired
+	private TrackTeacherService trackTeacherService;
 	
 	@Override
 	public String setOpenid(String usernum, String openid, String identity) {
@@ -161,9 +179,66 @@ public class WXServiceImpl implements WXService {
 	}
 
 	@Override
-	public ArrayList<String> findBuildingForwx() {
+	public String findBuildingsForwx() {
 		
-		return buildingDao.findForwx();
+//		ArrayList<ArrayList<String>> all= new ArrayList<ArrayList<String>>();
+		
+		Map<String, Object> all = new HashMap<String, Object>(); 
+		ArrayList<String> campus = campusDao.findCampusByParentIdForwx(1);
+//		all.add(campus);
+		all.put("campus", campus);
+		
+		for(int i=1; i<=campus.size(); i++) {
+			
+//			all.add(buildingDao.findBuildingByParentIdForwx(i));
+			all.put("building"+i, buildingDao.findBuildingByParentIdForwx(i));
+		}
+				
+		return JsonUtils.objectToJson(all);
+	}
+
+	@Override
+	public String addTrackStudentFromwx(String addr, String snum) {
+
+		Student s = studentDao.findBySnum(snum);	
+		TrackStudent ts = new TrackStudent();
+		
+		Date now = new Date();
+		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+		
+		ts.setSnum(snum);
+		ts.setSname(s.getSname());
+		ts.setSchool(s.getSchool());
+		ts.setCollege(s.getCollege());
+		ts.setMajor(s.getMajor());
+		ts.setClasses(s.getClasses());
+		ts.setAddr(addr);
+		ts.setDate(f.format(now));	
+        
+		trackStudentService.addTrackStudent(ts);
+        
+		return "success";
+	}
+
+	@Override
+	public String addTrackTeacherFromwx(String addr, String tnum) {
+		
+		Teacher t = teacherDao.findTeacherByTnum(tnum);	
+		TrackTeacher tt = new TrackTeacher();
+		
+		Date now = new Date();
+		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+		
+		tt.setTnum(tnum);
+		tt.setTname(t.getTname());
+		tt.setSchool(t.getSchool());
+		tt.setCollege(t.getCollege());
+		tt.setAddr(addr);
+		tt.setDate(f.format(now));	
+        
+		trackTeacherService.addTrackTeacher(tt);
+        
+		return "success";
 	}
 
 	

@@ -1,7 +1,5 @@
 package com.ecs.service;
 
-import java.util.ArrayList;
-
 public interface WXService {
 
 	//	public String searchSessionId(String sessionid);
@@ -15,5 +13,9 @@ public interface WXService {
 	
 	public String addApplicationFromwx(String inout, String dest, String reason, String exit, String snum);
 	
-	public ArrayList<String> findBuildingForwx();
+	public String findBuildingsForwx();
+	
+	public String addTrackStudentFromwx(String addr, String snum);
+	
+	public String addTrackTeacherFromwx(String addr, String tnum);
 }

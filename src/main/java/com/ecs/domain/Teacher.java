@@ -17,6 +17,7 @@ public class Teacher {
 	private String sex;
 	private String tel;
 	private String identify;
+	private String openid;
 	
 	public Integer getId() {
 		return id;
@@ -73,16 +74,25 @@ public class Teacher {
 		this.identify = identify;
 	}
 	
+	public String getOpenid() {
+		return openid;
+	}
+	public void setOpenid(String openid) {
+		this.openid = openid;
+	}
+	
 	@Override
 	public String toString() {
 		return "Teacher [id=" + id + ", tname=" + tname + ", tnum=" + tnum + ", password=" + password + ", school="
-				+ school + ", college=" + college + ", sex=" + sex + ", tel=" + tel + ", identify=" + identify + "]";
+				+ school + ", college=" + college + ", sex=" + sex + ", tel=" + tel + ", identify=" + identify
+				+ ", openid=" + openid + "]";
 	}
 	
 	public Teacher() {}
 	
+	
 	public Teacher(Integer id, String tname, String tnum, String password, String school, String college, String sex,
-			String tel, String identify) {
+			String tel, String identify, String openid) {
 		super();
 		this.id = id;
 		this.tname = tname;
@@ -93,11 +103,11 @@ public class Teacher {
 		this.sex = sex;
 		this.tel = tel;
 		this.identify = identify;
+		this.openid = openid;
 	}
 	
 	
 	
-
 
 	
 }
