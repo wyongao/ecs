@@ -22,22 +22,22 @@ public class AccessDataServicceImpl implements AccessDataService {
 	}
 	
 	@Override
-	public List<AccessData> findAccessDataByCollege(String college) {
+	public List<AccessData> dynamicFindAccessData(String school,String college) {
 		
-		return accessDataDao.findAccessDataByCollege(college);
+		return accessDataDao.dynamicFindAccessData(school,college);
 	}
 	
 
 	@Override
-	public void addAccessData(String username, String userid,String college, String ip, String date) {
+	public void addAccessData(String username, String userid,String school,String college, String ip, String date) {
 		
-		accessDataDao.addAccessData(username, userid, college, ip, date);
+		accessDataDao.addAccessData(username, userid, school,college, ip, date);
 	}
 
 	@Override
-	public List<AccessData> fuzzyAccessData(String username, String userid) {
+	public List<AccessData> fuzzyAccessData(String school,String college,String username, String userid) {
 		
-		return accessDataDao.fuzzyAccessData(username, userid);
+		return accessDataDao.fuzzyAccessData(school,college,username, userid);
 	}
 
 	

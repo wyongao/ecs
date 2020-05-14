@@ -24,7 +24,7 @@ public interface DayStudentService {
 		//查找学生的轨迹信息(面向小程序端的)
 	public List<String> traceStudent(String snum);
 		//动态sql
-	public List<DayStudent> findAllDayStudents(String college,String major,String classes,String snum,String date);
+	public List<DayStudent> findAllDayStudents(String school,String college,String major,String classes,String snum,String date);
 		//保存每日学生信息
 	public void addDayStudent(DayStudent dayStudent);
 	    //查找所有
@@ -34,7 +34,7 @@ public interface DayStudentService {
 	public List<DayStudent> findByCollege(String college);
 
 	//根据姓名模糊查询
-	public List<DayStudent> fuzzyQueryDaystudents(String name);
+	public List<DayStudent> fuzzyQueryDaystudents(String school,String college,String name);
 
 	//根据学号查找
 	public List<DayStudent> findBySnumForwx(String snum);

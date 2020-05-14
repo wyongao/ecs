@@ -84,11 +84,6 @@ public class UserServiceImpl implements UserService {
 		Map<String, Object> model = new HashMap<String, Object>();
 		Teacher teacher = teacherDao.findTeacherByTnum(t.getTnum());
 
-//		if (u.getUsername().equals("") || (u.getUsername() == null)) { // 为空
-//			model.put("msg", "failure");
-//			return model;
-//		}
-		
 		if ((teacher == null)) {
 			model.put("msg", "failure");
 			return model;
@@ -102,7 +97,7 @@ public class UserServiceImpl implements UserService {
 		Date now = new Date();
 		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		//保存用户访问记录
-		accessDataService.addAccessData(teacher.getTname(), teacher.getTnum(),teacher.getCollege(), ip, f.format(now));
+		accessDataService.addAccessData(teacher.getTname(), teacher.getTnum(),teacher.getSchool(),teacher.getCollege(), ip, f.format(now));
 		
 //		model.put("teacher", teacher);
 		model.put("msg", "success");

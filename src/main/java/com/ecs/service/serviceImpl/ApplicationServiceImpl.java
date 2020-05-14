@@ -68,18 +68,11 @@ public class ApplicationServiceImpl implements ApplicationService{
 		
 		return applicationDao.findAllApplications(college, major, classes);
 	}
-//	//测试2.0
-//	@Override
-//	public List<Application> findAllApplication() {
-//		
-//		return applicationDao.findAllApplication();
-//	}
-//	
 
 	@Override
-	public List<Application> applicationDynamic(String college, String major, String classes, String inout) {
+	public List<Application> applicationDynamic(String school,String college, String major, String classes, String inout) {
 		
-		return applicationDao.applicationDynamic(college, major, classes, inout);
+		return applicationDao.applicationDynamic(school,college, major, classes, inout);
 	}
 	
 	
@@ -96,21 +89,21 @@ public class ApplicationServiceImpl implements ApplicationService{
 	}
 	
 	@Override
-	public List<Application> findOutDataByCollege(String college) {
+	public List<Application> findOutDataByCollege(String college,String school) {
 		
-		return applicationDao.findDataByCollege(ApplicationConstant.INOUT_OUT, college);
+		return applicationDao.findDataByCollege(ApplicationConstant.INOUT_OUT, college,school);
 	}
 	
 	@Override
-	public List<Application> findInDataByCollege(String college) {
+	public List<Application> findInDataByCollege(String school,String college) {
 		
-		return applicationDao.findDataByCollege(ApplicationConstant.INOUT_IN, college);
+		return applicationDao.findDataByCollege(ApplicationConstant.INOUT_IN, college,school);
 	}
 	
 	@Override
-	public List<Application> fuzzyAppliacation(String snum, String sname,String inout) {
+	public List<Application> fuzzyAppliacation(String school,String college,String snum, String sname,String inout) {
 
-		return applicationDao.fuzzyAppliacation(snum, sname,inout);
+		return applicationDao.fuzzyAppliacation(school,college,snum, sname,inout);
 	}
 	
 	@Override

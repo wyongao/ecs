@@ -1,18 +1,16 @@
 package com.ecs.dao.provider;
 
 public class TeacherProvider {
-	public String selectWithParam(String college,String tnum) {
-		StringBuffer sql=new StringBuffer("select * from teacher");
+	public String selectWithParam(String school,String college,String tnum) {
+		StringBuffer sql=new StringBuffer("select * from teacher where ");
+		sql.append(" school='"+school+"'");
 		if(college!=null && !college.equals("")) {
-			sql.append(" where college ="+"'"+college+"'");
-			if(tnum!=null && !tnum.equals("")) {
-				sql.append(" and tnum ="+"'"+tnum+"'");
-			}
-			return sql.toString();
-		}else {
-			sql.append(" where tnum ="+"'"+tnum+"'");
-			return sql.toString();
+			sql.append(" and college ="+"'"+college+"'");
 		}
+		if(tnum!=null && !tnum.equals("")) {
+			sql.append(" and tnum ="+"'"+tnum+"'");
+		}
+			return sql.toString();
 	}
 	
 	
@@ -22,10 +20,14 @@ public class TeacherProvider {
 	 * @return
 	 */
 	
-	public String fuzzyQueryTeacher(String name) {
+	public String fuzzyQueryTeacher(String school,String college,String name) {
 		StringBuffer sql = new StringBuffer("select * from teacher where ");
+		sql.append("school='"+school+"'");
+		if(college!=null&&!college.equals("")) {
+			sql.append(" and college="+college+"'");
+		}
 		if (name != null && !name.equals("")) {
-			sql.append("tname like" + "'%" + name + "%'");
+			sql.append(" and tname like" + "'%" + name + "%'");
 			
 		}
 		System.out.println(sql.toString());

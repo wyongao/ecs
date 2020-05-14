@@ -360,9 +360,9 @@ public class UploadServiceImpl implements UploadService{
 				//出入
 				String inoutString=application.getInout();
 				if (inoutString.equals("1")) {
-					row.createCell((short) 11).setCellValue("返校");
-				}else {
 					row.createCell((short) 11).setCellValue("出校");
+				}else {
+					row.createCell((short) 11).setCellValue("返校");
 				}
 				//审核状态
 				String status=application.getStatus();
@@ -463,11 +463,11 @@ public class UploadServiceImpl implements UploadService{
 	        cell.setCellStyle(cellStyle);
 	        
 	        cell = row.createCell((short) 6);
-	        cell.setCellValue("是否有症状");
+	        cell.setCellValue("上报体温");
 	        cell.setCellStyle(cellStyle);
 	        
 	        cell = row.createCell((short) 7);
-	        cell.setCellValue("上报体温");
+	        cell.setCellValue("是否有症状");
 	        cell.setCellStyle(cellStyle);
 	        
 	        System.out.println(list.size());

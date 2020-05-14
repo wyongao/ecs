@@ -24,10 +24,10 @@ public class AccessDataController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/accessData", method = RequestMethod.POST)
-	public String accessData(String page, String limit, String college) {
+	public String accessData(String page, String limit, String school,String college) {
 		
 		PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(limit));
-		List<AccessData> data = accessDataService.findAccessDataByCollege(college);
+		List<AccessData> data = accessDataService.dynamicFindAccessData(school,college);
 		PageInfo<AccessData> pageInfo = new PageInfo<AccessData>(data);
 		
 		Map<String, Object> map = new HashMap<String, Object>();		
@@ -49,9 +49,9 @@ public class AccessDataController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/fuzzyAccessData",method = RequestMethod.POST)
-	public String fuzzyAccessData(String username ,String userid,String page, String limit) {
+	public String fuzzyAccessData(String school,String college,String username ,String userid,String page, String limit) {
 		PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(limit));
-		List<AccessData> data=accessDataService.fuzzyAccessData(username, userid);
+		List<AccessData> data=accessDataService.fuzzyAccessData(school,college,username, userid);
 		PageInfo<AccessData> pageInfo = new PageInfo<AccessData>(data);
 		
 		Map<String, Object> map = new HashMap<String, Object>();		

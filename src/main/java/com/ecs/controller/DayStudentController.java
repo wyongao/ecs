@@ -15,7 +15,7 @@ import com.ecs.common.DateUtil;
 import com.ecs.common.JsonUtils;
 import com.ecs.constant.Constant;
 import com.ecs.domain.DayStudent;
-import com.ecs.domain.Student;
+
 import com.ecs.service.DayStudentService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -98,10 +98,10 @@ public class DayStudentController {
 	// 动态sql加上时间上面的就可以不要了
 	@RequestMapping(value = "/findAllDayStudents", method = RequestMethod.POST)
 	@ResponseBody
-	public String findAllDayStudents(String page, String limit, String college, String major, String classes,
+	public String findAllDayStudents(String page, String limit, String school,String college, String major, String classes,
 			String snum, String date) {
 		PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(limit));
-		List<DayStudent> data = dayStudentService.findAllDayStudents(college, major, classes, snum, date);
+		List<DayStudent> data = dayStudentService.findAllDayStudents(school,college, major, classes, snum, date);
 		PageInfo<DayStudent> pageInfo = new PageInfo<DayStudent>(data);
 		System.out.println("总页数" + pageInfo.getPages() + "当前页" + pageInfo.getPageNum() + "总记录数" + pageInfo.getTotal());
 
@@ -142,10 +142,10 @@ public class DayStudentController {
 
 	@ResponseBody
 	@RequestMapping(value = "/dailyData", method = RequestMethod.POST)
-	public String dailyData(String page, String limit, String college) {
-
+	public String dailyData(String page, String limit, String school,String college,String major,String classes,String snum) {
+		
 		PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(limit));
-		List<DayStudent> data = dayStudentService.findByCollege(college);
+		List<DayStudent> data = dayStudentService.findAllDayStudents(school, college, major, classes, snum, DateUtil.getDate());
 		PageInfo<DayStudent> pageInfo = new PageInfo<>(data);
 
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -162,9 +162,10 @@ public class DayStudentController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/dayStudentDynamic", method = RequestMethod.POST)
-	public String DynamicData(String page, String limit,String college,String classes,String major,String snum,String date) {
+	public String DynamicData(String page, String limit,String school,String college,String classes,String major,String snum,String date) {
+		System.out.println("---***-****-*-*-*-*-*-"+school+college+major+classes+snum);
 		PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(limit));
-		List<DayStudent> data = dayStudentService.findAllDayStudents(college, major, classes, snum, date);
+		List<DayStudent> data = dayStudentService.findAllDayStudents(school,college, major, classes, snum, DateUtil.getDate());
 		PageInfo<DayStudent> pageInfo = new PageInfo<>(data);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("code", "0");
@@ -178,9 +179,9 @@ public class DayStudentController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/fuzzyDayStudents", method = RequestMethod.POST)
-	public String fuzzyDaystudents(String name,String limit,String page) {
+	public String fuzzyDaystudents(String school,String college,String name,String limit,String page) {
 		PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(limit));
-		List<DayStudent> data=dayStudentService.fuzzyQueryDaystudents(name);
+		List<DayStudent> data=dayStudentService.fuzzyQueryDaystudents(school,college,name);
 		PageInfo<DayStudent> pageInfo =new PageInfo<DayStudent>(data);
 		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("code", "0");

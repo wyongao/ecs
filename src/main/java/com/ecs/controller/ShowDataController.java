@@ -52,7 +52,7 @@ public class ShowDataController {
 	public String initSelect(String school) {
 		Integer schoolId=schoolService.findSchoolId(school);
 		List<College> colleges=collegeService.findAllCollegeByParentId(schoolId);
-		System.out.println(colleges);
+		
 		Map<String,Object> map=new HashMap<String, Object>();
 		map.put("data", colleges);
 		return JsonUtils.objectToJson(map);

@@ -34,13 +34,14 @@ public interface DayTeacherDao {
 	@Select("select addr from day_Teacher where tnum=#{tunm}")
 	public List<String> traceTeacher(String tnum);
 	
+	
 	//模糊查找
 	@SelectProvider(type = DayTeacherProvider.class, method = "fuzzyQueryDayTeachers")
-	public List<DayTeacher> fuzzyDayTeachers(String tname,String college);
+	public List<DayTeacher> fuzzyDayTeachers(String tname,String college,String school);
 	
 	//动态查询
 	@SelectProvider(type = DayTeacherProvider.class,method = "selectWithParam")
-	public List<DayTeacher> dynamicDayTeachers(String college,String tnum);
+	public List<DayTeacher> dynamicDayTeachers(String school,String college,String tnum);
 
 	//保存每日学生信息
 	@Insert("insert into day_teacher(tnum,tname,school,college,addr,date,symptom,temp)"
@@ -58,10 +59,13 @@ public interface DayTeacherDao {
 	@SelectProvider(type = DayTeacherProvider.class,method = "countDayTeachers")
 	public Integer countDayTeachers(String school,String college,String date);
 
-	
 	//查找老师用于下拉框
 	@Select("select * from day_teacher where school=#{school} and college=#{college} and date=#{date}")
 	public List<DayTeacher> selectDayTeacher(String school, String college, String date);
+	
+	//
+	@SelectProvider(type = DayTeacherProvider.class,method = "findWithParam")
+	public List<DayTeacher> findWithParam(String school,String college,String date);
 
 
 }

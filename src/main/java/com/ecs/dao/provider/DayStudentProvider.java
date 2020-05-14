@@ -1,12 +1,12 @@
 package com.ecs.dao.provider;
 
 public class DayStudentProvider {
-	public String selectWithParam(String college, String major, String classes, String snum,String date) {
+	public String selectWithParam(String school,String college, String major, String classes, String snum,String date) {
 		StringBuffer sql = new StringBuffer("select * from day_student where ");
 		// 学院\专业\班级\学号\
-	
+			sql.append("school='"+school+"'");
 			if (college != null && !college.equals("")) {
-				sql.append("college = '" + college + "'");
+				sql.append(" and college = '" + college + "'");
 		
 			if (major != null && !major.equals("")) {
 				sql.append("and major = '" + major + "'");
@@ -23,7 +23,7 @@ public class DayStudentProvider {
 
 		} else {
 				if (major != null && !major.equals("")) {
-					sql.append("major = '" + major + "'");
+					sql.append(" and major = '" + major + "'");
 					if (classes != null && classes!="") {
 						sql.append("and classes = '" + classes + "'");
 					}
@@ -37,7 +37,7 @@ public class DayStudentProvider {
 			} else {
 
 					if (classes != null && classes!="") {
-						sql.append(" classes = '" + classes + "'");
+						sql.append(" and classes = '" + classes + "'");
 					
 					if (snum != null && !snum.equals("")) {
 						sql.append("and snum = '" + snum + "'");
@@ -48,7 +48,7 @@ public class DayStudentProvider {
 				 }else {
 	
 						if (snum != null && !snum.equals("")) {
-							sql.append(" snum ='" + snum + "'");
+							sql.append(" and snum ='" + snum + "'");
 							
 						}
 						if (date !=null && !date.equals("")) {
@@ -65,10 +65,14 @@ public class DayStudentProvider {
 
 	}
 
-	public String fuzzyQueryDaystudents(String name) {
+	public String fuzzyQueryDaystudents(String school,String college,String name) {
 		StringBuffer sql = new StringBuffer("select * from day_student where ");
-		if (name != null && !name.equals("")) {
-			sql.append("sname like" + "'%" + name + "%'");
+		sql.append("school='"+school+"'");
+		if (college!=null&&!college.equals("")) {
+			sql.append(" and college ='"+college+"'");
+		}
+		if(name!=null && !name.equals("")) {
+			sql.append(" and sname like"+"'%"+name+"%'");
 		}
 		System.out.println(sql.toString());
 		return sql.toString();

@@ -36,9 +36,10 @@ public interface DayStudentDao {
 	//查找学生的轨迹信息(面向小程序端的)
 	@Select("select addr from day_student where snum=#{sunm}")
 	public List<String> traceStudent(String snum);
+	
 	//动态sql
 	@SelectProvider(type = DayStudentProvider.class,method = "selectWithParam")
-	public List<DayStudent> findAllDayStudents(@Param("college")String college, @Param("major") String major,@Param("classes") String classes,@Param("snum") String snum,@Param("date")String date);
+	public List<DayStudent> findAllDayStudents(@Param("school")String school, @Param("college")String college, @Param("major") String major,@Param("classes") String classes,@Param("snum") String snum,@Param("date")String date);
 	//保存每日学生信息
 	@Insert("insert into day_student(snum,sname,school,college,major,classes,addr,date,symptom,temp)"
 			+ " values(#{snum},#{sname},#{school},#{college},#{major},#{classes},#{addr},#{date},#{symptom},#{temp}) ")
@@ -47,24 +48,24 @@ public interface DayStudentDao {
 	@Select("select * from day_student")
 	public List<DayStudent> findAll();
 
-	
 	@Select("select * from day_student where college=#{college}")
 	public List<DayStudent> findByCollege(String college);
 
 	//根据学号或者姓名进行模糊查询
 	@SelectProvider(type = DayStudentProvider.class,method = "fuzzyQueryDaystudents")
-	public List<DayStudent> fuzzyQueryDaystudents(String name);
+	public List<DayStudent> fuzzyQueryDaystudents(String school,String college,String name);
 	
 	//根据学号查找学生的打卡信息
 	@Select("select addr,date,temp,symptom from day_student where snum=#{snum}")
 	public List<DayStudent> findBySnumForwx(String snum);
-	
+
 	@Select("select * from day_student where date=#{date}")
 	public List<DayStudent> findByDateForwx(String date);
 
 	//查找各个学院的打卡人数
 	@SelectProvider(type = DayStudentProvider.class,method = "countDayStudents")
 	public Integer countDayStudent(String school,String college,String date);
+	
 	//查找各个专业的打卡人数
 	@Select("select count(*) from day_student where school=#{school} and major=#{major} and date=#{date}")
 	public Integer countDayMajorStudent(String school,String major,String date);

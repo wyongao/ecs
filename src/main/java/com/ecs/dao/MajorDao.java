@@ -15,7 +15,7 @@ import com.ecs.domain.Major;
 @Mapper
 public interface MajorDao {
 	/**
-	 * 查找所有的学校
+	 * 查找所有的专业
 	 * @param parentid
 	 * @return
 	 */

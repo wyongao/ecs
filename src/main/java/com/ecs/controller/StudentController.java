@@ -109,10 +109,10 @@ public class StudentController {
 
 	@RequestMapping(value = "/studentDynamic")
 	@ResponseBody
-	public String studentDynamic(String page, String limit, String college, String major, String classes) {
+	public String studentDynamic(String page, String limit, String school,String college, String major, String classes) {
 
 		PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(limit));
-		List<Student> data = studentService.dynamicStudents(college, major, classes);
+		List<Student> data = studentService.dynamicStudents(school,college, major, classes);
 		PageInfo<Student> pageInfo = new PageInfo<>(data);
 
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -125,10 +125,11 @@ public class StudentController {
 
 	@ResponseBody
 	@RequestMapping(value = "/baseData", method = RequestMethod.POST)
-	public String baseData(String page, String limit, String college) {
+	public String baseData(String page, String limit, String school,String college,String major,String classes) {
 
 		PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(limit));
-		List<Student> data = studentService.findStudentByCollegeName(college);
+		//List<Student> data = studentService.findStudentByCollegeName(college);
+		List<Student> data=studentService.dynamicStudents(school, college, major, classes);
 		PageInfo<Student> pageInfo = new PageInfo<Student>(data);
 
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -152,9 +153,9 @@ public class StudentController {
 
 	@RequestMapping(value = "/fuzzyStudent", method = RequestMethod.POST)
 	@ResponseBody
-	public String fuzzyStudent(String name, String snum, String page, String limit) {
+	public String fuzzyStudent(String school,String college,String name, String snum, String page, String limit) {
 		PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(limit));
-		List<Student> data = studentService.fuzzyStudent(name, snum);
+		List<Student> data = studentService.fuzzyStudent(school,college,name, snum);
 		PageInfo<Student> pageInfo = new PageInfo<Student>(data);
 
 		Map<String, Object> map = new HashMap<String, Object>();

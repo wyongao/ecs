@@ -33,7 +33,7 @@ public interface ApplicationService {
 	public String updateStatus(String id, String status, String event);
 
 	// 动态查询
-	public List<Application> applicationDynamic(String college, String major, String classes, String inout);
+	public List<Application> applicationDynamic(String school,String college, String major, String classes, String inout);
 
 	// 查找出校申请
 	public List<Application> findOutData();
@@ -42,10 +42,10 @@ public interface ApplicationService {
 	public List<Application> findInData();
 	
 	//通过学院名称查找出校申请
-	public List<Application> findOutDataByCollege(String college);
+	public List<Application> findOutDataByCollege(String school,String college);
 
 	//通过学院名称查找入校申请
-	public List<Application> findInDataByCollege(String college);
+	public List<Application> findInDataByCollege(String school,String college);
 	
 	/**
 	 * 这是一个混合查询 可以根据学号进行查询(非模糊),也可以根据姓名进行模糊查询
@@ -54,7 +54,7 @@ public interface ApplicationService {
 	 * @param sname
 	 * @return list
 	 */
-	public List<Application> fuzzyAppliacation(String snum, String sname,String inout);
+	public List<Application> fuzzyAppliacation(String school,String colelge,String snum, String sname,String inout);
 	
 	// 通过学号查询
 	public List<Application> findBySnumForwx(String snum);

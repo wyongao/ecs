@@ -1,10 +1,11 @@
 package com.ecs.domain;
 
 public class AccessData {
-
+	
 	private Integer id;
 	private String username;
 	private String userid;
+	private String school;
 	private String college;
 	private String ip;
 	private String date;
@@ -32,7 +33,14 @@ public class AccessData {
 	public void setUserid(String userid) {
 		this.userid = userid;
 	}
+	
+	public String getSchool() {
+		return school;
+	}
 
+	public void setSchool(String school) {
+		this.school = school;
+	}
 
 	public String getCollege() {
 		return college;
@@ -63,28 +71,25 @@ public class AccessData {
 
 	}
 
-
-
-
-	
-
-	public AccessData(Integer id, String username, String userid, String college, String ip, String date) {
+	public AccessData(Integer id, String username, String userid,String school, String college, String ip, String date) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.userid = userid;
+		this.school=school;
 		this.college = college;
 		this.ip = ip;
 		this.date = date;
 	}
-	
-	
-	
 
 	@Override
 	public String toString() {
-		return "AccessData [id=" + id + ", username=" + username + ", userid=" + userid + ", college=" + college
-				+ ", ip=" + ip + ", date=" + date + "]";
+		return "AccessData [id=" + id + ", username=" + username + ", userid=" + userid + ", school=" + school
+				+ ", college=" + college + ", ip=" + ip + ", date=" + date + "]";
 	}
+	
+	
+	
+	
 
 }

@@ -43,15 +43,15 @@ public class DayTeacherServiceImpl implements DayTeacherService {
 	}
 	//模糊查询
 	@Override
-	public List<DayTeacher> fuzzyDayTeachers(String tname,String college) {
+	public List<DayTeacher> fuzzyDayTeachers(String tname,String college,String school) {
 		
-		return dayTeacherDao.fuzzyDayTeachers(tname,college);
+		return dayTeacherDao.fuzzyDayTeachers(tname,college,school);
 	}
 	//动态查询
 	@Override
-	public List<DayTeacher> dynamicDayTeachers(String college, String tnum) {
+	public List<DayTeacher> dynamicDayTeachers(String school,String college, String tnum) {
 		
-		return dayTeacherDao.dynamicDayTeachers(college, tnum);
+		return dayTeacherDao.dynamicDayTeachers(school,college, tnum);
 	}
 
 	@Override
@@ -80,6 +80,12 @@ public class DayTeacherServiceImpl implements DayTeacherService {
 	public List<DayTeacher> selectDayTeacher(String school, String college, String date) {
 		
 		return dayTeacherDao.selectDayTeacher(school, college, date);
+	}
+
+	@Override
+	public List<DayTeacher> findWithParam(String school, String college, String date) {
+	
+		return dayTeacherDao.findWithParam(school, college, date);
 	}
 	
 

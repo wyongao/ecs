@@ -109,10 +109,10 @@ public class UploadController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/outputStudent", method = RequestMethod.GET)
-	public ResponseEntity<byte []> studentDailyDataExport(HttpServletRequest request,String college,String major,String snum
+	public ResponseEntity<byte []> studentDailyDataExport(HttpServletRequest request,String school,String college,String major,String snum
 			,String classes) throws Exception 
 	{		
-			List<DayStudent> list=dayStudentService.findAllDayStudents(college, major, classes, snum, DateUtil.getDate());
+			List<DayStudent> list=dayStudentService.findAllDayStudents(school,college, major, classes, snum, DateUtil.getDate());
 			if(list.isEmpty()) {
 				return null;
 			}else {
@@ -128,8 +128,8 @@ public class UploadController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/outputteacher",method = RequestMethod.GET)
-	public ResponseEntity<byte []>teacherDailyDataExport(HttpServletRequest request,String college)throws Exception{
-		List<DayTeacher> list=dayTeacherService.findDayTeacherByCollege(college, DateUtil.getDate());
+	public ResponseEntity<byte []>teacherDailyDataExport(HttpServletRequest request,String school,String college)throws Exception{
+		List<DayTeacher> list=dayTeacherService.findWithParam(school, college, DateUtil.getDate());
 		if (list.isEmpty()) {
 			return null;
 		}else {
@@ -147,9 +147,9 @@ public class UploadController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/outputApplication",method = RequestMethod.GET )
-	public ResponseEntity<byte []> applicationDataExport(HttpServletRequest request,String college,String major,String classes,String inout) throws Exception
+	public ResponseEntity<byte []> applicationDataExport(HttpServletRequest request,String school,String college,String major,String classes,String inout) throws Exception
 	{
-		List<Application> list=applicationService.applicationDynamic(college, major, classes, inout);
+		List<Application> list=applicationService.applicationDynamic(school,college, major, classes, inout);
 		if (list.isEmpty()) {
 			return null;
 		}else{

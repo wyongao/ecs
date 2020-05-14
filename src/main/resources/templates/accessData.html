@@ -66,8 +66,8 @@
 				<div class="layui-form-item">
 					<select class="layui-select" name="college" id="college"
 						lay-filter="college" lay-verify="" lay-search>
-						<option th:each="college : ${college}" th:value="${college.id}"
-							th:text="${college.collegename}" />
+						<!-- <option th:each="college : ${college}" th:value="${college.id}"
+							th:text="${college.collegename}" /> -->
 					</select>
 				</div>
 				<div class="layui-form-item">
@@ -116,6 +116,98 @@
 		  var $ = layui.jquery; 
 		  var layer = layui.layer;
 		  var content = $("#changePage").html();
+		  var identify = [[${teacher.identify}]];
+		  var school = [[${teacher.school}]];
+		  var college= [[${teacher.college}]];
+		  //下拉框渲染
+		  if(identify == 0){
+			  
+			  $.ajax({
+					type: "post",
+			 		url: [[@{/initSelect}]]+"?school="+school,
+					dataType:"json",
+			 		success: function(data) {
+			 			
+			 			  //$("#major").empty();
+			 			  $(" #college").prepend("<option value='0'>请选择学院</option>");
+			 			  //$("#classes").empty();
+			 			  for (var i = 0; i < data.data.length; i++) {
+							//如果在select中传递其他参数，可以在option 的value属性中添加参数
+							$("#college").append("<option value='" + data.data[i].id + "'>" + data.data[i].collegename +
+								"</option>"); 
+							};
+						  form.render('select');
+						},
+					error: function(){
+						layer.msg('数据加载失败', {icon: 2,anim: 6});
+					}
+				});
+			  //渲染全校的访问记录
+			  table.render({
+				    elem: '#dataTable'
+				    ,url: [[@{/accessData}]]+"?school="+school
+				    ,cellMinWidth: 80 
+				    ,page: true
+				    ,method: 'post'
+				    ,limit: 12
+				    ,even: true
+				    ,cols: [
+				    	[ 
+						  {field: 'id', title: '序号', width: 100}
+						,{field: 'username', title: '姓名', width: 200}
+						,{field: 'userid', title: '工号'}
+						,{field: 'college', title: '学院'}
+						,{field: 'ip', title: 'IP',}
+						,{field: 'date', title: '时间'}
+						]
+				    	]
+				    ,groups : 5
+					,jump: function(obj){
+				      console.log(obj)
+				    }
+				  });
+		  }else{
+			  //普通管理员为自己的学院的
+			  $.ajax({
+					type: "post",
+			 		url: [[@{/findCollegeId}]]+"?collegeName="+college,
+					dataType:"json",
+			 		success: function(data) {
+			 				console.log(data);
+							$("#college").append("<option value='" + data.data.id + "'>" + data.data.collegename +
+								"</option>"); 
+							
+						  form.render('select');
+						},
+					error: function(){
+						layer.msg('数据加载失败', {icon: 2,anim: 6});
+					}
+				});
+			  table.render({
+				    elem: '#dataTable'
+				    ,url: [[@{/accessData}]]+"?school="+school+"&college="+college
+				    ,cellMinWidth: 80 
+				    ,page: true
+				    ,method: 'post'
+				    ,limit: 12
+				    ,even: true
+				    ,cols: [
+				    	[ 
+						  {field: 'id', title: '序号', width: 100}
+						,{field: 'username', title: '姓名', width: 200}
+						,{field: 'userid', title: '工号'}
+						,{field: 'college', title: '学院'}
+						,{field: 'ip', title: 'IP',}
+						,{field: 'date', title: '时间'}
+						]
+				    	]
+				    ,groups : 5
+					,jump: function(obj){
+				      console.log(obj)
+				    }
+				  });
+			  
+		  }
 		  
 		  //修改密码弹窗
 		  $('#changePassword').on('click', function() {
@@ -153,37 +245,16 @@
 				return false;
 			}); 
 		  
-		  //初始化
-		  table.render({
-		    elem: '#dataTable'
-		    ,url: [[@{/accessData(college=${teacher.college})}]]
-		    ,cellMinWidth: 80 
-		    ,page: true
-		    ,method: 'post'
-		    ,limit: 12
-		    ,even: true
-		    ,cols: [
-		    	[ 
-				  {field: 'id', title: '序号', width: 100}
-				,{field: 'username', title: '姓名', width: 200}
-				,{field: 'userid', title: '工号'}
-				,{field: 'college', title: '学院'}
-				,{field: 'ip', title: 'IP',}
-				,{field: 'date', title: '时间'}
-				]
-		    	]
-		    ,groups : 5
-			,jump: function(obj){
-		      console.log(obj)
-		    }
-		  });
-		  
+
 		  form.on('select(college)', function(data) {
 				//根据学院找学院老师
 					var college = data.elem[data.elem.selectedIndex].text;						
-				 	 table.render({
+					var id = $("#college").find('option:selected').val();
+					if(id==0){
+						//初始化全校的访问记录
+						table.render({
 						    elem: '#dataTable'
-						    ,url: [[@{/accessData}]]+"?college="+college
+						    ,url: [[@{/accessData}]]+"?school="+school
 						    ,cellMinWidth: 80 
 						    ,page: true
 						    ,method: 'post'
@@ -204,43 +275,11 @@
 						      console.log(obj)
 						    }
 						  });
-				});
-		  //搜索框的实现
-		  $("#search").click(function(){
-				 var information=document.getElementById("information").value;
-				 if(information==null||information==""){
-					 layer.msg('不能为空', {icon: 2,anim: 6});
-				 }else{
-				if($.isNumeric(information)){
-				 userid=information;
-				 table.render({
-					    elem: '#dataTable'
-					    ,url: [[@{/fuzzyAccessData}]]+"?userid="+userid
-					    ,cellMinWidth: 80 
-					    ,page: true
-					    ,method: 'post'
-					    ,limit: 12
-					    ,even: true
-					    ,cols: [
-					    	[ 
-							  {field: 'id', title: '序号', width: 100}
-							,{field: 'username', title: '姓名', width: 200}
-							,{field: 'userid', title: '工号'}
-							,{field: 'college', title: '学院'}
-							,{field: 'ip', title: 'IP',}
-							,{field: 'date', title: '时间'}
-							]
-					    	]
-					    ,groups : 5
-						,jump: function(obj){
-					      console.log(obj)
-					    }
-					  });
-			 	 }else{
-			 		 username=information;
-					 table.render({
+						
+					}else{
+						table.render({
 						    elem: '#dataTable'
-						    ,url: [[@{/fuzzyAccessData}]]+"?username="+username
+						    ,url: [[@{/accessData}]]+"?school="+school+"&college="+college
 						    ,cellMinWidth: 80 
 						    ,page: true
 						    ,method: 'post'
@@ -260,11 +299,132 @@
 							,jump: function(obj){
 						      console.log(obj)
 						    }
-						  }); 
-			 	 //
-			 	 } 
+						  });
+					}
+			
+				});
+		  //搜索框的实现
+		  $("#search").click(function(){
+				 var information=document.getElementById("information").value;
+				 if(identify==0){
+					 //搜索全校的
+					 if(information==null||information==""){
+						 layer.msg('不能为空', {icon: 2,anim: 6});
+					 }else{
+					if($.isNumeric(information)){
+					 userid=information;
+					 table.render({
+						    elem: '#dataTable'
+						    ,url: [[@{/fuzzyAccessData}]]+"?school="+school+"&userid="+userid
+						    ,cellMinWidth: 80 
+						    ,page: true
+						    ,method: 'post'
+						    ,limit: 12
+						    ,even: true
+						    ,cols: [
+						    	[ 
+								  {field: 'id', title: '序号', width: 100}
+								,{field: 'username', title: '姓名', width: 200}
+								,{field: 'userid', title: '工号'}
+								,{field: 'college', title: '学院'}
+								,{field: 'ip', title: 'IP',}
+								,{field: 'date', title: '时间'}
+								]
+						    	]
+						    ,groups : 5
+							,jump: function(obj){
+						      console.log(obj)
+						    }
+						  });
+				 	 }else{
+				 		 username=information;
+						 table.render({
+							    elem: '#dataTable'
+							    ,url: [[@{/fuzzyAccessData}]]+"?school="+school+"&username="+username
+							    ,cellMinWidth: 80 
+							    ,page: true
+							    ,method: 'post'
+							    ,limit: 12
+							    ,even: true
+							    ,cols: [
+							    	[ 
+									  {field: 'id', title: '序号', width: 100}
+									,{field: 'username', title: '姓名', width: 200}
+									,{field: 'userid', title: '工号'}
+									,{field: 'college', title: '学院'}
+									,{field: 'ip', title: 'IP',}
+									,{field: 'date', title: '时间'}
+									]
+							    	]
+							    ,groups : 5
+								,jump: function(obj){
+							      console.log(obj)
+							    }
+							  }); 
+				 	 //
+				 	 } 
+					 }
+					 
+				 }else{
+					 //搜索本学院的
+					 if(information==null||information==""){
+						 layer.msg('不能为空', {icon: 2,anim: 6});
+					 }else{
+					if($.isNumeric(information)){
+					 userid=information;
+					 table.render({
+						    elem: '#dataTable'
+						    ,url: [[@{/fuzzyAccessData}]]+"?school="+school+"&college="+college+"&userid="+userid
+						    ,cellMinWidth: 80 
+						    ,page: true
+						    ,method: 'post'
+						    ,limit: 12
+						    ,even: true
+						    ,cols: [
+						    	[ 
+								  {field: 'id', title: '序号', width: 100}
+								,{field: 'username', title: '姓名', width: 200}
+								,{field: 'userid', title: '工号'}
+								,{field: 'college', title: '学院'}
+								,{field: 'ip', title: 'IP',}
+								,{field: 'date', title: '时间'}
+								]
+						    	]
+						    ,groups : 5
+							,jump: function(obj){
+						      console.log(obj)
+						    }
+						  });
+				 	 }else{
+				 		 username=information;
+						 table.render({
+							    elem: '#dataTable'
+							    ,url: [[@{/fuzzyAccessData}]]+"?school="+school+"&college="+college+"&username="+username
+							    ,cellMinWidth: 80 
+							    ,page: true
+							    ,method: 'post'
+							    ,limit: 12
+							    ,even: true
+							    ,cols: [
+							    	[ 
+									  {field: 'id', title: '序号', width: 100}
+									,{field: 'username', title: '姓名', width: 200}
+									,{field: 'userid', title: '工号'}
+									,{field: 'college', title: '学院'}
+									,{field: 'ip', title: 'IP',}
+									,{field: 'date', title: '时间'}
+									]
+							    	]
+							    ,groups : 5
+								,jump: function(obj){
+							      console.log(obj)
+							    }
+							  }); 
+				 	 //
+				 	 } 
+					 }
 				 }
-				 //
+				
 			 });	  
 		});
 	
