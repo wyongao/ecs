@@ -129,11 +129,6 @@
 		  var college=[[${teacher.college}]];
 		  var school=[[${teacher.school}]];
 
-		  //数据渲染2.0
-		  if(identify==0){
-			  //第一个下拉框渲染为全部学院的
-
-		  
 		  
 		//修改密码弹窗
 		  $('#changePassword').on('click', function() {
@@ -236,7 +231,7 @@
 				  });
 		  
 		  }else{
-			  //把第一个下拉框渲染成为管理员所在的学院
+			  
 			   $.ajax({
 					type: "post",
 			 		url: [[@{/findCollegeId}]]+"?collegeName="+college,
