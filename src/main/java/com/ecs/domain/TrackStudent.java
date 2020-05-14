@@ -1,5 +1,7 @@
 package com.ecs.domain;
 
+import java.util.Date;
+
 public class TrackStudent {
 	
 	private Integer id;
@@ -59,14 +61,13 @@ public class TrackStudent {
 	}
 	public void setAddr(String addr) {
 		this.addr = addr;
-	}
+	}	
 	public String getDate() {
 		return date;
 	}
 	public void setDate(String date) {
 		this.date = date;
 	}
-	
 	@Override
 	public String toString() {
 		return "TrackStudent [id=" + id + ", snum=" + snum + ", sname=" + sname + ", school=" + school + ", college="

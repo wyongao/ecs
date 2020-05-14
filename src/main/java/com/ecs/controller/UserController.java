@@ -269,25 +269,16 @@ public class UserController {
 		return "userData";
 	}
 	
-	// 进入学生轨迹查询页面
-	@RequestMapping("/goTrackStudent")
-	public String goTrackStudent(String tnum, Map<String, Object> model) {
+	// 进入轨迹查询页面
+	@RequestMapping("/goTrack")
+	public String goTrack(String tnum, Map<String, Object> model) {
 			
 		Teacher t = teacherService.findByTnumForweb(tnum);
 	        
 	    model.put("teacher", t);
-	    return "trackStudent";
+	    return "track";
 	}
 	
-	// 进入老师轨迹查询页面
-	@RequestMapping("/goTrackTeacher")
-	public String goTrackTeacher(String tnum, Map<String, Object> model) {
-				
-		Teacher t = teacherService.findByTnumForweb(tnum);
-		        
-		model.put("teacher", t);
-		return "trackTeacher";
-	}
 	
 	// 进入测试页面
 		@RequestMapping("/test")

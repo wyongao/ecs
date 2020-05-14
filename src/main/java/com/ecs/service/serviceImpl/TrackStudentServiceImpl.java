@@ -19,4 +19,11 @@ public class TrackStudentServiceImpl implements TrackStudentService {
 		trackStudentDao.addTrackStudent(trackStudent);
 	}
 
+	@Override
+	public String findTrackStudentForwx(String snum) {
+				
+		System.out.println(trackStudentDao.findTrackStudentForwx(snum));
+		return "success";
+	}
+
 }

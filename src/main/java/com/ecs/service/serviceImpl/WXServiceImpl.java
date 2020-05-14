@@ -1,5 +1,6 @@
 package com.ecs.service.serviceImpl;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -228,7 +229,7 @@ public class WXServiceImpl implements WXService {
 		
 		Date now = new Date();
 		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
-		
+
 		tt.setTnum(tnum);
 		tt.setTname(t.getTname());
 		tt.setSchool(t.getSchool());

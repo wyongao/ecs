@@ -79,15 +79,7 @@
 								<a th:href="@{/goIn(tnum=${teacher.tnum})}">入校申请</a>
 							</dd>
 						</dl></li>
-					<li class="layui-nav-item"><a href="javascript:;">轨迹查询</a>
-						<dl class="layui-nav-child">
-							<dd>
-								<a th:href="@{/goTrackStudent(tnum=${teacher.tnum})}">学生轨迹查询</a>
-							</dd>
-							<dd>
-								<a th:href="@{/goTrackTeacher(tnum=${teacher.tnum})}">老师轨迹查询</a>
-							</dd>
-						</dl></li>
+					<li class="layui-nav-item"><a th:href="@{/goTrack(tnum=${teacher.tnum})}">轨迹查询</a></li>
 					<li class="layui-nav-item"><a
 						th:href="@{/goEcharts(tnum=${teacher.tnum})}" class="layui-this">数据报表</a></li>
 					<li class="layui-nav-item" id="accessData"><a

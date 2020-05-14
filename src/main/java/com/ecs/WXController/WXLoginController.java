@@ -24,6 +24,8 @@ import com.ecs.service.DayStudentService;
 import com.ecs.service.DayTeacherService;
 import com.ecs.service.StudentService;
 import com.ecs.service.TeacherService;
+import com.ecs.service.TrackStudentService;
+import com.ecs.service.TrackTeacherService;
 import com.ecs.service.WXService;
 
 @Controller
@@ -54,6 +56,12 @@ public class WXLoginController {
 	
 	@Autowired
 	private ApplicationService applicationService;
+	
+	@Autowired
+	private TrackStudentService trackStudentService;
+	
+	@Autowired
+	private TrackTeacherService trackTeacherService;
 	
 	@GetMapping("redis")
 	@ResponseBody
@@ -193,13 +201,22 @@ public class WXLoginController {
 	@RequestMapping(value="/track", method=RequestMethod.POST)
 	public String track (String addr, String usernum, String identity) {
 		
-		System.out.println(addr+usernum+identity);
 		if(identity.equals(IdentityConstant.IDENTITY_STUDENT)) {
 			return wxService.addTrackStudentFromwx(addr, usernum);
 		} else {
 			return wxService.addTrackTeacherFromwx(addr, usernum);
-		}
-				
+		}		
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/trackRecord", method=RequestMethod.POST)
+	public String trackRecord (String usernum, String identity) {
+		
+		if(identity.equals(IdentityConstant.IDENTITY_STUDENT)) {
+			return trackStudentService.findTrackStudentForwx(usernum);
+		} else {
+			return null;
+		}		
 	}
 	
 	@ResponseBody
