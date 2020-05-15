@@ -48,11 +48,11 @@ public interface ApplicationDao {
 	
 	//动态查询
 	@SelectProvider(type = ApplicationProvider.class,method = "selectWithParam")
-	public List<Application> applicationDynamic(String college,String major,String classes, String inout);
+	public List<Application> applicationDynamic(String school,String college,String major,String classes, String inout);
 	
 	//根据学院名查询出校申请或入校申请
-	@Select("select * from application where `inout`=#{inout} and college=#{college}")
-	public List<Application> findDataByCollege(String inout, String college);
+	@Select("select * from application where `inout`=#{inout} and college=#{college} and school=#{school}")
+	public List<Application> findDataByCollege(String inout, String college,String school);
 	
 	//查找出校申请
 	@Select("select * from application where `inout`=#{inout}")
@@ -71,7 +71,7 @@ public interface ApplicationDao {
 	 * @return list
 	 */
 	@SelectProvider(type = ApplicationProvider.class,method = "fuzzyApplications")
-	public List<Application> fuzzyAppliacation(String snum,String sname,String inout);
+	public List<Application> fuzzyAppliacation(String school,String college,String snum,String sname,String inout);
 	
 	// 根据学号查找查找
 	@Select("select date,`exit`,reason,`status` from application where snum=#{snum} order by date desc")

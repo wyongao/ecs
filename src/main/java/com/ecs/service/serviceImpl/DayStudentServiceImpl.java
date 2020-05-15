@@ -1,6 +1,6 @@
 package com.ecs.service.serviceImpl;
 
-import java.text.DateFormat;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -69,10 +69,10 @@ public class DayStudentServiceImpl implements DayStudentService {
 		}
 	//动态sql
 	@Override
-	public List<DayStudent> findAllDayStudents(String college, String major, String classes, String snum,String date) {
+	public List<DayStudent> findAllDayStudents(String school,String college, String major, String classes, String snum,String date) {
 		
 		
-		return dayStudentDao.findAllDayStudents(college, major, classes, snum,date);
+		return dayStudentDao.findAllDayStudents(school,college, major, classes, snum,date);
 	}
 
 	@Override
@@ -82,9 +82,9 @@ public class DayStudentServiceImpl implements DayStudentService {
 	}
 	//模糊查询
 	@Override
-	public List<DayStudent> fuzzyQueryDaystudents(String name) {
+	public List<DayStudent> fuzzyQueryDaystudents(String school,String college,String name) {
 		
-		return dayStudentDao.fuzzyQueryDaystudents(name);
+		return dayStudentDao.fuzzyQueryDaystudents(school,college,name);
 	}
 
 	@Override

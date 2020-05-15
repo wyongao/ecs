@@ -83,9 +83,9 @@ public class TeacherController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/userData", method = RequestMethod.POST)
-	public String userData(String page, String limit, String college) {
+	public String userData(String page, String limit, String school,String college,String tnum) {
 		PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(limit));
-		List<Teacher> data = teacherService.findTeacherByCollege(college);
+		List<Teacher> data=teacherService.dynamicTeacher(school,college, tnum);
 		PageInfo<Teacher> pageInfo = new PageInfo<Teacher>(data);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -105,9 +105,9 @@ public class TeacherController {
 	 */
 	@RequestMapping(value = "/dynamicTeacher",method = RequestMethod.POST)
 	@ResponseBody
-	public String dynamicTeacher(String college,String tnum,String page, String limit) {
+	public String dynamicTeacher(String school,String college,String tnum,String page, String limit) {
 		PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(limit));
-		List<Teacher> data=teacherService.dynamicTeacher(college, tnum);
+		List<Teacher> data=teacherService.dynamicTeacher(school,college, tnum);
 		PageInfo<Teacher> pageInfo = new PageInfo<Teacher>(data);
 
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -126,9 +126,9 @@ public class TeacherController {
 	 */
 	@RequestMapping(value="/fuzzyTeacher",method = RequestMethod.POST)
 	@ResponseBody
-	public String fuzzyTeacher(String name,String page, String limit) {
+	public String fuzzyTeacher(String school,String college,String name,String page, String limit) {
 		PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(limit));
-		List<Teacher> data=teacherService.fuzzyTeacher(name);
+		List<Teacher> data=teacherService.fuzzyTeacher(school,college,name);
 		PageInfo<Teacher> pageInfo = new PageInfo<Teacher>(data);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("code", "0");

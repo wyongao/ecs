@@ -68,16 +68,16 @@
 				<div class="layui-form-item">
 					<select class="layui-select" name="college" id="college"
 						lay-filter="college" lay-verify="" lay-search>
-						<option th:each="college : ${college}" th:value="${college.id}"
-							th:text="${college.collegename}" />
+						<!-- <option th:each="college : ${college}" th:value="${college.id}"
+							th:text="${college.collegename}" /> -->
 					</select>
 				</div>
 				<div class="layui-form-item">
 					<select class="layui-select" name="major" id="major"
 						lay-filter="major" lay-verify="" lay-search>
-						<option value="0" selected>所有专业</option>
+						<!-- <option value="0" selected>所有专业</option>
 						<option th:each="major : ${major}" th:value="${major.id}"
-							th:text="${major.majorname}" />
+							th:text="${major.majorname}" /> -->
 					</select>
 				</div>
 				<div class="layui-form-item">
@@ -86,8 +86,8 @@
 					</select>
 				</div>
 				<div  class="layui-form-item">
-					<button type="button" class="layui-btn layui-btn-normal" id="test">
-						<i class="layui-icon layui-icon-export"></i>导出数据
+					<button type="button" class="layui-btn layui-btn-normal" id="template">
+						<i class="layui-icon layui-icon-export"></i>数据模板
 					</button>
 				</div>
 				<div  class="layui-form-item">
@@ -147,6 +147,131 @@
 			//上传
 			var upload = layui.upload;
 			var content = $("#changePage").html();
+		  	var school = [[${teacher.school}]];
+		  	var college= [[${teacher.college}]];
+		  	//渲染2.0
+		  	if(identify == 0){
+		  		//第一个下拉框渲染全部的学院
+		  		 $.ajax({
+						type: "post",
+				 		url: [[@{/initSelect}]]+"?school="+school,
+						dataType:"json",
+				 		success: function(data) {
+				 			
+				 			  //$("#major").empty();
+				 			  $(" #college").prepend("<option value='0'>请选择学院</option>");
+				 			  //$("#classes").empty();
+				 			  for (var i = 0; i < data.data.length; i++) {
+								//如果在select中传递其他参数，可以在option 的value属性中添加参数
+								$("#college").append("<option value='" + data.data[i].id + "'>" + data.data[i].collegename +
+									"</option>"); 
+								};
+							  form.render('select');
+							},
+						error: function(){
+							layer.msg('数据加载失败', {icon: 2,anim: 6});
+						}
+					});
+		  		//表格全校学生的数据渲染
+		  		table.render({
+				    elem: '#dataTable'
+				    ,url: [[@{/baseData}]]+"?school="+school
+				    ,cellMinWidth: 80 
+				    ,page: true
+				    ,method: 'post'
+				    ,limit: 12
+				    ,even: true
+				    ,cols: [
+				    	[ 
+						  {field: 'id', title: '序号', width: 60}
+						,{field: 'sname', title: '姓名', width: 140}
+						,{field: 'snum', title: '学号', width: 160}						
+						,{field: 'school', title: '学校', width:170}
+						,{field: 'college', title: '学院', width: 160}
+						,{field: 'major', title: '专业', minWidth: 140}
+						,{field: 'classes', title: '班级', width: 80}
+						,{field: 'sex', title: '性别', width: 60}
+						,{field: 'tel', title: '电话', minWidth: 140}
+						]
+				    	]
+				    ,groups : 5
+					,jump: function(obj){
+				      console.log(obj)
+				    }
+				  });
+		  		
+		  	}else{
+		  		//把第一个下拉框渲染成管理员所在的学院
+		  		$.ajax({
+						type: "post",
+				 		url: [[@{/findCollegeId}]]+"?collegeName="+college,
+						dataType:"json",
+				 		success: function(data) {
+				 				console.log(data);
+								$("#college").append("<option value='" + data.data.id + "'>" + data.data.collegename +
+									"</option>"); 
+							  form.render('select');
+							},
+						error: function(){
+							layer.msg('数据加载失败', {icon: 2,anim: 6});
+						}
+					});
+		  		//把专业下拉框同时渲染
+		  		$.ajax({
+								type: "post",
+						 		url: [[@{/findAllMajorByParentName}]]+"?parentname="+college,
+								dataType:"json",
+						 		success: function(data) {
+						 			  $("#major").empty();
+						 			  $(" #major").prepend("<option value='0'>所有专业</option>");
+						 			  $("#classes").empty();
+						 			  for (var i = 0; i < data.data.length; i++) {
+										//如果在select中传递其他参数，可以在option 的value属性中添加参数
+										$("#major").append("<option value='" + data.data[i].id + "'>" + data.data[i].majorname +
+											"</option>"); 
+										};
+									  form.render('select');
+									},
+								error: function(){
+									alert("获取数据失败,请重试.")
+								}
+							});
+		  		//把页面渲染成为所在学院的学生数据
+		  		table.render({
+				    elem: '#dataTable'
+				    ,url: [[@{/baseData}]]+"?school="+school+"&college"+college
+				    ,cellMinWidth: 80 
+				    ,page: true
+				    ,method: 'post'
+				    ,limit: 12
+				    ,even: true
+				    ,cols: [
+				    	[ 
+						  {field: 'id', title: '序号', width: 60}
+						,{field: 'sname', title: '姓名', width: 140}
+						,{field: 'snum', title: '学号', width: 160}						
+						,{field: 'school', title: '学校', width:170}
+						,{field: 'college', title: '学院', width: 160}
+						,{field: 'major', title: '专业', minWidth: 140}
+						,{field: 'classes', title: '班级', width: 80}
+						,{field: 'sex', title: '性别', width: 60}
+						,{field: 'tel', title: '电话', minWidth: 140}
+						]
+				    	]
+				    ,groups : 5
+					,jump: function(obj){
+				      console.log(obj)
+				    }
+				  });
+		  		
+		  		
+		  	}
+
+			//导出数据模板
+			$('#template').on('click',function() {
+				window.location.href=[[@{/ouputStudentTemplate}]];
+				layer.msg('导出成功',{icon: 1});
+		 	 });
 			//excel上传
 			var uploadInst = upload.render({
 			    elem: '#uploadExcel' //绑定元素
@@ -210,86 +335,92 @@
 				$("#userManage").css('display', 'none');
 				$("#dataImport").css('display', 'none');
 		    }  
-			
-			//初始化
-			 table.render({
-				    elem: '#dataTable'
-				    ,url: [[@{/baseData(college=${teacher.college})}]]
-				    ,cellMinWidth: 80 
-				    ,page: true
-				    ,method: 'post'
-				    ,limit: 12
-				    ,even: true
-				    ,cols: [
-				    	[ 
-						  {field: 'id', title: '序号', width: 60}
-						,{field: 'sname', title: '姓名', width: 140}
-						,{field: 'snum', title: '学号', width: 160}						
-						,{field: 'school', title: '学校', width:170}
-						,{field: 'college', title: '学院', width: 160}
-						,{field: 'major', title: '专业', minWidth: 140}
-						,{field: 'classes', title: '班级', width: 80}
-						,{field: 'sex', title: '性别', width: 60}
-						,{field: 'tel', title: '电话', minWidth: 140}
-						]
-				    	]
-				    ,groups : 5
-					,jump: function(obj){
-				      console.log(obj)
-				    }
-				  });
-			
+		
 			 form.on('select(college)', function(data) {
 				//根据学院找专业
 					var parentid=data.value;
 					var college = data.elem[data.elem.selectedIndex].text;
-				 	$.ajax({
-						type: "post",
-				 		url: [[@{/findAllMajorByParentId}]]+"?parentid="+parentid,
-						dataType:"json",
-				 		success: function(data) {
-				 			
-				 			  $("#major").empty();
-				 			  $(" #major").prepend("<option value='0'>所有专业</option>");
-				 			  $("#classes").empty();
-				 			  for (var i = 0; i < data.data.length; i++) {
-								//如果在select中传递其他参数，可以在option 的value属性中添加参数
-								$("#major").append("<option value='" + data.data[i].id + "'>" + data.data[i].majorname +
-									"</option>"); 
-								};
-							  form.render('select');
-							},
-						error: function(){
-							alert("获取数据失败,请重试.")
-						}
-					});
-					
-				 	 table.render({
-						    elem: '#dataTable'
-						    ,url: [[@{/studentDynamic}]]+"?college="+college
-						    ,cellMinWidth: 80 
-						    ,page: true
-						    ,method: 'post'
-						    ,limit: 12
-						    ,even: true
-						    ,cols: [
-						    	[ 
-								  {field: 'id', title: '序号', width: 60}
-								,{field: 'sname', title: '姓名', width: 140}
-								,{field: 'snum', title: '学号', width: 160}						
-								,{field: 'school', title: '学校', width:170}
-								,{field: 'college', title: '学院', width: 160}
-								,{field: 'major', title: '专业', minWidth: 140}
-								,{field: 'classes', title: '班级', width: 80}
-								,{field: 'sex', title: '性别', width: 60}
-								,{field: 'tel', title: '电话', minWidth: 140}
-								]
-						    	]
-						    ,groups : 5
-							,jump: function(obj){
-						      console.log(obj)
-						    }
-						  });
+					var id = $("#college").find('option:selected').val();
+					if(id==0){
+						$("#major").empty();
+						$("#classes").empty();
+						form.render('select');
+						//渲染整个学校的学生
+						 table.render({
+							    elem: '#dataTable'
+							    ,url: [[@{/studentDynamic}]]+"?school="+school
+							    ,cellMinWidth: 80 
+							    ,page: true
+							    ,method: 'post'
+							    ,limit: 12
+							    ,even: true
+							    ,cols: [
+							    	[ 
+									  {field: 'id', title: '序号', width: 60}
+									,{field: 'sname', title: '姓名', width: 140}
+									,{field: 'snum', title: '学号', width: 160}						
+									,{field: 'school', title: '学校', width:170}
+									,{field: 'college', title: '学院', width: 160}
+									,{field: 'major', title: '专业', minWidth: 140}
+									,{field: 'classes', title: '班级', width: 80}
+									,{field: 'sex', title: '性别', width: 60}
+									,{field: 'tel', title: '电话', minWidth: 140}
+									]
+							    	]
+							    ,groups : 5
+								,jump: function(obj){
+							      console.log(obj)
+							    }
+							  });
+					}else{
+						$.ajax({
+							type: "post",
+					 		url: [[@{/findAllMajorByParentId}]]+"?parentid="+parentid,
+							dataType:"json",
+					 		success: function(data) {
+					 			
+					 			  $("#major").empty();
+					 			  $(" #major").prepend("<option value='0'>所有专业</option>");
+					 			  $("#classes").empty();
+					 			  for (var i = 0; i < data.data.length; i++) {
+									//如果在select中传递其他参数，可以在option 的value属性中添加参数
+									$("#major").append("<option value='" + data.data[i].id + "'>" + data.data[i].majorname +
+										"</option>"); 
+									};
+								  form.render('select');
+								},
+							error: function(){
+								alert("获取数据失败,请重试.")
+							}
+						});
+						
+						 table.render({
+							    elem: '#dataTable'
+							    ,url: [[@{/studentDynamic}]]+"?school="+school+"&college="+college
+							    ,cellMinWidth: 80 
+							    ,page: true
+							    ,method: 'post'
+							    ,limit: 12
+							    ,even: true
+							    ,cols: [
+							    	[ 
+									  {field: 'id', title: '序号', width: 60}
+									,{field: 'sname', title: '姓名', width: 140}
+									,{field: 'snum', title: '学号', width: 160}						
+									,{field: 'school', title: '学校', width:170}
+									,{field: 'college', title: '学院', width: 160}
+									,{field: 'major', title: '专业', minWidth: 140}
+									,{field: 'classes', title: '班级', width: 80}
+									,{field: 'sex', title: '性别', width: 60}
+									,{field: 'tel', title: '电话', minWidth: 140}
+									]
+							    	]
+							    ,groups : 5
+								,jump: function(obj){
+							      console.log(obj)
+							    }
+							  });
+					}
 				});
 			  
 			  //根据专业找班级
@@ -303,7 +434,7 @@
 						form.render('select');
 						table.render({
 						    elem: '#dataTable'
-						    ,url: [[@{/studentDynamic}]]+"?college="+college
+						    ,url: [[@{/studentDynamic}]]+"?school="+school+"&college="+college
 						    ,cellMinWidth: 80 
 						    ,page: true
 						    ,method: 'post'
@@ -348,7 +479,7 @@
 						});
 					 	table.render({
 						    elem: '#dataTable'
-						    ,url: [[@{/studentDynamic}]]+"?major="+major
+						    ,url: [[@{/studentDynamic}]]+"?school="+school+"&college="+college+"&major="+major
 						    ,cellMinWidth: 80 
 						    ,page: true
 						    ,method: 'post'
@@ -378,13 +509,14 @@
 			  //根据班级动态渲染页面
 				form.on('select(classes)', function(data) {
 					var major=$("#major").find("option:selected").text()
+					var college=$("#college").find("option:selected").text()
 					var parentid=data.value;
 					var classes = data.elem[data.elem.selectedIndex].text;
 					
 					if(parentid=="0"){
 						table.render({
 						    elem: '#dataTable'
-						    ,url: [[@{/studentDynamic}]]+"?major="+major
+						    ,url: [[@{/studentDynamic}]]+"?school="+school+"&college="+college+"&major="+major
 						    ,cellMinWidth: 80 
 						    ,page: true
 						    ,method: 'post'
@@ -411,7 +543,7 @@
 					}else{
 						table.render({
 						    elem: '#dataTable'
-						    ,url: [[@{/studentDynamic}]]+"?classes="+classes+"&major="+major
+						    ,url: [[@{/studentDynamic}]]+"?school="+school+"&college="+college+"&major="+major+"&classes="+classes
 						    ,cellMinWidth: 80 
 						    ,page: true
 						    ,method: 'post'
@@ -441,44 +573,17 @@
 			  //搜索框进行查找
 			 $("#search").click(function(){
 				 var information=document.getElementById("information").value;
-				 if(information==null||information==""){
-					 layer.msg('不能为空', {icon: 2,anim: 6});
-				 }else{
-				if($.isNumeric(information)){
-				 snum=information;
-				
-			 	 table.render({
-					    elem: '#dataTable'
-					    ,url: [[@{/fuzzyStudent}]]+"?snum="+snum
-					    ,cellMinWidth: 80 
-					    ,page: true
-					    ,method: 'post'
-					    ,limit: 12
-					    ,even: true
-					    ,cols: [
-					    	[ 
-							  {field: 'id', title: '序号', width: 60}
-							,{field: 'sname', title: '姓名', width: 140}
-							,{field: 'snum', title: '学号', width: 160}						
-							,{field: 'school', title: '学校', width:170}
-							,{field: 'college', title: '学院', width: 160}
-							,{field: 'major', title: '专业', minWidth: 140}
-							,{field: 'classes', title: '班级', width: 80}
-							,{field: 'sex', title: '性别', width: 60}
-							,{field: 'tel', title: '电话', minWidth: 140}
-							]
-					    	]
-					    ,groups : 5
-						,jump: function(obj){
-					      console.log(obj)
-					    }
-					  }); 
-			 	 }else{
-			 		 name=information;
-					 
+				 
+				if(identify==0){
+					if(information==null||information==""){
+						 layer.msg('不能为空', {icon: 2,anim: 6});
+					 }else{
+					if($.isNumeric(information)){
+					 snum=information;
+					
 				 	 table.render({
 						    elem: '#dataTable'
-						    ,url: [[@{/fuzzyStudent}]]+"?name="+name
+						    ,url: [[@{/fuzzyStudent}]]+"?school="+school+"&snum="+snum
 						    ,cellMinWidth: 80 
 						    ,page: true
 						    ,method: 'post'
@@ -502,9 +607,106 @@
 						      console.log(obj)
 						    }
 						  }); 
-			 		 
-			 	 }
-				 }
+				 	 }else{
+				 		 name=information;
+						 
+					 	 table.render({
+							    elem: '#dataTable'
+							    ,url: [[@{/fuzzyStudent}]]+"?school="+school+"&name="+name
+							    ,cellMinWidth: 80 
+							    ,page: true
+							    ,method: 'post'
+							    ,limit: 12
+							    ,even: true
+							    ,cols: [
+							    	[ 
+									  {field: 'id', title: '序号', width: 60}
+									,{field: 'sname', title: '姓名', width: 140}
+									,{field: 'snum', title: '学号', width: 160}						
+									,{field: 'school', title: '学校', width:170}
+									,{field: 'college', title: '学院', width: 160}
+									,{field: 'major', title: '专业', minWidth: 140}
+									,{field: 'classes', title: '班级', width: 80}
+									,{field: 'sex', title: '性别', width: 60}
+									,{field: 'tel', title: '电话', minWidth: 140}
+									]
+							    	]
+							    ,groups : 5
+								,jump: function(obj){
+							      console.log(obj)
+							    }
+							  }); 
+				 		 
+				 	 }
+					 }
+				}else{
+					
+					if(information==null||information==""){
+						 layer.msg('不能为空', {icon: 2,anim: 6});
+					 }else{
+					if($.isNumeric(information)){
+					 snum=information;
+					
+				 	 table.render({
+						    elem: '#dataTable'
+						    ,url: [[@{/fuzzyStudent}]]+"?school="+school+"&college="+college+"&snum="+snum
+						    ,cellMinWidth: 80 
+						    ,page: true
+						    ,method: 'post'
+						    ,limit: 12
+						    ,even: true
+						    ,cols: [
+						    	[ 
+								  {field: 'id', title: '序号', width: 60}
+								,{field: 'sname', title: '姓名', width: 140}
+								,{field: 'snum', title: '学号', width: 160}						
+								,{field: 'school', title: '学校', width:170}
+								,{field: 'college', title: '学院', width: 160}
+								,{field: 'major', title: '专业', minWidth: 140}
+								,{field: 'classes', title: '班级', width: 80}
+								,{field: 'sex', title: '性别', width: 60}
+								,{field: 'tel', title: '电话', minWidth: 140}
+								]
+						    	]
+						    ,groups : 5
+							,jump: function(obj){
+						      console.log(obj)
+						    }
+						  }); 
+				 	 }else{
+				 		 name=information;
+						 
+					 	 table.render({
+							    elem: '#dataTable'
+							    ,url: [[@{/fuzzyStudent}]]+"?school="+school+"&college="+college+"&name="+name
+							    ,cellMinWidth: 80 
+							    ,page: true
+							    ,method: 'post'
+							    ,limit: 12
+							    ,even: true
+							    ,cols: [
+							    	[ 
+									  {field: 'id', title: '序号', width: 60}
+									,{field: 'sname', title: '姓名', width: 140}
+									,{field: 'snum', title: '学号', width: 160}						
+									,{field: 'school', title: '学校', width:170}
+									,{field: 'college', title: '学院', width: 160}
+									,{field: 'major', title: '专业', minWidth: 140}
+									,{field: 'classes', title: '班级', width: 80}
+									,{field: 'sex', title: '性别', width: 60}
+									,{field: 'tel', title: '电话', minWidth: 140}
+									]
+							    	]
+							    ,groups : 5
+								,jump: function(obj){
+							      console.log(obj)
+							    }
+							  }); 
+				 		 
+				 	 }
+					 }
+				}
+				 
 			 });
 			
 		});

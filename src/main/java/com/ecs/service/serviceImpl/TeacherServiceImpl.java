@@ -70,16 +70,16 @@ public class TeacherServiceImpl implements TeacherService {
 	}
 	
 	@Override
-	public List<Teacher> dynamicTeacher(String college, String tnum) {
+	public List<Teacher> dynamicTeacher(String school,String college,String tnum) {
 		
-		return teacherDao.dynamicTeacher(college, tnum);
+		return teacherDao.dynamicTeacher(school,college,tnum);
 	}
 
 
 	@Override
-	public List<Teacher> fuzzyTeacher(String name) {
+	public List<Teacher> fuzzyTeacher(String school,String college,String name) {
 		
-		return teacherDao.fuzzyTeacher(name);
+		return teacherDao.fuzzyTeacher(school,college,name);
 	}
 
 	@Override

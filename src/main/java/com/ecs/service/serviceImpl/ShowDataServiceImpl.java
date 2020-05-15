@@ -37,42 +37,69 @@ public class ShowDataServiceImpl implements ShowDataService{
 	//初始化学生数据
 	public Map<String, Object> initStudentData(String school, String college) {
 		String date=DateUtil.getDate();
-		Integer dayStudentSum=dayStudentService.countDayStudent(school,college, date);
-		System.out.println("学生打卡人数预计是5个而实际是====="+dayStudentSum);
+		Integer dayStudentSum=dayStudentService.countDayStudent(school,college,date);
 		Integer studentSum=studentService.coutStudent(school, college);
-		System.out.println("college学生"+college);
-		System.out.println("school"+school);
 		//今日打卡的人数
 		Integer studentNoNum=studentSum-dayStudentSum;
-		System.out.println("学生未打卡人数预计是31个而实际是====="+studentNoNum);
 		String[] name= {"未打卡人数","打卡人数"};
 		String[] data= {studentNoNum.toString(),dayStudentSum.toString()};
 		//查询各个学院的学生总数,还有各个学院的打卡人数
 		//存放所有的学院名字
-		ArrayList<String> collegeNameList=new ArrayList<String>();
-		ArrayList<Integer> collegeCountStudent=new ArrayList<Integer>();
-		ArrayList<Integer> collegeDayStudent=new ArrayList<Integer>();
-		//得到所有的学院根据学校
-		List<College> collegeList=collegeService.findCollegeByParentName(school);
-		for(int i=0;i<collegeList.size();i++) {
-			String collegeName=collegeList.get(i).getCollegename();
-			//学院名称数组
-			collegeNameList.add(collegeName);
-			//学院总人数
-			collegeCountStudent.add(studentService.coutStudent(school, collegeName));
-			//学院打卡人数
-			collegeDayStudent.add(dayStudentService.countDayStudent(school, collegeName, date));
+		ArrayList<String> majorNameList=new ArrayList<String>();
+		ArrayList<Integer> majorCountStudent=new ArrayList<Integer>(); 
+		ArrayList<Integer> majorDayStudent=new ArrayList<Integer>();
+		if (college!=null && !college.equals("")) {
+			
+			List<Major> majorlList=majorService.findMajorByParentName(college);
+			for (int i = 0; i < majorlList.size(); i++) {
+			String majorName=majorlList.get(i).getMajorname();
+			majorNameList.add(majorName);
+			//得到每个专业的学生总数
+			majorCountStudent.add(studentService.countMajorStudent(school, majorName));
+			//每个专业打卡人数的总数
+			majorDayStudent.add(dayStudentService.countDayMajorStudent(school,majorName, date));
+				
+			}
+			System.out.println(majorlList.toString());
+			System.out.println(majorCountStudent.toString());
+			System.out.println(majorDayStudent.toString());
+			Map<String, Object> map=new HashMap<String, Object>();
+			map.put("name", name);
+			map.put("data", data);
+			map.put("majorName",majorNameList);
+			map.put("majorCountStudent",majorCountStudent);
+			map.put("majorDayStudent",majorDayStudent);
+			System.out.println(JsonUtils.objectToJson(map));
+			
+			return map;
+		}else {
+			ArrayList<String> collegeNameList=new ArrayList<String>();
+			ArrayList<Integer> collegeCountStudent=new ArrayList<Integer>();
+			ArrayList<Integer> collegeDayStudent=new ArrayList<Integer>();
+			
+			//得到所有的学院根据学校
+			List<College> collegeList=collegeService.findCollegeByParentName(school);
+			for(int i=0;i<collegeList.size();i++) {
+				String collegeName=collegeList.get(i).getCollegename();
+				//学院名称数组
+				collegeNameList.add(collegeName);
+				//学院总人数
+				collegeCountStudent.add(studentService.coutStudent(school, collegeName));
+				//学院打卡人数
+				collegeDayStudent.add(dayStudentService.countDayStudent(school, collegeName, date));
+			}
+			
+			Map<String, Object> map=new HashMap<String, Object>();
+			map.put("name", name);
+			map.put("data", data);
+			map.put("collegeNameList", collegeNameList);
+			map.put("collegeCountStudent",collegeCountStudent);
+			map.put("collegeDayStudent",collegeDayStudent);
+			System.out.println(JsonUtils.objectToJson(map));
+			
+			return map;
 		}
 		
-		Map<String, Object> map=new HashMap<String, Object>();
-		map.put("name", name);
-		map.put("data", data);
-		map.put("collegeNameList", collegeNameList);
-		map.put("collegeCountStudent",collegeCountStudent);
-		map.put("collegeDayStudent",collegeDayStudent);
-		System.out.println(JsonUtils.objectToJson(map));
-		
-		return map;
 	}
 	@Override
 	//初始化老师数据
@@ -83,8 +110,8 @@ public class ShowDataServiceImpl implements ShowDataService{
 		Integer teacherSum=teacherService.countTeachers(school, college);
 		Integer dayTeacherSum=dayTeacherService.countDayTeachers(school,college, date);
 		Integer teacherNoNum=teacherSum-dayTeacherSum;
-		System.out.println("教师打卡人数预计是10个而实际是====="+dayTeacherSum);
-		System.out.println("教师未打卡人数预计是11个而实际是====="+teacherNoNum);
+		System.err.println("教师的打卡人数"+dayTeacherSum);
+		System.out.println("教师的未卡人数"+teacherNoNum);
 		String[] name= {"未打卡人数","打卡人数"};
 		String[] data= {teacherNoNum.toString(),dayTeacherSum.toString()};
 		Map<String, Object> map=new HashMap<String, Object>();
@@ -101,7 +128,6 @@ public class ShowDataServiceImpl implements ShowDataService{
 		Integer teacherSum=teacherService.countTeachers(school, college);
 		Integer dayTeacherSum=dayTeacherService.countDayTeachers(school,college, date);
 		Integer teacherNoNum=teacherSum-dayTeacherSum;
-		System.out.println("college"+college);
 		Integer dayStudentSum=dayStudentService.countDayStudent(school,college, date);
 		Integer studentSum=studentService.coutStudent(school, college);
 		Integer studentNoNum=studentSum-dayStudentSum;
@@ -110,7 +136,8 @@ public class ShowDataServiceImpl implements ShowDataService{
 		String[] name1={"未打卡人数","打卡人数"};
 		String[] data1= {studentNoNum.toString(),dayStudentSum.toString()};
 		
-		  ArrayList<String> majorName= new ArrayList<String>(); //专业总人数 
+		  ArrayList<String> majorName= new ArrayList<String>(); 
+		  //专业总人数 
 		  ArrayList<Integer> majorCountStudent=new ArrayList<Integer>(); 
 		  ArrayList<Integer> majorDayStudent=new ArrayList<Integer>();
 		 
@@ -120,8 +147,6 @@ public class ShowDataServiceImpl implements ShowDataService{
 		System.out.println(majorList.toString());
 		//得到每个专业的名字和对应的打卡情况人数
 		for (int i = 0; i < majorList.size(); i++) {
-			System.out.println(majorList.get(i).getMajorname());
-			System.out.println(studentService.countMajorStudent(school,majorList.get(i).getMajorname()));
 			  String major=majorList.get(i).getMajorname();
 			  majorName.add(major); 
 			  //得到每个专业的学生总数

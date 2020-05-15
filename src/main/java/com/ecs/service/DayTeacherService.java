@@ -2,9 +2,7 @@ package com.ecs.service;
 
 import java.util.List;
 
-import com.ecs.domain.DayStudent;
 import com.ecs.domain.DayTeacher;
-import com.ecs.domain.Teacher;
 
 public interface DayTeacherService {
 		
@@ -25,10 +23,10 @@ public interface DayTeacherService {
 		public List<String> traceTeacher(String tnum);
 		
 		//老师的模糊查询
-		public List<DayTeacher> fuzzyDayTeachers(String tname,String college);
+		public List<DayTeacher> fuzzyDayTeachers(String tname,String college,String school);
 		
 		//动态查询
-		public List<DayTeacher> dynamicDayTeachers(String college,String tnum);
+		public List<DayTeacher> dynamicDayTeachers(String school,String college,String tnum);
 		
 		//保存
 		public void addDayTeacher(DayTeacher dayTeacher);
@@ -41,6 +39,7 @@ public interface DayTeacherService {
 		
 		//查询当日打卡的老师数量
 		public Integer countDayTeachers(String school,String college,String date);
-		
+		//
+		public List<DayTeacher> findWithParam(String school,String college,String date);
 
 }

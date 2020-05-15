@@ -27,11 +27,11 @@ public interface StudentService {
 	public List<Student> findStudentByCollegeName(String collegename);
 
 	//动态查询
-	public List<Student> dynamicStudents(String college,String major,String classes);
+	public List<Student> dynamicStudents(String school,String college,String major,String classes);
 
 	
 	//模糊查询
-	public List<Student> fuzzyStudent(String name,String snum);
+	public List<Student> fuzzyStudent(String school,String college,String name,String snum);
 	
 	//根据学号查找学生
 	public Student findStudentBySnum(String snum);

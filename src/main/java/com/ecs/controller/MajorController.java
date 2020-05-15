@@ -42,4 +42,15 @@ public class MajorController {
 		map.put("data", list);
 		return JsonUtils.objectToJson(map);
 	}
+	
+	@RequestMapping(value = "/findAllMajorByParentName", method = RequestMethod.POST)
+	@ResponseBody
+
+	public String findAllMajorByParentId(String parentname,Model model) {
+		List<Major> list = majorService.findMajorByParentName(parentname);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("data", list);
+		return JsonUtils.objectToJson(map);
+	}
+	
 }

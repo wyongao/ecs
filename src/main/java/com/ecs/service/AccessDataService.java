@@ -10,14 +10,14 @@ public interface AccessDataService {
 	public List<AccessData> findAll();
 
 	//模糊查询
-	public List<AccessData> fuzzyAccessData(String username,String userid);
+	public List<AccessData> fuzzyAccessData(String school,String college,String username,String userid);
 
 
-	// 根据学院查找访问记录
-	public List<AccessData> findAccessDataByCollege(String college);
+	// 查找访问记录
+	public List<AccessData> dynamicFindAccessData(String school,String college);
 
 	// 保存
-	public void addAccessData(String username, String userid,String college, String ip, String date);
+	public void addAccessData(String username,String userid,String school,String college, String ip, String date);
 
 
 }

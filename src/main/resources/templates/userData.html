@@ -86,13 +86,14 @@
 				<div class="layui-form-item">
 					<select class="layui-select" name="college" id="college"
 						lay-filter="college" lay-verify="" lay-search>
-						<option th:each="college : ${college}" th:value="${college.id}"
-							th:text="${college.collegename}" />
+						<!-- 	<option th:each="college : ${college}" th:value="${college.id}"
+							th:text="${college.collegename}" /> -->
 					</select>
 				</div>
 				<div class="layui-form-item">
-					<button type="button" class="layui-btn layui-btn-normal" id="test">
-						<i class="layui-icon layui-icon-export"></i>导出数据
+					<button type="button" class="layui-btn layui-btn-normal"
+						id="template">
+						<i class="layui-icon layui-icon-export"></i>数据模板
 					</button>
 
 				</div>
@@ -150,6 +151,81 @@
 			var layer = layui.layer;
 			var content = $("#changePage").html();
 			var upload = layui.upload;
+			var identify = [[${teacher.identify}]];
+			var school = [[${teacher.school}]];
+			var college= [[${teacher.college}]];
+			//身份判断渲染下拉框
+			  //0是超级管理员 1是普通管理员
+			  if(identify == 0){
+				  $.ajax({
+						type: "post",
+				 		url: [[@{/initSelect}]]+"?school="+school,
+						dataType:"json",
+				 		success: function(data) {
+				 			
+				 			  //$("#major").empty();
+				 			  $(" #college").prepend("<option value='0'>请选择学院</option>");
+				 			  //$("#classes").empty();
+				 			  for (var i = 0; i < data.data.length; i++) {
+								//如果在select中传递其他参数，可以在option 的value属性中添加参数
+								$("#college").append("<option value='" + data.data[i].id + "'>" + data.data[i].collegename +
+									"</option>"); 
+								};
+							  form.render('select');
+							},
+						error: function(){
+							layer.msg('数据加载失败', {icon: 2,anim: 6});
+						}
+					});
+				  //初始化全校的
+				  table.render({
+					    elem: '#dataTable'
+					    ,url: [[@{/userData}]]+"?school="+school
+					    ,cellMinWidth: 80 
+					    ,page: true
+					    ,method: 'post'
+					    ,limit: 12
+					    ,even: true
+					    ,cols: [
+					    	[ 
+							  {field: 'id', title: '序号', width: 60}
+							,{field: 'tname', title: '姓名', width: 140}
+							,{field: 'tnum', title: '工号', minWidth: 160}						
+							,{field: 'school', title: '学校', minWidth:170}
+							,{field: 'college', title: '学院', minWidth: 160}
+							,{field: 'sex', title: '性别', width: 60}
+							,{field: 'tel', title: '电话', minWidth: 140}
+							]
+					    	]
+					    ,groups : 5
+						,jump: function(obj){
+					      console.log(obj)
+					    }
+					  });
+			  }else{
+				  //普通管理员为自己的学院的
+				  $.ajax({
+						type: "post",
+				 		url: [[@{/findCollegeId}]]+"?collegeName="+college,
+						dataType:"json",
+				 		success: function(data) {
+				 				console.log(data);
+								$("#college").append("<option value='" + data.data.id + "'>" + data.data.collegename +
+									"</option>"); 
+								
+							  form.render('select');
+							},
+						error: function(){
+							layer.msg('数据加载失败', {icon: 2,anim: 6});
+						}
+					});
+				  
+			  }
+			//数据模板下载
+			$('#template').on('click',function() {
+				window.location.href=[[@{/ouputTeacherTemplate}]];
+				layer.msg('导出成功',{icon: 1});
+		  });
 			//excel上传
 			var uploadInst = upload.render({
 			    elem: '#uploadExcel' //绑定元素
@@ -206,62 +282,198 @@
 				});
 				return false;
 			}); 
-			
-			
-			 //初始化
-			 table.render({
-				    elem: '#dataTable'
-				    ,url: [[@{/userData(college=${teacher.college})}]]
-				    ,cellMinWidth: 80 
-				    ,page: true
-				    ,method: 'post'
-				    ,limit: 12
-				    ,even: true
-				    ,cols: [
-				    	[ 
-						  {field: 'id', title: '序号', width: 60}
-						,{field: 'tname', title: '姓名', width: 140}
-						,{field: 'tnum', title: '工号', minWidth: 160}						
-						,{field: 'school', title: '学校', minWidth:170}
-						,{field: 'college', title: '学院', minWidth: 160}
-						,{field: 'sex', title: '性别', width: 60}
-						,{field: 'tel', title: '电话', minWidth: 140}
-						]
-				    	]
-				    ,groups : 5
-					,jump: function(obj){
-				      console.log(obj)
-				    }
-				  });
-			 
+
 			 form.on('select(college)', function(data) {
 					//根据学院找学院老师
-						var college = data.elem[data.elem.selectedIndex].text;						
-					 	 table.render({
-							    elem: '#dataTable'
-							    ,url: [[@{/userData}]]+"?college="+college
-							    ,cellMinWidth: 80 
-							    ,page: true
-							    ,method: 'post'
-							    ,limit: 12
-							    ,even: true
-							    ,cols: [
-							    	[ 
-									  {field: 'id', title: '序号', width: 60}
-									,{field: 'tname', title: '姓名', width: 140}
-									,{field: 'tnum', title: '工号', minWidth: 160}						
-									,{field: 'school', title: '学校', minWidth:170}
-									,{field: 'college', title: '学院', minWidth: 160}
-									,{field: 'sex', title: '性别', width: 60}
-									,{field: 'tel', title: '电话', minWidth: 140}
-									]
-							    	]
-							    ,groups : 5
-								,jump: function(obj){
-							      console.log(obj)
-							    }
-							  });
+						var college = data.elem[data.elem.selectedIndex].text;
+						var id = $("#college").find('option:selected').val();
+						if(id==0){
+							 table.render({
+								    elem: '#dataTable'
+								    ,url: [[@{/userData}]]+"?school="+school
+								    ,cellMinWidth: 80 
+								    ,page: true
+								    ,method: 'post'
+								    ,limit: 12
+								    ,even: true
+								    ,cols: [
+								    	[ 
+										  {field: 'id', title: '序号', width: 60}
+										,{field: 'tname', title: '姓名', width: 140}
+										,{field: 'tnum', title: '工号', minWidth: 160}						
+										,{field: 'school', title: '学校', minWidth:170}
+										,{field: 'college', title: '学院', minWidth: 160}
+										,{field: 'sex', title: '性别', width: 60}
+										,{field: 'tel', title: '电话', minWidth: 140}
+										]
+								    	]
+								    ,groups : 5
+									,jump: function(obj){
+								      console.log(obj)
+								    }
+								  });
+						}else{
+							 table.render({
+								    elem: '#dataTable'
+								    ,url: [[@{/userData}]]+"?school="+school+"&college="+college
+								    ,cellMinWidth: 80 
+								    ,page: true
+								    ,method: 'post'
+								    ,limit: 12
+								    ,even: true
+								    ,cols: [
+								    	[ 
+										  {field: 'id', title: '序号', width: 60}
+										,{field: 'tname', title: '姓名', width: 140}
+										,{field: 'tnum', title: '工号', minWidth: 160}						
+										,{field: 'school', title: '学校', minWidth:170}
+										,{field: 'college', title: '学院', minWidth: 160}
+										,{field: 'sex', title: '性别', width: 60}
+										,{field: 'tel', title: '电话', minWidth: 140}
+										]
+								    	]
+								    ,groups : 5
+									,jump: function(obj){
+								      console.log(obj)
+								    }
+								  });
+						}
+					 
 					});
+					//搜索框实现
+					 $("#search").click(function(){
+						 var information=document.getElementById("information").value;
+						
+						if(identify==0){
+							if(information==null||information==""){
+								 layer.msg('不能为空', {icon: 2,anim: 6});
+							 }else{
+							if($.isNumeric(information)){
+							 tnum=information;
+							
+						 	 table.render({
+								    elem: '#dataTable'
+								    ,url: [[@{/dynamicTeacher}]]+"?school="+school+"&tnum="+tnum
+								    ,cellMinWidth: 80 
+								    ,page: true
+								    ,method: 'post'
+								    ,limit: 12
+								    ,even: true
+								    ,cols: [
+								    	   [ 
+											  {field: 'id', title: '序号', width: 60}
+											,{field: 'tname', title: '姓名', width: 140}
+											,{field: 'tnum', title: '工号', minWidth: 160}						
+											,{field: 'school', title: '学校', minWidth:170}
+											,{field: 'college', title: '学院', minWidth: 160}
+											,{field: 'sex', title: '性别', width: 60}
+											,{field: 'tel', title: '电话', minWidth: 140}
+										]
+								    	]
+								    ,groups : 5
+									,jump: function(obj){
+								      console.log(obj)
+								    }
+								  }); 
+						 	 }else{
+						 		 name=information;
+								 
+							 	 table.render({
+									    elem: '#dataTable'
+									    ,url: [[@{/fuzzyTeacher}]]+"?school="+school+"&name="+name
+									    ,cellMinWidth: 80 
+									    ,page: true
+									    ,method: 'post'
+									    ,limit: 12
+									    ,even: true
+									    ,cols: [
+									    	   [ 
+												  {field: 'id', title: '序号', width: 60}
+												,{field: 'tname', title: '姓名', width: 140}
+												,{field: 'tnum', title: '工号', minWidth: 160}						
+												,{field: 'school', title: '学校', minWidth:170}
+												,{field: 'college', title: '学院', minWidth: 160}
+												,{field: 'sex', title: '性别', width: 60}
+												,{field: 'tel', title: '电话', minWidth: 140}
+											]
+									    	]
+									    ,groups : 5
+										,jump: function(obj){
+									      console.log(obj)
+									    }
+									  }); 
+						 		 
+						 	 }
+							 }
+						}else{
+							
+							if(information==null||information==""){
+								 layer.msg('不能为空', {icon: 2,anim: 6});
+							 }else{
+							if($.isNumeric(information)){
+							 tnum=information;
+							
+						 	 table.render({
+								    elem: '#dataTable'
+								    ,url: [[@{/dynamicTeacher}]]+"?school="+school+"&college="+college+"&tnum="+tnum
+								    ,cellMinWidth: 80 
+								    ,page: true
+								    ,method: 'post'
+								    ,limit: 12
+								    ,even: true
+								    ,cols: [
+								    	[ 
+										  {field: 'id', title: '序号', width: 60}
+										,{field: 'sname', title: '姓名', width: 140}
+										,{field: 'snum', title: '学号', width: 160}						
+										,{field: 'school', title: '学校', width:170}
+										,{field: 'college', title: '学院', width: 160}
+										,{field: 'major', title: '专业', minWidth: 140}
+										,{field: 'classes', title: '班级', width: 80}
+										,{field: 'sex', title: '性别', width: 60}
+										,{field: 'tel', title: '电话', minWidth: 140}
+										]
+								    	]
+								    ,groups : 5
+									,jump: function(obj){
+								      console.log(obj)
+								    }
+								  }); 
+						 	 }else{
+						 		 name=information;
+								 
+							 	 table.render({
+									    elem: '#dataTable'
+									    ,url: [[@{/fuzzyTeacher}]]+"?school="+school+"&college="+college+"&name="+name
+									    ,cellMinWidth: 80 
+									    ,page: true
+									    ,method: 'post'
+									    ,limit: 12
+									    ,even: true
+									    ,cols: [
+									    	[ 
+											  {field: 'id', title: '序号', width: 60}
+											,{field: 'sname', title: '姓名', width: 140}
+											,{field: 'snum', title: '学号', width: 160}						
+											,{field: 'school', title: '学校', width:170}
+											,{field: 'college', title: '学院', width: 160}
+											,{field: 'major', title: '专业', minWidth: 140}
+											,{field: 'classes', title: '班级', width: 80}
+											,{field: 'sex', title: '性别', width: 60}
+											,{field: 'tel', title: '电话', minWidth: 140}
+											]
+									    	]
+									    ,groups : 5
+										,jump: function(obj){
+									      console.log(obj)
+									    }
+									  }); 
+						 		 
+						 	 }
+							 }
+						}
+						 
+					}); 
 			 
 		});
 		</script>
