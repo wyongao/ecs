@@ -227,6 +227,23 @@ public class WXLoginController {
 		return wxService.findBuildingsForwx();
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="/getHealthCode", method=RequestMethod.POST)
+	public String getHealthCode(String usernum, String identity) {
+		
+		return wxService.getHealthCodeForwx(usernum, identity);
+	}
 	
+	@ResponseBody
+	@RequestMapping(value="/healthCode")
+	public String healthCode(String msg) {
+		
+		if(msg.equals("success")) {
+			return "健康状况良好，近七天健康申报体温均低于37.5°C。";
+		} else {
+			return "近七天健康申报体温存在大于等于37.5°C！";
+		}
+		
+	}
 	
 }

@@ -100,6 +100,12 @@ public class DayStudentServiceImpl implements DayStudentService {
 	}
 
 	@Override
+	public List<DayStudent> findBySnumAndDateForwx(String snum) {
+		
+		return dayStudentDao.findBySnumAndDateForwx(snum);
+	}
+	
+	@Override
 	public List<DayStudent> findByDateForwx(String date) {
 		
 		return dayStudentDao.findByDateForwx(date);
@@ -115,6 +121,7 @@ public class DayStudentServiceImpl implements DayStudentService {
 		
 		return dayStudentDao.countDayMajorStudent(school, major, date);
 	}
+
 
 
 

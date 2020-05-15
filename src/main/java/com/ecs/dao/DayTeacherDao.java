@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectProvider;
 
 import com.ecs.dao.provider.DayTeacherProvider;
+import com.ecs.domain.DayStudent;
 import com.ecs.domain.DayTeacher;
 /**
  * 老师的每日签到的dao
@@ -52,6 +53,11 @@ public interface DayTeacherDao {
 	@Select("select addr,date,temp,symptom from day_teacher where tnum=#{tnum} order by date desc")
 	public List<DayTeacher> findByTnumForwx(String tnum);
 	
+	//根据学号查找学生的打卡信息
+	@Select("select temp from day_teacher where DATE_SUB(CURDATE(), INTERVAL 7 DAY) <= date and tnum=#{tnum}")
+	public List<DayTeacher> findBySnumAndDateForwx(String tnum);
+	
+	//根据时间查找老师的打卡信息	
 	@Select("select * from day_teacher where date=#{date}")
 	public List<DayTeacher> findByDateForwx(String date);
 

@@ -18,4 +18,6 @@ public interface WXService {
 	public String addTrackStudentFromwx(String addr, String snum);
 	
 	public String addTrackTeacherFromwx(String addr, String tnum);
+	
+	public String getHealthCodeForwx(String usernum, String identity);
 }

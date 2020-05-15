@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import com.ecs.common.JsonUtils;
 import com.ecs.constant.ApplicationConstant;
+import com.ecs.constant.Constant;
+import com.ecs.constant.IdentityConstant;
 import com.ecs.dao.BuildingDao;
 import com.ecs.dao.CampusDao;
 import com.ecs.dao.StudentDao;
@@ -240,6 +242,41 @@ public class WXServiceImpl implements WXService {
 		trackTeacherService.addTrackTeacher(tt);
         
 		return "success";
+	}
+
+	@Override
+	public String getHealthCodeForwx(String usernum, String identity) {
+		
+		String msg = "success";//表示近七天健康申报体温均低于37.5°C
+		
+		if(identity.equals(IdentityConstant.IDENTITY_STUDENT)) {
+			
+			List<DayStudent> ds = dayStudentService.findBySnumAndDateForwx(usernum);
+			
+			for(int i=0; i<ds.size(); i++) {			
+				if(Double.parseDouble(ds.get(i).getTemp()) >= Constant.TEMP_USUAL) {
+					
+					msg = "failure";//表示近七天健康申报体温存在大于等于37.5°C
+					break;
+				}	
+			}
+			
+			return msg;
+		} else {
+			List<DayTeacher> dt = dayTeacherService.findByTnumAndDateForwx(usernum);
+			
+			
+			for(int i=0; i<dt.size(); i++) {			
+				if(Double.parseDouble(dt.get(i).getTemp()) >= Constant.TEMP_USUAL) {
+					
+					msg = "failure";//表示近七天健康申报体温存在大于等于37.5°C
+					break;
+				}	
+			}
+			
+			return msg;
+		}
+		
 	}
 
 	

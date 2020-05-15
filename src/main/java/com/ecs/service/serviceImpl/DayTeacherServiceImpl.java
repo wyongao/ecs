@@ -67,6 +67,12 @@ public class DayTeacherServiceImpl implements DayTeacherService {
 	}
 
 	@Override
+	public List<DayTeacher> findByTnumAndDateForwx(String tnum) {
+
+		return dayTeacherDao.findBySnumAndDateForwx(tnum);
+	}
+	
+	@Override
 	public List<DayTeacher> findByDateForwx(String date) {
 		
 		return dayTeacherDao.findByDateForwx(date);
@@ -87,6 +93,7 @@ public class DayTeacherServiceImpl implements DayTeacherService {
 	
 		return dayTeacherDao.findWithParam(school, college, date);
 	}
+
 	
 
 }

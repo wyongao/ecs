@@ -59,6 +59,11 @@ public interface DayStudentDao {
 	@Select("select addr,date,temp,symptom from day_student where snum=#{snum} order by date desc")
 	public List<DayStudent> findBySnumForwx(String snum);
 
+	//根据学号查找学生的打卡信息
+	@Select("select temp from day_student where DATE_SUB(CURDATE(), INTERVAL 7 DAY) <= date and snum=#{snum}")
+	public List<DayStudent> findBySnumAndDateForwx(String snum);
+	
+	//根据时间查找学生的打卡信息
 	@Select("select * from day_student where date=#{date}")
 	public List<DayStudent> findByDateForwx(String date);
 

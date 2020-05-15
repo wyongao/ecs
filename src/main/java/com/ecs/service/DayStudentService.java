@@ -39,6 +39,9 @@ public interface DayStudentService {
 	//根据学号查找
 	public List<DayStudent> findBySnumForwx(String snum);
 	
+	//根据学号查找近七天
+	public List<DayStudent> findBySnumAndDateForwx(String snum);
+	
 	//根据时间查找
 	public List<DayStudent> findByDateForwx(String date);
 	
@@ -48,5 +51,4 @@ public interface DayStudentService {
 	//查找全专业所有的打卡学生数量
 	public Integer countDayMajorStudent(String school,String major,String date);
 	
-
 }

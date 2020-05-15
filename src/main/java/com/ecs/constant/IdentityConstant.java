@@ -13,4 +13,5 @@ public class IdentityConstant {
 	
 	//超级管理员
 	public static final String IDENTITY_ROOT = "0";
+	
 }

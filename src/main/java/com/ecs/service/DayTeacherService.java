@@ -2,6 +2,7 @@ package com.ecs.service;
 
 import java.util.List;
 
+import com.ecs.domain.DayStudent;
 import com.ecs.domain.DayTeacher;
 
 public interface DayTeacherService {
@@ -34,6 +35,9 @@ public interface DayTeacherService {
 		//根据工号查找
 		public List<DayTeacher> findByTnumForwx(String tnum);
 
+		//根据工号查找近七天
+		public List<DayTeacher> findByTnumAndDateForwx(String tnum);
+		
 		//根据时间查找
 		public List<DayTeacher> findByDateForwx(String date);
 		
