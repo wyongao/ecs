@@ -6,4 +6,7 @@ public interface TrackTeacherService {
 
 	//添加轨迹
 	public void addTrackTeacher(TrackTeacher trackTeacher);
+	
+	//查询
+	public String findTrackTeacherForwx(String tnum);
 }

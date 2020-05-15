@@ -209,13 +209,13 @@ public class WXLoginController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/trackRecord", method=RequestMethod.POST)
-	public String trackRecord (String usernum, String identity) {
+	@RequestMapping(value="/getTrackRecord", method=RequestMethod.POST)
+	public String getTrackRecord (String usernum, String identity) {
 		
 		if(identity.equals(IdentityConstant.IDENTITY_STUDENT)) {
 			return trackStudentService.findTrackStudentForwx(usernum);
 		} else {
-			return null;
+			return trackTeacherService.findTrackTeacherForwx(usernum);
 		}		
 	}
 	

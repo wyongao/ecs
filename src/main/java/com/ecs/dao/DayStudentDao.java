@@ -56,7 +56,7 @@ public interface DayStudentDao {
 	public List<DayStudent> fuzzyQueryDaystudents(String name);
 	
 	//根据学号查找学生的打卡信息
-	@Select("select addr,date,temp,symptom from day_student where snum=#{snum}")
+	@Select("select addr,date,temp,symptom from day_student where snum=#{snum} order by date desc")
 	public List<DayStudent> findBySnumForwx(String snum);
 	
 	@Select("select * from day_student where date=#{date}")

@@ -48,8 +48,8 @@ public interface DayTeacherDao {
 			+ " values(#{tnum},#{tname},#{school},#{college},#{addr},#{date},#{symptom},#{temp}) ")
 	public void addDayTeacher(DayTeacher dayTeacher);
 
-	//根据工号查找学生的打卡信息
-	@Select("select addr,date,temp,symptom from day_teacher where tnum=#{tnum}")
+	//根据工号查找老师的打卡信息
+	@Select("select addr,date,temp,symptom from day_teacher where tnum=#{tnum} order by date desc")
 	public List<DayTeacher> findByTnumForwx(String tnum);
 	
 	@Select("select * from day_teacher where date=#{date}")

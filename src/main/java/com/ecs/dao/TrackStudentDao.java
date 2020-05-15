@@ -15,6 +15,6 @@ public interface TrackStudentDao {
 			+ " values(#{snum},#{sname},#{school},#{college},#{major},#{classes},#{addr},#{date}) ")
 	public void addTrackStudent(TrackStudent trackStudent);
 	
-	@Select("select * from track_student where DATE_SUB(CURDATE(), INTERVAL 7 DAY) <= date AND snum=#{snum}")
+	@Select("select date,addr from track_student where DATE_SUB(CURDATE(), INTERVAL 7 DAY) <= date AND snum=#{snum} order by date desc")
 	public List<TrackStudent> findTrackStudentForwx(String snum);
 }

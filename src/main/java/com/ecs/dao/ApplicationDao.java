@@ -74,7 +74,7 @@ public interface ApplicationDao {
 	public List<Application> fuzzyAppliacation(String snum,String sname,String inout);
 	
 	// 根据学号查找查找
-	@Select("select date,`exit`,reason,`status` from application where snum=#{snum}")
+	@Select("select date,`exit`,reason,`status` from application where snum=#{snum} order by date desc")
 	public List<Application> findBySnumForwx(String snum);
 	
 	@Select("select * from application where snum=#{snum} and `status`=#{status}")

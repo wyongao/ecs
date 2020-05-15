@@ -3,6 +3,7 @@ package com.ecs.service.serviceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ecs.common.JsonUtils;
 import com.ecs.dao.TrackStudentDao;
 import com.ecs.domain.TrackStudent;
 import com.ecs.service.TrackStudentService;
@@ -22,8 +23,7 @@ public class TrackStudentServiceImpl implements TrackStudentService {
 	@Override
 	public String findTrackStudentForwx(String snum) {
 				
-		System.out.println(trackStudentDao.findTrackStudentForwx(snum));
-		return "success";
+		return JsonUtils.objectToJson(trackStudentDao.findTrackStudentForwx(snum));
 	}
 
 }

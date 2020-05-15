@@ -205,7 +205,7 @@ public class WXServiceImpl implements WXService {
 		TrackStudent ts = new TrackStudent();
 		
 		Date now = new Date();
-		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		
 		ts.setSnum(snum);
 		ts.setSname(s.getSname());
@@ -228,7 +228,7 @@ public class WXServiceImpl implements WXService {
 		TrackTeacher tt = new TrackTeacher();
 		
 		Date now = new Date();
-		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 		tt.setTnum(tnum);
 		tt.setTname(t.getTname());
