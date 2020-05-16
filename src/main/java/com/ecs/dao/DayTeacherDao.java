@@ -8,7 +8,6 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectProvider;
 
 import com.ecs.dao.provider.DayTeacherProvider;
-import com.ecs.domain.DayStudent;
 import com.ecs.domain.DayTeacher;
 /**
  * 老师的每日签到的dao

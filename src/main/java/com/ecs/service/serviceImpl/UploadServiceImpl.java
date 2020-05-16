@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.io.FileUtils;
@@ -30,15 +31,39 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ecs.domain.Application;
+import com.ecs.domain.Building;
+import com.ecs.domain.Campus;
+import com.ecs.domain.Class;
+import com.ecs.domain.College;
 import com.ecs.domain.DayStudent;
 import com.ecs.domain.DayTeacher;
+import com.ecs.domain.Major;
+import com.ecs.domain.School;
 import com.ecs.domain.Student;
 import com.ecs.domain.Teacher;
+import com.ecs.service.BuildingService;
+import com.ecs.service.CampusService;
+import com.ecs.service.ClassService;
+import com.ecs.service.CollegeService;
+import com.ecs.service.MajorService;
+import com.ecs.service.SchoolService;
 import com.ecs.service.UploadService;
 @Service
 public class UploadServiceImpl implements UploadService{
 	@Autowired
 	private TypeJudgeImpl typeJudgeImpl;
+	@Autowired
+	private SchoolService schoolService;
+	@Autowired
+	private CollegeService collegeService;
+	@Autowired
+	private MajorService majorService;
+	@Autowired
+	private ClassService classService;
+	@Autowired
+	private CampusService campusService;
+	@Autowired
+	private BuildingService buildingService;
 	@Override
 	public List<Student> studentUpload(MultipartFile file) {
 		//String contentType=file.getContentType();
@@ -150,7 +175,7 @@ public class UploadServiceImpl implements UploadService{
 		//创建新的excel表
 		System.out.println("创建excel");
 		XSSFWorkbook workbook = new XSSFWorkbook();
-		XSSFSheet sheet = workbook.createSheet("output");
+		XSSFSheet sheet = workbook.createSheet("学生每日打卡信息表");
 		XSSFRow row = sheet.createRow((short) 0);
 		XSSFCell cell = row.createCell((short) 0);
 		CellStyle cellStyle = workbook.createCellStyle();
@@ -527,7 +552,7 @@ public class UploadServiceImpl implements UploadService{
 			//创建新的excel表
 			System.out.println("创建excel");
 			XSSFWorkbook workbook = new XSSFWorkbook();
-			XSSFSheet sheet = workbook.createSheet("output");
+			XSSFSheet sheet = workbook.createSheet("学生基本信息表");
 			XSSFRow row = sheet.createRow((short) 0);
 			XSSFCell cell = row.createCell((short) 0);
 			CellStyle cellStyle = workbook.createCellStyle();
@@ -613,7 +638,7 @@ public class UploadServiceImpl implements UploadService{
 			//创建新的excel表
 			System.out.println("创建excel");
 			XSSFWorkbook workbook = new XSSFWorkbook();
-			XSSFSheet sheet = workbook.createSheet("output");
+			XSSFSheet sheet = workbook.createSheet("教师基本信息表");
 			XSSFRow row = sheet.createRow((short) 0);
 			XSSFCell cell = row.createCell((short) 0);
 			CellStyle cellStyle = workbook.createCellStyle();
@@ -682,6 +707,219 @@ public class UploadServiceImpl implements UploadService{
 			}
 			
 	        return null;
+	}
+	
+	//学校基础信息模板的导出
+	@Override
+	public ResponseEntity<byte[]> schoolTemplateExport(HttpServletRequest request) throws Exception {
+		
+		try {
+			String path = request.getSession().getServletContext().getRealPath("/")+"学校基础信息模板表.xlsx";
+			//创建新的excel表
+			System.out.println("创建excel");
+			XSSFWorkbook workbook = new XSSFWorkbook();
+			XSSFSheet sheet = workbook.createSheet("学校教学单位信息表");
+			XSSFSheet sheet1 = workbook.createSheet("学校建筑物信息表");
+			XSSFRow row = sheet.createRow((short) 0);
+			XSSFRow row1 = sheet1.createRow((short) 0);
+			XSSFCell cell = row.createCell((short) 0);
+			XSSFCell cell1 = row1.createCell((short) 0);
+			CellStyle cellStyle = workbook.createCellStyle();
+			//设置excel的格式
+			cellStyle.setFillForegroundColor(HSSFColor.SKY_BLUE.index);
+	        cellStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+	        cellStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+	        cellStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+	        cellStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
+	        cellStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
+	        cellStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+	        //定义单元格为字符串类型
+	        cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+	        cell = row.createCell((short) 0);
+	        cell.setCellValue("序号");
+	        cell.setCellStyle(cellStyle);
+
+	        cell = row.createCell((short) 1);
+	        cell.setCellValue("学校");
+	        cell.setCellStyle(cellStyle);
+
+	        cell = row.createCell((short) 2);
+	        cell.setCellValue("学院");
+	        cell.setCellStyle(cellStyle);
+
+	        cell = row.createCell((short) 3);
+	        cell.setCellValue("专业");
+	        cell.setCellStyle(cellStyle);
+	        
+	        cell = row.createCell((short) 4);
+	        cell.setCellValue("班级");
+	        cell.setCellStyle(cellStyle);
+	        
+	        cell1.setCellType(HSSFCell.CELL_TYPE_STRING);
+	        cell1 = row1.createCell((short) 0);
+	        cell1.setCellStyle(cellStyle);
+	        cell1.setCellValue("序号");
+	        cell1.setCellStyle(cellStyle);
+
+	        cell1 = row1.createCell((short) 1);
+	        cell1.setCellValue("学校");
+	        cell1.setCellStyle(cellStyle);
+
+	        cell1 = row1.createCell((short) 2);
+	        cell1.setCellValue("校区");
+	        cell1.setCellStyle(cellStyle);
+
+	        cell1 = row1.createCell((short) 3);
+	        cell1.setCellValue("建筑物");
+	        cell1.setCellStyle(cellStyle);
+	        
+				FileOutputStream fOut=new FileOutputStream(path);
+				workbook.write(fOut);
+				workbook.close();
+				fOut.flush();
+				fOut.close();
+				File file =new File(path);
+				String filename = "学校基础信息模板表.xlsx";
+				HttpHeaders headers =new HttpHeaders();
+				String downLoadFileName = new String(filename.getBytes("UTF-8"),"iso-8859-1");
+				System.out.println(downLoadFileName.toString());
+				headers.setContentDispositionFormData("attachment", downLoadFileName);
+		        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+		        return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file), headers, HttpStatus.CREATED);
+			
+			}
+			catch (FileNotFoundException e) {
+				
+				e.printStackTrace();
+			}
+			
+	        return null;
+	}
+	//学校基本信息的上传
+	@Override
+	public Map<String, Object> schoolUpload(MultipartFile file) {
+		
+		String fileName = file.getOriginalFilename();
+		
+		System.out.println("----->>"+fileName);
+		
+		try {
+			InputStream is=file.getInputStream();
+			//文件扩展名
+			String prefix=fileName.substring(fileName.lastIndexOf("."));
+			Workbook wb=typeJudgeImpl.createWorkbook(is, prefix);
+			Sheet sheet=wb.getSheetAt(0);
+			Sheet sheet1=wb.getSheetAt(1);
+			Row row =null;
+			System.out.println("----->>>>>数据长度"+sheet.getPhysicalNumberOfRows());
+			for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
+				row = sheet.getRow(i);
+				School school=new School();
+				College college=new College();
+				Major major=new Major();
+				Class classes=new Class();
+				//学校
+				row.getCell(1).setCellType(Cell.CELL_TYPE_STRING);
+				//学院
+				row.getCell(2).setCellType(Cell.CELL_TYPE_STRING);
+				//专业
+				row.getCell(3).setCellType(Cell.CELL_TYPE_STRING);
+				//班级
+				row.getCell(4).setCellType(Cell.CELL_TYPE_STRING);
+				
+				String schoolName=row.getCell(1).getStringCellValue();
+				String collegeName=row.getCell(2).getStringCellValue();
+				String majorName=row.getCell(3).getStringCellValue();
+				String classesName=row.getCell(4).getStringCellValue();
+				Integer schoolId;
+				Integer collegeId;
+				Integer majorId;
+				
+				school=schoolService.findSchoolByName(schoolName);	
+				if(school==null) {
+					 schoolService.addSchool(schoolName);
+					 schoolId=schoolService.findSchoolId(schoolName);
+				}else {
+					 schoolId=school.getId();
+				}
+				
+				college=collegeService.findOnlyCollege(collegeName, schoolId);	
+				if(college==null) {
+					collegeService.addCollege(collegeName,schoolId);
+					collegeId=collegeService.findCollegeId(collegeName,schoolId);
+				}else {
+				    collegeId=college.getId();
+				}
+				
+				major=majorService.findMajarByName(majorName,collegeId);
+				if(major==null) {
+					majorService.addMajor(majorName, collegeId);
+					majorId=majorService.findMajorId(majorName, collegeId);
+				}else {
+					majorId=major.getId();
+				}
+				
+				classes=classService.findClassByName(classesName,majorId);
+				if(classes==null) {
+					classService.addClass(classesName, majorId);
+				}
+				System.out.println(i);
+			
+			}
+			
+			//sheet2存入学校的建筑信息
+			for (int i = 1; i < sheet1.getPhysicalNumberOfRows(); i++) {
+				row = sheet1.getRow(i);
+				School school=new School();
+				Campus campus=new Campus();
+				Building building=new Building();
+				//学校
+				row.getCell(1).setCellType(Cell.CELL_TYPE_STRING);
+				//校区
+				row.getCell(2).setCellType(Cell.CELL_TYPE_STRING);
+				//建筑物
+				row.getCell(3).setCellType(Cell.CELL_TYPE_STRING);
+			
+				
+				String schoolName=row.getCell(1).getStringCellValue();
+				String campusName=row.getCell(2).getStringCellValue();
+				String buildingName=row.getCell(3).getStringCellValue();
+				
+				
+				school=schoolService.findSchoolByName(schoolName);
+				//campus=campusService.
+				Integer schoolId;
+				Integer campusId;
+				//如果学校不存在,把学校存进去并且得到学校的ID
+				school=schoolService.findSchoolByName(schoolName);	
+				if(school==null) {
+					 schoolService.addSchool(schoolName);
+					 schoolId=schoolService.findSchoolId(schoolName);
+				}else {
+					 schoolId=school.getId();
+				}
+				
+				campus=campusService.findOnlyCampus(campusName,schoolId);
+				if(campus==null) {
+					 campusService.addCampus(campusName, schoolId);
+					 campusId=campusService.findCampusId(campusName, schoolId);
+				}else {
+					 campusId=campus.getId();
+				}
+				
+				building=buildingService.findOnlyBuilding(buildingName, campusId);
+				if (building==null) {
+					buildingService.addBuilding(buildingName, campusId);
+				}
+				System.out.println(i);
+			
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 }
 

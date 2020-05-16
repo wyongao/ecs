@@ -8,4 +8,8 @@ public interface SchoolService {
 	public List<School> findAllSchool();
 	
 	public Integer findSchoolId(String schoolname);
+	
+	public School findSchoolByName(String schoolname);
+	
+	public void addSchool(String schoolname);
 }

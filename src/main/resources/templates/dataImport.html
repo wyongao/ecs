@@ -65,6 +65,16 @@
 		</div>
 		<div class="main layui-body">
 			<div class="top layui-form">
+			<div  class="layui-form-item">
+					<button type="button" class="layui-btn layui-btn-normal" id="schoolTemplate">
+						<i class="layui-icon layui-icon-export"></i>学校数据模板
+					</button>
+				</div>
+				<div  class="layui-form-item">
+					<button type="button" class="layui-btn" id="uploadSchoolExcel">
+						<i class="layui-icon">&#xe67c;</i>学校基础数据导入
+					</button>
+				</div>
 				
 			</div>
 			<div class="layui-table-box">
@@ -103,13 +113,41 @@
 		</form>	
 	</script>
 	<script type="text/javascript" th:inline="javascript">
-		layui.use(['table', 'form','layer'], function(){
+		layui.use(['table', 'form','layer','upload'], function(){
 		 	 var table = layui.table;
 		 	 var form = layui.form;
 		 	 var $ = layui.jquery;
 		 	 var identify = [[${teacher.identify}]];
 		 	 var layer = layui.layer;
+		 	 var upload = layui.upload;
 			 var content = $("#changePage").html();
+			 
+			 //学校数据模板的导出
+			 $('#schoolTemplate').on('click',function() {
+				window.location.href=[[@{/ouputSchoolTemplate}]];
+				layer.msg('导出成功',{icon: 1});
+		 	 });
+			//学校基本信息的导入
+			var uploadInst = upload.render({
+			    elem: '#uploadSchoolExcel' //绑定元素
+			    ,url: [[@{/schoolUpload}]] //上传接口
+			    ,method: 'post'
+			    ,accept: 'file'
+			    ,exts: 'xls|xlsx'
+			    ,done: function(res){	
+			      //上传完毕回调
+			      if(res.res == 0){
+			    	  layer.msg('上传成功',{icon: 1});
+			      };
+			      if(res.res == 1){
+			    	  layer.msg('文件为空', {icon: 2,anim: 6});  
+			      };
+			    }
+			    ,error: function(){
+			      //请求异常回调
+			    	layer.msg('数据导入遇到异常', {icon: 2,anim: 6});
+			    }
+			  });
 		
 			 //修改密码弹窗
 			  $('#changePassword').on('click', function() {

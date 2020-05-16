@@ -36,4 +36,25 @@ public class MajorServiceImpl implements MajorService {
 		return majorDao.findAllMajorByParentId(collegeDao.findCollegeByName(parentname).getId());
 	}
 
+
+	@Override
+	public void addMajor(String majorname, Integer parentid) {
+		majorDao.addMajor(majorname, parentid);
+		
+	}
+
+	@Override
+	public Integer findMajorId(String majorname, Integer parentid) {
+		
+		return majorDao.findMajorId(majorname, parentid);
+	}
+
+	@Override
+	public Major findMajarByName(String majorname, Integer parentid) {
+		
+		return majorDao.findMajarByName(majorname, parentid);
+	}
+
+
+
 }

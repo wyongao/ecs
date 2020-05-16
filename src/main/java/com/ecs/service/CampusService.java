@@ -12,4 +12,10 @@ import com.ecs.domain.Campus;
 
 public interface CampusService {
 	public List<Campus> findAllCampusByParentId(Integer parentid);
+	
+	public Campus findOnlyCampus(String campusname,Integer parentid);
+	
+	public void addCampus(String campusname,Integer parentid);
+	
+	public Integer findCampusId(String campusname,Integer parentid);
 }

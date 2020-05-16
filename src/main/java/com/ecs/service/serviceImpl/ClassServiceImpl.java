@@ -32,4 +32,20 @@ public class ClassServiceImpl implements ClassService{
 
 		return classDao.findAllClass();
 	}
+
+
+	
+
+
+	@Override
+	public void addClass(String calssname, Integer parentid) {
+		classDao.addClass(calssname, parentid);
+	}
+
+
+	@Override
+	public Class findClassByName(String classname, Integer parentid) {
+		
+		return classDao.findClassByName(classname, parentid);
+	}
 }

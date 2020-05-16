@@ -18,4 +18,10 @@ public interface MajorService {
 	public List<Major> findAllMajorByParentId(Integer parentid);
 	
 	public List<Major> findMajorByParentName(String parentname);
+	
+	public Major findMajarByName(String majorname,Integer parentid);
+	
+	public void addMajor(String majorname,Integer parentid);
+
+	public Integer findMajorId(String majorname,Integer parentid);
 }

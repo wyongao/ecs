@@ -50,4 +50,22 @@ public class CollegeServiceImpl implements CollegeService{
 		return collegeDao.findCollegeByName(collegename);
 	}
 
+	@Override
+	public void addCollege(String collegename,Integer parentid) {
+	
+		collegeDao.addCollege(collegename,parentid);
+	}
+
+	@Override
+	public Integer findCollegeId(String collegename,Integer parentid) {
+		
+		return collegeDao.findCollegeId(collegename,parentid);
+	}
+
+	@Override
+	public College findOnlyCollege(String collegename, Integer parentid) {
+		
+		return collegeDao.findOnlyCollege(collegename, parentid);
+	}
+
 }

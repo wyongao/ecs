@@ -25,5 +25,18 @@ public class BuildingServiceImpl implements BuildingService {
 		
 		return buildingDao.findAllBuildingByParentId(parentid);
 	}
+
+	@Override
+	public Building findOnlyBuilding(String buildingname, Integer parentid) {
+		
+		return buildingDao.findOnlyBuilding(buildingname, parentid);
+	}
+
+	@Override
+	public void addBuilding(String buildingname, Integer parentid) {
+		
+		buildingDao.addBuilding(buildingname, parentid);
+		
+	}
 	
 }

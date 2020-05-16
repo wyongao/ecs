@@ -1,6 +1,5 @@
 package com.ecs.service.serviceImpl;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,8 +19,6 @@ import com.ecs.dao.CampusDao;
 import com.ecs.dao.StudentDao;
 import com.ecs.dao.TeacherDao;
 import com.ecs.domain.Application;
-import com.ecs.domain.Building;
-import com.ecs.domain.Campus;
 import com.ecs.domain.DayStudent;
 import com.ecs.domain.DayTeacher;
 import com.ecs.domain.Student;
