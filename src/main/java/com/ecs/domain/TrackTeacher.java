@@ -1,7 +1,5 @@
 package com.ecs.domain;
 
-import java.util.Date;
-
 public class TrackTeacher {
 
 	private Integer id;

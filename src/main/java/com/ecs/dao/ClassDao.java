@@ -2,6 +2,7 @@ package com.ecs.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 /**
  * class
@@ -24,4 +25,10 @@ public interface ClassDao {
 	
 	@Select("select * from class")
 	public List<Class> findAllClass();
+	
+	@Select("select * from class where classname=#{classname} and parentid=#{parentid}")
+	public Class findClassByName(String classname,Integer parentid);
+	
+	@Insert("insert into class(classname,parentid) values(#{calssname},#{parentid})")
+	public void addClass(String calssname,Integer parentid);
 }

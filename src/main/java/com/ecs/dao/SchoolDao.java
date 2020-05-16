@@ -2,6 +2,7 @@ package com.ecs.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -26,4 +27,8 @@ public interface SchoolDao {
 	//根据学校的名字查找id
 	@Select("select id from school where schoolname=#{schoolname}")
 	public Integer findSchoolId(String schoolname);
+	
+	//添加学校
+	@Insert("insert into school(schoolname) values(#{schoolname})")
+	public void addSchool(String schoolname);
 }

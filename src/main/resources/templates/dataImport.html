@@ -5,6 +5,13 @@
 <title>数据导入</title>
 <link rel="stylesheet" type="text/css" href="css/layui.css" />
 <link rel="stylesheet" type="text/css" href="css/base.css" />
+<style type="text/css">
+
+#schoolTemplate,
+#uploadSchoolExcel {
+	margin: 10px 0 15px 30px;
+}
+</style>
 </head>
 <body>
 
@@ -14,20 +21,23 @@
 		<div class="hs">
 			<div class="header">
 				<ul class="layui-nav">
-					<li class="layui-nav-item">
-						<a href="javascript:;" id="userInfo" th:value="${teacher.tnum}" th:text="${teacher.tname}"></a>
+					<li class="layui-nav-item"><a href="javascript:;"
+						id="userInfo" th:value="${teacher.tnum}"
+						th:text="${teacher.tname}"></a>
 						<dl class="layui-nav-child" style="z-index: 1000;">
-								<dd><a href="javascript:;" id="changePassword">修改密码</a></dd>
-								<dd><a th:href="@{/login}">退出</a></dd>
-						</dl>	
-					</li>
+							<dd>
+								<a href="javascript:;" id="changePassword">修改密码</a>
+							</dd>
+							<dd>
+								<a th:href="@{/login}">退出</a>
+							</dd>
+						</dl></li>
 				</ul>
 			</div>
 			<div class="side">
 				<ul class="layui-nav layui-nav-tree layui-nav-side">
 					<li class="layui-logo"><span><a href="">疫情防控管理系统</a></span></li>
-					<li class="layui-nav-item"><a
-						href="javascript:;">数据管理</a>
+					<li class="layui-nav-item"><a href="javascript:;">数据管理</a>
 						<dl class="layui-nav-child">
 							<dd>
 								<a th:href="@{/goDailyData(tnum=${teacher.tnum})}">学生打卡数据</a>
@@ -48,24 +58,52 @@
 								<a th:href="@{/goIn(tnum=${teacher.tnum})}">入校申请</a>
 							</dd>
 						</dl></li>
-					<li class="layui-nav-item"><a th:href="@{/goTrack(tnum=${teacher.tnum})}">轨迹查询</a></li>
-					<li class="layui-nav-item"><a th:href="@{/goEcharts(tnum=${teacher.tnum})}">数据报表</a></li>
-					<li class="layui-nav-item" id="accessData"><a th:href="@{/goAccessData(tnum=${teacher.tnum})}">访问记录</a></li>
-					<li class="layui-nav-item" id="dataImport"><a th:href="@{/goDataImport(tnum=${teacher.tnum})}" class="layui-this">数据导入</a></li>
-					<li class="layui-nav-item" id="userManage">
-							<a href="javascript:;">用户管理</a>
-							<dl class="layui-nav-child">
-								<dd><a th:href="@{/goUserData(tnum=${teacher.tnum})}">用户数据</a></dd>
-								<dd><a th:href="@{/goAddUser(tnum=${teacher.tnum})}">添加用户</a></dd>
-							</dl>
-					</li>
+					<li class="layui-nav-item"><a
+						th:href="@{/goTrack(tnum=${teacher.tnum})}">轨迹查询</a></li>
+					<li class="layui-nav-item"><a
+						th:href="@{/goEcharts(tnum=${teacher.tnum})}">数据报表</a></li>
+					<li class="layui-nav-item" id="accessData"><a
+						th:href="@{/goAccessData(tnum=${teacher.tnum})}">访问记录</a></li>
+					<li class="layui-nav-item" id="dataImport"><a
+						th:href="@{/goDataImport(tnum=${teacher.tnum})}"
+						class="layui-this">数据导入</a></li>
+					<li class="layui-nav-item" id="userManage"><a
+						href="javascript:;">用户管理</a>
+						<dl class="layui-nav-child">
+							<dd>
+								<a th:href="@{/goUserData(tnum=${teacher.tnum})}">用户数据</a>
+							</dd>
+							<dd>
+								<a th:href="@{/goAddUser(tnum=${teacher.tnum})}">添加用户</a>
+							</dd>
+						</dl></li>
 					<!-- <li class="layui-nav-item"><a href="javascript:;">设置</a></li> -->
 				</ul>
 			</div>
 		</div>
 		<div class="main layui-body">
-			<div class="top layui-form">
-				
+			<div class="layui-form">
+				<fieldset class="layui-elem-field layui-field-title"
+					style="margin-top: 20px;">
+					<legend>数据模板</legend>
+				</fieldset>
+				<div class="layui-form-item">
+					<button type="button" class="layui-btn layui-btn-normal"
+						id="schoolTemplate">
+						<i class="layui-icon layui-icon-export"></i>学校数据模板
+					</button>
+				</div>
+				<fieldset class="layui-elem-field layui-field-title"
+					style="margin-top: 20px;">
+					<legend>数据导入，导入前请确认符合模板格式</legend>
+				</fieldset>
+				<div class="layui-form-item">
+					<button type="button" class="layui-btn" id="uploadSchoolExcel">
+						<i class="layui-icon">&#xe67c;</i>学校基础数据导入
+					</button>
+				</div>
+				<!-- <div class="layui-form-item">
+				</div> -->
 			</div>
 			<div class="layui-table-box">
 				<table class="layui-table" id="dataTable">
@@ -73,7 +111,7 @@
 
 				</table>
 			</div>
-			
+
 		</div>
 	</div>
 
@@ -103,13 +141,41 @@
 		</form>	
 	</script>
 	<script type="text/javascript" th:inline="javascript">
-		layui.use(['table', 'form','layer'], function(){
+		layui.use(['table', 'form','layer','upload'], function(){
 		 	 var table = layui.table;
 		 	 var form = layui.form;
 		 	 var $ = layui.jquery;
 		 	 var identify = [[${teacher.identify}]];
 		 	 var layer = layui.layer;
+		 	 var upload = layui.upload;
 			 var content = $("#changePage").html();
+			 
+			 //学校数据模板的导出
+			 $('#schoolTemplate').on('click',function() {
+				window.location.href=[[@{/ouputSchoolTemplate}]];
+				layer.msg('导出成功',{icon: 1});
+		 	 });
+			//学校基本信息的导入
+			var uploadInst = upload.render({
+			    elem: '#uploadSchoolExcel' //绑定元素
+			    ,url: [[@{/schoolUpload}]] //上传接口
+			    ,method: 'post'
+			    ,accept: 'file'
+			    ,exts: 'xls|xlsx'
+			    ,done: function(res){	
+			      //上传完毕回调
+			      if(res.res == 0){
+			    	  layer.msg('上传成功',{icon: 1});
+			      };
+			      if(res.res == 1){
+			    	  layer.msg('文件为空', {icon: 2,anim: 6});  
+			      };
+			    }
+			    ,error: function(){
+			      //请求异常回调
+			    	layer.msg('数据导入遇到异常', {icon: 2,anim: 6});
+			    }
+			  });
 		
 			 //修改密码弹窗
 			  $('#changePassword').on('click', function() {

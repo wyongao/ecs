@@ -25,4 +25,10 @@ public interface CollegeService {
 	public List<College> findCollegeByParentName(String schoolname);
 	
 	public College findCollegeByName(String collegename);
+	
+	public void addCollege(String collegename,Integer parentid);
+	
+	public Integer findCollegeId(String collegename,Integer parentid);
+	
+	public College findOnlyCollege(String collegename,Integer parentid);
 }

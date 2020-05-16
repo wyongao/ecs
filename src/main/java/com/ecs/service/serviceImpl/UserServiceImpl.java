@@ -39,8 +39,6 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserDao userDao;
 	
-	private UserService userService;
-
 	// 查找所有的用戶
 	@Override
 	public List<User> findAll() {

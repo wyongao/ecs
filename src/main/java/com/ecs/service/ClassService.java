@@ -15,4 +15,8 @@ public interface ClassService {
 	public List<Class> findAllClassByParentId(Integer parentid);
 	
 	public List<Class> findAllClass();
+	
+	public Class findClassByName(String classname,Integer parentid);
+
+	public void addClass(String calssname,Integer parentid);
 }

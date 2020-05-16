@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -97,6 +98,26 @@ public class UploadController {
 		}
 	}
 	
+	/**
+	 * 学校数据的导入
+	 * @param file
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/schoolUpload",method = RequestMethod.POST)
+	@ResponseBody
+	public String schoolUpload(@RequestParam("file") MultipartFile file,HttpServletRequest request) {
+		Map<String, Object> map=new HashMap<String, Object>();
+		if (file.isEmpty()) {
+			map.put("res","1");
+			return JsonUtils.objectToJson(map);
+		}else {
+			uploadService.schoolUpload(file);
+			map.put("res", "0");
+			return JsonUtils.objectToJson(map);
+		}
+
+	}
 	
 	/**
 	 * 学生每日信息导出
@@ -178,4 +199,17 @@ public class UploadController {
 	public ResponseEntity<byte []> teacherTemplateExport(HttpServletRequest request)throws Exception{
 		return uploadService.teacherTemplateExport(request);
 	}
+	/**
+	 * 学校基本信息模板导出
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/ouputSchoolTemplate",method = RequestMethod.GET)
+	public ResponseEntity<byte []> schoolTemplateExport(HttpServletRequest request)throws Exception{
+		return uploadService.schoolTemplateExport(request);
+	}
+	
+
+	
 }

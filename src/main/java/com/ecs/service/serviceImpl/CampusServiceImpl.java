@@ -18,4 +18,22 @@ public class CampusServiceImpl implements CampusService {
 		return campusDao.findAllCampusByParentId(parentid);
 	}
 
+	@Override
+	public Campus findOnlyCampus(String campusname, Integer parentid) {
+	
+		return campusDao.findOnlyCampus(campusname, parentid);
+	}
+
+	@Override
+	public void addCampus(String campusname, Integer parentid) {
+		
+		campusDao.addCampus(campusname, parentid);
+	}
+
+	@Override
+	public Integer findCampusId(String campusname, Integer parentid) {
+		
+		return campusDao.findCampusId(campusname, parentid);
+	}
+
 }

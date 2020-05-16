@@ -1,6 +1,7 @@
 package com.ecs.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -28,4 +29,8 @@ public interface UploadService {
 	public ResponseEntity<byte []> studentTemplateExport(HttpServletRequest request)throws Exception;
 	//导出老师信息模板
 	public ResponseEntity<byte []> teacherTemplateExport(HttpServletRequest request)throws Exception;
+	//导出学校基础信息的模板
+	public ResponseEntity<byte []> schoolTemplateExport(HttpServletRequest request)throws Exception;
+	//上传学校的基本信息
+	public Map<String, Object> schoolUpload(MultipartFile file);
 }
