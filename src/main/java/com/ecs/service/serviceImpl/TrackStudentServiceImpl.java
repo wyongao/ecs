@@ -1,5 +1,7 @@
 package com.ecs.service.serviceImpl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,12 @@ public class TrackStudentServiceImpl implements TrackStudentService {
 	public String findTrackStudentForwx(String snum) {
 				
 		return JsonUtils.objectToJson(trackStudentDao.findTrackStudentForwx(snum));
+	}
+
+	@Override
+	public List<TrackStudent> searchStudentDynamic(String school, String college, String snum, String name) {
+		
+		return trackStudentDao.searchStudentDynamic(school, college, snum, name);
 	}
 
 }

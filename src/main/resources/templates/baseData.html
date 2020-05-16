@@ -59,7 +59,7 @@
 								<dd><a th:href="@{/goAddUser(tnum=${teacher.tnum})}">添加用户</a></dd>
 							</dl>
 					</li>
-					<li class="layui-nav-item"><a href="javascript:;">设置</a></li>
+					<!-- <li class="layui-nav-item"><a href="javascript:;">设置</a></li> -->
 				</ul>
 			</div>
 		</div>
@@ -334,6 +334,8 @@
 				$("#accessData").css('display', 'none');
 				$("#userManage").css('display', 'none');
 				$("#dataImport").css('display', 'none');
+				$("#template").css('display', 'none');
+				$("#uploadExcel").css('display', 'none');
 		    }  
 		
 			 form.on('select(college)', function(data) {
