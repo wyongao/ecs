@@ -5,7 +5,9 @@ import java.util.List;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectProvider;
 
+import com.ecs.dao.provider.TrackTeacherProvider;
 import com.ecs.domain.TrackTeacher;
 
 @Mapper
@@ -17,4 +19,7 @@ public interface TrackTeacherDao {
 	
 	@Select("select date,addr from track_teacher where DATE_SUB(CURDATE(), INTERVAL 7 DAY) <= date AND tnum=#{tnum} order by date desc")
 	public List<TrackTeacher> findTrackTeacherForwx(String tnum);
+	
+	@SelectProvider(type = TrackTeacherProvider.class, method = "searchTeacherDynamic" )
+	public List<TrackTeacher> searchTeacherDynamic(String school, String college, String tnum, String name);
 }
