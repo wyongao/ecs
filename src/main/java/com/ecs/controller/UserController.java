@@ -294,6 +294,8 @@ public class UserController {
 		Map<String, Object> map = userService.doLogin(t, request);
 		if (map.get("msg").equals("failure")) {
 			
+			model.put("msg", map.get("msg"));
+			model.put("desc", map.get("desc"));
 			return "login";
 		}
 		

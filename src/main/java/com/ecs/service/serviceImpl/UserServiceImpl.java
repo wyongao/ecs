@@ -82,12 +82,24 @@ public class UserServiceImpl implements UserService {
 		Map<String, Object> model = new HashMap<String, Object>();
 		Teacher teacher = teacherDao.findTeacherByTnum(t.getTnum());
 
-		if ((teacher == null)) {
+		if ((teacher == null)) { //账号错误
+			
 			model.put("msg", "failure");
+			model.put("desc", "tnumError");
 			return model;
 		} 
-		if ((!t.getPassword().equals(teacher.getPassword()) || !t.getIdentify().equals(teacher.getIdentify()))) {
+		
+		if (!t.getPassword().equals(teacher.getPassword())) { //密码错误
+		
 			model.put("msg", "failure");
+			model.put("desc", "passwordError");
+			return model;
+		}
+		
+		if (!t.getIdentify().equals(teacher.getIdentify())) { //身份错误
+			
+			model.put("msg", "failure");
+			model.put("desc", "identifyError");
 			return model;
 		}
 		

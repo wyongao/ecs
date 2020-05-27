@@ -250,6 +250,11 @@ public class WXServiceImpl implements WXService {
 			
 			List<DayStudent> ds = dayStudentService.findBySnumAndDateForwx(usernum);
 			
+			if(ds.size() == 0) {
+				
+				msg = "none";//还没有打过卡
+			}
+			
 			for(int i=0; i<ds.size(); i++) {			
 				if(Double.parseDouble(ds.get(i).getTemp()) >= Constant.TEMP_USUAL) {
 					
@@ -262,6 +267,10 @@ public class WXServiceImpl implements WXService {
 		} else {
 			List<DayTeacher> dt = dayTeacherService.findByTnumAndDateForwx(usernum);
 			
+			if(dt.size() == 0) {
+				
+				msg = "none";//还没有打过卡
+			}
 			
 			for(int i=0; i<dt.size(); i++) {			
 				if(Double.parseDouble(dt.get(i).getTemp()) >= Constant.TEMP_USUAL) {
