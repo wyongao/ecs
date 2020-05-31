@@ -12,6 +12,7 @@ import org.apache.ibatis.annotations.Update;
 import com.ecs.dao.provider.ApplicationProvider;
 import com.ecs.domain.Application;
 
+
 /**
  * applicationDao
  * 
@@ -48,7 +49,7 @@ public interface ApplicationDao {
 	
 	//动态查询
 	@SelectProvider(type = ApplicationProvider.class,method = "selectWithParam")
-	public List<Application> applicationDynamic(String school,String college,String major,String classes, String inout);
+	public List<Application> applicationDynamic(String school,String college,String major,String classes, String inout, String status);
 	
 	//根据学院名查询出校申请或入校申请
 	@Select("select * from application where `inout`=#{inout} and college=#{college} and school=#{school}")

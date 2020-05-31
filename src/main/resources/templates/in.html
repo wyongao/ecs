@@ -356,7 +356,7 @@
 			 			if(msg=='success'){
 			 				layer.msg("修改成功！");
 			 				setTimeout(function(){ 
-			 					window.location.href='http://127.0.0.1:8080/ecs/login'; 
+			 					window.location.href=[[@{/login}]]; 
 			 				},2000);
 			 			}else{
 			 				layer.msg("修改失败！");
@@ -886,7 +886,10 @@
 						 		success: function(data) {
 						 			if(data == "success"){
 						 				layer.msg("操作成功！");
-						 				table.render({
+						 				setTimeout(function(){ 
+						 					window.location.href=[[@{/goIn}]]+"?tnum="+[[${teacher.tnum}]]; 
+						 				},1000);
+						 				/* table.render({
 										    elem: '#dataTable'
 										    ,url: [[@{/inDynamic}]]
 						 					,where: {
@@ -926,7 +929,7 @@
 											,jump: function(obj){
 										      console.log(obj)
 										    }
-										  }); 
+										  });  */
 						 			}else if(data == "falure"){
 						 				layer.msg("操作失败，该申请已被处理！");
 						 			}

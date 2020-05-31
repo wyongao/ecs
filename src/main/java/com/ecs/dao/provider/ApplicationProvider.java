@@ -2,10 +2,10 @@ package com.ecs.dao.provider;
 
 public class ApplicationProvider {
 		//分页动态查询
-	public String selectWithParam(String school,String college,String major,String classes, String inout)
+	public String selectWithParam(String school,String college,String major,String classes, String inout, String status)
 	{
 		StringBuffer sql=new StringBuffer("select * from application where ");
-			sql.append("school ='"+school+"'");
+			sql.append("school ='"+school+"'"+" and `status` ='"+status+"'");
 			if (college!=null && !college.equals("")) {
 				sql.append("and college = '"+college+"'");
 				if (major!=null && !major.equals("")) {

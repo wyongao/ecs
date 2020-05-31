@@ -191,7 +191,7 @@
 		 			if(msg=='success'){
 		 				layer.msg("修改成功！");
 		 				setTimeout(function(){ 
-		 					window.location.href='http://127.0.0.1:8080/ecs/login'; 
+		 					window.location.href=[[@{/login}]]; 
 		 				},2000);
 		 			}else{
 		 				layer.msg("修改失败！");

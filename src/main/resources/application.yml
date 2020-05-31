@@ -15,6 +15,7 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/ecs?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
+#    url: jdbc:mysql://localhost:9175/ecs?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
     username: root
     password: 123456
 
@@ -24,6 +25,7 @@ fastdep:
         database: 0
         host: 127.0.0.1
         port: 6379
+        password: qcgzs
         lettuce: #下面为连接池的补充设置
           shutdown-timeout: 100 # 关闭超时时间
           pool:
@@ -49,8 +51,8 @@ server:
  # type-aliases-package: com.ecs.domain
 
 # 配置pagehelper参数
-pagehelper:
-    helperDialect: mysql
-    reasonable: true
-    supportMethodsArguments: true  
-    params: count=countSql
+#pagehelper:
+#    helperDialect: mysql
+#    reasonable: true
+#    supportMethodsArguments: true  
+#    params: count=countSql

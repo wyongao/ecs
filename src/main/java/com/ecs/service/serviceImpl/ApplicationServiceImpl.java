@@ -72,7 +72,7 @@ public class ApplicationServiceImpl implements ApplicationService{
 	@Override
 	public List<Application> applicationDynamic(String school,String college, String major, String classes, String inout) {
 		
-		return applicationDao.applicationDynamic(school,college, major, classes, inout);
+		return applicationDao.applicationDynamic(school,college, major, classes, inout, ApplicationConstant.STATUS_CHECK_PENDING);
 	}
 	
 	
