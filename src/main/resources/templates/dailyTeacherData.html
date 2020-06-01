@@ -279,8 +279,12 @@
 		  
 		  //数据导出
 		   $('#export').on('click',function() {
+			var tabledata= layui.table.cache["dataTable"];
 			var id = $("#college").find('option:selected').val(); 
 			var college = $("#college").find('option:selected').text();
+			if(tabledata.length==0){
+				layer.msg('当前无数据',{icon: 2,anim: 6});
+			}else{
 			if(id == 0){
 				window.location.href=[[@{/outputteacher}]]+"?school="+school;
 					layer.msg('导出成功',{icon: 1});
@@ -293,7 +297,7 @@
 				layer.msg('导出成功',{icon: 1});
 			}
 			}
-			
+			}
 		  });
 
 		  //根据搜索框去渲染页面

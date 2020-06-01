@@ -97,7 +97,7 @@
 				</div>
 			</div>
 			<div class="layui-table-box">
-				<table class="layui-table" id="dataTable">
+				<table class="layui-table" id="dataTable" name="dataTable">
 
 
 				</table>
@@ -261,14 +261,16 @@
 		  }
 		  //文件导出
 		  $('#export').on('click',function() {
-			  
+			var tabledata= layui.table.cache["dataTable"];
 			var id = $("#college").find('option:selected').val();
 			var id_1 = $("#major").find('option:selected').val();
 			var id_2 = $("#classes").find('option:selected').val();
 			var college = $("#college").find('option:selected').text();
 			var major = $("#major").find('option:selected').text();
 			var classes= $("#classes").find('option:selected').text();
-			
+			if(tabledata.length==0){
+				layer.msg('当前无数据',{icon: 2,anim: 6});
+			}else{
 			if(id == 0){
 				window.location.href=[[@{/outputStudent}]]+"?school="+school;
 					layer.msg('导出成功',{icon: 1});
@@ -284,8 +286,9 @@
 					if(college==null&&major==null&&classes==null){
 						layer.msg('请选择你要导出的数据',{icon: 2,anim: 6});
 					}else{
-					window.location.href=[[@{/outputStudent}]]+"?school="+school+"&college="+college+"&major="+major+"&classes="+classes;
-					layer.msg('导出成功',{icon: 1});
+							window.location.href=[[@{/outputStudent}]]+"?school="+school+"&college="+college+"&major="+major+"&classes="+classes;
+								layer.msg('导出成功',{icon: 1});
+			}
 			}
 			}
 			}
