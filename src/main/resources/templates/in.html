@@ -300,13 +300,16 @@
 
 			//数据导出
 			 $('#export').on('click',function() {
+			var tabledata= layui.table.cache["dataTable"];	 
 			var id = $("#college").find('option:selected').val();
 			var id_1 = $("#major").find('option:selected').val();
 			var id_2 = $("#classes").find('option:selected').val();
 			var college = $("#college").find('option:selected').text();
 			var major = $("#major").find('option:selected').text();
 			var classes= $("#classes").find('option:selected').text();
-			
+			if(tabledata.length==0){
+				layer.msg('当前无数据',{icon: 2,anim: 6});
+			}else{
 			//返回
 			var inout="2";
 			if(id == 0){
@@ -326,6 +329,7 @@
 					}else{
 					window.location.href=[[@{/outputApplication}]]+"?school="+school+"&college="+college+"&major="+major+"&classes="+classes+"&inout="+inout;
 					layer.msg('导出成功',{icon: 1});
+			}
 			}
 			}
 			}

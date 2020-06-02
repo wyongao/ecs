@@ -135,6 +135,7 @@ public class UploadController {
 	{		
 			List<DayStudent> list=dayStudentService.findAllDayStudents(school,college, major, classes, snum, DateUtil.getDate());
 			if(list.isEmpty()) {
+				
 				return null;
 			}else {
 				System.out.println(uploadService.studentDailyDataExport(request, list));
@@ -209,7 +210,5 @@ public class UploadController {
 	public ResponseEntity<byte []> schoolTemplateExport(HttpServletRequest request)throws Exception{
 		return uploadService.schoolTemplateExport(request);
 	}
-	
-
 	
 }
