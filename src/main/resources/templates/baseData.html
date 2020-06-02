@@ -464,7 +464,7 @@
 					}else{
 						$.ajax({
 							type: "post",
-					 		url: [[@{/findAll}]],
+					 		url: [[@{/findAllClassesByParentId}]]+"?parentid="+parentid,
 							dataType:"json",
 					 		success: function(data) {
 					 			  $("#classes").empty();
