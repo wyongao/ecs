@@ -68,10 +68,31 @@ public class WXServiceImpl implements WXService {
 	@Override
 	public String setOpenid(String usernum, String openid, String identity) {
 		
+		
 		if(identity.equals("1")) {
-			studentDao.setOpenidBySnum(usernum, openid);
+			
+			if(studentDao.findBySnum(usernum).getOpenid() == null || studentDao.findBySnum(usernum).getOpenid().equals("")) {
+				studentDao.setOpenidBySnum(usernum, openid);
+			} else {
+				if(studentDao.findBySnum(usernum).getOpenid().equals(openid)) {
+					return "success";
+				}else {
+					return "failure";	//微信账号变了，无法存入openid
+				}
+			}
+			
 		} else {
-			teacherDao.setOpenidByTnum(usernum, openid);
+			
+			if(teacherDao.findTeacherByTnum(usernum).getOpenid() == null || teacherDao.findTeacherByTnum(usernum).getOpenid().equals("")) {
+				teacherDao.setOpenidByTnum(usernum, openid);
+			} else {
+				if(teacherDao.findTeacherByTnum(usernum).getOpenid().equals(openid)) {
+					return "success";
+				}else {
+					return "failure";	//微信账号变了，无法存入openid
+				}
+			}
+			
 		}
 				
 		return "success";

@@ -115,11 +115,17 @@ public class WXLoginController {
 //		System.out.println(sessionId);
 //		System.out.println(value);
 		
-		//参数: key,value,时间,时间单位（默认毫秒）
-		redis1StringRedisTemplate.opsForValue().set(sessionId, value, 1, TimeUnit.DAYS);
-//		System.out.println(redis1StringRedisTemplate.opsForValue().get(sessionId));
 
-		wxService.setOpenid(usernum, wxSession.getOpenid(), identity);
+		if(wxService.setOpenid(usernum, wxSession.getOpenid(), identity).equals("failure")) {
+			
+			res.put("msg", "wxChanged");
+			return res;
+		}else {
+			
+			//参数: key,value,时间,时间单位（默认毫秒）
+			redis1StringRedisTemplate.opsForValue().set(sessionId, value, 7, TimeUnit.DAYS);
+//			System.out.println(redis1StringRedisTemplate.opsForValue().get(sessionId));
+		}
 
 		
 		res.put("msg", "success");
