@@ -25,7 +25,7 @@ fastdep:
         database: 0
         host: 127.0.0.1
         port: 6379
-        password: qcgzs
+#        password: qcgzs
         lettuce: #下面为连接池的补充设置
           shutdown-timeout: 100 # 关闭超时时间
           pool:

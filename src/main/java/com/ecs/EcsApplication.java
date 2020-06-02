@@ -8,7 +8,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 // extends SpringBootServletInitializer
 
 @SpringBootApplication
-public class EcsApplication {
+public class EcsApplication{
 
 	public static void main(String[] args) {
 		SpringApplication.run(EcsApplication.class, args);
