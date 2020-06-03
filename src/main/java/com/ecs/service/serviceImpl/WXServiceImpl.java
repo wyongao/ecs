@@ -207,7 +207,6 @@ public class WXServiceImpl implements WXService {
 	@Override
 	public String findBuildingsForwx(String usernum, String identity) {
 		
-//		ArrayList<ArrayList<String>> all= new ArrayList<ArrayList<String>>();
 		String schoolName;
 		
 		if(identity.equals(IdentityConstant.IDENTITY_STUDENT)) {
@@ -222,13 +221,12 @@ public class WXServiceImpl implements WXService {
 		
 		Map<String, Object> all = new HashMap<String, Object>(); 
 		ArrayList<String> campus = campusDao.findCampusByParentIdForwx(school.getId());
-//		all.add(campus);
+
 		all.put("campus", campus);
 		
-		for(int i=1; i<=campus.size(); i++) {
+		for(int i=0; i<campus.size(); i++) {
 			
-//			all.add(buildingDao.findBuildingByParentIdForwx(i));
-			all.put("building"+i, buildingDao.findBuildingByParentIdForwx(i));
+			all.put("building"+i, buildingDao.findBuildingByParentIdForwx(campusDao.findCampusId(campus.get(i), school.getId())));
 		}
 				
 		return JsonUtils.objectToJson(all);
