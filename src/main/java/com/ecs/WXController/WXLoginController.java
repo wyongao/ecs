@@ -227,10 +227,10 @@ public class WXLoginController {
 	
 	@ResponseBody
 	@RequestMapping(value="/getAddr", method=RequestMethod.POST)
-	public String getAddr() {
+	public String getAddr(String usernum, String identity) {
 		
 //		System.out.println(wxService.findBuildingsForwx());
-		return wxService.findBuildingsForwx();
+		return wxService.findBuildingsForwx(usernum, identity);
 	}
 	
 	@ResponseBody

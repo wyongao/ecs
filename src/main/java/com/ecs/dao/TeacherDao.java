@@ -66,6 +66,10 @@ public interface TeacherDao {
 	public Teacher findByTnumForwx(String tnum);
 	
 	//根据工号查询
+	@Select("select school from teacher where tnum=#{tnum}")
+	public String findSchoolByTnumForwx(String tnum);
+	
+	//根据工号查询
 	@Select("select tname,tnum,school,college,sex,tel,identify from teacher where tnum=#{tnum}")
 	public Teacher findByTnumForweb(String tnum);
 	

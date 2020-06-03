@@ -16,11 +16,13 @@ import com.ecs.constant.Constant;
 import com.ecs.constant.IdentityConstant;
 import com.ecs.dao.BuildingDao;
 import com.ecs.dao.CampusDao;
+import com.ecs.dao.SchoolDao;
 import com.ecs.dao.StudentDao;
 import com.ecs.dao.TeacherDao;
 import com.ecs.domain.Application;
 import com.ecs.domain.DayStudent;
 import com.ecs.domain.DayTeacher;
+import com.ecs.domain.School;
 import com.ecs.domain.Student;
 import com.ecs.domain.Teacher;
 import com.ecs.domain.TrackStudent;
@@ -38,6 +40,9 @@ public class WXServiceImpl implements WXService {
 //	@Autowired
 //	private StringRedisTemplate redis1StringRedisTemplate;
 
+	@Autowired
+	private SchoolDao schoolDao;
+	
 	@Autowired
 	private CampusDao campusDao;
 	
@@ -200,12 +205,23 @@ public class WXServiceImpl implements WXService {
 	}
 
 	@Override
-	public String findBuildingsForwx() {
+	public String findBuildingsForwx(String usernum, String identity) {
 		
 //		ArrayList<ArrayList<String>> all= new ArrayList<ArrayList<String>>();
+		String schoolName;
+		
+		if(identity.equals(IdentityConstant.IDENTITY_STUDENT)) {
+			
+			schoolName = studentDao.findSchoolBySnumForwx(usernum);
+		} else {
+			
+			schoolName = teacherDao.findSchoolByTnumForwx(usernum);
+		}
+		
+		School school = schoolDao.findSchoolByName(schoolName);
 		
 		Map<String, Object> all = new HashMap<String, Object>(); 
-		ArrayList<String> campus = campusDao.findCampusByParentIdForwx(1);
+		ArrayList<String> campus = campusDao.findCampusByParentIdForwx(school.getId());
 //		all.add(campus);
 		all.put("campus", campus);
 		

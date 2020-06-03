@@ -13,7 +13,7 @@ public interface WXService {
 	
 	public String addApplicationFromwx(String inout, String dest, String reason, String exit, String snum);
 	
-	public String findBuildingsForwx();
+	public String findBuildingsForwx(String usernum, String identity);
 	
 	public String addTrackStudentFromwx(String addr, String snum);
 	
