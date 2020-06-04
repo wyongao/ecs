@@ -26,11 +26,11 @@ public interface TeacherDao {
 	@Select("select * from teacher")
 	public List<Teacher> findAllTeacher();
 	
-	@Delete("delete from teacher where tnum=#{tnum}")
-	public void deleteTeacher(String tnum);
+	@Delete("delete from teacher where id=#{id}")
+	public void deleteTeacher(String id);
 	
-	@Update("update teacher set tname=#{tname},tnum=#{tnum},school=#{school},college=#{college},sex=#{sex},tel=#{tel}")
-	public void updateTeacher(Teacher teacher);
+	@Update("update teacher set tname=#{tname},tnum=#{tnum},school=#{school},college=#{college},sex=#{sex},tel=#{tel}  where id=#{id} ")
+	public void changeTeacher(Teacher teacher);
 	
 	@Insert("insert into teacher(tname,tnum,password,school,college,sex,tel,identify) "
 			+ "values(#{tname},#{tnum},#{password},#{school},#{college},#{sex},#{tel},#{identify})")

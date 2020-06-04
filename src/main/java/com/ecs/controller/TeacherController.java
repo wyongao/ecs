@@ -53,26 +53,19 @@ public class TeacherController {
 		return "添加成功";
 	}
 	
-	@RequestMapping("/deleteTeacherByTnum")
+	@RequestMapping(value = "/deleteTeacher",method = RequestMethod.POST)
 	@ResponseBody
-	public String deleteTeacher(String tnum) {
-		tnum="20168941";
-		teacherService.deleteTeacher(tnum);
+	public String deleteTeacher(String id) {
 		
-		return "删除成功";
+		String msg=teacherService.deleteTeacher(id);
+		return msg;
 	}
 	
-	@RequestMapping("/updateTeacher")
+	@RequestMapping(value = "/changeTeacherInfo",method = RequestMethod.POST)
 	@ResponseBody
-	public String updateTeacher(Teacher teacher) {
-		teacher.setCollege("理学院");
-		teacher.setSchool("河南工程学院");
-		teacher.setSex("男");
-		teacher.setTname("张老师");
-		teacher.setTnum("20168941");
-		teacher.setTel("13816383963");
-		teacherService.updateTeacher(teacher);
-		return "修改成功";
+	public String changeTeacherInfo(Teacher teacher) {
+		String msg=teacherService.changeTeacher(teacher);
+		return msg;
 	}
 	/**
 	 * 用户分页

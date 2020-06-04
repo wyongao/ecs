@@ -148,6 +148,15 @@
   			<a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
   			<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</a>
 	</script>
+	<script type="text/html" id="changeInfoPage"> 
+		<form class="layui-form">
+			<table class="layui-table" id="changeInfoTable" lay-filter="changeInfoTable">
+			</table>
+		</form>	
+	</script>
+	<script type="text/html" id="changeInfoBarDemo">
+  			<a class="layui-btn layui-btn-xs" lay-event="confirmEdit">确认修改</a>
+	</script>
 	
 	<script type="text/javascript" th:inline="javascript">
 		layui.use(['table', 'layer','upload'], function(){
@@ -156,6 +165,7 @@
 			var $ = layui.jquery;
 			var layer = layui.layer;
 			var content = $("#changePage").html();
+			var content2 = $("#changeInfoPage").html();
 			var upload = layui.upload;
 			var identify = [[${teacher.identify}]];
 			var school = [[${teacher.school}]];
@@ -437,13 +447,12 @@
 								    ,even: true
 								    ,cols: [
 								    	[ 
+										  
 										  {field: 'id', title: '序号', width: 60,type:'numbers'}
-										,{field: 'sname', title: '姓名', width: 140}
-										,{field: 'snum', title: '学号', width: 160}						
-										,{field: 'school', title: '学校', width:170}
-										,{field: 'college', title: '学院', width: 160}
-										,{field: 'major', title: '专业', minWidth: 140}
-										,{field: 'classes', title: '班级', width: 80}
+										,{field: 'tname', title: '姓名', width: 140}
+										,{field: 'tnum', title: '工号', minWidth: 160}						
+										,{field: 'school', title: '学校', minWidth:170}
+										,{field: 'college', title: '学院', minWidth: 160}
 										,{field: 'sex', title: '性别', width: 60}
 										,{field: 'tel', title: '电话', minWidth: 140}
 										,{fixed: 'right', width: 140, align:'center', toolbar: '#barDemo'}
@@ -466,17 +475,15 @@
 									    ,limit: 12
 									    ,even: true
 									    ,cols: [
-									    	[ 
-											  {field: 'id', title: '序号', width: 60,type:'numbers'}
-											,{field: 'sname', title: '姓名', width: 140}
-											,{field: 'snum', title: '学号', width: 160}						
-											,{field: 'school', title: '学校', width:170}
-											,{field: 'college', title: '学院', width: 160}
-											,{field: 'major', title: '专业', minWidth: 140}
-											,{field: 'classes', title: '班级', width: 80}
-											,{field: 'sex', title: '性别', width: 60}
-											,{field: 'tel', title: '电话', minWidth: 140}
-											,{fixed: 'right', width: 140, align:'center', toolbar: '#barDemo'}
+									    	[
+												  {field: 'id', title: '序号', width: 60,type:'numbers'}
+												,{field: 'tname', title: '姓名', width: 140}
+												,{field: 'tnum', title: '工号', minWidth: 160}						
+												,{field: 'school', title: '学校', minWidth:170}
+												,{field: 'college', title: '学院', minWidth: 160}
+												,{field: 'sex', title: '性别', width: 60}
+												,{field: 'tel', title: '电话', minWidth: 140}
+												,{fixed: 'right', width: 140, align:'center', toolbar: '#barDemo'}
 											]
 									    	]
 									    ,groups : 5
@@ -490,6 +497,102 @@
 						}
 						 
 					}); 
+					
+					//操作实现
+						table.on('tool(dataTable)', function(obj){									
+							var data = obj.data;
+							var event = obj.event;
+							
+							if(event == "edit"){						
+								  //修改信息弹窗
+								  layer.open({
+									 type: 1,
+									 area: ['1200px', '160px'],
+									 offset: '200px',
+									 title: "修改信息",
+									 content: content2,	
+									 success: function(layero, index){								 
+									 	 table.render({
+											    elem: '#changeInfoTable'
+											    ,cols: [
+											    	[ 
+													 {field: 'id', title: '序号', width: 60}
+													,{field: 'tname', title: '姓名', width: 140,edit: 'text'}
+													,{field: 'tnum', title: '工号', minWidth: 160,edit: 'text'}						
+													,{field: 'school', title: '学校', minWidth:170,edit: 'text'}
+													,{field: 'college', title: '学院', minWidth: 160,edit: 'text'}
+													,{field: 'sex', title: '性别', width: 60,edit: 'text'}
+													,{field: 'tel', title: '电话', minWidth: 140,edit: 'text'}
+													,{fixed: 'right', width: 140, align:'center', toolbar: '#changeInfoBarDemo'}
+													]
+											    	]
+									 	 		,data: [{
+									 	      		"id": data.id
+									 	     		,"tname": data.tname
+									 	      		,"tnum": data.tnum
+									 	      		,"school": data.school
+									 	      		,"college": data.college
+									 	      		,"sex": data.sex
+									 	      		,"tel": data.tel						
+									 	    		}]
+											  });    
+									 }
+								  });
+								
+							}
+							if(event == "delete"){					
+								layer.confirm('确认删除？', function(index){
+									$.ajax({
+										type: "post",
+								 		url: [[@{/deleteTeacher}]],
+								 		data: {
+								 			id: data.id
+								 		},
+								 		success: function(msg) {
+								 			if(msg=='success'){
+								 				layer.msg("删除成功！");
+								 				setTimeout(function(){ 
+								 					window.location.href=[[@{/goUserData}]]+"?tnum="+[[${teacher.tnum}]]; 
+								 				},1000);
+								 			}else{
+								 				layer.msg("删除失败！");
+								 			}
+										}
+									});
+								    });
+							}
+									
+						}); 
+						//执行修改
+						table.on('tool(changeInfoTable)', function(obj){	
+							var data = obj.data;
+							//console.log(obj.event); 
+							console.log(data);
+							$.ajax({
+								type: "post",
+						 		url: [[@{/changeTeacherInfo}]],
+						 		data: {
+						 			id: data.id
+					 	     		,tname: data.tname
+					 	      		,tnum: data.tnum
+					 	      		,school: data.school
+					 	      		,college: data.college		
+					 	      		,sex: data.sex
+					 	      		,tel: data.tel
+						 		},
+						 		success: function(msg) {
+						 			if(msg=='success'){
+						 				layer.msg("修改成功！");
+						 				setTimeout(function(){ 
+						 					window.location.href=[[@{/goUserData}]]+"?tnum="+[[${teacher.tnum}]]; 
+						 				},1000);
+						 			}else{
+						 				layer.msg("修改失败！");
+						 			}
+								}
+							});
+							
+						});		
 			 
 		});
 		</script>

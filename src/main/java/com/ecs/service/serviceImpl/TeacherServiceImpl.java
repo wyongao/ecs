@@ -43,18 +43,20 @@ public class TeacherServiceImpl implements TeacherService {
 	 * 删除
 	 */
 	@Override
-	public void deleteTeacher(String tnum) {
+	public String deleteTeacher(String id) {
 
-		teacherDao.deleteTeacher(tnum);
+		teacherDao.deleteTeacher(id);
+		return "success";
 	}
 
 	/**
 	 * 修改
 	 */
 	@Override
-	public void updateTeacher(Teacher teacher) {
+	public String  changeTeacher(Teacher teacher) {
 
-		teacherDao.updateTeacher(teacher);
+		teacherDao.changeTeacher(teacher);
+		return "success";
 	}
 
 	@Override

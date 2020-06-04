@@ -28,13 +28,13 @@ public interface TeacherService {
 	 * 删除
 	 * @param tnum
 	 */
-	public void deleteTeacher(String tnum);
+	public String deleteTeacher(String id);
 	
 	/**
 	 * 修改
 	 * @param teacher
 	 */
-	public void updateTeacher(Teacher teacher);
+	public String changeTeacher(Teacher teacher);
 	
 
 	public Teacher findTeacherByTnum(String tnum);
