@@ -80,9 +80,14 @@ public interface StudentDao {
 	@Select("select sname,snum,school,college,major,classes from student where snum=#{snum}")
 	public Student findBySnumForwx(String snum);
 	
+	//根据学号查询学校名
+	@Select("select school from student where snum=#{snum}")
+	public String findSchoolBySnumForwx(String snum);
+	
 	//查询学生总数
 	@SelectProvider(type = StudentProvider.class,method = "countStudents")
 	public Integer coutStudent(String school,String college);
+	
 	//查询专业的人数
 	@Select("select count(*) from student where school=#{school} and major=#{major}")
 	public Integer countMajorStudent(String school,String major);
