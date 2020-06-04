@@ -31,15 +31,18 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public void deleteStudent(String snum) {
-		studentDao.deleteStudent(snum);
+	public String deleteStudent(String id) {
 		
+		studentDao.deleteStudent(id);		
+		return "success";
 	}
 
 	@Override
-	public void updateStudent(Student student) {
-		studentDao.updateStudent(student);
+	public String changeStudentInfo(Student student) {
 		
+		studentDao.changeStudentInfo(student);
+		
+		return "success";
 	}
 
 	@Override

@@ -17,10 +17,10 @@ public interface StudentService {
 	public void addStudent(Student student);
 	
 	//删除学生
-	public void deleteStudent(String snum);
+	public String deleteStudent(String id);
 	
 	//修改学生的信息
-	public void updateStudent(Student student);
+	public String changeStudentInfo(Student student);
 	
 
 	//根据学院名称查找学生

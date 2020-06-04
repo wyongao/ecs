@@ -37,13 +37,13 @@ public interface StudentDao {
 	 * 删除学生
 	 * @param snum
 	 */
-	@Delete("delete from student where snum=#{snum}")
-	public void deleteStudent(String snum);
+	@Delete("delete from student where id=#{id}")
+	public void deleteStudent(String id);
 	/**
 	 * 更改学生信息
 	 */
-	@Update("update student set sname=#{sname},snum=#{snum},school=#{school},college=#{college},major=#{major},classes=#{classes},sex=#{sex},tel=#{tel}")
-	public void updateStudent(Student student);
+	@Update("update student set sname=#{sname},snum=#{snum},school=#{school},college=#{college},major=#{major},classes=#{classes},sex=#{sex},tel=#{tel} where id=#{id}")
+	public void changeStudentInfo(Student student);
 	
 	@Select("select * from student where college=#{collegename}")
 	public List<Student> findStudentByCollegeName(String collegename);

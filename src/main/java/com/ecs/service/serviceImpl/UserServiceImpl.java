@@ -105,7 +105,7 @@ public class UserServiceImpl implements UserService {
 		
 		String ip = ipUtil.getClientIp(request);
 		Date now = new Date();
-		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		//保存用户访问记录
 		accessDataService.addAccessData(teacher.getTname(), teacher.getTnum(),teacher.getSchool(),teacher.getCollege(), ip, f.format(now));
 		

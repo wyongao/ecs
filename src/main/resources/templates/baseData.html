@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon"> 
+<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
 <title>基础数据</title>
 <link rel="stylesheet" type="text/css" href="css/layui.css" />
 <link rel="stylesheet" type="text/css" href="css/base.css" />
@@ -15,13 +15,17 @@
 		<div class="hs">
 			<div class="header">
 				<ul class="layui-nav">
-					<li class="layui-nav-item">
-						<a href="javascript:;" id="userInfo" th:value="${teacher.tnum}" th:text="${teacher.tname}"></a>
+					<li class="layui-nav-item"><a href="javascript:;"
+						id="userInfo" th:value="${teacher.tnum}"
+						th:text="${teacher.tname}"></a>
 						<dl class="layui-nav-child" style="z-index: 1000;">
-								<dd><a href="javascript:;" id="changePassword">修改密码</a></dd>
-								<dd><a th:href="@{/login}">退出</a></dd>
-						</dl>	
-					</li>
+							<dd>
+								<a href="javascript:;" id="changePassword">修改密码</a>
+							</dd>
+							<dd>
+								<a th:href="@{/login}">退出</a>
+							</dd>
+						</dl></li>
 				</ul>
 			</div>
 			<div class="side">
@@ -37,7 +41,8 @@
 								<a th:href="@{/goDailyTeacherData(tnum=${teacher.tnum})}">老师打卡数据</a>
 							</dd>
 							<dd>
-								<a th:href="@{/goBaseData(tnum=${teacher.tnum})}" class="layui-this">基础数据</a>
+								<a th:href="@{/goBaseData(tnum=${teacher.tnum})}"
+									class="layui-this">基础数据</a>
 							</dd>
 						</dl></li>
 					<li class="layui-nav-item"><a href="javascript:;">申请管理</a>
@@ -49,17 +54,24 @@
 								<a th:href="@{/goIn(tnum=${teacher.tnum})}">入校申请</a>
 							</dd>
 						</dl></li>
-					<li class="layui-nav-item"><a th:href="@{/goTrack(tnum=${teacher.tnum})}">轨迹查询</a></li>
-					<li class="layui-nav-item"><a th:href="@{/goEcharts(tnum=${teacher.tnum})}">数据报表</a></li>
-					<li class="layui-nav-item" id="accessData"><a th:href="@{/goAccessData(tnum=${teacher.tnum})}">访问记录</a></li>
-					<li class="layui-nav-item" id="dataImport"><a th:href="@{/goDataImport(tnum=${teacher.tnum})}">数据导入</a></li>
-				    <li class="layui-nav-item" id="userManage">
-							<a href="javascript:;">用户管理</a>
-							<dl class="layui-nav-child">
-								<dd><a th:href="@{/goUserData(tnum=${teacher.tnum})}">用户数据</a></dd>
-								<dd><a th:href="@{/goAddUser(tnum=${teacher.tnum})}">添加用户</a></dd>
-							</dl>
-					</li>
+					<li class="layui-nav-item"><a
+						th:href="@{/goTrack(tnum=${teacher.tnum})}">轨迹查询</a></li>
+					<li class="layui-nav-item"><a
+						th:href="@{/goEcharts(tnum=${teacher.tnum})}">数据报表</a></li>
+					<li class="layui-nav-item" id="accessData"><a
+						th:href="@{/goAccessData(tnum=${teacher.tnum})}">访问记录</a></li>
+					<li class="layui-nav-item" id="dataImport"><a
+						th:href="@{/goDataImport(tnum=${teacher.tnum})}">数据导入</a></li>
+					<li class="layui-nav-item" id="userManage"><a
+						href="javascript:;">用户管理</a>
+						<dl class="layui-nav-child">
+							<dd>
+								<a th:href="@{/goUserData(tnum=${teacher.tnum})}">用户数据</a>
+							</dd>
+							<dd>
+								<a th:href="@{/goAddUser(tnum=${teacher.tnum})}">添加用户</a>
+							</dd>
+						</dl></li>
 					<!-- <li class="layui-nav-item"><a href="javascript:;">设置</a></li> -->
 				</ul>
 			</div>
@@ -86,27 +98,29 @@
 						lay-filter="classes" lay-verify="" lay-search>
 					</select>
 				</div>
-				<div  class="layui-form-item">
-					<button type="button" class="layui-btn layui-btn-normal" id="template">
+				<div class="layui-form-item">
+					<button type="button" class="layui-btn layui-btn-normal"
+						id="template">
 						<i class="layui-icon layui-icon-export"></i>数据模板
 					</button>
 				</div>
-				<div  class="layui-form-item">
+				<div class="layui-form-item">
 					<button type="button" class="layui-btn" id="uploadExcel">
 						<i class="layui-icon">&#xe67c;</i>上传数据
 					</button>
 				</div>
 				<div class="layui-form-item">
 					<input type="search" class="layui-input layui-input-inline"
-					 id="information"	placeholder="请输入学号或姓名">
-					<button type="button" class="layui-btn layui-btn-primary" id="search">搜索</button>
+						id="information" placeholder="请输入学号或姓名">
+					<button type="button" class="layui-btn layui-btn-primary"
+						id="search">搜索</button>
 				</div>
 			</div>
 			<div class="layui-table-box">
-				<table class="layui-table" id="dataTable">
+				<table class="layui-table" id="dataTable" lay-filter="dataTable">
 
 				</table>
-			
+
 			</div>
 
 		</div>
@@ -137,6 +151,20 @@
 			</div>
 		</form>	
 	</script>
+	<script type="text/html" id="barDemo">
+  			<a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
+  			<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</a>
+	</script>
+	<script type="text/html" id="changeInfoPage"> 
+		<form class="layui-form">
+			<table class="layui-table" id="changeInfoTable" lay-filter="changeInfoTable">
+			</table>
+		</form>	
+	</script>
+	<script type="text/html" id="changeInfoBarDemo">
+  			<a class="layui-btn layui-btn-xs" lay-event="confirmEdit">确认修改</a>
+	</script>
+
 	<script type="text/javascript" th:inline="javascript">
 		layui.use(['table', 'layer','upload'], function(){
 			var table = layui.table;
@@ -149,6 +177,7 @@
 			//上传
 			var upload = layui.upload;
 			var content = $("#changePage").html();
+			var content2 = $("#changeInfoPage").html();
 		  	var school = [[${teacher.school}]];
 		  	var college= [[${teacher.college}]];
 		  	//渲染2.0
@@ -186,7 +215,7 @@
 				    ,cols: [
 				    	[ 
 						  {field: 'id', title: '序号', width: 60,type: 'numbers'}
-						,{field: 'sname', title: '姓名', width: 140}
+						,{field: 'sname', title: '姓名', width: 100}
 						,{field: 'snum', title: '学号', width: 160}						
 						,{field: 'school', title: '学校', width:170}
 						,{field: 'college', title: '学院', width: 160}
@@ -194,6 +223,7 @@
 						,{field: 'classes', title: '班级', width: 80}
 						,{field: 'sex', title: '性别', width: 60}
 						,{field: 'tel', title: '电话', minWidth: 140}
+						,{fixed: 'right', width: 140, align:'center', toolbar: '#barDemo'}
 						]
 				    	]
 				    ,groups : 5
@@ -250,7 +280,7 @@
 				    ,cols: [
 				    	[ 
 						  {field: 'id', title: '序号', width: 60,type:'numbers'}
-						,{field: 'sname', title: '姓名', width: 140}
+						,{field: 'sname', title: '姓名', width: 100}
 						,{field: 'snum', title: '学号', width: 160}						
 						,{field: 'school', title: '学校', width:170}
 						,{field: 'college', title: '学院', width: 160}
@@ -258,6 +288,7 @@
 						,{field: 'classes', title: '班级', width: 80}
 						,{field: 'sex', title: '性别', width: 60}
 						,{field: 'tel', title: '电话', minWidth: 140}
+						,{fixed: 'right', width: 140, align:'center', toolbar: '#barDemo'}
 						]
 				    	]
 				    ,groups : 5
@@ -361,7 +392,7 @@
 							    ,cols: [
 							    	[ 
 									  {field: 'id', title: '序号', width: 60,type:'numbers'}
-									,{field: 'sname', title: '姓名', width: 140}
+									,{field: 'sname', title: '姓名', width: 100}
 									,{field: 'snum', title: '学号', width: 160}						
 									,{field: 'school', title: '学校', width:170}
 									,{field: 'college', title: '学院', width: 160}
@@ -369,6 +400,7 @@
 									,{field: 'classes', title: '班级', width: 80}
 									,{field: 'sex', title: '性别', width: 60}
 									,{field: 'tel', title: '电话', minWidth: 140}
+									,{fixed: 'right', width: 140, align:'center', toolbar: '#barDemo'}
 									]
 							    	]
 							    ,groups : 5
@@ -409,7 +441,7 @@
 							    ,cols: [
 							    	[ 
 									  {field: 'id', title: '序号', width: 60,type:'numbers'}
-									,{field: 'sname', title: '姓名', width: 140}
+									,{field: 'sname', title: '姓名', width: 100}
 									,{field: 'snum', title: '学号', width: 160}						
 									,{field: 'school', title: '学校', width:170}
 									,{field: 'college', title: '学院', width: 160}
@@ -417,6 +449,7 @@
 									,{field: 'classes', title: '班级', width: 80}
 									,{field: 'sex', title: '性别', width: 60}
 									,{field: 'tel', title: '电话', minWidth: 140}
+									,{fixed: 'right', width: 140, align:'center', toolbar: '#barDemo'}
 									]
 							    	]
 							    ,groups : 5
@@ -447,7 +480,7 @@
 						    ,cols: [
 						    	[ 
 								  {field: 'zizeng', title: '序号', width: 60,type:'numbers'}
-								,{field: 'sname', title: '姓名', width: 140}
+								,{field: 'sname', title: '姓名', width: 100}
 								,{field: 'snum', title: '学号', width: 160}						
 								,{field: 'school', title: '学校', width:170}
 								,{field: 'college', title: '学院', width: 160}
@@ -455,6 +488,7 @@
 								,{field: 'classes', title: '班级', width: 80}
 								,{field: 'sex', title: '性别', width: 60}
 								,{field: 'tel', title: '电话', minWidth: 140}
+								,{fixed: 'right', width: 140, align:'center', toolbar: '#barDemo'}
 								]
 						    	]
 						    ,groups : 5
@@ -492,7 +526,7 @@
 						    ,cols: [
 						    	[ 
 								  {field: 'id', title: '序号', width: 60,type:'numbers'}
-								,{field: 'sname', title: '姓名', width: 140}
+								,{field: 'sname', title: '姓名', width: 100}
 								,{field: 'snum', title: '学号', width: 160}						
 								,{field: 'school', title: '学校', width:170}
 								,{field: 'college', title: '学院', width: 160}
@@ -500,6 +534,7 @@
 								,{field: 'classes', title: '班级', width: 80}
 								,{field: 'sex', title: '性别', width: 60}
 								,{field: 'tel', title: '电话', minWidth: 140}
+								,{fixed: 'right', width: 140, align:'center', toolbar: '#barDemo'}
 								]
 						    	]
 						    ,groups : 5
@@ -529,7 +564,7 @@
 						    ,cols: [
 						    	[ 
 								  {field: 'id', title: '序号', width: 60,type:'numbers'}
-								,{field: 'sname', title: '姓名', width: 140}
+								,{field: 'sname', title: '姓名', width: 100}
 								,{field: 'snum', title: '学号', width: 160}						
 								,{field: 'school', title: '学校', width:170}
 								,{field: 'college', title: '学院', width: 160}
@@ -537,6 +572,7 @@
 								,{field: 'classes', title: '班级', width: 80}
 								,{field: 'sex', title: '性别', width: 60}
 								,{field: 'tel', title: '电话', minWidth: 140}
+								,{fixed: 'right', width: 140, align:'center', toolbar: '#barDemo'}
 								]
 						    	]
 						    ,groups : 5
@@ -556,7 +592,7 @@
 						    ,cols: [
 						    	[ 
 								  {field: 'id', title: '序号', width: 60,type:'numbers'}
-								,{field: 'sname', title: '姓名', width: 140}
+								,{field: 'sname', title: '姓名', width: 100}
 								,{field: 'snum', title: '学号', width: 160}						
 								,{field: 'school', title: '学校', width:170}
 								,{field: 'college', title: '学院', width: 160}
@@ -564,6 +600,7 @@
 								,{field: 'classes', title: '班级', width: 80}
 								,{field: 'sex', title: '性别', width: 60}
 								,{field: 'tel', title: '电话', minWidth: 140}
+								,{fixed: 'right', width: 140, align:'center', toolbar: '#barDemo'}
 								]
 						    	]
 						    ,groups : 5
@@ -596,7 +633,7 @@
 						    ,cols: [
 						    	[ 
 								  {field: 'id', title: '序号', width: 60,type:'numbers'}
-								,{field: 'sname', title: '姓名', width: 140}
+								,{field: 'sname', title: '姓名', width: 100}
 								,{field: 'snum', title: '学号', width: 160}						
 								,{field: 'school', title: '学校', width:170}
 								,{field: 'college', title: '学院', width: 160}
@@ -604,6 +641,7 @@
 								,{field: 'classes', title: '班级', width: 80}
 								,{field: 'sex', title: '性别', width: 60}
 								,{field: 'tel', title: '电话', minWidth: 140}
+								,{fixed: 'right', width: 140, align:'center', toolbar: '#barDemo'}
 								]
 						    	]
 						    ,groups : 5
@@ -625,7 +663,7 @@
 							    ,cols: [
 							    	[ 
 									  {field: 'id', title: '序号', width: 60,type:'numbers'}
-									,{field: 'sname', title: '姓名', width: 140}
+									,{field: 'sname', title: '姓名', width: 100}
 									,{field: 'snum', title: '学号', width: 160}						
 									,{field: 'school', title: '学校', width:170}
 									,{field: 'college', title: '学院', width: 160}
@@ -633,6 +671,7 @@
 									,{field: 'classes', title: '班级', width: 80}
 									,{field: 'sex', title: '性别', width: 60}
 									,{field: 'tel', title: '电话', minWidth: 140}
+									,{fixed: 'right', width: 140, align:'center', toolbar: '#barDemo'}
 									]
 							    	]
 							    ,groups : 5
@@ -662,7 +701,7 @@
 						    ,cols: [
 						    	[ 
 								  {field: 'id', title: '序号', width: 60,type:'numbers'}
-								,{field: 'sname', title: '姓名', width: 140}
+								,{field: 'sname', title: '姓名', width: 100}
 								,{field: 'snum', title: '学号', width: 160}						
 								,{field: 'school', title: '学校', width:170}
 								,{field: 'college', title: '学院', width: 160}
@@ -670,6 +709,7 @@
 								,{field: 'classes', title: '班级', width: 80}
 								,{field: 'sex', title: '性别', width: 60}
 								,{field: 'tel', title: '电话', minWidth: 140}
+								,{fixed: 'right', width: 140, align:'center', toolbar: '#barDemo'}
 								]
 						    	]
 						    ,groups : 5
@@ -691,7 +731,7 @@
 							    ,cols: [
 							    	[ 
 									  {field: 'id', title: '序号', width: 60,type:'numbers'}
-									,{field: 'sname', title: '姓名', width: 140}
+									,{field: 'sname', title: '姓名', width: 100}
 									,{field: 'snum', title: '学号', width: 160}						
 									,{field: 'school', title: '学校', width:170}
 									,{field: 'college', title: '学院', width: 160}
@@ -699,6 +739,7 @@
 									,{field: 'classes', title: '班级', width: 80}
 									,{field: 'sex', title: '性别', width: 60}
 									,{field: 'tel', title: '电话', minWidth: 140}
+									,{fixed: 'right', width: 140, align:'center', toolbar: '#barDemo'}
 									]
 							    	]
 							    ,groups : 5
@@ -712,9 +753,117 @@
 				}
 				 
 			 });
+		
+			  
+			  
+			//操作实现
+				table.on('tool(dataTable)', function(obj){									
+					var data = obj.data;
+					var event = obj.event;
+					
+					if(event == "edit"){						
+						  //修改信息弹窗
+						  layer.open({
+							 type: 1,
+							 area: ['1200px', '160px'],
+							 offset: '200px',
+							 title: "修改信息",
+							 content: content2,	
+							 success: function(layero, index){								 
+							 	 table.render({
+									    elem: '#changeInfoTable'
+									    ,cols: [
+									    	[ 
+											  {field: 'id', title: 'ID', width: 60}
+											,{field: 'sname', title: '姓名', width: 100, edit: 'text'}
+											,{field: 'snum', title: '学号', width: 160, edit: 'text'}						
+											,{field: 'school', title: '学校', width:170, edit: 'text'}
+											,{field: 'college', title: '学院', width: 160, edit: 'text'}
+											,{field: 'major', title: '专业', Width: 140, edit: 'text'}
+											,{field: 'classes', title: '班级', width: 80, edit: 'text'}
+											,{field: 'sex', title: '性别', width: 60, edit: 'text'}
+											,{field: 'tel', title: '电话', Width: 140, edit: 'text'}
+											,{fixed: 'right', width: 100, align:'center', toolbar: '#changeInfoBarDemo'}
+											]
+									    	]
+							 	 		,data: [{
+							 	      		"id": data.id
+							 	     		,"sname": data.sname
+							 	      		,"snum": data.snum
+							 	      		,"school": data.school
+							 	      		,"college": data.college
+							 	      		,"major": data.major
+							 	      		,"classes": data.classes
+							 	      		,"sex": data.sex
+							 	      		,"tel": data.tel
+							 	    		}]
+									  });    
+							 }
+						  });
+						
+					}
+					if(event == "delete"){					
+						layer.confirm('确认删除？', function(index){
+							$.ajax({
+								type: "post",
+						 		url: [[@{/deleteStudent}]],
+						 		data: {
+						 			id: data.id
+						 		},
+						 		success: function(msg) {
+						 			if(msg=='success'){
+						 				layer.msg("删除成功！");
+						 				setTimeout(function(){ 
+						 					window.location.href=[[@{/goBaseData}]]+"?tnum="+[[${teacher.tnum}]]; 
+						 				},1000);
+						 			}else{
+						 				layer.msg("删除失败！");
+						 			}
+								}
+							});
+						    });
+					}
+							
+				}); 
+			
+				//执行修改
+				table.on('tool(changeInfoTable)', function(obj){	
+					var data = obj.data;
+					//console.log(obj.event); 
+					
+					$.ajax({
+						type: "post",
+				 		url: [[@{/changeStudentInfo}]],
+				 		data: {
+				 			id: data.id
+			 	     		,sname: data.sname
+			 	      		,snum: data.snum
+			 	      		,school: data.school
+			 	      		,college: data.college
+			 	      		,major: data.major
+			 	      		,classes: data.classes
+			 	      		,sex: data.sex
+			 	      		,tel: data.tel
+				 		},
+				 		success: function(msg) {
+				 			if(msg=='success'){
+				 				layer.msg("修改成功！");
+				 				setTimeout(function(){ 
+				 					window.location.href=[[@{/goBaseData}]]+"?tnum="+[[${teacher.tnum}]]; 
+				 				},1000);
+				 			}else{
+				 				layer.msg("修改失败！");
+				 			}
+						}
+					});
+					
+				});
+			
+			
+			
 			
 		});
 		</script>
-	
+
 </body>
 </html>

@@ -62,17 +62,16 @@ public class StudentController {
 	/**
 	 * 删除学生
 	 * 
-	 * @param snum
+	 * @param id
 	 * @return
 	 */
-	@RequestMapping("/deleteStudentBySnum")
+	@RequestMapping("/deleteStudent")
 	@ResponseBody
-	public String deleteStudent(String snum) {
+	public String deleteStudent(String id) {
 
-		snum = "201710913105";
-		studentService.deleteStudent(snum);
-		System.out.println("删除成功---------------------------->>>>");
-		return "删除成功";
+		String msg = studentService.deleteStudent(id);
+		
+		return msg;
 	}
 
 	/**
@@ -81,19 +80,13 @@ public class StudentController {
 	 * @param student
 	 * @return
 	 */
-	@RequestMapping("/updateStudent")
+	@RequestMapping("/changeStudentInfo")
 	@ResponseBody
-	public String updateStudent(Student student) {
-		student.setClasses("1741");
-		student.setCollege("理学院");
-		student.setMajor("计算机科学与技术");
-		student.setSchool("河南工程学院");
-		student.setSex("男");
-		student.setSname("许路洋");
-		student.setSnum("201710913106");
-		student.setTel("15238850050");
-		System.out.println("修改成功----------------->>>");
-		return "修改成功";
+	public String changeStudentInfo(Student student) {
+		
+		String msg = studentService.changeStudentInfo(student);
+		
+		return msg;
 	}
 
 	/**
