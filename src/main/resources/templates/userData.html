@@ -188,7 +188,7 @@
 					    ,even: true
 					    ,cols: [
 					    	[ 
-							  {field: 'id', title: '序号', width: 60}
+							  {field: 'id', title: '序号', width: 60,type:'numbers'}
 							,{field: 'tname', title: '姓名', width: 140}
 							,{field: 'tnum', title: '工号', minWidth: 160}						
 							,{field: 'school', title: '学校', minWidth:170}
@@ -240,6 +240,9 @@
 			      };
 			      if(res.res == 1){
 			    	  layer.msg('文件为空', {icon: 2,anim: 6});  
+			      };
+			      if(res.res == 2){
+			    	  layer.msg('文件中有不合法的空值,请修改后重新上传', {icon: 2,anim: 6});  
 			      };
 			    }
 			    ,error: function(){
@@ -298,7 +301,7 @@
 								    ,even: true
 								    ,cols: [
 								    	[ 
-										  {field: 'id', title: '序号', width: 60}
+										  {field: 'id', title: '序号', width: 60,type:'numbers'}
 										,{field: 'tname', title: '姓名', width: 140}
 										,{field: 'tnum', title: '工号', minWidth: 160}						
 										,{field: 'school', title: '学校', minWidth:170}
@@ -323,7 +326,7 @@
 								    ,even: true
 								    ,cols: [
 								    	[ 
-										  {field: 'id', title: '序号', width: 60}
+										  {field: 'id', title: '序号', width: 60,type:'numbers'}
 										,{field: 'tname', title: '姓名', width: 140}
 										,{field: 'tnum', title: '工号', minWidth: 160}						
 										,{field: 'school', title: '学校', minWidth:170}
@@ -361,7 +364,7 @@
 								    ,even: true
 								    ,cols: [
 								    	   [ 
-											  {field: 'id', title: '序号', width: 60}
+											  {field: 'id', title: '序号', width: 60,type:'numbers'}
 											,{field: 'tname', title: '姓名', width: 140}
 											,{field: 'tnum', title: '工号', minWidth: 160}						
 											,{field: 'school', title: '学校', minWidth:170}
@@ -388,7 +391,7 @@
 									    ,even: true
 									    ,cols: [
 									    	   [ 
-												  {field: 'id', title: '序号', width: 60}
+												  {field: 'id', title: '序号', width: 60,type:'numbers'}
 												,{field: 'tname', title: '姓名', width: 140}
 												,{field: 'tnum', title: '工号', minWidth: 160}						
 												,{field: 'school', title: '学校', minWidth:170}
@@ -423,7 +426,7 @@
 								    ,even: true
 								    ,cols: [
 								    	[ 
-										  {field: 'id', title: '序号', width: 60}
+										  {field: 'id', title: '序号', width: 60,type:'numbers'}
 										,{field: 'sname', title: '姓名', width: 140}
 										,{field: 'snum', title: '学号', width: 160}						
 										,{field: 'school', title: '学校', width:170}
@@ -452,7 +455,7 @@
 									    ,even: true
 									    ,cols: [
 									    	[ 
-											  {field: 'id', title: '序号', width: 60}
+											  {field: 'id', title: '序号', width: 60,type:'numbers'}
 											,{field: 'sname', title: '姓名', width: 140}
 											,{field: 'snum', title: '学号', width: 160}						
 											,{field: 'school', title: '学校', width:170}

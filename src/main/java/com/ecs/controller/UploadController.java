@@ -58,13 +58,26 @@ public class UploadController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		if (file.isEmpty()) {
 			map.put("res", "1");
-			// System.out.println(JsonUtils.objectToJson(map));
 			return JsonUtils.objectToJson(map);
 		} else {
 			List<Student> studentslist = uploadService.studentUpload(file);
-			// System.out.println("集合的长度"+studentslist.size());
+			 System.out.println("集合的长度"+studentslist.size());
+			if (studentslist.isEmpty()) {
+				map.put("res", "2");
+				return JsonUtils.objectToJson(map);
+			}
+			 if (studentslist.size()==0) {
+				map.put("res", "1");
+				return JsonUtils.objectToJson(map);
+			}
+			 
 			for (Student student : studentslist) {
-				studentService.addStudent(student);
+				if ((studentService.findStudentBySnum(student.getSnum()))!=null) {
+					//说明已经有该学生的信息了
+				}else {
+					studentService.addStudent(student);	
+				}
+				
 			}
 			map.put("res", "0");
 			// System.out.println(JsonUtils.objectToJson(map));
@@ -87,10 +100,22 @@ public class UploadController {
 			return JsonUtils.objectToJson(map);
 		}else {
 			List<Teacher> teacherslist =uploadService.teacherUpload(file) ;
-			 System.out.println("集合的长度"+teacherslist.size());
+			if (teacherslist.isEmpty()) {
+				map.put("res", "2");
+				return JsonUtils.objectToJson(map);
+			}
+			if (teacherslist.size()==0) {
+				map.put("res","1");
+				return JsonUtils.objectToJson(map);
+			}
+			 
 			for(Teacher teacher :teacherslist ) {
-				System.out.println("---->>>>>>>"+teacher);
-				teacherService.addTeacher(teacher);
+				if ((teacherService.findTeacherByTnum(teacher.getTnum()))!=null) {	
+					
+				}else {
+					teacherService.addTeacher(teacher);
+				}
+				
 			}
 			map.put("res","0");
 			System.out.println(JsonUtils.objectToJson(map));
@@ -112,8 +137,8 @@ public class UploadController {
 			map.put("res","1");
 			return JsonUtils.objectToJson(map);
 		}else {
-			uploadService.schoolUpload(file);
-			map.put("res", "0");
+			map=uploadService.schoolUpload(file);
+			System.out.println(map.toString());
 			return JsonUtils.objectToJson(map);
 		}
 
