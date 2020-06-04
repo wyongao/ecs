@@ -320,6 +320,9 @@
 			      if(res.res == 1){
 			    	  layer.msg('文件为空', {icon: 2,anim: 6});  
 			      };
+			      if(res.res == 2){
+			    	  layer.msg('文件中不合法空值,请修改后重新上传!', {icon: 2,anim: 6});  
+			      };
 			    }
 			    ,error: function(){
 			      //请求异常回调

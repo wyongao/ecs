@@ -163,13 +163,26 @@
 			    ,method: 'post'
 			    ,accept: 'file'
 			    ,exts: 'xls|xlsx'
-			    ,done: function(res){	
+			    ,done: function(res){
+			    	console.log(res.res);
 			      //上传完毕回调
 			      if(res.res == 0){
 			    	  layer.msg('上传成功',{icon: 1});
 			      };
 			      if(res.res == 1){
-			    	  layer.msg('文件为空', {icon: 2,anim: 6});  
+			    	  layer.msg('两张表都为空', {icon: 2,anim: 6});  
+			      };
+			      if(res.res == 2){
+			    	  layer.msg('学校建筑物信息表为空', {icon: 2,anim: 6});  
+			      };
+			      if(res.res == 3){
+			    	  layer.msg('学校教学单位信息表为空', {icon: 2,anim: 6});  
+			      };
+			      if(res.res==4){
+			    	  layer.msg('学校教学单位信息表中有不合法的空值,请修改后上传', {icon: 2,anim: 6});
+			      };
+			      if(res.res==5){
+			    	  layer.msg('学校建筑物信息表中有不合法的空值,请修改后上传', {icon: 2,anim: 6});
 			      };
 			    }
 			    ,error: function(){
