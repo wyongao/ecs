@@ -87,8 +87,6 @@
 				<div class="layui-form-item">
 					<select class="layui-select" name="college" id="college"
 						lay-filter="college" lay-verify="" lay-search>
-						<!-- 	<option th:each="college : ${college}" th:value="${college.id}"
-							th:text="${college.collegename}" /> -->
 					</select>
 				</div>
 				<div class="layui-form-item">
@@ -180,7 +178,7 @@
 				 		success: function(data) {
 				 			
 				 			  //$("#major").empty();
-				 			  $(" #college").prepend("<option value='0'>请选择学院</option>");
+				 			  $(" #college").prepend("<option value='0'>所有学院</option>");
 				 			  //$("#classes").empty();
 				 			  for (var i = 0; i < data.data.length; i++) {
 								//如果在select中传递其他参数，可以在option 的value属性中添加参数
@@ -209,6 +207,13 @@
 							,{field: 'tnum', title: '工号', minWidth: 160}						
 							,{field: 'school', title: '学校', minWidth:170}
 							,{field: 'college', title: '学院', minWidth: 160}
+							,{field: 'identify', title: '身份', width: 100, templet: function(data){
+								if(data.identify == '1'){
+									return "管理员";
+								}else if(data.identify == '0'){
+									return "超级管理员";
+								}
+							}}
 							,{field: 'sex', title: '性别', width: 60}
 							,{field: 'tel', title: '电话', minWidth: 140}
 							,{fixed: 'right', width: 140, align:'center', toolbar: '#barDemo'}
@@ -324,6 +329,13 @@
 										,{field: 'school', title: '学校', minWidth:170}
 										,{field: 'college', title: '学院', minWidth: 160}
 										,{field: 'sex', title: '性别', width: 60}
+										,{field: 'identify', title: '身份', width: 100, templet: function(data){
+											if(data.identify == '1'){
+												return "管理员";
+											}else if(data.identify == '0'){
+												return "超级管理员";
+											}
+										}}
 										,{field: 'tel', title: '电话', minWidth: 140}
 										,{fixed: 'right', width: 140, align:'center', toolbar: '#barDemo'}
 										]
@@ -349,6 +361,13 @@
 										,{field: 'tnum', title: '工号', minWidth: 160}						
 										,{field: 'school', title: '学校', minWidth:170}
 										,{field: 'college', title: '学院', minWidth: 160}
+										,{field: 'identify', title: '身份', width: 100, templet: function(data){
+											if(data.identify == '1'){
+												return "管理员";
+											}else if(data.identify == '0'){
+												return "超级管理员";
+											}
+										}}
 										,{field: 'sex', title: '性别', width: 60}
 										,{field: 'tel', title: '电话', minWidth: 140}
 										,{fixed: 'right', width: 140, align:'center', toolbar: '#barDemo'}
@@ -388,6 +407,13 @@
 											,{field: 'tnum', title: '工号', minWidth: 160}						
 											,{field: 'school', title: '学校', minWidth:170}
 											,{field: 'college', title: '学院', minWidth: 160}
+											,{field: 'identify', title: '身份', width: 100, templet: function(data){
+												if(data.identify == '1'){
+													return "管理员";
+												}else if(data.identify == '0'){
+													return "超级管理员";
+												}
+											}}
 											,{field: 'sex', title: '性别', width: 60}
 											,{field: 'tel', title: '电话', minWidth: 140}
 											,{fixed: 'right', width: 140, align:'center', toolbar: '#barDemo'}
@@ -416,6 +442,13 @@
 												,{field: 'tnum', title: '工号', minWidth: 160}						
 												,{field: 'school', title: '学校', minWidth:170}
 												,{field: 'college', title: '学院', minWidth: 160}
+												,{field: 'identify', title: '身份', width: 100, templet: function(data){
+													if(data.identify == '1'){
+														return "管理员";
+													}else if(data.identify == '0'){
+														return "超级管理员";
+													}
+												}}
 												,{field: 'sex', title: '性别', width: 60}
 												,{field: 'tel', title: '电话', minWidth: 140}
 												,{fixed: 'right', width: 140, align:'center', toolbar: '#barDemo'}
@@ -453,6 +486,13 @@
 										,{field: 'tnum', title: '工号', minWidth: 160}						
 										,{field: 'school', title: '学校', minWidth:170}
 										,{field: 'college', title: '学院', minWidth: 160}
+										,{field: 'identify', title: '身份', width: 100, templet: function(data){
+											if(data.identify == '1'){
+												return "管理员";
+											}else if(data.identify == '0'){
+												return "超级管理员";
+											}
+										}}
 										,{field: 'sex', title: '性别', width: 60}
 										,{field: 'tel', title: '电话', minWidth: 140}
 										,{fixed: 'right', width: 140, align:'center', toolbar: '#barDemo'}
@@ -481,6 +521,13 @@
 												,{field: 'tnum', title: '工号', minWidth: 160}						
 												,{field: 'school', title: '学校', minWidth:170}
 												,{field: 'college', title: '学院', minWidth: 160}
+												,{field: 'identify', title: '身份', width: 100, templet: function(data){
+													if(data.identify == '1'){
+														return "管理员";
+													}else if(data.identify == '0'){
+														return "超级管理员";
+													}
+												}}
 												,{field: 'sex', title: '性别', width: 60}
 												,{field: 'tel', title: '电话', minWidth: 140}
 												,{fixed: 'right', width: 140, align:'center', toolbar: '#barDemo'}
@@ -509,7 +556,7 @@
 									 type: 1,
 									 area: ['1200px', '160px'],
 									 offset: '200px',
-									 title: "修改信息",
+									 title: "修改信息（身份：0为超级管理员，1为管理员）",
 									 content: content2,	
 									 success: function(layero, index){								 
 									 	 table.render({
@@ -521,6 +568,7 @@
 													,{field: 'tnum', title: '工号', minWidth: 160,edit: 'text'}						
 													,{field: 'school', title: '学校', minWidth:170,edit: 'text'}
 													,{field: 'college', title: '学院', minWidth: 160,edit: 'text'}
+													,{field: 'identify', title: '身份', width: 100,edit: 'text'}
 													,{field: 'sex', title: '性别', width: 60,edit: 'text'}
 													,{field: 'tel', title: '电话', minWidth: 140,edit: 'text'}
 													,{fixed: 'right', width: 140, align:'center', toolbar: '#changeInfoBarDemo'}
@@ -532,6 +580,7 @@
 									 	      		,"tnum": data.tnum
 									 	      		,"school": data.school
 									 	      		,"college": data.college
+									 	      		,"identify": data.identify
 									 	      		,"sex": data.sex
 									 	      		,"tel": data.tel						
 									 	    		}]
@@ -576,7 +625,8 @@
 					 	     		,tname: data.tname
 					 	      		,tnum: data.tnum
 					 	      		,school: data.school
-					 	      		,college: data.college		
+					 	      		,college: data.college	
+					 	      		,identify: data.identify
 					 	      		,sex: data.sex
 					 	      		,tel: data.tel
 						 		},

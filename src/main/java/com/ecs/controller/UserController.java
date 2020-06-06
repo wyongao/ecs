@@ -149,7 +149,6 @@ public class UserController {
 			return "error/403";
 		}
 		
-		model.put("college", collegeService.findCollegeByName(t.getCollege()));
 		model.put("teacher", t);
 		return "accessData";
 	}
@@ -174,8 +173,6 @@ public class UserController {
 	public String goBaseData(String tnum, Map<String, Object> model) {
 		
 		Teacher t = teacherService.findByTnumForweb(tnum);
-		model.put("college", collegeService.findCollegeByName(t.getCollege()));
-		model.put("major", majorService.findMajorByParentName(t.getCollege()));
 		
 		model.put("teacher", t);
 		return "baseData";
@@ -186,9 +183,6 @@ public class UserController {
 	public String goDailyData(String tnum, Map<String, Object> model) {
 		
 		Teacher t = teacherService.findByTnumForweb(tnum);
-		
-        model.put("college", collegeService.findCollegeByName(t.getCollege()));
-        model.put("major", majorService.findMajorByParentName(t.getCollege()));
         
         model.put("teacher", t);
 		return "dailyData";
@@ -199,8 +193,6 @@ public class UserController {
 	public String goDailyTeacherData(String tnum, Map<String, Object> model) {
 		
 		Teacher t = teacherService.findByTnumForweb(tnum);
-			
-	    model.put("college", collegeService.findCollegeByName(t.getCollege()));
 	        
 	    model.put("teacher", t);
 	    return "dailyTeacherData";
@@ -222,7 +214,6 @@ public class UserController {
 			
 		Teacher t = teacherService.findByTnumForweb(tnum);
 		
-		
 		model.put("teacher", t);
 		return "dataImport";
 	}
@@ -233,9 +224,6 @@ public class UserController {
 		
 		Teacher t = teacherService.findByTnumForweb(tnum);
 		
-        model.put("college", collegeService.findCollegeByName(t.getCollege()));
-        model.put("major", majorService.findMajorByParentName(t.getCollege()));
-		
 		model.put("teacher", t);
 		return "in";
 	}
@@ -245,9 +233,6 @@ public class UserController {
 	public String goOut(String tnum, Map<String, Object> model) {
 
 		Teacher t = teacherService.findByTnumForweb(tnum);
-		
-        model.put("college", collegeService.findCollegeByName(t.getCollege()));
-        model.put("major", majorService.findMajorByParentName(t.getCollege()));
 		
 		model.put("teacher", t);
 		return "out";
@@ -263,8 +248,7 @@ public class UserController {
 			
 			return "error/403";
 		}
-		
-		model.put("college", collegeService.findCollegeByName(t.getCollege()));
+
 		model.put("teacher", t);
 		return "userData";
 	}
@@ -298,11 +282,8 @@ public class UserController {
 			model.put("desc", map.get("desc"));
 			return "login";
 		}
-		
-		
+			
 		Teacher teacher = teacherService.findByTnumForweb(t.getTnum());
-		model.put("college", collegeService.findCollegeByName(teacher.getCollege()));
-		model.put("major", majorService.findMajorByParentName(teacher.getCollege()));
 		
 		model.put("msg", map.get("msg"));
 		model.put("teacher", teacher);

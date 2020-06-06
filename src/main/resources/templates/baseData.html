@@ -81,16 +81,11 @@
 				<div class="layui-form-item">
 					<select class="layui-select" name="college" id="college"
 						lay-filter="college" lay-verify="" lay-search>
-						<!-- <option th:each="college : ${college}" th:value="${college.id}"
-							th:text="${college.collegename}" /> -->
 					</select>
 				</div>
 				<div class="layui-form-item">
 					<select class="layui-select" name="major" id="major"
 						lay-filter="major" lay-verify="" lay-search>
-						<!-- <option value="0" selected>所有专业</option>
-						<option th:each="major : ${major}" th:value="${major.id}"
-							th:text="${major.majorname}" /> -->
 					</select>
 				</div>
 				<div class="layui-form-item">
@@ -190,7 +185,7 @@
 				 		success: function(data) {
 				 			
 				 			  //$("#major").empty();
-				 			  $(" #college").prepend("<option value='0'>请选择学院</option>");
+				 			  $(" #college").prepend("<option value='0'>所有学院</option>");
 				 			  //$("#classes").empty();
 				 			  for (var i = 0; i < data.data.length; i++) {
 								//如果在select中传递其他参数，可以在option 的value属性中添加参数

@@ -123,6 +123,7 @@ public class TeacherController {
 		PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(limit));
 		List<Teacher> data=teacherService.fuzzyTeacher(school,college,name);
 		PageInfo<Teacher> pageInfo = new PageInfo<Teacher>(data);
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("code", "0");
 		map.put("msg", "");
