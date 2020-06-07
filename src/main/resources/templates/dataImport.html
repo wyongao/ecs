@@ -163,10 +163,14 @@
 			    ,method: 'post'
 			    ,accept: 'file'
 			    ,exts: 'xls|xlsx'
+			    ,progress: function(n, elem){
+				    layer.msg('正在导入', {icon: 16, shade: 0.3, time:0});
+				}
 			    ,done: function(res){
 			    	console.log(res.res);
 			      //上传完毕回调
 			      if(res.res == 0){
+			    	  layer.closeAll();
 			    	  layer.msg('上传成功',{icon: 1});
 			      };
 			      if(res.res == 1){

@@ -11,7 +11,6 @@
 
 	<div id="container">
 
-
 		<div class="hs">
 			<div class="header">
 				<ul class="layui-nav">
@@ -161,18 +160,19 @@
 	</script>
 
 	<script type="text/javascript" th:inline="javascript">
-		layui.use(['table', 'layer','upload'], function(){
+		layui.use(['table', 'layer','upload','element'], function(){
 			var table = layui.table;
 			var form = layui.form;
 			var $ = layui.jquery; 
-			var identify = [[${teacher.identify}]];
 			var layer = layui.layer;
 			//搜索用的
 			var element=layui.element;
 			//上传
 			var upload = layui.upload;
+		
 			var content = $("#changePage").html();
 			var content2 = $("#changeInfoPage").html();
+			var identify = [[${teacher.identify}]];
 		  	var school = [[${teacher.school}]];
 		  	var college= [[${teacher.college}]];
 		  	//渲染2.0
@@ -307,10 +307,17 @@
 			    ,method: 'post'
 			    ,accept: 'file'
 			    ,exts: 'xls|xlsx'
+			    ,progress: function(n, elem){
+			    	layer.msg('正在上传', {icon: 16, shade: 0.3, time:0});
+			      }
 			    ,done: function(res){	
 			      //上传完毕回调
 			      if(res.res == 0){
+			    	  layer.closeAll();
 			    	  layer.msg('上传成功',{icon: 1});
+			    	  setTimeout(function(){ 
+		 					window.location.href=[[@{/goBaseData}]]+"?tnum="+[[${teacher.tnum}]]; 
+		 				},1000);
 			      };
 			      if(res.res == 1){
 			    	  layer.msg('文件为空', {icon: 2,anim: 6});  
