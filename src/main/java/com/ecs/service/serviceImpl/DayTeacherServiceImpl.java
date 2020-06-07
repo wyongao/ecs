@@ -73,9 +73,9 @@ public class DayTeacherServiceImpl implements DayTeacherService {
 	}
 	
 	@Override
-	public List<DayTeacher> findByDateForwx(String date) {
+	public List<DayTeacher> findByDateForwx(String tnum, String date) {
 		
-		return dayTeacherDao.findByDateForwx(date);
+		return dayTeacherDao.findByDateForwx(tnum, date);
 	}
 	public Integer countDayTeachers(String school,String college, String date) {
 

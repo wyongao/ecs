@@ -43,7 +43,7 @@ public interface DayStudentService {
 	public List<DayStudent> findBySnumAndDateForwx(String snum);
 	
 	//根据时间查找
-	public List<DayStudent> findByDateForwx(String date);
+	public List<DayStudent> findByDateForwx(String snum, String date);
 	
 	//查找全校所有的当日打卡学生数量
 	public Integer countDayStudent(String school,String college,String date);

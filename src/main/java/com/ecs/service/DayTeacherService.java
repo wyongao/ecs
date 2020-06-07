@@ -38,7 +38,7 @@ public interface DayTeacherService {
 		public List<DayTeacher> findByTnumAndDateForwx(String tnum);
 		
 		//根据时间查找
-		public List<DayTeacher> findByDateForwx(String date);
+		public List<DayTeacher> findByDateForwx(String tnum, String date);
 		
 		//查询当日打卡的老师数量
 		public Integer countDayTeachers(String school,String college,String date);

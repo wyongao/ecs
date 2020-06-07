@@ -57,8 +57,8 @@ public interface DayTeacherDao {
 	public List<DayTeacher> findBySnumAndDateForwx(String tnum);
 	
 	//根据时间查找老师的打卡信息	
-	@Select("select * from day_teacher where date=#{date}")
-	public List<DayTeacher> findByDateForwx(String date);
+	@Select("select * from day_teacher where tnum=#{tnum} and date=#{date}")
+	public List<DayTeacher> findByDateForwx(String tnum, String date);
 
 	//查找所有当日打卡的老师
 	@SelectProvider(type = DayTeacherProvider.class,method = "countDayTeachers")

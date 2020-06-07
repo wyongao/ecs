@@ -113,7 +113,7 @@ public class WXServiceImpl implements WXService {
 		Date now = new Date();
 		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
 		
-		if(dayStudentService.findByDateForwx(f.format(now)).isEmpty()) {			
+		if(dayStudentService.findByDateForwx(snum, f.format(now)).isEmpty()) {			
 			
 			d.setSnum(snum);
 			d.setSname(s.getSname());
@@ -144,7 +144,7 @@ public class WXServiceImpl implements WXService {
 		Date now = new Date();
 		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
 		
-		if(dayTeacherService.findByDateForwx(f.format(now)).isEmpty()) {			
+		if(dayTeacherService.findByDateForwx(tnum, f.format(now)).isEmpty()) {			
 			
 			d.setTnum(tnum);
 			d.setTname(t.getTname());
