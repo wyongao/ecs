@@ -613,7 +613,25 @@ public class UploadServiceImpl implements UploadService {
 			cell = row.createCell((short) 8);
 			cell.setCellValue("联系方式");
 			cell.setCellStyle(cellStyle);
-
+			row=sheet.createRow(1);
+			row.createCell((short) 0).setCellValue(1);
+			row.createCell((short) 1).setCellValue("张三");
+			row.createCell((short) 2).setCellValue("20171091****");
+			row.createCell((short) 3).setCellValue("河南工程学校");
+			row.createCell((short) 4).setCellValue("计算机学院");
+			row.createCell((short) 5).setCellValue("计算机科学与技术");
+			row.createCell((short) 6).setCellValue("1941");
+			row.createCell((short) 7).setCellValue("男");
+			row.createCell((short) 8).setCellValue("13211111111");
+			sheet.setColumnWidth((short) 0, (short) (8 * 1 * 256));
+			sheet.setColumnWidth((short) 1, (short) (8 * 2 * 256));
+			sheet.setColumnWidth((short) 2, (short) (8 * 2 * 256));
+			sheet.setColumnWidth((short) 3, (short) (8 * 2 * 256));
+			sheet.setColumnWidth((short) 4, (short) (8 * 2 * 256));
+			sheet.setColumnWidth((short) 5, (short) (8 * 3 * 256));
+			sheet.setColumnWidth((short) 6, (short) (8 * 1 * 256));
+			sheet.setColumnWidth((short) 7, (short) (8 * 1 * 256));
+			sheet.setColumnWidth((short) 8, (short) (8 * 2 * 256));
 			FileOutputStream fOut = new FileOutputStream(path);
 			workbook.write(fOut);
 			workbook.close();
@@ -690,7 +708,22 @@ public class UploadServiceImpl implements UploadService {
 			cell = row.createCell((short) 6);
 			cell.setCellValue("联系方式");
 			cell.setCellStyle(cellStyle);
-
+			row=sheet.createRow(1);
+			row.createCell((short) 0).setCellValue(1);
+			row.createCell((short) 1).setCellValue("张三");
+			row.createCell((short) 2).setCellValue("20171091****");
+			row.createCell((short) 3).setCellValue("河南工程学校");
+			row.createCell((short) 4).setCellValue("计算机学院");
+			row.createCell((short) 5).setCellValue("男");
+			row.createCell((short) 6).setCellValue("152********");
+			sheet.setColumnWidth((short) 0, (short) (8 * 1 * 256));
+			sheet.setColumnWidth((short) 1, (short) (8 * 1 * 256));
+			sheet.setColumnWidth((short) 2, (short) (8 * 2 * 256));
+			sheet.setColumnWidth((short) 3, (short) (8 * 2 * 256));
+			sheet.setColumnWidth((short) 4, (short) (8 * 2 * 256));
+			sheet.setColumnWidth((short) 5, (short) (8 * 1 * 256));
+			sheet.setColumnWidth((short) 6, (short) (8 * 2 * 256));
+			
 			FileOutputStream fOut = new FileOutputStream(path);
 			workbook.write(fOut);
 			workbook.close();
@@ -760,7 +793,17 @@ public class UploadServiceImpl implements UploadService {
 			cell = row.createCell((short) 4);
 			cell.setCellValue("班级");
 			cell.setCellStyle(cellStyle);
-
+			row=sheet.createRow(1);
+			row.createCell((short) 0).setCellValue(1);
+			row.createCell((short) 1).setCellValue("河南工程学院");
+			row.createCell((short) 2).setCellValue("计算机学院");
+			row.createCell((short) 3).setCellValue("计算机科学与技术");
+			row.createCell((short) 4).setCellValue("1741");
+			sheet.setColumnWidth((short) 0, (short) (8 * 1 * 256));
+			sheet.setColumnWidth((short) 1, (short) (8 * 2 * 256));
+			sheet.setColumnWidth((short) 2, (short) (8 * 2 * 256));
+			sheet.setColumnWidth((short) 3, (short) (8 * 3 * 256));
+			sheet.setColumnWidth((short) 4, (short) (8 * 1 * 256));
 			cell1.setCellType(HSSFCell.CELL_TYPE_STRING);
 			cell1 = row1.createCell((short) 0);
 			cell1.setCellStyle(cellStyle);
@@ -778,7 +821,15 @@ public class UploadServiceImpl implements UploadService {
 			cell1 = row1.createCell((short) 3);
 			cell1.setCellValue("建筑物");
 			cell1.setCellStyle(cellStyle);
-
+			row1=sheet1.createRow(1);
+			row1.createCell((short) 0).setCellValue("1");
+			row1.createCell((short) 1).setCellValue("河南工程学院");
+			row1.createCell((short) 2).setCellValue("西校区");
+			row1.createCell((short) 3).setCellValue("操场");
+			sheet1.setColumnWidth((short) 0, (short) (8 * 1 * 256));
+			sheet1.setColumnWidth((short) 1, (short) (8 * 2 * 256));
+			sheet1.setColumnWidth((short) 2, (short) (8 * 2 * 256));
+			sheet1.setColumnWidth((short) 3, (short) (8 * 2 * 256));
 			FileOutputStream fOut = new FileOutputStream(path);
 			workbook.write(fOut);
 			workbook.close();
