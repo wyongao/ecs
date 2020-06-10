@@ -255,10 +255,17 @@
 			    ,method: 'post'
 			    ,accept: 'file'
 			    ,exts: 'xls|xlsx'
+			    ,progress: function(n, elem){
+			    	layer.msg('正在上传', {icon: 16, shade: 0.3, time:0});
+			    }
 			    ,done: function(res){	
 			      //上传完毕回调
 			      if(res.res == 0){
+			    	  layer.closeAll();
 			    	  layer.msg('上传成功',{icon: 1});
+			    	  setTimeout(function(){ 
+		 					window.location.href=[[@{/goUserData}]]+"?tnum="+[[${teacher.tnum}]]; 
+		 				},1000);
 			      };
 			      if(res.res == 1){
 			    	  layer.msg('文件为空', {icon: 2,anim: 6});  
