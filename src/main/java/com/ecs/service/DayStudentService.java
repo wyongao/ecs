@@ -45,6 +45,9 @@ public interface DayStudentService {
 	//根据时间查找
 	public List<DayStudent> findByDateForwx(String snum, String date);
 	
+	//修改打卡记录
+	public void updateDayStudentForwx(String snum,String date, String temp, String symptom, String addr);
+	
 	//查找全校所有的当日打卡学生数量
 	public Integer countDayStudent(String school,String college,String date);
 	

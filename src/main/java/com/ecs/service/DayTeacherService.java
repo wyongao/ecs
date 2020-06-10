@@ -40,6 +40,9 @@ public interface DayTeacherService {
 		//根据时间查找
 		public List<DayTeacher> findByDateForwx(String tnum, String date);
 		
+		//修改打卡记录
+		public void updateDayTeacherForwx(String tnum,String date, String temp, String symptom, String addr);
+		
 		//查询当日打卡的老师数量
 		public Integer countDayTeachers(String school,String college,String date);
 		//

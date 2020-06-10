@@ -77,6 +77,13 @@ public class DayTeacherServiceImpl implements DayTeacherService {
 		
 		return dayTeacherDao.findByDateForwx(tnum, date);
 	}
+	
+	@Override
+	public void updateDayTeacherForwx(String tnum, String date, String temp, String symptom, String addr) {
+		
+		dayTeacherDao.updateDayTeacherForwx(tnum, date, temp, symptom, addr);
+	}
+	
 	public Integer countDayTeachers(String school,String college, String date) {
 
 		return dayTeacherDao.countDayTeachers(school,college, date);
@@ -93,7 +100,6 @@ public class DayTeacherServiceImpl implements DayTeacherService {
 	
 		return dayTeacherDao.findWithParam(school, college, date);
 	}
-
 	
 
 }

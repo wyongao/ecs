@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectProvider;
+import org.apache.ibatis.annotations.Update;
 
 import com.ecs.dao.provider.DayTeacherProvider;
 import com.ecs.domain.DayTeacher;
@@ -59,6 +60,10 @@ public interface DayTeacherDao {
 	//根据时间查找老师的打卡信息	
 	@Select("select * from day_teacher where tnum=#{tnum} and date=#{date}")
 	public List<DayTeacher> findByDateForwx(String tnum, String date);
+	
+	//修改打卡记录
+	@Update("update day_teacher set temp=#{temp},symptom=#{symptom},addr=#{addr} where tnum=#{tnum} and date=#{date}")
+	public void updateDayTeacherForwx(String tnum, String date, String temp, String symptom, String addr);
 
 	//查找所有当日打卡的老师
 	@SelectProvider(type = DayTeacherProvider.class,method = "countDayTeachers")
