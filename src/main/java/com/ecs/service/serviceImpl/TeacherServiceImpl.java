@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ecs.dao.DayTeacherDao;
 import com.ecs.dao.TeacherDao;
+import com.ecs.dao.TrackTeacherDao;
 import com.ecs.domain.Teacher;
 import com.ecs.service.TeacherService;
 
@@ -20,7 +22,10 @@ import com.ecs.service.TeacherService;
 public class TeacherServiceImpl implements TeacherService {
 	@Autowired
 	private TeacherDao teacherDao;
-
+	@Autowired
+	private TrackTeacherDao trackTeacherDao;
+	@Autowired
+	private DayTeacherDao dayTeacherDao;
 	/**
 	 * 查找所有
 	 */
@@ -54,7 +59,13 @@ public class TeacherServiceImpl implements TeacherService {
 	 */
 	@Override
 	public String  changeTeacher(Teacher teacher) {
-
+		Integer id=teacher.getId();
+		//找到修改之前的老师
+		Teacher oldTeacher=teacherDao.findTeacherById(id);
+		//修改老师的轨迹
+		trackTeacherDao.updateTrackTeacherInfo(teacher.getTnum(),teacher.getTname(),teacher.getSchool(),teacher.getCollege(),oldTeacher.getTnum());
+		//修改老师的每日申报
+		dayTeacherDao.updateDayTeacherInfo(teacher.getTnum(),teacher.getTname(),teacher.getSchool(),teacher.getCollege(),oldTeacher.getTnum());
 		teacherDao.changeTeacher(teacher);
 		return "success";
 	}

@@ -2,11 +2,13 @@ package com.ecs.service.serviceImpl;
 
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ecs.dao.ApplicationDao;
+import com.ecs.dao.DayStudentDao;
 import com.ecs.dao.StudentDao;
+import com.ecs.dao.TrackStudentDao;
 import com.ecs.domain.Student;
 import com.ecs.service.StudentService;
 /**
@@ -19,6 +21,12 @@ import com.ecs.service.StudentService;
 public class StudentServiceImpl implements StudentService {
 	@Autowired
 	private StudentDao studentDao;
+	@Autowired
+	private DayStudentDao dayStudentDao;
+	@Autowired
+	private ApplicationDao applicationDao;
+	@Autowired
+	private TrackStudentDao trackStudentDao;
 
 	public List<Student> findAllStudent() {
 		return studentDao.findAllStudent();
@@ -39,7 +47,16 @@ public class StudentServiceImpl implements StudentService {
 
 	@Override
 	public String changeStudentInfo(Student student) {
-		
+		Integer id=student.getId();
+		//找到数据库中未修改之前的学号
+		Student oldStudent=studentDao.findStudentById(id);
+		//修改所有的出入申请
+		applicationDao.updateApplicationInfo(student.getSnum(), student.getSname(), student.getSchool(), student.getCollege(), student.getMajor(), student.getClasses(),oldStudent.getSnum());
+		//修改所有的健康申报
+		dayStudentDao.updateDayStudentInfo(student.getSnum(), student.getSname(), student.getSchool(), student.getCollege(), student.getMajor(), student.getClasses(),oldStudent.getSnum());
+		//修改轨迹里面的信息
+		trackStudentDao.updateTrackStudentInfo(student.getSnum(), student.getSname(), student.getSchool(), student.getCollege(), student.getMajor(), student.getClasses(),oldStudent.getSnum());
+		//修改学生的基本信息		
 		studentDao.changeStudentInfo(student);
 		
 		return "success";

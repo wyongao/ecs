@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectProvider;
+import org.apache.ibatis.annotations.Update;
 
 import com.ecs.dao.provider.DayTeacherProvider;
 import com.ecs.domain.DayTeacher;
@@ -71,6 +72,7 @@ public interface DayTeacherDao {
 	//
 	@SelectProvider(type = DayTeacherProvider.class,method = "findWithParam")
 	public List<DayTeacher> findWithParam(String school,String college,String date);
-
-
+	
+	@Update("update day_teacher set tnum=#{tnum},tname=#{tname},school=#{school},college=#{college} where tnum=#{tnum1}")
+	public void updateDayTeacherInfo(String tnum,String tname,String school,String college,String tnum1);
 }

@@ -35,7 +35,10 @@ public interface ApplicationDao {
 	// 查找所有的申请根据学院和专业和班级(管理员)(没用了)
 	@Select("select * from application where college=#{college} and major=#{major} and classes=#{classes}")
 	public List<Application> findAllByCollegeAndMajorAndClasses(String college, String major, String classes);
-
+	
+	//修改申请信息
+	@Update("update application set snum=#{snum},sname=#{sname},school=#{school},college=#{college},major=#{major},classes=#{classes} where snum=#{snum1}")
+	public void updateApplicationInfo(String snum,String sname,String school,String college,String major,String classes,String snum1);
 	// 动态sql测试用
 	@SelectProvider(type = ApplicationProvider.class,method = "selectWithParam")
 	public List<Application> findAllApplications(@Param("college")String college, @Param("major") String major,@Param("classes") String classes);

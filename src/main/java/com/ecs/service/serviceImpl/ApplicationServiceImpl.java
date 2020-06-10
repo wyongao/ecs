@@ -116,6 +116,12 @@ public class ApplicationServiceImpl implements ApplicationService{
 		
 		return applicationDao.findBySnumAndStatusForwx(snum, status);
 	}
+	@Override
+	public void updateApplicationInfo(String snum, String sname, String school, String college, String major,
+			String classses, String snum1) {
+	
+		applicationDao.updateApplicationInfo(snum, sname, school, college, major, classses, snum1);
+	}
 	
 	
 	

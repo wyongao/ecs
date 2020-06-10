@@ -51,4 +51,6 @@ public interface DayStudentService {
 	//查找全专业所有的打卡学生数量
 	public Integer countDayMajorStudent(String school,String major,String date);
 	
+	//修改信息
+	public void updateDayStudentInfo(String snum,String sname,String school,String college,String major,String classses,String snum1);
 }
