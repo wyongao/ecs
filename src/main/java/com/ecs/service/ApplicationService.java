@@ -61,5 +61,7 @@ public interface ApplicationService {
 	
 	// 通过学号和状态查询
 	public List<Application> findBySnumAndStatusForwx(String snum, String status);
-
+	
+	//修改信息
+	public void updateApplicationInfo(String snum,String sname,String school,String college,String major,String classses,String snum1);
 }

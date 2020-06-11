@@ -126,6 +126,13 @@ public class DayStudentServiceImpl implements DayStudentService {
 		return dayStudentDao.countDayMajorStudent(school, major, date);
 	}
 
+	@Override
+	public void updateDayStudentInfo(String snum, String sname, String school, String college, String major,
+			String classses, String snum1) {
+		dayStudentDao.updateDayStudentInfo(snum, sname, school, college, major, classses, snum1);
+		
+	}
+
 
 
 

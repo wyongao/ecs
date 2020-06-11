@@ -61,6 +61,10 @@ public interface TeacherDao {
 	@SelectProvider(type = TeacherProvider.class,method= "fuzzyQueryTeacher")
 	public List<Teacher> fuzzyTeacher(String school,String college,String name);
 	
+	//根据id查老师
+	@Select("select * from teacher where id=#{id}")
+	public Teacher findTeacherById(Integer id);
+	
 	//根据工号查询
 	@Select("select tname,tnum,school,college from teacher where tnum=#{tnum}")
 	public Teacher findByTnumForwx(String tnum);

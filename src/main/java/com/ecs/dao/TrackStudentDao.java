@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectProvider;
+import org.apache.ibatis.annotations.Update;
 
 import com.ecs.dao.provider.TrackStudentProvider;
 import com.ecs.domain.TrackStudent;
@@ -22,4 +23,7 @@ public interface TrackStudentDao {
 	
 	@SelectProvider(type = TrackStudentProvider.class, method = "searchStudentDynamic" )
 	public List<TrackStudent> searchStudentDynamic(String school, String college, String snum, String name);
+	
+	@Update("update track_student set snum=#{snum},sname=#{sname},school=#{school},college=#{college},major=#{major},classes=#{classes} where snum=#{snum1}")
+	public void updateTrackStudentInfo(String snum,String sname,String school,String college,String major,String classes,String snum1);
 }

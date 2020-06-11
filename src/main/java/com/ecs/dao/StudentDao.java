@@ -76,6 +76,10 @@ public interface StudentDao {
 	@Update("update student set openid=#{openid} where snum=#{snum}")
 	public void setOpenidBySnum(String snum, String openid);
 	
+	//根据id查找学生
+	@Select("select * from student where id=#{id}")
+	public Student findStudentById(Integer id);
+	
 	//根据学号查询
 	@Select("select sname,snum,school,college,major,classes from student where snum=#{snum}")
 	public Student findBySnumForwx(String snum);

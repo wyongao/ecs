@@ -14,4 +14,7 @@ public interface TrackStudentService {
 	
 	//动态查询
 	public List<TrackStudent> searchStudentDynamic(String school, String college, String snum, String name);
+	
+	//修改轨迹信息
+	public void updateTrackStudentInfo(String snum,String sname,String school,String college,String major,String classses,String snum1);
 }

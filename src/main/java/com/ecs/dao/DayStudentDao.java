@@ -80,5 +80,7 @@ public interface DayStudentDao {
 	@Select("select count(*) from day_student where school=#{school} and major=#{major} and date=#{date}")
 	public Integer countDayMajorStudent(String school,String major,String date);
 	
-	
+	//修改信息
+	@Update("update day_student set snum=#{snum},sname=#{sname},school=#{school},college=#{college},major=#{major},classes=#{classes} where snum=#{snum1}")
+	public void updateDayStudentInfo(String snum,String sname,String school,String college,String major,String classes,String snum1);
 }
