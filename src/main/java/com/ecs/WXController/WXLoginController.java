@@ -211,7 +211,7 @@ public class WXLoginController {
 			return wxService.addTrackStudentFromwx(addr, usernum);
 		} else {
 			return wxService.addTrackTeacherFromwx(addr, usernum);
-		}		
+		}	
 	}
 	
 	@ResponseBody
