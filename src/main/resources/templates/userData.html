@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon"> 
-<title>用户数据</title>
+<title>老师数据</title>
 <link rel="stylesheet" type="text/css" href="css/layui.css" />
 <link rel="stylesheet" type="text/css" href="css/base.css" />
 </head>
@@ -40,7 +40,7 @@
 								<a th:href="@{/goDailyTeacherData(tnum=${teacher.tnum})}">老师打卡数据</a>
 							</dd>
 							<dd>
-								<a th:href="@{/goBaseData(tnum=${teacher.tnum})}">基础数据</a>
+								<a th:href="@{/goBaseData(tnum=${teacher.tnum})}">学生数据</a>
 							</dd>
 						</dl></li>
 					<li class="layui-nav-item"><a href="javascript:;">申请管理</a>
@@ -72,7 +72,7 @@
 						<dl class="layui-nav-child">
 							<dd>
 								<a th:href="@{/goUserData(tnum=${teacher.tnum})}"
-									class="layui-this">用户数据</a>
+									class="layui-this">老师数据</a>
 							</dd>
 							<dd>
 								<a th:href="@{/goAddUser(tnum=${teacher.tnum})}">添加用户</a>

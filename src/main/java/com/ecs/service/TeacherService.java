@@ -12,11 +12,6 @@ import com.ecs.domain.Teacher;
  */
 
 public interface TeacherService {
-	/**
-	 * 查找
-	 * @return
-	 */
-	public List<Teacher> findAllTeacher();
 	
 	/**
 	 * 添加
@@ -38,8 +33,6 @@ public interface TeacherService {
 	
 
 	public Teacher findTeacherByTnum(String tnum);
-
-	public List<Teacher> findTeacherByCollege(String college);
 	
 	/**
 	 * 动态查询根据职工号和学院
@@ -67,8 +60,6 @@ public interface TeacherService {
 	 * @return
 	 */
 	public Integer countTeachers(String school,String college);
-	
-
 
 	//根据工号查找
 	public Teacher findByTnumForweb(String tnum);

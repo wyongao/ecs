@@ -21,8 +21,10 @@ public class ShowDataController {
 	
 	@Autowired
 	private ShowDataService showDataService;
+	
 	@Autowired
 	private SchoolService schoolService;
+	
 	@Autowired
 	private CollegeService collegeService;
 	

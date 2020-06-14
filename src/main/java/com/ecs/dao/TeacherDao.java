@@ -19,12 +19,6 @@ import com.ecs.domain.Teacher;
  */
 @Mapper
 public interface TeacherDao {
-	/**
-	 * 查找所有的老师
-	 * @return
-	 */
-	@Select("select * from teacher")
-	public List<Teacher> findAllTeacher();
 	
 	@Delete("delete from teacher where id=#{id}")
 	public void deleteTeacher(String id);
@@ -38,9 +32,6 @@ public interface TeacherDao {
 	
 	@Select("select * from teacher where tnum=#{tnum}")
 	public Teacher findTeacherByTnum(String tnum);
-	
-	@Select("select * from teacher where college=#{college}")
-	public List<Teacher> findTeacherByCollege(String college);
 	
 	@Update("update teacher set password=#{password} where tnum=#{tnum}")
 	public void changePassword(String tnum, String password);

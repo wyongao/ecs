@@ -31,12 +31,6 @@ public class CollegeServiceImpl implements CollegeService{
 		return collegeDao.findAllCollegeByParentId(parentid);
 	}
 	
-	@Override
-	public List<College> findAllCollege() {
-		
-		return collegeDao.findAllCollege();
-	}
-
 	//根据父级学校名字查找二级院校
 	@Override
 	public List<College> findCollegeByParentName(String schoolname) {

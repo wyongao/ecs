@@ -14,8 +14,6 @@ public interface ClassService {
 	//根据parentid查询
 	public List<Class> findAllClassByParentId(Integer parentid);
 	
-	public List<Class> findAllClass();
-	
 	public Class findClassByName(String classname,Integer parentid);
 
 	public void addClass(String calssname,Integer parentid);

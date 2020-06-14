@@ -34,11 +34,4 @@ public class TrackStudentServiceImpl implements TrackStudentService {
 		return trackStudentDao.searchStudentDynamic(school, college, snum, name);
 	}
 
-	@Override
-	public void updateTrackStudentInfo(String snum, String sname, String school, String college, String major,
-			String classes, String snum1) {
-		trackStudentDao.updateTrackStudentInfo(snum, sname, school, college, major, classes, snum1);
-		
-	}
-
 }

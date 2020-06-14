@@ -24,6 +24,7 @@ import com.ecs.service.MajorService;
 
 @Controller
 public class MajorController {
+	
 	@Autowired
 	private MajorService majorService;
 

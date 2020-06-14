@@ -26,14 +26,7 @@ public class TeacherServiceImpl implements TeacherService {
 	private TrackTeacherDao trackTeacherDao;
 	@Autowired
 	private DayTeacherDao dayTeacherDao;
-	/**
-	 * 查找所有
-	 */
-	@Override
-	public List<Teacher> findAllTeacher() {
 
-		return teacherDao.findAllTeacher();
-	}
 
 	/**
 	 * 添加
@@ -74,12 +67,6 @@ public class TeacherServiceImpl implements TeacherService {
 	public Teacher findTeacherByTnum(String tnum) {
 		
 		return teacherDao.findTeacherByTnum(tnum);
-	}
-	
-	@Override
-	public List<Teacher> findTeacherByCollege(String college) {
-		
-		return teacherDao.findTeacherByCollege(college);
 	}
 	
 	@Override

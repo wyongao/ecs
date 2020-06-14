@@ -36,13 +36,4 @@ public class ClassController {
 		return JsonUtils.objectToJson(map);
 	}
 	
-	@ResponseBody
-	@RequestMapping(value="/findAll", method=RequestMethod.POST)
-	public String findAllClasses(Model model) {
-		
-		List<Class> list = classService.findAllClass();
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("data1", list);
-		return JsonUtils.objectToJson(map);
-	}
 }

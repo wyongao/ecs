@@ -23,44 +23,6 @@ public class DayStudentServiceImpl implements DayStudentService {
 	private DayStudentDao dayStudentDao;
 
 	@Override
-	public List<DayStudent> findDayStudents(String date) {
-
-		return dayStudentDao.findDayStudents(date);
-	}
-
-	@Override
-	public List<DayStudent> findDayStudentByCollege(String college, String date) {
-
-		return dayStudentDao.findDayStudentByCollege(college, date);
-	}
-
-	@Override
-	public List<DayStudent> findDayStudentByMajor(String major, String date) {
-		
-		return dayStudentDao.findDayStudentByMajor(major, date);
-	}
-
-	@Override
-	public List<DayStudent> findDayStudentByMajorAndClasses(String major, Integer classes, String date) {
-		
-		return dayStudentDao.findDayStudentByMajorAndClasses(major, classes, date);
-	}
-
-	@Override
-	public List<DayStudent> findDayStudentBySnum(String snum) {
-		
-		return dayStudentDao.findDayStudentBySnum(snum);
-	}
-	/**
-	 * 这个是面向小程序的
-	 */
-	@Override
-	public List<String> traceStudent(String snum) {
-		
-		return dayStudentDao.traceStudent(snum);
-	}
-
-	@Override
 	public void addDayStudent(DayStudent dayStudent) {
 		
 		dayStudentDao.addDayStudent(dayStudent);
@@ -73,22 +35,11 @@ public class DayStudentServiceImpl implements DayStudentService {
 		return dayStudentDao.findAllDayStudents(school,college, major, classes, snum,date);
 	}
 
-	@Override
-	public List<DayStudent> findAll() {
-		
-		return dayStudentDao.findAll();
-	}
 	//模糊查询
 	@Override
 	public List<DayStudent> fuzzyQueryDaystudents(String school,String college,String name) {
 		
 		return dayStudentDao.fuzzyQueryDaystudents(school,college,name);
-	}
-
-	@Override
-	public List<DayStudent> findByCollege(String college) {
-		
-		return dayStudentDao.findByCollege(college);
 	}
 
 	@Override
@@ -125,14 +76,6 @@ public class DayStudentServiceImpl implements DayStudentService {
 		
 		return dayStudentDao.countDayMajorStudent(school, major, date);
 	}
-
-	@Override
-	public void updateDayStudentInfo(String snum, String sname, String school, String college, String major,
-			String classses, String snum1) {
-		dayStudentDao.updateDayStudentInfo(snum, sname, school, college, major, classses, snum1);
-		
-	}
-
 
 
 

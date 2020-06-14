@@ -2,6 +2,8 @@
 wechat:
   appid: wxa9e13de5e88feb5b
   secret: 12e78c67029000972b3bef557158436f
+  #打卡截止时间
+  deadline: 12:00:00
 
 #spring相关配置
 spring:
@@ -45,6 +47,7 @@ logging:
 server:
   servlet:
     context-path: /ecs
+    
 #mybatis配置
 #mybatis:
  # mapper-locations: classpath:mapping/*Mapper.xml

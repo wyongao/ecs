@@ -11,7 +11,6 @@ import com.ecs.domain.Building;
  */
 
 public interface BuildingService {
-	public List<Building> findAllBuildingByParentId(Integer parentid);
 	
 	public Building findOnlyBuilding(String buildingname,Integer parentid);
 	

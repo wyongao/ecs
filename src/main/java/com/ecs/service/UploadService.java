@@ -15,6 +15,7 @@ import com.ecs.domain.Student;
 import com.ecs.domain.Teacher;
 
 public interface UploadService {
+	
 	//上传学生的基本信息
 	public List<Student> studentUpload(MultipartFile file);
 	//上传老师的基本信息

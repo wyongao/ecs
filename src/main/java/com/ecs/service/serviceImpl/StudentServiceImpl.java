@@ -19,6 +19,7 @@ import com.ecs.service.StudentService;
  */
 @Service
 public class StudentServiceImpl implements StudentService {
+	
 	@Autowired
 	private StudentDao studentDao;
 	@Autowired
@@ -27,10 +28,6 @@ public class StudentServiceImpl implements StudentService {
 	private ApplicationDao applicationDao;
 	@Autowired
 	private TrackStudentDao trackStudentDao;
-
-	public List<Student> findAllStudent() {
-		return studentDao.findAllStudent();
-	}
 
 	@Override
 	public void addStudent(Student student) {
@@ -60,14 +57,6 @@ public class StudentServiceImpl implements StudentService {
 		studentDao.changeStudentInfo(student);
 		
 		return "success";
-	}
-
-	@Override
-
-	public List<Student> findStudentByCollegeName(String collegename) {
-		
-		return studentDao.findStudentByCollegeName(collegename);
-
 	}
 		
 	@Override

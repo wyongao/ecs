@@ -31,83 +31,11 @@ import com.github.pagehelper.PageInfo;
  */
 @Controller
 public class ApplicationController {
+	
 	@Autowired
 	private ApplicationService applicationService;
+	
 	Log logger = LogFactory.getLog(ApplicationController.class);
-
-	@RequestMapping("/addApplicationInfo")
-	@ResponseBody
-	// 上报申请
-	public String addApplicationInfo(Application application) {
-		// 得到日期
-		application.setDate(DateUtil.getDate());
-		applicationService.addApplicationInfo(application);
-		return "成功";
-	}
-
-	// 管理员根据学院专业查询申请状态
-	@RequestMapping("/findAllApplicationByCollegeAndMajor")
-	@ResponseBody
-	public String findAllApplicationByCollegeAndMajor(
-			@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum, String college, String major) {
-		college = "计算机学院";
-		major = "计算机科学与技术";
-		PageHelper.startPage(pageNum, Constant.PAGE_SIZE);
-		List<Application> list = applicationService.findAllByCollegeAndMajor(college, major);
-		PageInfo<Application> pageInfo = new PageInfo<Application>(list);
-		System.out.println("总页数" + pageInfo.getPages() + "当前页" + pageInfo.getPageNum() + "总记录数" + pageInfo.getTotal());
-		logger.trace("-------------------!!!!日志成功1!!>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-		logger.info("-------------------!!!!日志成功2!!>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-		logger.debug("-------------------!!!!日志成功3!!>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-		logger.error("-------------------!!!!日志成功4!!>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-		logger.warn("-------------------!!!!日志成功5!!>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-		return "成功";
-	}
-
-	// 管理员根据学院查询申请的人
-	@RequestMapping(value = "/findAllApplicationByCollege")
-	@ResponseBody
-	public String findAllApplicationByCollege(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
-			String college) {
-		college = "计算机学院";
-		PageHelper.startPage(pageNum, Constant.PAGE_SIZE);
-		List<Application> list = applicationService.findAllByCollege(college);
-		PageInfo<Application> pageInfo = new PageInfo<Application>(list);
-		System.out.println("总页数" + pageInfo.getPages() + "当前页" + pageInfo.getPageNum() + "总记录数" + pageInfo.getTotal());
-		return "成功";
-	}
-
-	// 管理员根据学院专业班级查询申请的人
-	@RequestMapping(value = "/findAllApplicationByCollegeAndMajorAndClasses")
-	@ResponseBody
-	public String findAllApplicationByCollegeAndMajorAndClasses(
-			@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum, String college, String major,
-			String classes) {
-		college = "理学院";
-		major = "物理";
-		classes = "1742";
-		PageHelper.startPage(pageNum, Constant.PAGE_SIZE);
-		List<Application> list = applicationService.findAllByCollegeAndMajorAndClasses(college, major, classes);
-		PageInfo<Application> pageInfo = new PageInfo<Application>(list);
-		System.out.println("总页数" + pageInfo.getPages() + "当前页" + pageInfo.getPageNum() + "总记录数" + pageInfo.getTotal());
-		return "成功";
-	}
-
-	// 测试动态sql
-	// 有空字符串的bug
-	@RequestMapping("/findAllApplications")
-	@ResponseBody
-	public String findAllApplications(String college, String major, String classes,
-			@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
-		PageHelper.startPage(pageNum, Constant.PAGE_SIZE);
-		List<Application> list = applicationService.findAllApplications(college, major, classes);
-		PageInfo<Application> pageInfo = new PageInfo<Application>(list);
-		System.out.println("总页数" + pageInfo.getPages() + "当前页" + pageInfo.getPageNum() + "总记录数" + pageInfo.getTotal());
-
-		return "成功";
-	}
-
-
 
 	@RequestMapping(value = "/updateStatus")
 	@ResponseBody

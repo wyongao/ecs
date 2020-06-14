@@ -6,12 +6,8 @@ import com.ecs.domain.AccessData;
 
 public interface AccessDataService {
 
-	// 查找所有
-	public List<AccessData> findAll();
-
 	//模糊查询
 	public List<AccessData> fuzzyAccessData(String school,String college,String username,String userid);
-
 
 	// 查找访问记录
 	public List<AccessData> dynamicFindAccessData(String school,String college);
