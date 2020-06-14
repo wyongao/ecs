@@ -1,5 +1,6 @@
 package com.ecs.service.serviceImpl;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -106,62 +107,98 @@ public class WXServiceImpl implements WXService {
 
 	@Override
 	public String addDayStudentFromwx(String temp, String symptom, String addr, String snum) {
-		
-		Student s = studentDao.findBySnum(snum);	
-		DayStudent d = new DayStudent();
-		
+			
 		Date now = new Date();
-		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat f1 = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat f2 = new SimpleDateFormat("HH:mm:ss");
 		
-		if(dayStudentService.findByDateForwx(snum, f.format(now)).isEmpty()) {			
+		try {
+			Date deadLine = f2.parse("12:00:00");	//截止时间
 			
-			d.setSnum(snum);
-			d.setSname(s.getSname());
-			d.setSchool(s.getSchool());
-			d.setCollege(s.getCollege());
-			d.setMajor(s.getMajor());
-			d.setClasses(s.getClasses());
-			d.setAddr(addr);
-			d.setDate(f.format(now));
-			d.setSymptom(symptom);
-	        d.setTemp(temp);	
-	        
-	        dayStudentService.addDayStudent(d);
-	        
-			return "success";
+			if(f2.parse(f2.format(now)).getTime() >= deadLine.getTime()) {
+				
+//				System.out.println(f2.parse(f2.format(now)).getTime());
+//				System.out.println(deadLine.getTime());
+				return "failure";
+			}else {
+				
+				if(dayStudentService.findByDateForwx(snum, f1.format(now)).isEmpty()) {
+					Student s = studentDao.findBySnum(snum);	
+				    DayStudent d = new DayStudent();
+				
+					d.setSnum(snum);
+					d.setSname(s.getSname());
+					d.setSchool(s.getSchool());
+					d.setCollege(s.getCollege());
+					d.setMajor(s.getMajor());
+					d.setClasses(s.getClasses());
+					d.setAddr(addr);
+					d.setDate(f1.format(now));
+					d.setSymptom(symptom);
+			        d.setTemp(temp);	
+			        
+			        dayStudentService.addDayStudent(d);
+				}else {
+					
+					dayStudentService.updateDayStudentForwx(snum, f1.format(now), temp, symptom, addr);
+				}
+				
+			}
 			
-		}
-		
-		return "failure";
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+	
+			return "success";	
 	}
 
 	@Override
 	public String addDayTeacherFromwx(String temp, String symptom, String addr, String tnum) {
 		
-		Teacher t = teacherDao.findTeacherByTnum(tnum);	
-		DayTeacher d = new DayTeacher();
-		
 		Date now = new Date();
-		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat f1 = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat f2 = new SimpleDateFormat("HH:mm:ss");
 		
-		if(dayTeacherService.findByDateForwx(tnum, f.format(now)).isEmpty()) {			
+		try {
+			Date deadLine = f2.parse("12:00:00");	//截止时间
 			
-			d.setTnum(tnum);
-			d.setTname(t.getTname());
-			d.setSchool(t.getSchool());
-			d.setCollege(t.getCollege());
-			d.setAddr(addr);
-			d.setDate(f.format(now));
-			d.setSymptom(symptom);
-	        d.setTemp(temp);	
-	        
-	        dayTeacherService.addDayTeacher(d);
-	        
+			if(f2.parse(f2.format(now)).getTime() >= deadLine.getTime()) {
+				
+//				System.out.println(f2.parse(f2.format(now)).getTime());
+//				System.out.println(deadLine.getTime());
+				return "failure";
+			}else {
+				
+				if(dayTeacherService.findByDateForwx(tnum, f1.format(now)).isEmpty()) {			
+					
+					Teacher t = teacherDao.findTeacherByTnum(tnum);	
+					DayTeacher d = new DayTeacher();
+					
+					d.setTnum(tnum);
+					d.setTname(t.getTname());
+					d.setSchool(t.getSchool());
+					d.setCollege(t.getCollege());
+					d.setAddr(addr);
+					d.setDate(f1.format(now));
+					d.setSymptom(symptom);
+			        d.setTemp(temp);	
+			        
+			        dayTeacherService.addDayTeacher(d);
+					
+				}else {
+					
+					dayTeacherService.updateDayTeacherForwx(tnum, f1.format(now), temp, symptom, addr);
+				}
+				
+			}
+			
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+	
 			return "success";
-			
-		}
-		
-		return "failure";
 	}
 	
 	
@@ -205,8 +242,9 @@ public class WXServiceImpl implements WXService {
 	}
 
 	@Override
-	public String findBuildingsForwx(String usernum, String identity) {
+	public String findBuildingsForwx(String usernum, String identity) {//获取地点信息，及打卡情况
 		
+		//获取地点信息
 		String schoolName;
 		
 		if(identity.equals(IdentityConstant.IDENTITY_STUDENT)) {
@@ -229,6 +267,26 @@ public class WXServiceImpl implements WXService {
 			all.put("building"+i, buildingDao.findBuildingByParentIdForwx(campusDao.findCampusId(campus.get(i), school.getId())));
 		}
 				
+		
+		
+		//打卡情况
+		Date now = new Date();
+		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+		Object daily;
+		
+		if(identity.equals(IdentityConstant.IDENTITY_STUDENT)) {
+			
+			daily = dayStudentService.findByDateForwx(usernum, f.format(now));
+			
+		} else {
+			
+			daily = dayTeacherService.findByDateForwx(usernum, f.format(now));
+			
+		}
+		
+		
+		all.put("daily", daily);
+		
 		return JsonUtils.objectToJson(all);
 	}
 

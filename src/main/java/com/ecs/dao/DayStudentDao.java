@@ -68,6 +68,10 @@ public interface DayStudentDao {
 	@Select("select * from day_student where snum=#{snum} and date=#{date}")
 	public List<DayStudent> findByDateForwx(String snum, String date);
 
+	//修改打卡记录
+	@Update("update day_student set temp=#{temp},symptom=#{symptom},addr=#{addr} where snum=#{snum} and date=#{date}")
+	public void updateDayStudentForwx(String snum, String date, String temp, String symptom, String addr);
+	
 	//查找各个学院的打卡人数
 	@SelectProvider(type = DayStudentProvider.class,method = "countDayStudents")
 	public Integer countDayStudent(String school,String college,String date);

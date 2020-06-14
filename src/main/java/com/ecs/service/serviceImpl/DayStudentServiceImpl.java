@@ -109,6 +109,12 @@ public class DayStudentServiceImpl implements DayStudentService {
 		return dayStudentDao.findByDateForwx(snum, date);
 	}
 	
+	@Override
+	public void updateDayStudentForwx(String snum, String date, String temp, String symptom, String addr) {
+		
+		dayStudentDao.updateDayStudentForwx(snum, date, temp, symptom, addr);
+	}
+	
 	public Integer countDayStudent(String school,String college, String date) {
 		
 		return dayStudentDao.countDayStudent(school,college, date);
@@ -126,6 +132,8 @@ public class DayStudentServiceImpl implements DayStudentService {
 		dayStudentDao.updateDayStudentInfo(snum, sname, school, college, major, classses, snum1);
 		
 	}
+
+
 
 
 
