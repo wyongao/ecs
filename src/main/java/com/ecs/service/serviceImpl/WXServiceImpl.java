@@ -116,7 +116,7 @@ public class WXServiceImpl implements WXService {
 		SimpleDateFormat f1 = new SimpleDateFormat("yyyy-MM-dd");
 		SimpleDateFormat f2 = new SimpleDateFormat("HH:mm:ss");
 		
-		try {
+		try {			
 			Date deadLine = f2.parse(myParams.getDeadline());	//截止时间
 			
 			if(f2.parse(f2.format(now)).getTime() >= deadLine.getTime()) {
