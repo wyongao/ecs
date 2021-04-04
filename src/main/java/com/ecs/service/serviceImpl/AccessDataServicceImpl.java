@@ -14,19 +14,12 @@ public class AccessDataServicceImpl implements AccessDataService {
 
 	@Autowired
 	AccessDataDao accessDataDao;
-	
-	@Override
-	public List<AccessData> findAll() {
 		
-		return accessDataDao.findAll();
-	}
-	
 	@Override
 	public List<AccessData> dynamicFindAccessData(String school,String college) {
 		
 		return accessDataDao.dynamicFindAccessData(school,college);
 	}
-	
 
 	@Override
 	public void addAccessData(String username, String userid,String school,String college, String ip, String date) {

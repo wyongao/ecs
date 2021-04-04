@@ -39,6 +39,7 @@ import com.ecs.service.UploadService;
  */
 @Controller
 public class UploadController {
+	
 	@Autowired
 	private UploadService uploadService;
 	@Autowired

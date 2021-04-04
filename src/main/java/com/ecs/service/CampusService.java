@@ -1,7 +1,5 @@
 package com.ecs.service;
 
-import java.util.List;
-
 import com.ecs.domain.Campus;
 /**
   * 校区的service
@@ -11,7 +9,6 @@ import com.ecs.domain.Campus;
  */
 
 public interface CampusService {
-	public List<Campus> findAllCampusByParentId(Integer parentid);
 	
 	public Campus findOnlyCampus(String campusname,Integer parentid);
 	

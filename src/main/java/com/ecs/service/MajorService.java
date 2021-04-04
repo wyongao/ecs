@@ -10,6 +10,7 @@ import com.ecs.domain.Major;
  * 2020年3月5日
  */
 public interface MajorService {
+	
 	/**
 	 * 查找二级学院的接口
 	 * @param parentid

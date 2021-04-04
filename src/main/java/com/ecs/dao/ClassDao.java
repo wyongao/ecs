@@ -22,10 +22,7 @@ public interface ClassDao {
 	 */
 	@Select("select * from class where parentid=#{parentid}")
 	public List<Class> findAllClassByParentId(Integer parentid);
-	
-	@Select("select * from class")
-	public List<Class> findAllClass();
-	
+		
 	@Select("select * from class where classname=#{classname} and parentid=#{parentid}")
 	public Class findClassByName(String classname,Integer parentid);
 	

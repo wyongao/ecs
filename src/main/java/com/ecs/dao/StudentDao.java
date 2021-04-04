@@ -20,12 +20,7 @@ import com.ecs.domain.Student;
 
 @Mapper
 public interface StudentDao {
-	/**
-	 * 查找所有的学生
-	 * @return
-	 */
-	@Select("select * from student")
-	public List<Student> findAllStudent();
+	
 	/**
 	 * 添加学生
 	 * @param student
@@ -44,9 +39,6 @@ public interface StudentDao {
 	 */
 	@Update("update student set sname=#{sname},snum=#{snum},school=#{school},college=#{college},major=#{major},classes=#{classes},sex=#{sex},tel=#{tel} where id=#{id}")
 	public void changeStudentInfo(Student student);
-	
-	@Select("select * from student where college=#{collegename}")
-	public List<Student> findStudentByCollegeName(String collegename);
 
 	/**
 	 * 动态查询,三个参数

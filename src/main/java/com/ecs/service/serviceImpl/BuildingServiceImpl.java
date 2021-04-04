@@ -17,14 +17,9 @@ import com.ecs.service.BuildingService;
 
 @Service
 public class BuildingServiceImpl implements BuildingService {
+	
 	@Autowired
 	private BuildingDao buildingDao;
-
-	@Override
-	public List<Building> findAllBuildingByParentId(Integer parentid) {
-		
-		return buildingDao.findAllBuildingByParentId(parentid);
-	}
 
 	@Override
 	public Building findOnlyBuilding(String buildingname, Integer parentid) {

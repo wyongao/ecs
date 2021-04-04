@@ -10,8 +10,6 @@ import com.ecs.domain.Student;
  * 2020年3月7日
  */
 public interface StudentService {
-	//查找所有的学生
-	public List<Student> findAllStudent();
 
 	//添加学生
 	public void addStudent(Student student);
@@ -21,16 +19,10 @@ public interface StudentService {
 	
 	//修改学生的信息
 	public String changeStudentInfo(Student student);
-	
-
-	
-	//根据学院名称查找学生
-	public List<Student> findStudentByCollegeName(String collegename);
 
 	//动态查询
 	public List<Student> dynamicStudents(String school,String college,String major,String classes);
-
-	
+ 
 	//模糊查询
 	public List<Student> fuzzyStudent(String school,String college,String name,String snum);
 	

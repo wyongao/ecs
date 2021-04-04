@@ -17,14 +17,17 @@ import com.ecs.service.ApplicationService;
  */
 @Service
 public class ApplicationServiceImpl implements ApplicationService{
+	
 	@Autowired
 	private ApplicationDao applicationDao;
+	
 	//申请
 	@Override
 	public void addApplicationInfo(Application application) {
 		applicationDao.addApplicationInfo(application);
 		
 	}
+	
 	//批准或者驳回
 	@Override
 	public String updateStatus(String id, String status, String event) {
@@ -42,62 +45,10 @@ public class ApplicationServiceImpl implements ApplicationService{
 		return "success";
 	}
 	
-	//查询
-	@Override
-	public List<Application> findAllByCollegeAndMajor(String college, String major) {
-		
-		return applicationDao.findAllByCollegeAndMajor(college, major);
-	}
-	
-	@Override
-	public List<Application> findAllByCollegeAndMajorAndClasses(String college, String major, String classes) {
-		
-		return applicationDao.findAllByCollegeAndMajorAndClasses(college, major, classes);
-	}
-	
-	@Override
-	public List<Application> findAllByCollege(String college) {
-		
-		return applicationDao.findAllByCollege(college);
-	}
-	
-
-	//测试用
-	@Override
-	public List<Application> findAllApplications(String college, String major, String classes) {
-		
-		return applicationDao.findAllApplications(college, major, classes);
-	}
-
 	@Override
 	public List<Application> applicationDynamic(String school,String college, String major, String classes, String inout) {
 		
 		return applicationDao.applicationDynamic(school,college, major, classes, inout, ApplicationConstant.STATUS_CHECK_PENDING);
-	}
-	
-	
-	@Override
-	public List<Application> findOutData() {
-		
-		return applicationDao.findOutData(ApplicationConstant.INOUT_OUT);
-	}
-	
-	@Override
-	public List<Application> findInData() {
-		
-		return applicationDao.findInData(ApplicationConstant.INOUT_IN);
-	}
-	
-	@Override
-	public List<Application> findOutDataByCollege(String college,String school) {
-		
-		return applicationDao.findDataByCollege(ApplicationConstant.INOUT_OUT, college,school);
-	}
-	
-	@Override
-	public List<Application> findInDataByCollege(String school,String college) {
-		
-		return applicationDao.findDataByCollege(ApplicationConstant.INOUT_IN, college,school);
 	}
 	
 	@Override
@@ -111,17 +62,13 @@ public class ApplicationServiceImpl implements ApplicationService{
 		
 		return applicationDao.findBySnumForwx(snum);
 	}
+	
 	@Override
 	public List<Application> findBySnumAndStatusForwx(String snum, String status) {
 		
 		return applicationDao.findBySnumAndStatusForwx(snum, status);
 	}
-	@Override
-	public void updateApplicationInfo(String snum, String sname, String school, String college, String major,
-			String classses, String snum1) {
-	
-		applicationDao.updateApplicationInfo(snum, sname, school, college, major, classses, snum1);
-	}
+
 	
 	
 	

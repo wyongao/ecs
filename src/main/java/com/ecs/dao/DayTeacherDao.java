@@ -18,24 +18,7 @@ import com.ecs.domain.DayTeacher;
  */
 @Mapper
 public interface DayTeacherDao {
-		
-	//查找当日的所有老师
-	@Select("select * from day_teacher where date=#{date}")
-	public List<DayTeacher> findDayTeachers(String date);
-	
-	//根据学院查找当天的老师
-	@Select("select * from day_teacher where college=#{college} and date=#{date}")
-	public  List<DayTeacher> findDayTeacherByCollege(String college,String date);
-	
-	//根据职工号查找职工的打卡信息
-	@Select("select * from day_teacher where tnum=#{tnum}")
-	public  List<DayTeacher> findDayTeacherByTnum(String tnum);
-		
-	//查找老师的轨迹信息(面向小程序端的)
-	@Select("select addr from day_Teacher where tnum=#{tunm}")
-	public List<String> traceTeacher(String tnum);
-	
-	
+			
 	//模糊查找
 	@SelectProvider(type = DayTeacherProvider.class, method = "fuzzyQueryDayTeachers")
 	public List<DayTeacher> fuzzyDayTeachers(String tname,String college,String school);
@@ -68,10 +51,6 @@ public interface DayTeacherDao {
 	//查找所有当日打卡的老师
 	@SelectProvider(type = DayTeacherProvider.class,method = "countDayTeachers")
 	public Integer countDayTeachers(String school,String college,String date);
-
-	//查找老师用于下拉框
-	@Select("select * from day_teacher where school=#{school} and college=#{college} and date=#{date}")
-	public List<DayTeacher> selectDayTeacher(String school, String college, String date);
 	
 	//
 	@SelectProvider(type = DayTeacherProvider.class,method = "findWithParam")

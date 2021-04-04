@@ -11,6 +11,8 @@ public class MyParams {
 	private String appid;
 
 	private String secret;
+	
+	private String deadline;
 
 	public String getAppid() {
 		return appid;
@@ -27,4 +29,14 @@ public class MyParams {
 	public void setSecret(String secret) {
 		this.secret = secret;
 	}
+
+	public String getDeadline() {
+		return deadline;
+	}
+
+	public void setDeadline(String deadline) {
+		this.deadline = deadline;
+	}
+	
+	
 }

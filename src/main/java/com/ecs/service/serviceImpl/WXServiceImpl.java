@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ecs.common.JsonUtils;
+import com.ecs.common.MyParams;
 import com.ecs.constant.ApplicationConstant;
 import com.ecs.constant.Constant;
 import com.ecs.constant.IdentityConstant;
@@ -41,6 +42,9 @@ public class WXServiceImpl implements WXService {
 //	@Autowired
 //	private StringRedisTemplate redis1StringRedisTemplate;
 
+	@Autowired
+	private MyParams myParams;
+	
 	@Autowired
 	private SchoolDao schoolDao;
 	
@@ -112,8 +116,8 @@ public class WXServiceImpl implements WXService {
 		SimpleDateFormat f1 = new SimpleDateFormat("yyyy-MM-dd");
 		SimpleDateFormat f2 = new SimpleDateFormat("HH:mm:ss");
 		
-		try {
-			Date deadLine = f2.parse("12:00:00");	//截止时间
+		try {			
+			Date deadLine = f2.parse(myParams.getDeadline());	//截止时间
 			
 			if(f2.parse(f2.format(now)).getTime() >= deadLine.getTime()) {
 				
@@ -161,7 +165,7 @@ public class WXServiceImpl implements WXService {
 		SimpleDateFormat f2 = new SimpleDateFormat("HH:mm:ss");
 		
 		try {
-			Date deadLine = f2.parse("12:00:00");	//截止时间
+			Date deadLine = f2.parse(myParams.getDeadline());	//截止时间
 			
 			if(f2.parse(f2.format(now)).getTime() >= deadLine.getTime()) {
 				

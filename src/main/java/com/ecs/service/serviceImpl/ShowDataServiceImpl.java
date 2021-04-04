@@ -21,18 +21,25 @@ import com.ecs.service.StudentService;
 import com.ecs.service.TeacherService;
 @Service
 public class ShowDataServiceImpl implements ShowDataService{
+	
 	@Autowired
 	private StudentService studentService;
+	
 	@Autowired
 	private TeacherService teacherService;
+	
 	@Autowired
 	private DayStudentService dayStudentService;
+	
 	@Autowired
 	private DayTeacherService dayTeacherService;
+	
 	@Autowired
 	private CollegeService collegeService;
+	
 	@Autowired
 	private MajorService majorService;
+	
 	@Override
 	//初始化学生数据
 	public Map<String, Object> initStudentData(String school, String college) {
@@ -101,6 +108,7 @@ public class ShowDataServiceImpl implements ShowDataService{
 		}
 		
 	}
+	
 	@Override
 	//初始化老师数据
 	public Map<String, Object> initTeacherData(String school, String college) {
@@ -120,7 +128,6 @@ public class ShowDataServiceImpl implements ShowDataService{
 		System.out.println(JsonUtils.objectToJson(map));
 		return map;
 	}
-	
 	
 	@Override
 	public Map<String, Object> dynamicPie(String school, String college,Integer collegeId) {

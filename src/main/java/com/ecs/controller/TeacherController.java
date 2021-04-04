@@ -8,11 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ecs.common.JsonUtils;
-import com.ecs.constant.Constant;
 import com.ecs.domain.Teacher;
 import com.ecs.service.TeacherService;
 import com.github.pagehelper.PageHelper;
@@ -25,33 +23,9 @@ import com.github.pagehelper.PageInfo;
  */
 @Controller
 public class TeacherController {
+	
 	@Autowired
 	private TeacherService teacherService;
-	
-	@RequestMapping("/findAllTeacher")
-	@ResponseBody
-	public String findAllTeacher(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum) {
-		//实现分页
-		PageHelper.startPage(pageNum, Constant.PAGE_SIZE);
-		List<Teacher> list=teacherService.findAllTeacher();
-		PageInfo<Teacher> pageInfo=new PageInfo<Teacher>(list);
-		System.out.println("总页数"+pageInfo.getPages()+"当前页"+pageInfo.getPageNum()+"总记录数"+pageInfo.getTotal());
-		System.out.println("----------->>>查找成功");
-		return teacherService.findAllTeacher().toString();
-	}
-	
-	@RequestMapping("/addTeacher")
-	@ResponseBody
-	public String addTeacher(Teacher teacher) {
-		teacher.setCollege("计算机学院");
-		teacher.setSchool("河南工程学院");
-		teacher.setSex("男");
-		teacher.setTname("张老师");
-		teacher.setTnum("20168941");
-		teacher.setTel("13816383963");
-		teacherService.addTeacher(teacher);
-		return "添加成功";
-	}
 	
 	@RequestMapping(value = "/deleteTeacher",method = RequestMethod.POST)
 	@ResponseBody

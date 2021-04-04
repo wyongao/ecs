@@ -3,7 +3,6 @@ package com.ecs.service.serviceImpl;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,9 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.ecs.common.IpUtil;
 import com.ecs.dao.TeacherDao;
-import com.ecs.dao.UserDao;
 import com.ecs.domain.Teacher;
-import com.ecs.domain.User;
 import com.ecs.service.AccessDataService;
 import com.ecs.service.UserService;
 
@@ -36,42 +33,10 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private TeacherDao teacherDao;
 
-	@Autowired
-	private UserDao userDao;
-	
-	// 查找所有的用戶
-	@Override
-	public List<User> findAll() {
-
-		return userDao.findAll();
-	}
-
-	// 添加用户
-	@Override
-	public void addUser(User user) {
-		userDao.addUser(user);
-	}
-
-	// 删除用户
-	@Override
-	public void deleteUser(Integer id) {
-
-		userDao.deleteUser(id);
-	}
-
-	// 修改用户
-	@Override
-	public void updateUser(User user) {
-
-		userDao.updateUser(user);
-	}
-
 	@Override
 	public String changePassword(String tnum, String password) {
 		
 		teacherDao.changePassword(tnum, password);
-
-
 		
 		return "success";
 	}

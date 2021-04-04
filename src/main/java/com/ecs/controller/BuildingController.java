@@ -9,14 +9,8 @@ import com.ecs.service.BuildingService;
 
 @Controller
 public class BuildingController {
+	
 	@Autowired
 	private BuildingService buildingService;
-	@RequestMapping("/findAllBuildingByParentId")
-	@ResponseBody
-	public String findAllBuildingByParentId(Integer parentid) {
-		System.out.println("----------->>>执行成功");
-		parentid=1;
-		return buildingService.findAllBuildingByParentId(parentid).toString();
-		
-	}
+	
 }

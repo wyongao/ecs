@@ -6,6 +6,7 @@ package com.ecs.constant;
  * 2020年3月13日
  */
 public class Constant {
+	
 	public static final Integer PAGE_SIZE=3;
 	
 	//正常体温
