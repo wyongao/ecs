@@ -17,6 +17,7 @@ import org.apache.ibatis.annotations.Update;
 
 import com.ecs.dao.provider.DayStudentProvider;
 import com.ecs.domain.DayStudent;
+import com.ecs.domain.Student;
 @Mapper
 public interface DayStudentDao {
 		//查找当日的所有学生
@@ -83,4 +84,15 @@ public interface DayStudentDao {
 	//修改信息
 	@Update("update day_student set snum=#{snum},sname=#{sname},school=#{school},college=#{college},major=#{major},classes=#{classes} where snum=#{snum1}")
 	public void updateDayStudentInfo(String snum,String sname,String school,String college,String major,String classes,String snum1);
+	
+	//筛选
+	@SelectProvider(type = DayStudentProvider.class,method = "screenDayStudents")
+	public List<DayStudent> screenDayStudents(String temp);
+	
+	//未打卡的
+	@SelectProvider(type = DayStudentProvider.class,method = "screenNoSignStudents")
+	public List<Student> screenNoSignStudents(String school,String college,String major,String classes,String date);
+	
+	
+	
 }

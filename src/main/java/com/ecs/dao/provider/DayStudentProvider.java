@@ -90,4 +90,33 @@ public class DayStudentProvider {
 		}
 		
 	}
+	
+	public String screenDayStudents(String temp) {
+		StringBuffer sql= new StringBuffer(" SELECT * FROM day_student WHERE ");
+		sql.append("temp >= '"+temp+"'");
+		return sql.toString();
+	}
+	
+	
+	//筛选未打卡的学生
+	public 	String screenNoSignStudents(String school,String college,String major,String classes,String date)
+	{
+		StringBuffer sql = new StringBuffer("SELECT * FROM student WHERE snum NOT IN (SELECT snum FROM day_student WHERE ");
+		sql.append("date='"+date+"' ) ");
+		if (school!=null&&!school.equals("")) {
+			sql.append(" and school ='"+school+"'");
+		}
+		if (college!=null&&!college.equals("")) {
+			sql.append(" and college ='"+college+"'");
+		}
+		if (major!=null&&!major.equals("")) {
+			sql.append(" and major ='"+major+"'");
+		}
+		if (classes!=null&&!classes.equals("")) {
+			sql.append(" and classes ='"+classes+"'");
+		}
+		System.out.println(sql.toString());
+		return sql.toString();
+	}
+	
 }

@@ -3,6 +3,7 @@ package com.ecs.service;
 import java.util.List;
 
 import com.ecs.domain.DayStudent;
+import com.ecs.domain.Student;
 /**
  * 每日学生信息的服务类
  * @author xuluyang
@@ -56,4 +57,10 @@ public interface DayStudentService {
 	
 	//修改信息
 	public void updateDayStudentInfo(String snum,String sname,String school,String college,String major,String classses,String snum1);
+	
+	//筛选打卡信息
+	public List<DayStudent> screenDayStudents(String temp);
+	
+	//未打卡的学生
+	public List<Student> screenNoSignStudents(String school,String college,String major,String classes,String date);
 }

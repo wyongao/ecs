@@ -15,7 +15,7 @@ import com.ecs.common.DateUtil;
 import com.ecs.common.JsonUtils;
 import com.ecs.constant.Constant;
 import com.ecs.domain.DayStudent;
-
+import com.ecs.domain.Student;
 import com.ecs.service.DayStudentService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -24,6 +24,7 @@ import com.github.pagehelper.PageInfo;
 public class DayStudentController {
 	@Autowired
 	private DayStudentService dayStudentService;
+	
 
 	// 查找当日的所有学生
 	@RequestMapping("/findDayStudents")
@@ -163,7 +164,7 @@ public class DayStudentController {
 	@ResponseBody
 	@RequestMapping(value = "/dayStudentDynamic", method = RequestMethod.POST)
 	public String DynamicData(String page, String limit,String school,String college,String classes,String major,String snum,String date) {
-		System.out.println("---***-****-*-*-*-*-*-"+school+college+major+classes+snum);
+	
 		PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(limit));
 		List<DayStudent> data = dayStudentService.findAllDayStudents(school,college, major, classes, snum, DateUtil.getDate());
 		PageInfo<DayStudent> pageInfo = new PageInfo<>(data);
@@ -191,5 +192,50 @@ public class DayStudentController {
 		return JsonUtils.objectToJson(map);		
 	}
 
+	/**
+	 * 筛选学生打卡信息(测试)
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/screenDayStudents", method = RequestMethod.GET)
+	public String screenDayStudentsTest(String temp) {
+		List<DayStudent> data=dayStudentService.screenDayStudents(temp);
+		System.out.println(data);
+		return "ture";
+	}
 	
+	/**
+	 * 筛选学生打卡信息接口
+	 */
+	/*
+	@ResponseBody
+	@RequestMapping(value = "/screenDayStudents", method = RequestMethod.POST)
+	public String screenDayStudents(String temp,String limit,String page) {
+		PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(limit));
+		List<DayStudent> data=dayStudentService.screenDayStudents(temp);
+		PageInfo<DayStudent> pageInfo =new PageInfo<DayStudent>(data);
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("code", "0");
+		map.put("msg", "");
+		map.put("count", pageInfo.getTotal());
+		map.put("data", data);
+		return JsonUtils.objectToJson(map);
+	}
+	*/
+	/**
+	 * 未打卡的学生集合
+	 * @param abc
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/screenNoSignStudents", method = RequestMethod.GET)
+	public String screenNoSignStudents(String abc){
+		String school="河南工程学院";
+		String college="计算机学院";
+		String classes="1745";
+		String major="计算机科学与技术";
+		List<Student> data=dayStudentService.screenNoSignStudents(school, college, major, classes, DateUtil.getDate());
+		System.out.println(data.toString());
+		return "true";
+		
+	}
 }

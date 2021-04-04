@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.ecs.dao.DayStudentDao;
 import com.ecs.domain.DayStudent;
+import com.ecs.domain.Student;
 import com.ecs.service.DayStudentService;
 
 /**
@@ -131,6 +132,19 @@ public class DayStudentServiceImpl implements DayStudentService {
 			String classses, String snum1) {
 		dayStudentDao.updateDayStudentInfo(snum, sname, school, college, major, classses, snum1);
 		
+	}
+
+	@Override
+	public List<DayStudent> screenDayStudents(String temp) {
+		
+		return dayStudentDao.screenDayStudents(temp);
+	}
+
+	@Override
+	public List<Student> screenNoSignStudents(String school, String college, String major, String classes,
+			String date) {
+		
+		return dayStudentDao.screenNoSignStudents(school, college, major, classes, date);
 	}
 
 
